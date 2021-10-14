@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'food-delivery',
     loadChildren: () => import('./food-delivery/app.module').then( m => m.FoodDeliveryModule)
   },
+  {
+    path: 'e-commerce',
+    loadChildren: () => import('./e-commerce/app.module').then( m => m.ECommerceModule)
+  },
 ];
 
 @NgModule({
