@@ -12,8 +12,8 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'food-delivery/home',
-    loadChildren: () => import('./food-delivery/home/home.module').then( m => m.HomePageModule)
+    path: 'food-delivery',
+    loadChildren: () => import('./food-delivery/app.module').then( m => m.FoodDeliveryModule)
   },
 ];
 

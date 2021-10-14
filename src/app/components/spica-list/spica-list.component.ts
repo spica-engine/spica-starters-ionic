@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-spica-list',
+  selector: 'spica-list',
   templateUrl: './spica-list.component.html',
   styleUrls: ['./spica-list.component.scss'],
 })

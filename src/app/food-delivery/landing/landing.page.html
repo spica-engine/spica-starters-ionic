@@ -1,0 +1,35 @@
+<ion-content>
+  <img src="https://www.freepik.com/blog/app/uploads/2018/07/food-cabacera-new-1.jpg" />
+
+  <div class="heading">
+    <img src="https://avatars.githubusercontent.com/u/51197438?s=200&v=4" class="logo" />
+    <div class="title">
+      Spica Food
+    </div>
+    <div class="subtitle">
+      Delivery App
+    </div>
+  </div>
+  <div class="content">
+    <ion-segment value="login">
+      <ion-segment-button value="login">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="signup">
+        <ion-label>Sign Up</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <div class="form">
+      <ion-item>
+        <ion-label position="floating">Email Address</ion-label>
+        <ion-input type="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input type="password"></ion-input>
+      </ion-item>
+      <div class="forgot">Forgot Password?</div>
+      <ion-button [routerLink]="['/home']" expand="block" color="primary">Login</ion-button>
+    </div>
+  </div>
+</ion-content>
