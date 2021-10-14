@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "spica-starters-ionic",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
