@@ -1,0 +1,63 @@
+:host {
+  ion-header {
+    ion-toolbar {
+      padding: 0 10px;
+      ion-label {
+        font-size: 18px;
+        font-weight: 600;
+      }
+      ion-icon {
+        font-size: 30px;
+      }
+    }
+  }
+
+  ion-content {
+    ion-slides {
+      ion-slide {
+        display: flex;
+        flex-direction: column;
+        ion-avatar {
+          width: 65px;
+          height: 65px;
+          border: 1px solid var(--ion-color-medium-tint);
+          overflow: hidden;
+
+          ::ng-deep {
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+        ion-label {
+          margin-top: 5px;
+          font-size: 12px;
+        }
+      }
+    }
+
+    ion-grid {
+      --ion-grid-padding: 0;
+      margin-top: 25px;
+
+      ion-row {
+        margin-top: 5px;
+        ion-col {
+          --ion-grid-column-padding: 0;
+        }
+
+        .dicount-img {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            width: 100%;
+            height: 170px;
+          }
+        }
+      }
+    }
+  }
+}

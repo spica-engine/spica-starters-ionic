@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-label>E-Commerce</ion-label>
+    <ion-icon name="notifications-circle-outline" slot="end"></ion-icon>
   </ion-toolbar>
+  <ion-searchbar></ion-searchbar>
 </ion-header>
 
 <ion-content>
+  <ion-slides [options]="slideOpts">
+    <ion-slide *ngFor="let category of categories" (click)="navigateToProducts(category._id)">
+      <ion-avatar>
+        <img
+          [src]="category.img"
+        />
+      </ion-avatar>
+      <ion-label>{{category.name}}</ion-label>
+    </ion-slide>
+  </ion-slides>
 
+  <ion-grid>
+    <ion-row *ngFor="let campaign of campaignProducts" [routerLink]="['/e-commerce/products/'+campaign._id]">
+      <ion-col size="12" class="dicount-img">
+        <img
+          [src]="campaign.img"
+        />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  
 </ion-content>

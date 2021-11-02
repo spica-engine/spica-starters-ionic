@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <div class="basket-container" slot="end" [routerLink]="['/e-commerce/tabs/basket']">
+      <ion-icon name="basket-outline"></ion-icon>
+      <div class="badge" *ngIf="basketItemCount">{{basketItemCount}}</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ng-container *ngIf="this.product">
+  <ion-content>
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let image of product.gallery">
+        <img [src]="image" />
+      </ion-slide>
+    </ion-slides>
+
+    <ion-item lines="none">
+      <div class="title-container">
+        <ion-label>{{product.title}}</ion-label>
+        <ion-label>{{product.sub_title}}</ion-label>
+      </div>
+      <ion-icon [name]="product.is_liked ? 'heart' : 'heart-outline'" slot="end" (click)="likeChanged(!product.is_liked, product._id)"></ion-icon>
+    </ion-item>
+
+    <ion-list class="attributes">
+      <ion-item lines="none" *ngFor="let attribute of product.attribute">
+        <ion-label>Select {{attribute['name']}}</ion-label>
+        <ion-select interface="popover">
+          <ion-select-option *ngFor="let value of attribute['value']" [value]="value">{{value}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-item lines="none" class="cargo-info">
+      <ion-icon name="car"></ion-icon>
+      <ion-label>Estimated delivery date: 25-30 October</ion-label>
+    </ion-item>
+    
+
+    <div class="divider"></div>
+
+    <div class="details-container">
+      <ion-label class="container-title">Product Details</ion-label>
+      <div [innerHTML]="product.description" class="description" [class.all-detail]="allDetail"></div>
+      <ion-button slot="end" (click)="allDetail = !allDetail">{{allDetail ? 'Less' : 'More'}}</ion-button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="recommended-container">
+      <ion-label class="container-title">Recommended Products</ion-label>
+      <ion-slides [options]="recommendedslideOpts">
+        <ion-slide *ngFor="let product of recommendedProducts">
+          <spica-product-card [data]="product" (likeChanged)="likeChanged($event, product._id)"></spica-product-card>
+        </ion-slide>
+      </ion-slides>
+    </div>
+    
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
+      <div class="price">
+        <ion-label class="normal-price">{{product.normal_price}} USD</ion-label>
+        <ion-label class="discounted-price">{{product.discounted_price}} USD</ion-label>
+      </div>
+      <ion-button slot="end" (click)="addToBasket(product._id)">Add To Basket</ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ng-container>

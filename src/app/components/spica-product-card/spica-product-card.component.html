@@ -1,0 +1,24 @@
+<ion-card>
+  <ion-item lines="none">
+    <img [src]="data.cover_image" />
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-label>{{ data.title }}</ion-label>
+    <ion-icon
+      [name]="isLiked ? 'heart' : 'heart-outline'"
+      (click)="changeLike()"
+    ></ion-icon>
+  </ion-item>
+
+  <ion-item lines="none" class="price">
+    <ion-label class="discounted-price"
+      >{{ data.discounted_price | number : '1.2-2'  }} USD</ion-label
+    >
+    <ion-label class="normal-price">{{ data.normal_price | number : '1.2-2'  }} USD</ion-label>
+  </ion-item>
+  <ion-label class="cargo">
+    <span *ngIf="data.is_free_delivery" class="cargo free">Free delivery</span>
+    <span *ngIf="!data.is_free_delivery" class="cargo paid">Paid delivery</span>
+  </ion-label>
+</ion-card>

@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="arrow-back-outline" (click)="dismiss('close')"></ion-icon>
+    <span>Confirm Shopping</span>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="content">
+    <h5>Shipping Address</h5>
+
+    <ion-button
+      class="add-address-button"
+      [class.address-exists]="addresses.length"
+      (click)="dismiss('add_new_address')"
+    >
+      <ion-icon name="add-circle-outline"></ion-icon>
+      Add new address
+    </ion-button>
+
+    <ion-slides [options]="slideOpts" *ngIf="addresses.length">
+      <ion-slide *ngFor="let address of addresses; let index = index">
+        <div class="address-container active" [class.active]="index == activeAddress" (click)="activeAddress=index">
+          <ion-checkbox
+            [class.visiblbe]="index == activeAddress"
+            slot="start"
+            [checked]="true"
+            type="md"
+            [disabled]="true"
+          ></ion-checkbox>
+          <div class="metadata">
+            <ion-text>{{address['title']}}</ion-text>
+            <ion-text>{{address['fullAddress']}}</ion-text>
+            <ion-text>{{address['district']}} / {{address['province']}}</ion-text>
+            <ion-text>{{address['phone']}}</ion-text>
+          </div>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="price">
+      <ion-label> Amount to be paid </ion-label>
+      <ion-label class="total_price">300 USD</ion-label>
+    </div>
+    <ion-button slot="end">Pay</ion-button>
+  </ion-toolbar>
+</ion-footer>

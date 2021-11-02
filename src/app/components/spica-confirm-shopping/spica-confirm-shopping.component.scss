@@ -1,0 +1,128 @@
+:host {
+  ion-header {
+    ion-toolbar {
+      ion-icon {
+        font-size: 22px;
+        padding: 0 10px;
+      }
+      span {
+        position: absolute;
+        font-weight: 500;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+
+  ion-content {
+    .content {
+      padding: 20px;
+      padding-right: 0;
+
+      .address-container {
+        margin-top: 15px;
+        display: flex;
+        flex-direction: column;
+        background: rgb(250, 252, 255);
+        border-radius: 10px;
+        height: calc(100vw * 0.45);
+        width: calc(100vw * 0.55);
+        border: 1px solid var(--ion-color-medium);
+        position: relative;
+
+        &.active {
+          border: 3px solid var(--ion-color-primary);
+        }
+
+        ion-checkbox {
+          --border-radius: 10px 0 10px 0;
+          left: -1px;
+          top: -1px;
+          visibility: hidden;
+
+          &.visiblbe {
+            visibility: visible;
+          }
+        }
+
+        .metadata {
+          display: flex;
+          flex-direction: column;
+          padding: 15px;
+
+          :first-child {
+            font-weight: 500;
+            font-size: 17px;
+            margin-bottom: 5px;
+          }
+
+          :last-child {
+            font-weight: 500;
+            margin-top: 5px;
+          }
+
+          ion-text {
+            text-align: start;
+            font-size: 15px;
+            margin-top: 3px;
+          }
+        }
+      }
+
+      .add-address-button {
+        margin-top: 15px;
+        --border-radius: 10px;
+        --background: rgb(255, 248, 241);
+        --border-style: dotted;
+        --border-width: 2px;
+        --border-color: rgb(255, 145, 0);
+        color: rgb(255, 145, 0);
+        height: 80px;
+
+        &.address-exists {
+          --background: none;
+          --border-width: none;
+          --border-style: none;
+          height: fit-content;
+          --padding-start: 0;
+          --padding-end: 0;
+        }
+
+        ion-icon {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  ion-footer {
+    height: 60px;
+    ion-toolbar {
+      padding: 0 10px;
+
+      .price {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .discounted-price {
+          font-size: 16px;
+          font-weight: 700;
+          color: green;
+        }
+        .normal-price {
+          margin-left: 10px;
+          font-size: 12px;
+          text-decoration: line-through;
+          color: gray;
+        }
+      }
+
+      ion-button {
+        --border-radius: 5px;
+        --background: green;
+      }
+    }
+  }
+}

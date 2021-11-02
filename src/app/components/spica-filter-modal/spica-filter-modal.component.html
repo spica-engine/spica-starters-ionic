@@ -1,0 +1,26 @@
+<ion-list>
+  <ion-item *ngFor="let attribute of attributes">
+    <ion-label>{{attribute.name}}</ion-label>
+    <ion-select multiple="true" (ionChange)="addNewFilterParams(attribute.name, $event.target)">
+      <ion-select-option [value]="value" *ngFor="let value of attribute.value">{{value}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-range
+      id="dual-range"
+      dual-knobs
+      pin
+      color="dark"
+      [min]="price_range.lower"
+      [max]="price_range.upper"
+      [value]="price_range"
+      (ionChange)="changePrice($event.target['value'])"
+    >
+      <ion-label slot="start">Price</ion-label>
+      <ion-label slot="end">{{price_range.lower}}-{{price_range.upper}} {{currency}}</ion-label>
+    </ion-range>
+  </ion-item>
+
+  <ion-button (click)="setFilter()">Apply Filter</ion-button>
+</ion-list>

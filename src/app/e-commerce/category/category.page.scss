@@ -1,0 +1,30 @@
+:host {
+  ion-header {
+    ion-toolbar {
+      display: flex;
+      align-items: center;
+      height: 70px;
+      padding-top: 15px;
+    }
+  }
+  ion-content {
+    ion-item {
+      height: 120px;
+      border-bottom: 1px solid #dcdcdc;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+
+      ion-avatar {
+        width: 65px;
+        height: 65px;
+      }
+
+      ion-label {
+        margin-left: 15px;
+        font-size: 18px;
+        font-weight: 700;
+      }
+    }
+  }
+}

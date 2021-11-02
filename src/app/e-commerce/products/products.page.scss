@@ -1,0 +1,46 @@
+:host {
+  ion-header {
+    ion-toolbar {
+      ion-row {
+        ion-col {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          ion-icon {
+            font-size: 20px;
+          }
+          ion-label {
+            margin-left: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+
+  ion-content {
+    .products {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 5px;
+
+      spica-product-card {
+        margin: 5px;
+        min-width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+
+        ::ng-deep {
+          ion-item {
+            img {
+              max-height: calc(100vw * 0.55) !important;
+              height: calc(100vw * 0.55) !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

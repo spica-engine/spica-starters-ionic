@@ -6,4 +6,32 @@
 
 <ion-content>
 
+  <ng-container *ngIf="!likedProducts.length && !isLoading">
+    <div class="empty-container">
+      <img
+        src="https://pngimg.com/uploads/shopping_bag/small/shopping_bag_PNG6371.png"
+        alt=""
+      />
+      <ion-label>Favorite Is Empty</ion-label>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt
+      </p>
+    </div>
+  </ng-container>
+
+  <ion-list class="products" *ngIf="likedProducts.length && !isLoading">
+    <!-- [routerLink]="['/e-commerce/products/product-detail/' + product._id]" -->
+    <spica-product-card
+      *ngFor="let product of likedProducts"
+      [data]="product"
+      (likeChanged)="likeChanged($event, product._id )"
+     
+    ></spica-product-card>
+  </ion-list>
+
+  <div class="spinner-container" *ngIf="isLoading">
+    <ion-spinner></ion-spinner>
+  </div>
+
 </ion-content>

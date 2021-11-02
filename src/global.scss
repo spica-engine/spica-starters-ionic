@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,20 +25,32 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-html{
-
+html {
 }
 
-ion-button{
-    --border-radius: 40px
+ion-button {
+  --border-radius: 40px;
 }
 
-ion-segment{
-    --background: transparent;
+ion-segment {
+  --background: transparent;
 }
 
-ion-segment-button{
-    --border-width: 0px;
-    --border-radius: 0px;
-    --indicator-box-shadow: 0px 10px 13px -10px var(--ion-color-secondary), 0px 4px 13px -6px rgba(226, 11, 11, 0);
+ion-segment-button {
+  --border-width: 0px;
+  --border-radius: 0px;
+  --indicator-box-shadow: 0px 10px 13px -10px var(--ion-color-secondary),
+    0px 4px 13px -6px rgba(226, 11, 11, 0);
+}
+
+ion-item {
+  --padding-start: 0;
+}
+
+ion-button {
+  --background-activated: none;
+}
+
+.spica-sort-modal-style{
+
 }

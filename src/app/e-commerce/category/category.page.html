@@ -1,9 +1,17 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>category</ion-title>
+    <ion-searchbar ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-item *ngFor="let category of categories" lines="none" detail="false" (click)="navigateToProducts(category._id)">
+    <ion-avatar>
+      <img
+        [src]="category.img"
+      />
+    </ion-avatar>
+    <ion-label>{{category.name}}</ion-label>
+    <ion-icon name="chevron-forward"></ion-icon>
+  </ion-item>
 </ion-content>
