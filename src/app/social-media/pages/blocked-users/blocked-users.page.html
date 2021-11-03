@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"blocked_users" | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="me">
+  <ion-list lines="full">
+    <ion-item class="ion-no-padding" *ngIf="blocks.length==0">
+      <div class="no-item">{{"non_blocked_users" |translate}}</div>
+    </ion-item>
+    <ion-item class="ion-no-padding" *ngFor="let item of blocks">
+      <!-- <user-minified-card
+        [user]="item['blocked']"
+        [type]="'horizontal'"
+        [with_router]="true"
+      ></user-minified-card> -->
+      <div class="actions">
+        <div>
+          <ion-button (click)="removeBlock(item)" [fill]="'outline'">
+            {{"unblock" |translate}}
+          </ion-button>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

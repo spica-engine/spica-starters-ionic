@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"settings" | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="me">
+  <div class="input">
+    <div class="setting-card">
+      <div class="setting">{{"receive-notifications" | translate}}</div>
+      <div class="value">
+        <ion-toggle
+          name="notification"
+          [(ngModel)]="me.notification"
+        >
+        </ion-toggle>
+      </div>
+    </div>
+  </div>
+  <div class="input">
+    <div class="setting-card">
+      <div class="setting">{{"visibility" | translate}}</div>
+      <div class="value">
+        <ion-select
+          [placeholder]="'select-one' | translate"
+         [(ngModel)]="me.visibility"
+          interface="popover"
+        >
+          <ion-select-option *ngFor="let item of visibilities" [value]="item"
+            >{{item | translate}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+  </div>
+  <div class="input">
+    <div class="setting-card">
+      <div class="setting">{{"language" | translate}}</div>
+      <div class="value">
+        <ion-select
+          [placeholder]="'select-one' | translate"
+          [(ngModel)]="me.language"
+          (ngModelChange)="reloadLanguage()"
+          interface="popover"
+        >
+          <ion-select-option *ngFor="let item of languages" [value]="item"
+            >{{"languages."+item | translate}}
+          </ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+  </div>
+
+  <div class="input" [routerLink]="['tagged-user-group']">
+    <div class="setting-card">
+      <div class="setting">{{"tagged_user_group.header" | translate}}</div>
+    </div>
+  </div>
+  <div class="input" (click)="openAccountSheet()">
+    <div class="setting-card">
+      <div class="setting">{{"account" | translate}}</div>
+    </div>
+  </div>
+  <div class="input" (click)="openTermsSheet()">
+    <div class="setting-card">
+      <div class="setting">{{"terms_of_use" | translate}}</div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <div class="input" (click)="logOut()">
+    <div class="setting-card center">
+      {{"logout" | translate}}
+      <ion-icon name="power-outline"></ion-icon>
+    </div>
+  </div>
+</ion-footer>

@@ -1,0 +1,45 @@
+:host {
+    .profile-card {
+        display: flex;
+        flex-direction: column;
+        .primary {
+            padding-top: 15px;
+            border-radius: 5px;
+            float: left;
+            margin-bottom: 15px;
+            background: var(--cd-component-background-color);
+            ion-label {
+                font-weight: 600;
+                color: var(--ion-color-light-shade);
+            }
+            .image-container {
+                text-align: center;
+                width: 100%;
+                min-height: 128px;
+                position: relative;
+                .image {
+                    position: relative;
+                    height: 128px;
+                    width: 128px;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+                .on-center-image {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    font-size: 20px;
+                    transform: translate(-50%, -50%);
+                }
+            }
+
+            textarea {
+                width: 100%;
+                border-top: 0px;
+                border-left: 0px;
+                border-right: 0px;
+                padding: 15px;
+            }
+        }
+    }
+}

@@ -19,7 +19,11 @@ const routes: Routes = [
     path: 'e-commerce',
     loadChildren: () => import('./e-commerce/app.module').then( m => m.ECommerceModule)
   },
-];
+  {
+    path: 'social-media',
+    loadChildren: () => import('./social-media/app.module').then( m => m.SocialMediaModule)
+  },
+ ];
 
 @NgModule({
   imports: [

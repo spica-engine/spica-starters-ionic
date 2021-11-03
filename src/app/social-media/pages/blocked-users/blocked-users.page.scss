@@ -1,0 +1,14 @@
+:host {
+  ion-list {
+    ion-item {
+      padding: 3px 10px;
+      .no-item {
+        text-align: center;
+        color: var(--ion-text-color);
+        opacity: 0.5;
+        width: 100%;
+        font-size: 0.8em;
+      }
+    }
+  }
+}

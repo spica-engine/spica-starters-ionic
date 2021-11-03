@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="me">{{(me._id ?  "edit-profile": "add-profile" )| translate}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        [disabled]="!validUsername || (me && me?.username?.length < 5)"
+        (click)="updateProfile()"
+      >
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-progress-bar
+    *ngIf="loading.image_uploading_loading"
+    type="indeterminate"
+  ></ion-progress-bar>
+  <div class="profile-card" *ngIf="!loading.main && me">
+    <div class="primary">
+      <div class="image-container">
+        <img
+          class="image"
+          *ngIf="me?.thumbnail"
+          [src]="me?.thumbnail"
+          [alt]="'profile-photo' | translate"
+        />
+        <div class="on-center-image" *ngIf="!loading.image_uploading_loading">
+          <!-- <upload-image (change)="userUploadedImage($event)"></upload-image> -->
+        </div>
+      </div>
+      <div class="input">
+        <ion-label position="floating">{{"username" | translate}}</ion-label>
+        <ion-item>
+          <ion-input
+            [(ngModel)]="me.username"
+            (ngModelChange)="checkUserName()"
+            debounce="500"
+          ></ion-input>
+          <ion-spinner
+            *ngIf="loading.username_check"
+            class="suffix-icon"
+            name="crescent"
+            slot="end"
+          ></ion-spinner>
+        </ion-item>
+      </div>
+      <div class="input">
+        <ion-label position="floating">{{"name" | translate}}</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="me.name"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input">
+        <ion-label position="floating">{{"surname" | translate}}</ion-label>
+        <ion-item>
+          <ion-input [(ngModel)]="me.surname"></ion-input>
+        </ion-item>
+      </div>
+      <div class="input">
+        <ion-label position="floating">{{"bio" | translate}}</ion-label>
+        <ion-item>
+          <textarea rows="6" [(ngModel)]="me.headline"></textarea>
+        </ion-item>
+      </div>
+    </div>
+  </div>
+  <ion-spinner
+    *ngIf="loading.main"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>
