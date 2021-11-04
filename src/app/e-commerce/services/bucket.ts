@@ -246,6 +246,11 @@ export interface E_Com_Basket {
   _id?: string;
   title?: string;
   product?: ((E_Com_Product & id) | string)[];
+  metadata?: {
+    quantity?: number;
+    selected_attribute?: string;
+    product_id?: (E_Com_Product & id) | string;
+  }[];
   coupon?: (E_Com_Coupon & id) | string;
   user?: (E_Com_User & id) | string;
   total_price?: number;
@@ -637,6 +642,7 @@ export interface E_Com_User {
     district?: string;
     full_address?: string;
     post_code?: number;
+    phone?:string;
   }[];
 }
 export namespace e_com_user {
@@ -734,10 +740,10 @@ export namespace e_com_used_coupon_ {
 
 export interface E_Com_Liked_Product {
   _id?: string;
-  title?: string;
+  product?: ((E_Com_Product & id) | string)[];
   user?: (E_Com_User & id) | string;
-  product?: (E_Com_Product & id) | string;
   created_at?: Date | string;
+  title?: string;
 }
 export namespace e_com_liked_product {
   const BUCKET_ID = '61727c36253810002e76bf7b';
@@ -748,12 +754,33 @@ export namespace e_com_liked_product {
     return Bucket.data.getAll<E_Com_Liked_Product & id>(BUCKET_ID, ...args);
   }
   export function insert(document: Omit<E_Com_Liked_Product, '_id'>) {
+    ['product', 'user'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id)
+          : document[field]._id;
+      }
+    });
     return Bucket.data.insert(BUCKET_ID, document);
   }
   export function update(document: E_Com_Liked_Product & id) {
+    ['product', 'user'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id)
+          : document[field]._id;
+      }
+    });
     return Bucket.data.update(BUCKET_ID, document._id, document);
   }
   export function patch(document: Partial<E_Com_Liked_Product> & id) {
+    ['product', 'user'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id)
+          : document[field]._id;
+      }
+    });
     return Bucket.data.patch(BUCKET_ID, document._id, document);
   }
   export function remove(documentId: string) {

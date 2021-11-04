@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as dataService from '../services/bucket';
 import { ModalController } from '@ionic/angular';
 import { SpicaSortModalComponent } from '../../components/spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
 import { StorageService } from '../services/storage.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -15,13 +16,17 @@ export class ProductsPage implements OnInit {
   products: dataService.E_Com_Product[] = [];
   filter: any = {};
   sort: any = {};
-  likedProducts: dataService.E_Com_Liked_Product[] = [];
   promotionId: string;
+  user: any;
+  likedProducts: any = [];
+  likedDataId: string;
 
   constructor(
     private route: ActivatedRoute,
     public modalController: ModalController,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private authService: AuthService,
+    private router: Router
   ) {
     dataService.initialize({ apikey: '5ks9718kiybw51i' });
   }
@@ -54,8 +59,6 @@ export class ProductsPage implements OnInit {
         })
         .then((res) => {
           this.products = res;
-          this.likedProducts =
-            this.storageService.getLocalStorageParsedData('liked_products');
 
           if (this.likedProducts.length) {
             this.likedProducts.forEach((id) => {
@@ -70,20 +73,31 @@ export class ProductsPage implements OnInit {
     }
   }
 
-  ionViewWillEnter() {
-    // let likedData = localStorage.getItem('liked_products');
-    // if (likedData) {
-    //   this.likedProducts = JSON.parse(likedData);
-    //   this.likedProducts.forEach((id) => {
-    //     this.products.map(el => {
-    //       console.log("MAP", el)
-    //       if(el._id == id){
-    //         console.log("IF", el)
-    //         return el['is_liked'] = true;
-    //       }
-    //     })
-    //   });
-    // }
+  async ionViewWillEnter() {
+    if (!this.user) {
+      this.user = await this.getActiveUser();
+    } else {
+      await this.getLikedData();
+    }
+  }
+
+  async getActiveUser() {
+    return this.authService.getUser().toPromise();
+  }
+
+  async getLikedData() {
+    await dataService.e_com_liked_product
+      .getAll({
+        queryParams: { filter: { user: this.user._id }, relation: true },
+      })
+      .then((res) => {
+        this.likedDataId = res[0]._id;
+        if (res[0].product.length) {
+          this.likedProducts = res[0].product.map((el) => {
+            return el['_id'];
+          });
+        }
+      });
   }
 
   ionViewWillLeave() {
@@ -159,8 +173,10 @@ export class ProductsPage implements OnInit {
   }
 
   likeChanged(value, id) {
-    this.likedProducts =
-      this.storageService.getLocalStorageParsedData('liked_products');
+    if (!this.authService.getActiveToken()) {
+      this.router.navigate(['e-commerce/tabs/profile']);
+      return;
+    }
 
     if (value) {
       this.likedProducts.push(id);
@@ -174,10 +190,21 @@ export class ProductsPage implements OnInit {
       });
     }
 
-    this.storageService.setLocalStorageStringifyData(
-      'liked_products',
-      this.likedProducts
-    );
+    if (this.likedDataId) {
+      dataService.e_com_liked_product.patch({
+        product: this.likedProducts,
+        _id: this.likedDataId,
+      });
+    } else {
+      dataService.e_com_liked_product
+        .insert({
+          product: this.likedProducts,
+          user: this.user._id,
+        })
+        .then((res) => {
+          this.likedDataId = res._id;
+        });
+    }
   }
 
   async getAttributes() {

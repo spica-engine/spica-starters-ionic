@@ -31,7 +31,7 @@ export class AuthService {
   login(identifier, password) {
     return from(identity.login(identifier, password)).pipe(
       tap(async (token) => {
-        localStorage.setItem('spica_token', token);
+        localStorage.setItem('ecommerce_spica_token', token);
 
         let date = new Date();
         date.setDate(date.getDate() + 2); // 2 days later
@@ -43,8 +43,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('spica_token');
-    localStorage.removeItem('spica_expire');
+    localStorage.clear();
     return true;
   }
 
@@ -91,11 +90,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('spica_token') ? true : false;
+    return localStorage.getItem('ecommerce_spica_token') ? true : false;
   }
 
   getActiveToken(): any {
-    return this.tokenDecode(localStorage.getItem('spica_token'));
+    return this.tokenDecode(localStorage.getItem('ecommerce_spica_token'));
   }
 
   private tokenDecode(token) {

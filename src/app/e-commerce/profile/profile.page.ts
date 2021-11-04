@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/e-commerce/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import * as dataService from '../services/bucket';
 import { environment } from '../services/environment';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -14,7 +15,6 @@ import { environment } from '../services/environment';
 export class ProfilePage implements OnInit {
   screen: string = 'login';
   loginForm: FormGroup;
-  continueWithoutLogin: boolean = false;
   user: dataService.E_Com_User;
   isLoading: boolean = true;
 
@@ -24,13 +24,14 @@ export class ProfilePage implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private commonService: CommonService,
+    private storageService: StorageService
   ) {
     dataService.initialize({ apikey: environment.apikey });
     this.loginForm = this.formBuilder.group({
-      email: '',
+      email: 'idriscumali@gmail.com',
       name: '',
       surname: '',
-      password: '',
+      password: '123456',
       termsOfUse: '',
     });
   }
@@ -46,7 +47,7 @@ export class ProfilePage implements OnInit {
 
     this.route.queryParams.subscribe((res) => {
       if (res.from_basket) {
-        this.continueWithoutLogin = true;
+        
       }
     });
     this.router.navigate([]);
@@ -59,10 +60,6 @@ export class ProfilePage implements OnInit {
     });
   }
 
-  ionViewWillLeave() {
-    this.continueWithoutLogin = false;
-  }
-
   changeScreen(value) {
     this.screen = value;
   }
@@ -70,7 +67,7 @@ export class ProfilePage implements OnInit {
   async login() {
     let loginData = this.loginForm.value;
     this.authService.login(loginData.email, loginData.password).subscribe(
-      (_) => {
+      async (_) => {
         this.loginForm.reset();
         this.getUser();
       },
@@ -81,8 +78,17 @@ export class ProfilePage implements OnInit {
   }
 
   async register() {
-    let value = this.loginForm.value;
-    // this.authService.register({})
+    let registerData = this.loginForm.value;
+    delete registerData['termsOfUse'];
+
+    this.authService
+      .register({ ...registerData })
+      .then((res) => {
+        this.commonService.presentToast(res['message'], 1500);
+      })
+      .catch((err) => {
+        this.commonService.presentToast(err.error.message, 1500);
+      });
   }
 
   logout() {

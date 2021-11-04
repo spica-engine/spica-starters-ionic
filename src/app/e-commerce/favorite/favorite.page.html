@@ -25,7 +25,7 @@
     <spica-product-card
       *ngFor="let product of likedProducts"
       [data]="product"
-      (likeChanged)="likeChanged($event, product._id )"
+      (likeChanged)="likeChanged(product._id )"
      
     ></spica-product-card>
   </ion-list>

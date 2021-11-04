@@ -20,23 +20,47 @@
 
     <ion-slides [options]="slideOpts" *ngIf="addresses.length">
       <ion-slide *ngFor="let address of addresses; let index = index">
-        <div class="address-container active" [class.active]="index == activeAddress" (click)="activeAddress=index">
+        <div
+          class="address-container active"
+          [class.active]="index == shoppingData.addressIndex"
+          (click)="shoppingData.addressIndex = index"
+        >
           <ion-checkbox
-            [class.visiblbe]="index == activeAddress"
+            [class.visiblbe]="index == shoppingData.addressIndex"
             slot="start"
             [checked]="true"
             type="md"
             [disabled]="true"
           ></ion-checkbox>
           <div class="metadata">
-            <ion-text>{{address['title']}}</ion-text>
-            <ion-text>{{address['fullAddress']}}</ion-text>
-            <ion-text>{{address['district']}} / {{address['province']}}</ion-text>
-            <ion-text>{{address['phone']}}</ion-text>
+            <ion-text>{{ address["title"] }}</ion-text>
+            <ion-text>{{ address["full_address"] }}</ion-text>
+            <ion-text
+              >{{ address["district"] }} / {{ address["province"] }}</ion-text
+            >
+            <ion-text>{{ address["phone"] }}</ion-text>
           </div>
         </div>
       </ion-slide>
     </ion-slides>
+
+    <ion-list>
+      <ion-radio-group
+        [value]="shoppingData.paymentMethod"
+        (ionChange)="shoppingData.paymentMethod = $event.target['value']"
+      >
+        <h5>Payment Method</h5>
+
+        <ion-item *ngFor="let method of paymentMethods" lines="none">
+          <ion-label>{{ method["title"] }}</ion-label>
+          <ion-radio
+            slot="start"
+            [value]="method['title']"
+            mode="md"
+          ></ion-radio>
+        </ion-item>
+      </ion-radio-group>
+    </ion-list>
   </div>
 </ion-content>
 
@@ -44,8 +68,8 @@
   <ion-toolbar>
     <div class="price">
       <ion-label> Amount to be paid </ion-label>
-      <ion-label class="total_price">300 USD</ion-label>
+      <ion-label class="total_price">{{ totalPrice }} {{ currency }}</ion-label>
     </div>
-    <ion-button slot="end">Pay</ion-button>
+    <ion-button slot="end" (click)="dismiss('pay')">Pay</ion-button>
   </ion-toolbar>
 </ion-footer>

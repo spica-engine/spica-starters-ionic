@@ -9,12 +9,11 @@ import { ModalController } from '@ionic/angular';
 export class SpicaShippingAddressComponent implements OnInit {
   shippingData = {
     title: "",
-    fullName: "",
     phone: "",
     country: "",
     province: "",
     district: "",
-    fullAddress: ""
+    full_address: ""
   }
 
   constructor(private modalController: ModalController) {}

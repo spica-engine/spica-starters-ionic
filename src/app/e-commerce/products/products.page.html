@@ -20,12 +20,10 @@
 
 <ion-content>
   <ion-list class="products">
-    <!-- [routerLink]="['/e-commerce/products/product-detail/' + product._id]"  -->
     <spica-product-card
       *ngFor="let product of products"
       [data]="product"
       (likeChanged)="likeChanged($event, product._id )"
-      
     ></spica-product-card>
   </ion-list>
 </ion-content>

@@ -20,7 +20,7 @@
         <ion-label>{{product.title}}</ion-label>
         <ion-label>{{product.sub_title}}</ion-label>
       </div>
-      <ion-icon [name]="product.is_liked ? 'heart' : 'heart-outline'" slot="end" (click)="likeChanged(!product.is_liked, product._id)"></ion-icon>
+      <ion-icon [name]="product['is_liked'] ? 'heart' : 'heart-outline'" slot="end" (click)="likeChanged(!product['is_liked'], product._id)"></ion-icon>
     </ion-item>
 
     <ion-list class="attributes">
@@ -63,7 +63,7 @@
         <ion-label class="normal-price">{{product.normal_price}} USD</ion-label>
         <ion-label class="discounted-price">{{product.discounted_price}} USD</ion-label>
       </div>
-      <ion-button slot="end" (click)="addToBasket(product._id)">Add To Basket</ion-button>
+      <ion-button slot="end" (click)="addToBasket()">Add To Basket</ion-button>
     </ion-toolbar>
   </ion-footer>
 </ng-container>
