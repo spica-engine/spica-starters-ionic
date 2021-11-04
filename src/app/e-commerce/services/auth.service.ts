@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as identity from '@spica-devkit/identity';
-import * as Bucket from '@spica-devkit/bucket';
+import * as DataService from './bucket';
 import jwt_decode from 'jwt-decode';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-// import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 
 import * as dataService from './bucket';
@@ -17,15 +16,24 @@ export class AuthService {
   activeUser: dataService.E_Com_User;
   activeToken: string;
 
-  constructor(
-    // private dataService: DataService,
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     dataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
       apikey: environment.apikey,
     });
+  }
+
+  initBucket() {
+    if(localStorage.getItem('ecommerce_spica_token')){
+      DataService.initialize({
+        identity: localStorage.getItem('ecommerce_spica_token'),
+      });
+    } else {
+      DataService.initialize({
+        apikey: environment.apikey,
+      });
+    }
   }
 
   login(identifier, password) {
@@ -115,7 +123,6 @@ export class AuthService {
       ),
       map((users) => users[0]),
       tap((user) => (this.activeUser = user))
-      // tap(console.log)
     );
   }
 

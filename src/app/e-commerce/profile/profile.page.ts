@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/e-commerce/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 import * as dataService from '../services/bucket';
-import { environment } from '../services/environment';
-import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,15 +17,15 @@ export class ProfilePage implements OnInit {
   isLoading: boolean = true;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private commonService: CommonService,
-    private storageService: StorageService
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _commonService: CommonService,
   ) {
-    dataService.initialize({ apikey: environment.apikey });
-    this.loginForm = this.formBuilder.group({
+    this._authService.initBucket();
+    
+    this.loginForm = this._formBuilder.group({
       email: 'idriscumali@gmail.com',
       name: '',
       surname: '',
@@ -39,22 +37,22 @@ export class ProfilePage implements OnInit {
   ngOnInit() {}
 
   ionViewWillEnter() {
-    if (this.authService.getActiveToken()) {
+    if (this._authService.getActiveToken()) {
       this.getUser();
     } else {
       this.isLoading = false;
     }
 
-    this.route.queryParams.subscribe((res) => {
+    this._route.queryParams.subscribe((res) => {
       if (res.from_basket) {
         
       }
     });
-    this.router.navigate([]);
+    this._router.navigate([]);
   }
 
   getUser() {
-    this.authService.getUser().subscribe((user) => {
+    this._authService.getUser().subscribe((user) => {
       this.user = user;
       this.isLoading = false;
     });
@@ -66,13 +64,14 @@ export class ProfilePage implements OnInit {
 
   async login() {
     let loginData = this.loginForm.value;
-    this.authService.login(loginData.email, loginData.password).subscribe(
+    this._authService.login(loginData.email, loginData.password).subscribe(
       async (_) => {
         this.loginForm.reset();
         this.getUser();
+        window.location.reload()
       },
       (err) => {
-        this.commonService.presentToast(err.message, 1500);
+        this._commonService.presentToast(err.message, 1500);
       }
     );
   }
@@ -81,23 +80,24 @@ export class ProfilePage implements OnInit {
     let registerData = this.loginForm.value;
     delete registerData['termsOfUse'];
 
-    this.authService
+    this._authService
       .register({ ...registerData })
       .then((res) => {
-        this.commonService.presentToast(res['message'], 1500);
+        this._commonService.presentToast(res['message'], 1500);
       })
       .catch((err) => {
-        this.commonService.presentToast(err.error.message, 1500);
+        this._commonService.presentToast(err.error.message, 1500);
       });
   }
 
   logout() {
     this.user = undefined;
-    this.authService.logout();
+    this._authService.logout();
+    window.location.reload()
   }
 
   navigateToBasket() {
-    this.router.navigate(['/e-commerce/tabs/basket'], {
+    this._router.navigate(['/e-commerce/tabs/basket'], {
       queryParams: { type: 'confirm_basket' },
     });
   }

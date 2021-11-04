@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../services/auth.service';
 import * as dataService from '../services/bucket';
-import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -35,92 +34,37 @@ export class ProductDetailPage implements OnInit {
 
   allDetail: boolean = false;
 
-  recommendedProducts = [
-    {
-      _id: '1',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-    {
-      _id: '2',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-    {
-      _id: '3',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-    {
-      _id: '4',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-    {
-      _id: '5',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-    {
-      _id: '6',
-      title: 'Title',
-      sub_title: 'Sub Title',
-      discounted_price: 290,
-      normal_price: 320,
-      is_free_delivery: true,
-      cover_image:
-        'https://m.media-amazon.com/images/I/71kyWvvGwiL._UL1500_.jpg',
-    },
-  ];
+  recommendedProducts: dataService.E_Com_Product[] = [];
 
   productId: string;
   product: any;
+  likedProducts: string[] = [];
+  likedDataId: string;
 
   basketItemCount: number = 0;
-  selectedAttribute = { Size: '39', Color: 'red' };
-
+  selectedAttribute = {};
+  disableAddToBasket: boolean = true;
   user: dataService.E_Com_User;
   basket: dataService.E_Com_Basket;
 
   constructor(
-    private commonService: CommonService,
-    private route: ActivatedRoute,
-    private storageService: StorageService,
-    private authService: AuthService,
-    private router: Router
+    private _commonService: CommonService,
+    private _route: ActivatedRoute,
+    private _authService: AuthService,
+    private _router: Router
   ) {
-    dataService.initialize({ apikey: '5ks9718kiybw51i' });
+    this._authService.initBucket();
   }
 
-  ngOnInit() {
-    this.productId = this.route.snapshot.params.productId;
-
+  async ngOnInit() {
+    this.productId = this._route.snapshot.params.productId;
     this.basketItemCount = this.basket?.product.length;
+
+    this.user = await this.getActiveUser();
+    if (this.user) {
+      this.basket = await this.getBasketData();
+      await this.getLikedData();
+    }
 
     dataService.e_com_product
       .get(this.productId, { queryParams: { relation: true } })
@@ -130,46 +74,117 @@ export class ProductDetailPage implements OnInit {
           this.product.gallery = [];
         }
         this.product.gallery.unshift(this.product.cover_image);
+
+        let isLiked = this.likedProducts.find((el) => {
+          return el == this.product._id;
+        });
+
+        if (isLiked) {
+          this.product['is_liked'] = true;
+        }
       })
       .catch((err) => console.log(err));
-  }
 
-  async ionViewWillEnter() {
-    if (!this.user) {
-      this.user = await this.getActiveUser();
-    }
-
-    if (this.user) {
-      this.basket = await this.getBasketData();
-    }
+    this.getRecommendedProducts();
   }
 
   async getActiveUser() {
-    return this.authService.getUser().toPromise();
+    return this._authService.getUser().toPromise();
   }
 
   async getBasketData() {
     const data = dataService.e_com_basket.getAll({
-      queryParams: { filter: { user: this.user._id, is_completed: false },relation: true },
+      queryParams: {
+        filter: { user: this.user._id, is_completed: false },
+        relation: true,
+      },
     });
     return data[0];
   }
 
+  async getRecommendedProducts() {
+    return dataService.e_com_product
+      .getAll({
+        queryParams: { limit: 10, relation: true, filter: {is_available: true} },
+      })
+      .then((res) => {
+        this.recommendedProducts = res;
+        if (this.likedProducts.length) {
+          this.likedProducts.forEach((id) => {
+            this.recommendedProducts.map((el) => {
+              if (el._id == id) {
+                return (el['is_liked'] = true);
+              }
+            });
+          });
+        }
+      });
+  }
+
+  async getLikedData() {
+    await dataService.e_com_liked_product
+      .getAll({
+        queryParams: { filter: { user: this.user._id }, relation: true },
+      })
+      .then((res) => {
+        if (res[0]) {
+          this.likedDataId = res[0]._id;
+          if (res[0].product.length) {
+            this.likedProducts = res[0].product.map((el) => {
+              return el['_id'];
+            });
+          }
+        }
+      });
+  }
+
+  seletAttribute(key, value) {
+    this.selectedAttribute[key] = value;
+
+    if (
+      Object.keys(this.selectedAttribute).length ==
+      this.product.attribute.length
+    ) {
+      this.disableAddToBasket = false;
+    }
+  }
+
   likeChanged(value, id) {
-    // if (this.product._id == id) {
-    //   this.product.is_liked = !this.product.is_liked;
-    // }
+    if (value) {
+      this.likedProducts.push(id);
+    } else {
+      this.likedProducts.forEach((el) => {
+        if (el == id) {
+          this.likedProducts = this.likedProducts.filter((product) => {
+            return product !== id;
+          });
+        }
+      });
+    }
+
+    if (this.likedDataId) {
+      dataService.e_com_liked_product.patch({
+        product: this.likedProducts,
+        _id: this.likedDataId,
+      });
+    } else {
+      dataService.e_com_liked_product
+        .insert({
+          product: this.likedProducts,
+          user: this.user._id,
+        })
+        .then((res) => {
+          this.likedDataId = res._id;
+        });
+    }
   }
 
   async addToBasket() {
     if (!this.user) {
-      this.router.navigate(['e-commerce/tabs/profile']);
+      this._router.navigate(['e-commerce/tabs/profile']);
       return;
     }
-    // if(this.product.attribute.length != Object.keys(this.selectedAttribute).length){
-    // !TODO
-    // }
-    this.commonService.presentToast('Product added to basket', 800);
+    this._commonService.presentToast('Product added to basket', 800);
 
     this.product['selected_attribute'] = this.selectedAttribute;
     this.product['quantity'] = 1;

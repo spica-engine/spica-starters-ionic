@@ -52,8 +52,8 @@
         <ion-label>Use discount coupon</ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-input placeholder="Coupon Code"></ion-input>
-        <ion-button>Validate</ion-button>
+        <ion-input placeholder="Coupon Code" [(ngModel)]="couponCode"></ion-input>
+        <ion-button (click)="validateCoupone()" [disabled]="!couponCode">Validate</ion-button>
       </ion-item>
     </div>
 

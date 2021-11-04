@@ -14,31 +14,20 @@ export class FavoritePage implements OnInit {
   isLoading: boolean = true;
   user: dataService.E_Com_User;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
-    dataService.initialize({ apikey: '5ks9718kiybw51i' });
+  constructor(private _authService: AuthService, private _router: Router) {
+    this._authService.initBucket();
   }
 
   async ngOnInit() {
-    this.user = await this.getActiveUser()
-    await this.getLikedData()
-  }
-
-  async ionViewWillEnter() {
-    // if (!this.user) {
-    //   this.user = await this.getActiveUser()
-    //   if(!this.user){
-    //     this.router.navigate(['e-commerce/tabs/profile'])
-    //   }
-    // } else {
-      // await this.getLikedData()
-    // }
+    this.user = await this.getActiveUser();
+    if (this.user) {
+      await this.getLikedData();
+    }
+    this.isLoading = false;
   }
 
   async getActiveUser() {
-    return this.authService.getUser().toPromise();
+    return this._authService.getUser().toPromise();
   }
 
   async getLikedData() {
@@ -52,13 +41,12 @@ export class FavoritePage implements OnInit {
         this.likedProducts.forEach((el) => {
           el['is_liked'] = true;
         });
-        this.isLoading = false;
       });
   }
 
   likeChanged(id) {
-    if (!this.authService.getActiveToken()) {
-      this.router.navigate(['e-commerce/tabs/profile']);
+    if (!this._authService.getActiveToken()) {
+      this._router.navigate(['e-commerce/tabs/profile']);
       return;
     }
 

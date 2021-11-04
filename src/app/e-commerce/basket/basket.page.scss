@@ -71,6 +71,12 @@
               background: var(--ion-color-light-tint);
               border: 1px solid var(--ion-color-medium-tint);
               border-radius: 5px;
+
+              &::ng-deep{
+                label{
+                  display: none;
+                }
+              }
             }
 
             .product-price {

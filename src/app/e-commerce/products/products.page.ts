@@ -4,7 +4,6 @@ import * as dataService from '../services/bucket';
 import { ModalController } from '@ionic/angular';
 import { SpicaSortModalComponent } from '../../components/spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
-import { StorageService } from '../services/storage.service';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -14,31 +13,36 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProductsPage implements OnInit {
   products: dataService.E_Com_Product[] = [];
-  filter: any = {};
+  filter: any = {is_available: true};
   sort: any = {};
   promotionId: string;
   user: any;
-  likedProducts: any = [];
+  likedProducts: string[] = [];
   likedDataId: string;
 
   constructor(
-    private route: ActivatedRoute,
-    public modalController: ModalController,
-    private storageService: StorageService,
-    private authService: AuthService,
-    private router: Router
+    private _route: ActivatedRoute,
+    private _modalController: ModalController,
+    private _authService: AuthService,
+    private _router: Router
   ) {
-    dataService.initialize({ apikey: '5ks9718kiybw51i' });
+    this._authService.initBucket();
   }
 
-  ngOnInit() {
-    this.promotionId = this.route.snapshot.params.promotionId;
+  async ngOnInit() {
+    this.promotionId = this._route.snapshot.params.promotionId;
 
-    this.route.queryParams.subscribe((res) => {
+    this._route.queryParams.subscribe((res) => {
       if (res.cat_id) {
         this.filter['category'] = res.cat_id;
       }
     });
+
+    this.user = await this.getActiveUser();
+
+    if (this.user) {
+      await this.getLikedData();
+    }
 
     this.getData();
   }
@@ -73,16 +77,8 @@ export class ProductsPage implements OnInit {
     }
   }
 
-  async ionViewWillEnter() {
-    if (!this.user) {
-      this.user = await this.getActiveUser();
-    } else {
-      await this.getLikedData();
-    }
-  }
-
   async getActiveUser() {
-    return this.authService.getUser().toPromise();
+    return this._authService.getUser().toPromise();
   }
 
   async getLikedData() {
@@ -105,7 +101,7 @@ export class ProductsPage implements OnInit {
   }
 
   async presentSortModal() {
-    const sortModal = await this.modalController.create({
+    const sortModal = await this._modalController.create({
       component: SpicaSortModalComponent,
       cssClass: 'spica-sort-modal-style',
       swipeToClose: true,
@@ -145,7 +141,7 @@ export class ProductsPage implements OnInit {
   async presentFilterModal() {
     const attributes = await this.getAttributes();
 
-    const filterModal = await this.modalController.create({
+    const filterModal = await this._modalController.create({
       component: SpicaFilterModalComponent,
       cssClass: 'spica-filter-modal-style',
       swipeToClose: true,
@@ -173,8 +169,8 @@ export class ProductsPage implements OnInit {
   }
 
   likeChanged(value, id) {
-    if (!this.authService.getActiveToken()) {
-      this.router.navigate(['e-commerce/tabs/profile']);
+    if (!this._authService.getActiveToken()) {
+      this._router.navigate(['e-commerce/tabs/profile']);
       return;
     }
 

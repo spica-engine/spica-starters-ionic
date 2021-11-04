@@ -9,7 +9,7 @@
 </ion-header>
 <ng-container *ngIf="this.product">
   <ion-content>
-    <ion-slides pager="true" [options]="slideOpts">
+    <ion-slides pager="true" [options]="slideOpts" class="gallery-slide">
       <ion-slide *ngFor="let image of product.gallery">
         <img [src]="image" />
       </ion-slide>
@@ -26,16 +26,12 @@
     <ion-list class="attributes">
       <ion-item lines="none" *ngFor="let attribute of product.attribute">
         <ion-label>Select {{attribute['name']}}</ion-label>
-        <ion-select interface="popover">
+        <ion-select interface="popover" (ionChange)="seletAttribute(attribute['name'], $event.target['value'])">
           <ion-select-option *ngFor="let value of attribute['value']" [value]="value">{{value}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
-    <ion-item lines="none" class="cargo-info">
-      <ion-icon name="car"></ion-icon>
-      <ion-label>Estimated delivery date: 25-30 October</ion-label>
-    </ion-item>
-    
+
 
     <div class="divider"></div>
 
@@ -63,7 +59,7 @@
         <ion-label class="normal-price">{{product.normal_price}} USD</ion-label>
         <ion-label class="discounted-price">{{product.discounted_price}} USD</ion-label>
       </div>
-      <ion-button slot="end" (click)="addToBasket()">Add To Basket</ion-button>
+      <ion-button slot="end" (click)="addToBasket()" [disabled]="disableAddToBasket">Add To Basket</ion-button>
     </ion-toolbar>
   </ion-footer>
 </ng-container>
