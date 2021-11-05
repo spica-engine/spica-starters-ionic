@@ -268,7 +268,7 @@ export namespace e_com_basket {
     ['product', 'coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -278,7 +278,7 @@ export namespace e_com_basket {
     ['product', 'coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -288,7 +288,7 @@ export namespace e_com_basket {
     ['product', 'coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -338,7 +338,7 @@ export namespace e_com_product {
     ['category', 'attribute'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -348,7 +348,7 @@ export namespace e_com_product {
     ['category', 'attribute'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -358,7 +358,7 @@ export namespace e_com_product {
     ['category', 'attribute'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -400,7 +400,7 @@ export namespace e_com_stock {
     ['product'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -410,7 +410,7 @@ export namespace e_com_stock {
     ['product'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -420,7 +420,7 @@ export namespace e_com_stock {
     ['product'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -469,7 +469,7 @@ export namespace e_com_invoice {
     ['basket', 'payment_method'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -479,7 +479,7 @@ export namespace e_com_invoice {
     ['basket', 'payment_method'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -489,7 +489,7 @@ export namespace e_com_invoice {
     ['basket', 'payment_method'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -532,7 +532,7 @@ export namespace e_com_order {
     ['basket', 'invoice'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -542,7 +542,7 @@ export namespace e_com_order {
     ['basket', 'invoice'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -552,7 +552,7 @@ export namespace e_com_order {
     ['basket', 'invoice'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -589,7 +589,7 @@ export namespace e_com_rating {
     ['user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -599,7 +599,7 @@ export namespace e_com_rating {
     ['user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -609,7 +609,7 @@ export namespace e_com_rating {
     ['user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -693,7 +693,7 @@ export namespace e_com_used_coupon_ {
     ['coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -703,7 +703,7 @@ export namespace e_com_used_coupon_ {
     ['coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -713,7 +713,7 @@ export namespace e_com_used_coupon_ {
     ['coupon', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -757,7 +757,7 @@ export namespace e_com_liked_product {
     ['product', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -767,7 +767,7 @@ export namespace e_com_liked_product {
     ['product', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });
@@ -777,7 +777,7 @@ export namespace e_com_liked_product {
     ['product', 'user'].forEach((field) => {
       if (typeof document[field] == 'object') {
         document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id)
+          ? document[field].map((v) => v._id  ? v._id : v)
           : document[field]._id;
       }
     });

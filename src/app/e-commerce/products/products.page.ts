@@ -185,7 +185,8 @@ export class ProductsPage implements OnInit {
         }
       });
     }
-
+    console.log(this.likedProducts)
+    console.log(JSON.parse(JSON.stringify(this.likedProducts)))
     if (this.likedDataId) {
       dataService.e_com_liked_product.patch({
         product: this.likedProducts,

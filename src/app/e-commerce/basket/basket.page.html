@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-title>basket</ion-title>
   </ion-toolbar>
@@ -38,7 +38,7 @@
               </ion-select>
               <div class="product-price">
                 <ion-label class="normal-price">{{product.normal_price * product['quantity'] | number : '1.2-2'}} USD</ion-label>
-                <ion-label class="discounted-price">{{product.discounted_price * product['quantity'] | number : '1.2-2'}} USD</ion-label>
+                <ion-label class="discounted-price" *ngIf="product.discounted_price">{{product.discounted_price * product['quantity'] | number : '1.2-2'}} USD</ion-label>
               </div>
             </div>
           </ion-label>

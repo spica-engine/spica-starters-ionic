@@ -34,6 +34,7 @@ export class BasketPage implements OnInit {
   couponCode: string;
 
   async ngOnInit() {
+    this.isLoading = true;
     this.paymentMethods = await DataService.e_com_payment_method.getAll();
 
     this.user = await this.getActiveUser();
@@ -43,6 +44,7 @@ export class BasketPage implements OnInit {
     if (this.basket?.product?.length) {
       this.calculateTotalPrice();
     }
+    this.isLoading = false;
   }
 
   async getActiveUser() {

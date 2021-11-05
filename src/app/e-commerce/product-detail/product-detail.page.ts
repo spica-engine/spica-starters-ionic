@@ -46,6 +46,7 @@ export class ProductDetailPage implements OnInit {
   disableAddToBasket: boolean = true;
   user: dataService.E_Com_User;
   basket: dataService.E_Com_Basket;
+  isLiked: boolean = false;
 
   constructor(
     private _commonService: CommonService,
@@ -80,7 +81,7 @@ export class ProductDetailPage implements OnInit {
         });
 
         if (isLiked) {
-          this.product['is_liked'] = true;
+         this.isLiked = true;
         }
       })
       .catch((err) => console.log(err));

@@ -71,12 +71,7 @@
               background: var(--ion-color-light-tint);
               border: 1px solid var(--ion-color-medium-tint);
               border-radius: 5px;
-
-              &::ng-deep{
-                label{
-                  display: none;
-                }
-              }
+              position: relative
             }
 
             .product-price {
@@ -147,7 +142,8 @@
       }
       ion-button {
         height: 45px;
-        width: 150px;
+        min-width: 150px;
+        max-width: fit-content;
         --border-radius: 5px;
         margin-left: 15px;
         font-size: 16px;

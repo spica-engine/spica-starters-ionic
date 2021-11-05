@@ -62,11 +62,13 @@
       padding: 10px;
 
       .description {
-        height: 100px;
+        height: fit-content;
+        max-height: 100px;
         overflow: hidden;
         margin-top: 10px;
 
         &.all-detail {
+          max-height: fit-content;
           height: fit-content;
         }
       }
