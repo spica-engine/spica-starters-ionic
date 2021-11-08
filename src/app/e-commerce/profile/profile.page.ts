@@ -26,10 +26,10 @@ export class ProfilePage implements OnInit {
     this._authService.initBucket();
     
     this.loginForm = this._formBuilder.group({
-      email: 'idriscumali@gmail.com',
+      email: '',
       name: '',
       surname: '',
-      password: '123456',
+      password: '',
       termsOfUse: '',
     });
   }

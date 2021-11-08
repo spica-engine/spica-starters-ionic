@@ -25,7 +25,11 @@ export class AuthService {
   }
 
   initBucket() {
-    if(localStorage.getItem('ecommerce_spica_token')){
+    let tokenExpire = localStorage.getItem('spica_expire');
+    if (tokenExpire && new Date(tokenExpire) < new Date()) {
+      localStorage.clear();
+    }
+    if (localStorage.getItem('ecommerce_spica_token')) {
       DataService.initialize({
         identity: localStorage.getItem('ecommerce_spica_token'),
       });

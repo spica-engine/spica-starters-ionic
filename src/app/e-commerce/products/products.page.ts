@@ -13,7 +13,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class ProductsPage implements OnInit {
   products: dataService.E_Com_Product[] = [];
-  filter: any = {is_available: true};
+  filter: any = { is_available: true };
   sort: any = {};
   promotionId: string;
   user: any;
@@ -153,16 +153,32 @@ export class ProductsPage implements OnInit {
     });
 
     filterModal.onWillDismiss().then((res) => {
-      if (!res.data || !res.data.filter.length) {
+      if (!res.data) {
         return;
       }
 
-      res.data.filter.forEach((el) => {
-        if (el.name == 'price_range') {
-        } else {
-          this.filter[el.name] = { $in: el.value };
-        }
-      });
+      if (res.data.filter?.length) {
+        res.data.filter.forEach((el) => {
+          if (el.name == 'price_range') {
+            console.log(el);
+            this.filter['discounted_price'] = {
+              $gte: el.value.lower,
+              $lte: el.value.upper,
+            };
+          } else {
+            this.filter[el.name] = { $in: el.value };
+          }
+        });
+      }
+
+      if (res.data.action == 'clear_filter' && attributes.length) {
+        attributes.forEach((el) => {
+          delete this.filter[el.name];
+        });
+        delete this.filter['discounted_price'];
+      }
+
+      this.getData();
     });
 
     return await filterModal.present();
@@ -185,8 +201,7 @@ export class ProductsPage implements OnInit {
         }
       });
     }
-    console.log(this.likedProducts)
-    console.log(JSON.parse(JSON.stringify(this.likedProducts)))
+
     if (this.likedDataId) {
       dataService.e_com_liked_product.patch({
         product: this.likedProducts,
