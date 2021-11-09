@@ -11,13 +11,13 @@ const routes: Routes = [
         path: '',
         component: HomePage,
       },
-      // {
-      //   path: "profile",
-      //   loadChildren: () =>
-      //     import("../profile/profile.module").then(
-      //       (m) => m.ProfilePageModule
-      //     ),
-      // },
+      {
+        path: 'profile',
+        loadChildren: () =>
+          import('../social-profile/social-profile.module').then(
+            (m) => m.SocialProfilePageModule
+          ),
+      },
       // {
       //   path: "discover",
       //   loadChildren: () =>
@@ -25,13 +25,18 @@ const routes: Routes = [
       //       (m) => m.DiscoverPageModule
       //     ),
       // },
-      // {
-      //   path: "activity",
-      //   loadChildren: () =>
-      //     import("./pages/activity/activity.module").then(
-      //       (m) => m.ActivityPageModule
-      //     ),
-      // },
+      {
+        path: 'chats',
+        loadChildren: () =>
+          import('../chat/chats/chats.module').then((m) => m.ChatsPageModule),
+      },
+      {
+        path: 'activity',
+        loadChildren: () =>
+          import('../activity/activity.module').then(
+            (m) => m.ActivityPageModule
+          ),
+      },
     ],
   },
 ];

@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ "comments" | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <post-card
+    [action]="false"
+    [post]="post"
+    [userFollowable]="false"
+    class="featured"
+    [imageClickable]="false"
+  ></post-card>
+  <ion-infinite-scroll
+    position="top"
+    threshold="0px"
+    (ionInfinite)="loadData()"
+  >
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ion-list>
+    <div class="empty-placeholder" *ngIf="!loadings.main && !comments.length">
+      {{ "no-comment" | translate }}
+    </div>
+    <ion-item *ngFor="let comment of comments">
+      <div class="comment-card">
+        <div class="metadata">
+          <ion-avatar (click)="setRoute('profile', comment?.user['_id'])">
+            <img
+              [src]="
+                comment?.user['thumbnail']
+                  ? comment?.user['thumbnail']
+                  : default_user_image
+              "
+            />
+          </ion-avatar>
+          <div class="info">
+            <div class="sub-info">
+              <span (click)="setRoute('profile', comment?.user['_id'])"
+                >{{ comment?.user["username"] }}
+              </span>
+              <app-mentionarea
+                (changeRoute)="clickMention($event)"
+                [tags]="comment.tags"
+                [hashtags]="comment.hastags"
+                [text]="comment.comment"
+              >
+              </app-mentionarea>
+              <div class="activity-date">
+                {{ comment.date | date:"shortDate"}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="action"
+          *ngIf="comment.user._id == user._id || post.user._id == user._id"
+          (click)="deleteComment(comment._id)"
+        >
+          <ion-icon name="trash-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<mentions
+  *ngIf="searchedText"
+  [searchedText]="searchedText"
+  (userSelected)="mentionUser($event)"
+  [isMinimized]="true"
+  (tagSelected)="hashtagSelected($event)"
+>
+</mentions>
+<ion-footer>
+  <ion-toolbar>
+    <ion-item lines="none">
+      <!-- <ion-input [(ngModel)]="my_comment" (keyup.enter)="sendComment()" [placeholder]="'send-comment' | translate"
+        enterkeyhint="send" clearInput="true" mention (mentioned)="mentioning($event)"
+        (stopped)="stopped()" ></ion-input> -->
+      <ion-textarea
+        [(ngModel)]="my_comment"
+        (keyup.enter)="sendComment()"
+        [placeholder]="'send-comment' | translate"
+        enterkeyhint="send"
+        autoGrow="true"
+        rows="1"
+        mention
+        (mentioned)="mentioning($event)"
+      ></ion-textarea>
+      <ion-icon
+        class="clear-text"
+        *ngIf="my_comment"
+        (click)="my_comment = ''"
+        name="close-circle-outline"
+      ></ion-icon>
+      <ion-icon
+        name="send-outline"
+        slot="end"
+        (click)="sendComment()"
+      ></ion-icon>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>
+<ion-spinner
+  *ngIf="loadings.main"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

@@ -1,0 +1,22 @@
+:host {
+  width: 100%;
+  word-break: break-all;
+  span {
+    margin-right: 4px;
+  //  white-space: nowrap;
+    font-size: 0.76rem;
+    line-height: 1.1rem;
+    display: inline-block;
+  }
+  .link {
+    white-space: unset;
+  }
+  .hashtag-word,
+  .tag-word {
+    color: var(--ion-color-primary);
+  }
+  .no-padding {
+    position: relative;
+    margin-left: -5px;
+  }
+}

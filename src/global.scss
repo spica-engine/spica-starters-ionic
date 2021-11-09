@@ -25,9 +25,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-html {
-}
-
 ion-button {
   --border-radius: 40px;
 }
@@ -46,7 +43,20 @@ ion-segment-button {
 ion-item {
   --padding-start: 0;
 }
+ion-list{
+  padding: 0 10px;
+}
 
 ion-button {
   --background-activated: none;
+}
+ion-spinner {
+  &.spinner-center-page {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--ion-color-primary);
+    z-index: 100;
+  }
 }

@@ -11,10 +11,7 @@
     <div class="setting-card">
       <div class="setting">{{"receive-notifications" | translate}}</div>
       <div class="value">
-        <ion-toggle
-          name="notification"
-          [(ngModel)]="me.notification"
-        >
+        <ion-toggle name="notification" [(ngModel)]="me.notification">
         </ion-toggle>
       </div>
     </div>
@@ -25,7 +22,7 @@
       <div class="value">
         <ion-select
           [placeholder]="'select-one' | translate"
-         [(ngModel)]="me.visibility"
+          [(ngModel)]="me.visibility"
           interface="popover"
         >
           <ion-select-option *ngFor="let item of visibilities" [value]="item"
@@ -53,11 +50,6 @@
     </div>
   </div>
 
-  <div class="input" [routerLink]="['tagged-user-group']">
-    <div class="setting-card">
-      <div class="setting">{{"tagged_user_group.header" | translate}}</div>
-    </div>
-  </div>
   <div class="input" (click)="openAccountSheet()">
     <div class="setting-card">
       <div class="setting">{{"account" | translate}}</div>

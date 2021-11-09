@@ -1,0 +1,115 @@
+:host {
+  display: flex;
+  width: 100%;
+  ion-card {
+    padding: 3px 0px;
+    background: var(--cd-component-background-color);
+    width: 100%;
+    .header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 0px 10px;
+      .author {
+        padding-left: 10px;
+        padding-right: 5px;
+      }
+      .tag {
+        color: var(--cd-component-text-color);
+        font-size: 0.9rem;
+      }
+    }
+    .image-container {
+      position: relative;
+      img,
+      video {
+        width: calc(100% - 20px);
+        margin: 10px;
+        z-index: 2;
+        position: relative;
+        border-radius: 5px;
+        margin-top: 0px;
+      }
+
+      video {
+        height: auto !important;
+        max-height: 400px;
+        object-fit: contain;
+        background: black;
+      }
+      img {
+        max-height: 250px;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+      }
+      img.opaque {
+        opacity: 1;
+      }
+    }
+    .image-container + .actions {
+      //margin-top: -60px;
+      align-items: flex-end;
+      height: 40px;
+      position: absolute;
+      + .created-at {
+        margin-top: 35px;
+      }
+      + .commented {
+        margin-top: 40px;
+      }
+    }
+    .actions {
+      z-index: 5;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      padding: 0px 10px;
+      width: 100%;
+      text-align: center;
+      align-items: center;
+      > div:last-of-type {
+        action-icon {
+          float: right;
+        }
+      }
+    }
+  }
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px 0px;
+    width: 100%;
+    action-icon {
+      flex: 1 1 0px;
+    }
+    ::ng-deep {
+      .send-icon {
+        .action-icon {
+          .icon {
+            width: 20px;
+            transform: rotate(-30deg);
+            height: 26px;
+          }
+        }
+      }
+    }
+    div:last-child {
+      action-icon {
+        margin-left: 10px;
+      }
+    }
+  }
+  .message {
+    padding: 0px 10px 10px;
+    span {
+      margin-right: 5px;
+    }
+  }
+  .created-at {
+    font-size: 0.7rem;
+    color: var(--cd-text-color);
+    padding: 5px 10px 0px;
+    display: flex;
+  }
+}

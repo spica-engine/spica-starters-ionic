@@ -1,0 +1,15 @@
+:host {
+  ion-header {
+    .actions {
+      --padding-bottom: 0px;
+      --min-height: 0px;
+    }
+  }
+  ion-spinner {
+    width: 20px;
+    color: unset;
+  }
+  .d-flex{
+    display: flex;
+  }
+}

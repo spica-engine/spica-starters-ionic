@@ -11,6 +11,7 @@ import { SpicaSortModalComponent } from "./spica-sort-modal/spica-sort-modal.com
 import { SpicaFilterModalComponent } from "./spica-filter-modal/spica-filter-modal.component";
 import { SpicaShippingAddressComponent } from "./spica-shipping-address/spica-shipping-address.component";
 import { SpicaConfirmShoppingComponent } from "./spica-confirm-shopping/spica-confirm-shopping.component";
+import { SpicaAuthorizationComponent } from "./spica-authorization/spica-authorization.component";
 
 @NgModule({
   declarations: [ 
@@ -20,7 +21,8 @@ import { SpicaConfirmShoppingComponent } from "./spica-confirm-shopping/spica-co
       SpicaSortModalComponent,
       SpicaFilterModalComponent,
       SpicaShippingAddressComponent,
-      SpicaConfirmShoppingComponent
+      SpicaConfirmShoppingComponent,
+      SpicaAuthorizationComponent
    ],
   exports: [
       SpicaCardComponent,
@@ -29,7 +31,8 @@ import { SpicaConfirmShoppingComponent } from "./spica-confirm-shopping/spica-co
       SpicaSortModalComponent,
       SpicaFilterModalComponent,
       SpicaShippingAddressComponent,
-      SpicaConfirmShoppingComponent
+      SpicaConfirmShoppingComponent,
+      SpicaAuthorizationComponent
   ],
   imports: [
     RouterModule,

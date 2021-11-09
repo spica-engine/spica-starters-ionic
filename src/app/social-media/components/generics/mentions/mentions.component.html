@@ -1,0 +1,45 @@
+<ng-container
+  *ngIf="
+    friends.length &&
+    friends.length > 0 &&
+    searchedText &&
+    mentioning == 'friend'
+  "
+>
+  <div
+    class="friend"
+    *ngFor="let friend of friends"
+    (click)="mentionUser(friend)"
+  >
+    <user-minified-card
+      type="horizontal"
+      [user]="friend"
+      [with_router]="false"
+      *ngIf="!friend['owner']"
+    ></user-minified-card>
+  </div>
+</ng-container>
+<div
+  *ngIf="
+    (searchedText && mentioning == 'hashtag' && hashtags.length == 0) ||
+    (mentioning == 'friend' && friends.length == 0 && !loading)
+  "
+  class="nonResult"
+>
+  {{ "non_result" | translate }}
+</div>
+<ng-container
+  *ngIf="
+    hashtags.length &&
+    hashtags.length > 0 &&
+    searchedText &&
+    mentioning == 'hashtag'
+  "
+>
+  <div class="tag" *ngFor="let tag of hashtags" (click)="addHashtag(tag)">
+    <div class="hashtag-content" [class.create-post]="isMinimized">
+      <div>#{{ tag.hashtag }}</div>
+      <span>{{ tag.times_used }} {{ "times used" | translate }}</span>
+    </div>
+  </div>
+</ng-container>

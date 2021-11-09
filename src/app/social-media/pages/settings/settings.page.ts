@@ -21,8 +21,7 @@ export class SettingsPage {
   visibilities = ['public', 'private'];
   expand_terms: boolean = false;
   user_lang: string;
-  dark_mode: boolean = false;
-  languages=["en", "tr", "ru"]
+  languages = ['en', 'tr', 'ru'];
 
   constructor(
     private _userService: UserService,
@@ -35,28 +34,13 @@ export class SettingsPage {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.dark_mode = localStorage.getItem('theme') == 'dark';
-  }
+  ngOnInit(): void {}
   async ionViewWillEnter() {
     this.me = await this._userService.getActiveUser().toPromise();
     this.user_lang = this.me.language;
   }
   async logOut() {
-    // const modal = await this.modalController.create({
-    //   component: ConfirmationModalComponent,
-    //   componentProps: {
-    //     title: 'sign-out',
-    //     body: 'sign-out-confirmation',
-    //   },
-    //   cssClass: 'confirmation-modal-background',
-    // });
-
-    // await modal.present();
-    // const { data } = await modal.onWillDismiss();
-    // if (data.verify) {
-    //   this.authService.logOut();
-    // }
+    this.authService.logOut();
   }
   async ionViewWillLeave() {
     await this._userService.updateProfile(this.me);
@@ -67,33 +51,10 @@ export class SettingsPage {
     this.translateService.currentLang = this.me.language;
   }
 
-  async deleteAccount() {
-    // const modal = await this.modalController.create({
-    //   component: ConfirmationModalComponent,
-    //   componentProps: {
-    //     title: 'account',
-    //     body: 'delete_account_info',
-    //   },
-    //   cssClass: 'confirmation-modal-background',
-    // });
-    // await modal.present();
-    // const { data } = await modal.onWillDismiss();
-    // if (data.verify) {
-    //   await this.authService.deleteAccont(this.me._id);
-    //   this.authService.logOut();
-    // }
-  }
-
   async openAccountSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
       cssClass: 'my-custom-class',
       buttons: [
-        {
-          text: this.translateService.instant('delete_account'),
-          handler: () => {
-            this.deleteAccount();
-          },
-        },
         {
           text: this.translateService.instant('blocked_users'),
           handler: () => {
@@ -120,13 +81,13 @@ export class SettingsPage {
         {
           text: this.translateService.instant('terms'),
           handler: () => {
-            window.location.href = 'https://cloockie.com/terms';
+            window.open('https://google.com', 'blank');
           },
         },
         {
           text: this.translateService.instant('privacy'),
           handler: () => {
-            window.location.href = 'https://cloockie.com/privacy';
+            window.open('https://google.com', 'blank');
           },
         },
         {

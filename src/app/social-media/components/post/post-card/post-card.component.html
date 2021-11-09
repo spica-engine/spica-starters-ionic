@@ -1,0 +1,40 @@
+<ion-spinner class="spinner-center-page" name="crescent" *ngIf="loading"></ion-spinner>
+
+<ion-card>
+  <div class="header">
+    <user-minified-card [with_router]="with_router" [user]="post?.user" [type]="'horizontal'" [followable]="userFollowable"></user-minified-card>
+    <action-icon *ngIf="action" (click)="showActions()" 
+      [icon]="'ellipsis-vertical-outline'" [count]="-1">
+    </action-icon>
+  </div>
+  <div class="message">
+    <app-mentionarea [tags]="post.tags" [hashtags]="post.hashtags" [text]="post.text"
+      (changeRoute)="clickedMentions($event)"></app-mentionarea>
+  </div>
+  <div class="image-container" *ngIf="post?.file?.url" (click)="clickedImage(post?.file?.mimetype, post?.file?.url)">
+    <img *ngIf="post.file.mimetype.includes('image')" [src]="post.file.url" (load)="isImageLoaded = true" [class.opaque]="isImageLoaded" />
+    <video playsinline preload="metadata" [muted]="mediaIsMuted" [loop]="isIntersecting"
+      poster="assets/logotype-white.png" *ngIf="post.file.mimetype.includes('video')" #media>
+      <source [src]="post.file.url" [type]="post.file.mimetype" />
+    </video>
+  </div>
+  <div class="image-container" *ngIf="!post?._id">
+    <ion-skeleton-text animated></ion-skeleton-text>
+  </div>
+  <div class="actions" *ngIf="user && post?._id">
+    <div *ngIf="action">
+      <action-icon [icon]="'chatbubble-outline'" [count]="post.comment_count" (click)="showComments()"></action-icon>
+      <action-icon [class.active]="post['liked']" class="like-icon" (iconClicked)="like()"
+        (numberClicked)="openLikedModal()" [icon]="!post['liked'] ? 'heart-outline' : 'heart'"
+        [count]="post.like_count">
+      </action-icon>
+    </div>
+
+    <div *ngIf="action">
+      <action-icon class="send-icon" [icon]="'send-outline'" (click)="sendPost()" [count]="-1"></action-icon>
+    </div>
+  </div>
+  <div class="created-at" *ngIf="post?._id && action">
+    {{ "published" | translate }} {{ post.created_at | date:"shortDate"}}
+  </div>
+</ion-card>

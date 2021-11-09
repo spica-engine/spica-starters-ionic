@@ -1,0 +1,58 @@
+:host {
+  width: 100%;
+  .activity-card {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+
+    .metadata {
+      display: flex;
+      align-items: center;
+      ion-avatar {
+        min-width: 48px;
+        width: 48px;
+        height: 48px;
+      }
+
+      .info {
+        margin: 0 10px;
+        .sub-info {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          :first-child {
+            font-weight: bold;
+          }
+          :last-child {
+            padding-left: 10px;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .action {
+      .post {
+        width: 48px;
+        height: 48px;
+        vertical-align: middle;
+        text-align: center;
+
+        &.post-text {
+          min-width: 48px !important;
+          max-width: 100px !important;
+          display: table-cell;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

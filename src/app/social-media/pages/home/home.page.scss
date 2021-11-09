@@ -76,4 +76,12 @@
   .info-backdrop {
     opacity: 0.3;
   }
+
+  //-----------------//
+
+  .spica-card .body-content .image img {
+    border-radius: 4px;
+    max-height: 250px;
+    object-fit: cover;
+  }
 }

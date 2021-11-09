@@ -68,7 +68,7 @@ export namespace firebase_notification {
 
 export interface Activity{
   _id?: string;
-  action?: ('like'|'comment'|'follow_post'|'follow_user'|'tag_in_post'|'tag_in_comment'|'re_post');
+  action?: ('like'|'comment'|'follow_user'|'tag_in_post'|'tag_in_comment'|'request_user');
   owner?: (User & id | string);
   user?: (User & id | string);
   post?: (Post & id | string);
@@ -87,7 +87,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -97,7 +97,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -113,7 +113,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -135,17 +135,15 @@ export namespace activity {
 export interface User{
   _id?: string;
   identity?: string;
-  username: string;
+  username?: string;
   thumbnail?: string;
   email?: string;
   name?: string;
   surname?: string;
-  fcm_token?: string;
   headline?: string;
   last_online_date?: Date | string;
   language?: any ;
   notification?: boolean;
-  timezone?: number;
   visibility?: ('public'|'private');
   created_at?: Date | string;
 }
@@ -191,15 +189,13 @@ export namespace user {
 export interface Post{
   _id?: string;
   text?: string;
-  user?: (User & id | string);
-  tags?: (User & id | string)[];
-  visibility?: ('public'|'tagged_users');
+  user?: User;
+  tags?: User[];
+  visibility?: ('public'|'private');
   created_at?: Date | string;
-  event_date?: Date | string;
   like_count?: number;
   comment_count?: number;
-  post?: Post;
-  hashtags?: (Hashtag & id | string)[];
+  hashtags?: Hashtag[];
   file?: {
   url?: string;
   mimetype?: string;};
@@ -216,7 +212,7 @@ export namespace post {
       ['user','tags','post','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -226,7 +222,7 @@ export namespace post {
       ['user','tags','post','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -242,7 +238,7 @@ export namespace post {
       ['user','tags','post','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -264,8 +260,8 @@ export namespace post {
 export interface Waiting_Request{
   _id?: string;
   request_id?: string;
-  sender?: (User & id | string);
-  reciever?: (User & id | string);
+  sender?: User ;
+  reciever?: User;
   created_at?: Date | string;
 }
 export namespace waiting_request {
@@ -280,7 +276,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -290,7 +286,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -306,7 +302,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -329,7 +325,7 @@ export interface Blocked_User{
   _id?: string;
   title?: string;
   blocking?: (User & id | string);
-  blocked?: (User & id | string);
+  blocked?: User;
   created_at?: Date | string;
 }
 export namespace blocked_user {
@@ -344,7 +340,7 @@ export namespace blocked_user {
       ['blocking','blocked'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -354,7 +350,7 @@ export namespace blocked_user {
       ['blocking','blocked'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -370,7 +366,7 @@ export namespace blocked_user {
       ['blocking','blocked'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -408,7 +404,7 @@ export namespace liked_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -418,7 +414,7 @@ export namespace liked_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -434,7 +430,7 @@ export namespace liked_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -474,7 +470,7 @@ export namespace notification {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -484,7 +480,7 @@ export namespace notification {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -500,7 +496,7 @@ export namespace notification {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -538,7 +534,7 @@ export namespace follow {
       ['follower','following'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -548,7 +544,7 @@ export namespace follow {
       ['follower','following'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -564,7 +560,7 @@ export namespace follow {
       ['follower','following'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -589,12 +585,12 @@ export interface Chat{
   created_at?: Date | string;
   last_active?: {
   date?: Date | string;
-  user?: (User & id | string);
+  user?: User;
   unread_messages_count?: number;
   status?: ('active'|'deleted'|'requested');}[];
   last_message?: string;
   last_message_time?: Date | string;
-  last_message_owner?: (User & id | string);
+  last_message_owner?: User;
   is_group?: boolean;
   image?: string;
   managers?: (User & id | string)[];
@@ -611,7 +607,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -621,7 +617,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -637,7 +633,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -659,9 +655,10 @@ export namespace chat {
 export interface Message{
   _id?: string;
   message?: string;
-  created_at?: Date | string;
+  created_at?: string;
   owner?: (User & id | string);
   chat?: (Chat & id | string);
+  post?:Post;
   image?: string;
 }
 export namespace message {
@@ -676,7 +673,7 @@ export namespace message {
       ['owner','chat'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -686,7 +683,7 @@ export namespace message {
       ['owner','chat'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -702,7 +699,7 @@ export namespace message {
       ['owner','chat'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -725,7 +722,7 @@ export interface Comment{
   _id?: string;
   comment?: string;
   post?: (Post & id | string);
-  user?: (User & id | string);
+  user?: User;
   date?: Date | string;
   hastags?: (Hashtag & id | string)[];
   tags?: (User & id | string)[];
@@ -742,7 +739,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -752,7 +749,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -768,7 +765,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -851,7 +848,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -861,7 +858,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -877,7 +874,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });

@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "./data.service";
 import {hashtag} from "../services/bucket"
 
 @Injectable({
   providedIn: "root",
 })
 export class HashtagService {
-  constructor(private dataService: DataService) {}
+  constructor() {}
 
   async checkTagCreate(content, tagsArr) {
     if (content) {

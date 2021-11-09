@@ -36,44 +36,15 @@
     </ion-refresher>
     <ng-container>
       <ng-container *ngFor="let post of posts;let index = index">
-        <div class="premium-explores" *ngIf="index == 5">
-          <div class="title">Explore New Users</div>
-          <div class="cards">
-            <div class="user-card" *ngFor="let user of premiumExplores">
-              <!-- <user-featured-card
-                [user]="user"
-                [followable]="true"
-                (onFollow)="followExloredUser($event)"
-              >
-              </user-featured-card> -->
-            </div>
-          </div>
-        </div>
-        <!-- <post-card
+        <post-card
           [class.discarded]="discarded_post==post._id"
           [post]="post"
           (deletedPost)="deletedPost($event)"
           (editedPost)="editedPost($event)"
-          (rePosted)="rePosted($event)"
-          (rePorted)="reportedPost($event,'post')"
+          (rePorted)="reportedPost($event)"
         >
-        </post-card> -->
+        </post-card>
       </ng-container>
-      <ng-container *ngIf="discoverPosts.length">
-        <div class="discover-seperator">Explore Posts</div>
-        <!-- <post-card
-          *ngFor="let post of discoverPosts"
-          [post]="post"
-          (deletedPost)="deletedPost($event)"
-          (editedPost)="editedPost($event)"
-          (rePosted)="rePosted($event)"
-          [userFollowable]="true"
-          (rePorted)="reportedPost($event,'discover')"
-          [class.discarded]="discarded_post==post._id"
-        >
-        </post-card> -->
-      </ng-container>
-    
       <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData()">
         <ion-infinite-scroll-content loadingSpinner="bubbles">
         </ion-infinite-scroll-content>
@@ -86,4 +57,9 @@
       name="crescent"
     ></ion-spinner>
   </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="addPost()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

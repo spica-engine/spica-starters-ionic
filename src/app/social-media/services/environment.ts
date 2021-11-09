@@ -6,15 +6,17 @@ export const environment = {
   project_id: "asset-playground-05dae",
   api_url: "https://asset-playground-05dae.hq.spicaengine.com/api",
   storage_read_apikey:"fskk1akvjfwnb1",
+  identity_read_apikey: "1dsp51bkvs0vuva",
   production: false,
   webURL: "",
   user_img:
-    "https://storage.googleapis.com/download/storage/v1/b/hq-cloockie-cd6ea/o/612665c22ed297002d0b4dfa?alt=media&timestamp=1629906371899",
+    "https://storage.googleapis.com/download/storage/v1/b/hq-asset-playground-05dae/o/6188d4455ee9b9002f152448?alt=media&timestamp=1636357190242",
   languages: [
     { code: "en", name: "English" },
     { code: "tr", name: "Turkish" },
     { code: "ru", name: "Russian" },
   ],
+  example_base64:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
 };
 
 /*

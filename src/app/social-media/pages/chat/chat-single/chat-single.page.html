@@ -1,0 +1,106 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="chats/list"></ion-back-button>
+    </ion-buttons>
+    <ion-title
+      *ngIf="chatGroup"
+      [routerLink]="chatGroup.is_group ? ['chat_detail'] : []"
+      >{{chatGroup.name}}
+    </ion-title>
+    <ion-buttons *ngIf="chatGroup && chatGroup?.is_group" slot="end">
+      <ion-button [routerLink]="['chat_detail']">
+        <ion-icon name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #content>
+  <ion-infinite-scroll
+    position="top"
+    threshold="0px"
+    (ionInfinite)="loadData()"
+  >
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  <ng-container
+    *ngIf="(usersInChatGroup && user) && ((chatGroup.is_group && usersInChatGroup[user._id]?.status == 'active') || !chatGroup.is_group)"
+  >
+    <ng-container *ngFor="let message of messages;let index = index">
+      <div class="date-divider" *ngIf="message.first_message">
+        {{message.created_at | date: "dd/MM/YYYY"}}
+      </div>
+      <message-single
+        [date]="message.created_at"
+        [recurring]="message.recurring"
+        [avatar]="!messages[(index + 1)] || messages[(index + 1)].owner != message.owner ? usersInChatGroup[message.owner].user.thumbnail : 'none'"
+        [message]="message.message"
+        [isCurrentUser]="message.owner == user._id"
+        [image]="message.image"
+        [id]="usersInChatGroup[message.owner].user._id"
+        [post]="message.post"
+      ></message-single>
+    </ng-container>
+  </ng-container>
+  <ng-container
+    *ngIf="(usersInChatGroup && user) && usersInChatGroup[user._id]?.status != 'active' && chatGroup.is_group"
+  >
+    <div class="empty-placeholder">{{"not-in-chatgroup" | translate}}</div>
+  </ng-container>
+
+  <ion-spinner
+    class="spinner-center-page"
+    name="crescent"
+    *ngIf="loading"
+  ></ion-spinner>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar
+    *ngIf="(usersInChatGroup && user) && ((usersInChatGroup[user._id]?.status == 'active' && chatGroup.is_group) || !chatGroup.is_group)"
+  >
+    <ion-item *ngIf="image_message">
+      <img class="send_image" [src]="image_message" />
+    </ion-item>
+    <ion-item lines="none">
+      <upload-image
+        *ngIf="!loading_image &&!message && !image_message"
+        (change)="sendImage($event)"
+      ></upload-image>
+      <ion-textarea
+        *ngIf="!image_message"
+        [(ngModel)]="message"
+        (keyup.enter)="sendMessage()"
+        [placeholder]="'send-message' | translate"
+        enterkeyhint="send"
+        autoGrow="true"
+        rows="1"
+      ></ion-textarea>
+      <ion-icon
+        class="clear-text"
+        *ngIf="message"
+        (click)="message=''"
+        name="close-circle-outline"
+      ></ion-icon>
+      <ion-spinner
+        *ngIf="loading_image"
+        name="crescent"
+        slot="end"
+      ></ion-spinner>
+      <ion-icon
+        *ngIf="!loading_image && !message && image_message"
+        name="close"
+        slot="end"
+        (click)="cancelImage()"
+      >
+      </ion-icon>
+      <ion-icon
+        *ngIf="!loading_image"
+        name="send-outline"
+        slot="end"
+        (click)="sendMessage()"
+      ></ion-icon>
+    </ion-item>
+  </ion-toolbar>
+</ion-footer>

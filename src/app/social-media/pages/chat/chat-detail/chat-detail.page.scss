@@ -1,0 +1,69 @@
+:host {
+  ::ng-deep {
+    user-minified-card {
+      margin: unset !important;
+      ion-avatar {
+        width: 40px;
+        height: 40px;
+        min-width: 40px !important;
+      }
+    }
+  }
+  .edit_content {
+    padding-right: 10px;
+    ion-input {
+      max-width: calc(100% - 20px);
+      text-overflow: ellipsis;
+    }
+  }
+  .suffix-icon {
+    bottom: 25% !important;
+    border-left: 1px solid var(--border-color);
+    padding-left: 10px;
+  }
+  .group_image {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    .edit_image {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      ::ng-deep {
+        ion-icon {
+          font-size: 15px;
+        }
+      }
+    }
+  }
+  .text_right {
+    width: 100%;
+    text-align: end;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    ion-label {
+      font-size: 12px;
+      padding-right: 10px;
+    }
+  }
+  ion-list {
+    padding: 0 10px;
+    ion-list-header {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--ion-color-light-shade);
+      margin-bottom: 5px;
+      ion-label > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-right: 20px;
+      }
+    }
+  }
+  user-minified-card {
+    width: auto;
+    flex: none;
+  }
+}

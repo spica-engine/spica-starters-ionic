@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)="cancle()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ "users" | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <ion-list-header *ngIf="!addComment">
+      <ion-label>{{ "all-users" | translate }}</ion-label>
+    </ion-list-header>
+    <ion-item lines="none" class="ion-no-padding">
+      <ion-searchbar
+        animated
+        debounce="500"
+        [placeholder]="'search' | translate"
+        [(ngModel)]="searchedText"
+        (ngModelChange)="getUserBySearch()"
+      ></ion-searchbar>
+    </ion-item>
+    <ion-item *ngIf="addComment && showedUsers.length > 0">
+      <ion-textarea
+        [(ngModel)]="dm_comment"
+        [placeholder]="'enter-comment' | translate"
+      ></ion-textarea>
+    </ion-item>
+    <div class="no-item" *ngIf="showedUsers.length == 0">
+      {{ "non-user" | translate }}
+    </div>
+    <ion-item
+      detail="false"
+      *ngFor="let user of showedUsers"
+      (click)="
+        addComment ? selectUser(user.following) : toggleUser(user.following)
+      "
+      [class.choosen]="choosenUsers.includes(user.following)"
+    >
+      <user-minified-card
+        [with_router]="false"
+        [user]="user.following"
+        [type]="'horizontal'"
+      ></user-minified-card>
+    </ion-item>
+  </ion-list>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

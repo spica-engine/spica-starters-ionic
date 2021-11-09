@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{user?.username}} </ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="actions">
+    <app-segmenttab
+      [segments]="['followers','following']"
+      [type]="type"
+      (typeChange)="changeType($event)"
+    ></app-segmenttab>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="none" class="ion-no-padding">
+    <ion-searchbar
+      animated
+      debounce="500"
+      [placeholder]="'search'|translate"
+      [(ngModel)]="searchedText"
+      (ngModelChange)="getUserBySearch()"
+    ></ion-searchbar>
+  </ion-item>
+  <ion-spinner
+    class="spinner-center-page"
+    name="crescent"
+    *ngIf="loading"
+  ></ion-spinner>
+  <ion-list lines="full" *ngIf="!loading">
+    <ion-item detail="false" *ngFor="let item of showedUsers">
+      <user-minified-card
+        [user]="item.user"
+        [type]="'horizontal'"
+      ></user-minified-card>
+      <div class="d-flex" *ngIf="me._id!=item.user._id">
+        <ion-button
+          color="primary"
+          *ngIf="item.user['follow_state']=='mutual' || (user?._id==me._id && type==0)"
+          (click)="item.user['follow_state']=='mutual' ? followOperation(item):removeFollow(item)"
+          [disabled]="progress_user==item['_id']"
+        >
+          <span> {{"mutual" | translate}}</span>
+          <ion-spinner
+            class="spinner-center-page"
+            *ngIf="progress_user==item['_id'] && item.user['follow_state']=='mutual'"
+          ></ion-spinner>
+        </ion-button>
+        <ion-button
+          color="primary"
+          [attr.fill]="item.user['follow_state'] == 'unfollow' ? 'solid' : 'outline'"
+          *ngIf="item.user['follow_state'] == 'unfollow' || item.user['follow_state'] == 'follow' || item.user['follow_state'] == 'send_request'"
+          (click)="followOperation(item)"
+          [disabled]="progress_user==item['_id']"
+        >
+          <span> {{item.user['follow_state'] | translate}}</span>
+          <ion-spinner
+            class="spinner-center-page"
+            *ngIf="progress_user==item['_id']"
+          ></ion-spinner>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"group_info"|translate}}</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="updateGroup()">
+       
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="chatGroup as chat">
+    <ion-item class="edit_content">
+      <ion-avatar slot="start" class="group_image">
+        <img [src]="chatGroup.image ? chatGroup.image : user_img_empty" />
+        <upload-image
+          *ngIf="chatGroup.managers.includes(me._id)"
+          class="edit_image"
+          (change)="changeImage($event)"
+        ></upload-image>
+      </ion-avatar>
+      <ion-input
+        *ngIf="chatGroup.managers.includes(me._id)"
+        [(ngModel)]="chatGroup.name"
+      ></ion-input>
+      <ion-label *ngIf="!chatGroup.managers.includes(me._id)">
+        {{chatGroup.name}}
+      </ion-label>
+      <ion-icon (click)="updateGroup()"
+        *ngIf="!loading.name && chatGroup?.managers.includes(me._id)"
+        name="checkmark-outline" class="suffix-icon"
+      >
+      </ion-icon>
+      <ion-spinner class="suffix-icon" *ngIf="loading.name"></ion-spinner>
+    </ion-item>
+    <ion-list lines="full">
+      <ion-list-header class="ion-no-padding">
+        <ion-label
+          ><div>
+            {{"users" | translate}}
+            <ion-icon
+              *ngIf="chatGroup.managers.includes(me._id)"
+              (click)="addUsers()"
+              name="person-add-outline"
+            ></ion-icon></div
+        ></ion-label>
+      </ion-list-header>
+      <ng-container *ngFor="let user of users">
+        <ion-item class="ion-no-padding">
+          <user-minified-card
+            [user]="user"
+            [type]="'horizontal'"
+          ></user-minified-card>
+          <div (click)="showActions(user)" class="text_right">
+            <ion-label *ngIf="chatGroup.managers.includes(user._id)">
+              {{"manager"| translate}}
+            </ion-label>
+            <ion-icon
+              *ngIf="chatGroup.managers.includes(me._id)"
+              name="cog-outline"
+            ></ion-icon>
+          </div>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+  </div>
+</ion-content>
+<ion-footer class="ion-no-border" *ngIf="chatGroup as chat">
+  <ion-toolbar>
+    <ion-button class="button-delete" expand="full" (click)="deleteGroup()">
+      {{"leave-group" | translate }}</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>
