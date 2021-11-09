@@ -16,18 +16,18 @@ export class DataService {
     });
     return header;
   }
-  getExplorePosts(limit: number, user_id: string) {
+  getExplorePosts(limit: number) {
     return this.http.get(`${environment.api_url}/fn-execute/getExplorePosts`, {
       headers: this.setHeader(),
-      params: { limit, user_id },
+      params: { limit },
     });
   }
-  getTrendingPosts(skip: number, limit: number, user_id: string) {
-    return this.http.get(`${environment.api_url}/fn-execute/getTrendingPosts`, {
-      headers: this.setHeader(),
-      params: { skip, limit, user_id },
-    });
-  }
+  // getTrendingPosts(skip: number, limit: number, user_id: string) {
+  //   return this.http.get(`${environment.api_url}/fn-execute/getTrendingPosts`, {
+  //     headers: this.setHeader(),
+  //     params: { skip, limit, user_id },
+  //   });
+  // }
   getExploreUsers(skip: number, limit: number): Observable<User[]> {
     return this.http.get(`${environment.api_url}/fn-execute/getExploreUsers`, {
       headers: this.setHeader(),

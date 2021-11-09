@@ -10,6 +10,7 @@ import { ProfileEditPage } from './profile-edit.page';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient } from '@angular/common/http';
+import { ComponentsModule } from '../../components/components.module';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "../assets/i18n/", ".json");
 }
@@ -20,6 +21,7 @@ export function createTranslateLoader(http: HttpClient) {
     FormsModule,
     IonicModule,
     ProfileEditPageRoutingModule,
+    ComponentsModule,
     TranslateModule.forChild({
       loader: {
         provide: TranslateLoader,

@@ -1,0 +1,6 @@
+<div class="action-icon">
+  <div class="icon" [class.disabled]="disabled" (click)="iconClicked$()">
+    <ion-icon [name]="icon"></ion-icon>
+  </div>
+  <div (click)="numberClicked$()" class="count" *ngIf="count >= 0">{{count < 1000 ? count : (count/1000).toFixed(1) + "k"}}</div>
+</div>

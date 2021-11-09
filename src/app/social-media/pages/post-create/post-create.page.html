@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="close(false)">
+        <ion-icon slot="start" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title
+      >{{post?._id ? ("edit-post" | translate) : ("create-countdown" |
+      translate)}}</ion-title
+    >
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="post._id ? savePost():newPost()"
+        [disabled]="loading || !(post.text || post.file.url)"
+      >
+        <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-progress-bar
+    *ngIf="uploadingImage"
+    type="indeterminate"
+  ></ion-progress-bar>
+  <ion-list class="new">
+    <ion-item *ngIf="!post?.file?.url">
+      <ion-skeleton-text> </ion-skeleton-text>
+      <div class="on-center-image">
+        <upload-image (change)="userUploadedImage($event)"></upload-image>
+      </div>
+    </ion-item>
+    <ion-item *ngIf="post?.file?.url">
+      <div class="file-content">
+        <div class="file-side">
+          <img
+            *ngIf="post.file.mimetype.includes('image')"
+            [src]="post.file.url"
+          />
+          <video
+            height="300"
+            poster="assets/logotype-white.png"
+            controls
+            controlsList="nodownload"
+            playsinline
+            preload="metadata"
+            *ngIf="post.file.mimetype.includes('video')"
+          >
+            <source [src]="post.file.url" [type]="post.file.mimetype" />
+          </video>
+        </div>
+        <div class="actions-side">
+          <upload-image
+            (change)="userUploadedImage($event)"
+            [icon]="'refresh-outline'"
+          ></upload-image>
+          <ion-icon
+            class="deleteImage"
+            name="remove-circle-outline"
+            (click)="post.file.url=undefined"
+          ></ion-icon>
+        </div>
+      </div>
+    </ion-item>
+    <ion-item class="posttext">
+      <textarea
+        [(ngModel)]="post.text"
+        [placeholder]="'enter-more-information' | translate"
+        mention
+        (mentioned)="mentioning($event)"
+        (stopped)="searchedText = null"
+        [autofocus]="true"
+        (ngModelChange)="postTextChange()"
+      ></textarea>
+    </ion-item>
+  </ion-list>
+
+  <mentions
+    [searchedText]="searchedText"
+    (userSelected)="mentionUser($event)"
+    (tagSelected)="hashtagSelected($event)"
+    [isMinimized]="true"
+  >
+  </mentions>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

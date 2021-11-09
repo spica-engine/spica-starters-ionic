@@ -1,0 +1,62 @@
+:host {
+  background: var(--cd-background-color);
+  padding-top: 5px;
+  width: 100%;
+  .friend {
+    margin-bottom: 5px;
+    .tagged_user_groups {
+      display: flex;
+      ion-label {
+        padding-left: 10px;
+        h2 {
+          font-weight: bold;
+          font-size: 0.9rem;
+        }
+        span {
+          font-size: 0.7rem;
+          color: var(--cd-text-color);
+          opacity: 0.8;
+          span {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+  .tag {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+
+    .hashtag-circle {
+      width: 3.3rem;
+      height: 3.3rem;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+    }
+    .hashtag-content {
+      // margin-left: 15px;
+      span {
+        font-size: small;
+        color: var(--cd-text-color);
+        opacity: 0.6;
+      }
+      &.create-post {
+        display: flex !important;
+        align-items: center !important;
+        margin-left: 0 !important;
+        span {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  .nonResult {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+}

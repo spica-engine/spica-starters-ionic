@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"follow_requests" | translate | titlecase }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-refresher
+    slot="fixed"
+    pullFactor="0.5"
+    pullMin="100"
+    pullMax="200"
+    (ionRefresh)="doRefresh()"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item lines="none" class="ion-no-padding">
+    <ion-searchbar
+      animated
+      debounce="500"
+      [placeholder]="'search'|translate"
+      [(ngModel)]="searchedText"
+      (ngModelChange)="getUserBySearch()"
+    ></ion-searchbar>
+  </ion-item>
+  <ion-list lines="full">
+    <ion-item class="ion-no-padding" *ngFor="let item of showed_requests">
+      <user-minified-card
+        [user]="item['sender']"
+        [type]="'horizontal'"
+        [with_router]="true"
+      ></user-minified-card>
+      <div class="actions">
+        <div>
+          <ion-icon
+            (click)="acceptRequest(item)"
+            name="checkmark-outline"
+          ></ion-icon>
+        </div>
+        <span>|</span>
+        <div>
+          <ion-icon
+            (click)="deleteRequest(item)"
+            name="close-outline"
+          ></ion-icon>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

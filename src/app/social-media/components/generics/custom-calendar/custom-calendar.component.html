@@ -1,0 +1,22 @@
+
+<div class="calendar-header">
+  <ion-icon (click)="slidePre()" name="chevron-back-outline"></ion-icon>
+  <h6>{{ viewTitle }}</h6>
+  <ion-icon name="chevron-forward-outline" (click)="slideNext()"></ion-icon>
+  <!-- <div class="modes">
+    <span (click)="changeMode('month')"  [class.active]="calendar?.mode=='month'">M</span>
+    <span (click)="changeMode('week')" [class.active]="calendar?.mode=='week'">W</span>
+  </div> -->
+</div>
+<calendar
+  [eventSource]="eventSource"
+  [calendarMode]="calendar?.mode"
+  [currentDate]="calendar?.currentDate"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)"
+  [step]="calendar?.step"
+  [dateFormatter]="calendar?.dateFormatter"
+  [markDisabled]="markDisabled"
+>
+</calendar>
+<!-- (click)="changeMode('week')" -->

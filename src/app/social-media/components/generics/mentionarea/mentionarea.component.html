@@ -1,0 +1,42 @@
+<ng-container *ngFor="let item of lastTextArray; let i = index">
+  <span
+    *ngIf="item.state == 'tag'"
+    class="tag-word"
+    (click)="setRoute('profile', item.param)"
+    >{{ item.word }}</span
+  >
+  <span
+    *ngIf="item.state == 'tagged_group'"
+    class="tag-word"
+    (click)="
+      setRoute(
+        'profile/' + me?._id + '/settings/tagged-user-group/',
+        item.param
+      )
+    "
+    >{{ item.word }}</span
+  >
+  <span
+    *ngIf="item.state == 'hashtag'"
+    class="hashtag-word"
+    (click)="setRoute('discover', item.param)"
+    >{{ item.word }}</span
+  >
+  <span
+    *ngIf="item.state == 'link'"
+    class="hashtag-word link"
+    (click)="openExternalLink(item.word)"
+    >{{ item.word }}</span
+  >
+  <br *ngIf="item.word == '[**br**]'" />
+  <span *ngIf="item.word != '[**br**]' && item.state == 'none'">{{
+    item.word
+  }}</span>
+</ng-container>
+<span
+  class="no-padding"
+  *ngIf="text && text.length > maxCharacter && !clicked_more"
+  (click)="setMore()"
+>
+  ...{{ "show_more" | translate }}
+</span>

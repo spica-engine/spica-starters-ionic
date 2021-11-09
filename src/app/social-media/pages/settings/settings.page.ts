@@ -21,8 +21,7 @@ export class SettingsPage {
   visibilities = ['public', 'private'];
   expand_terms: boolean = false;
   user_lang: string;
-  dark_mode: boolean = false;
-  languages=["en", "tr", "ru"]
+  languages = ['en', 'tr', 'ru'];
 
   constructor(
     private _userService: UserService,
@@ -35,28 +34,13 @@ export class SettingsPage {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.dark_mode = localStorage.getItem('theme') == 'dark';
-  }
+  ngOnInit(): void {}
   async ionViewWillEnter() {
     this.me = await this._userService.getActiveUser().toPromise();
     this.user_lang = this.me.language;
   }
   async logOut() {
-    // const modal = await this.modalController.create({
-    //   component: ConfirmationModalComponent,
-    //   componentProps: {
-    //     title: 'sign-out',
-    //     body: 'sign-out-confirmation',
-    //   },
-    //   cssClass: 'confirmation-modal-background',
-    // });
-
-    // await modal.present();
-    // const { data } = await modal.onWillDismiss();
-    // if (data.verify) {
-    //   this.authService.logOut();
-    // }
+    this.authService.logOut();
   }
   async ionViewWillLeave() {
     await this._userService.updateProfile(this.me);
@@ -68,20 +52,8 @@ export class SettingsPage {
   }
 
   async deleteAccount() {
-    // const modal = await this.modalController.create({
-    //   component: ConfirmationModalComponent,
-    //   componentProps: {
-    //     title: 'account',
-    //     body: 'delete_account_info',
-    //   },
-    //   cssClass: 'confirmation-modal-background',
-    // });
-    // await modal.present();
-    // const { data } = await modal.onWillDismiss();
-    // if (data.verify) {
-    //   await this.authService.deleteAccont(this.me._id);
-    //   this.authService.logOut();
-    // }
+    await this.authService.deleteAccont(this.me._id);
+    this.authService.logOut();
   }
 
   async openAccountSheet() {
@@ -120,13 +92,13 @@ export class SettingsPage {
         {
           text: this.translateService.instant('terms'),
           handler: () => {
-            window.location.href = 'https://cloockie.com/terms';
+            window.open('https://cloockie.com/terms', 'blank');
           },
         },
         {
           text: this.translateService.instant('privacy'),
           handler: () => {
-            window.location.href = 'https://cloockie.com/privacy';
+            window.open('https://cloockie.com/privacy', 'blank');
           },
         },
         {

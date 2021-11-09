@@ -1,0 +1,9 @@
+<div class="tab-container">
+  <div
+    *ngFor="let item of segments; let i = index"
+    (click)="changeType(i)"
+    [class.active]="type == i"
+  >
+    {{ item | translate }}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div
+  *ngIf="user"
+  class="minified-card"
+  [class.horizontal]="type == 'horizontal'"
+  [class.vertical]="type == 'vertical'"
+>
+  <ion-avatar (click)="routeUser()">
+    <img [src]="user?.thumbnail ? user?.thumbnail : default_user_image" />
+  </ion-avatar>
+  <div class="metadata">
+    <div class="name" (click)="routeUser()">
+      {{ user?.username }}
+    </div>
+    <div
+      class="sub-info"
+      *ngIf="
+        followable &&
+        !isFollowing &&
+        me &&
+        me._id != user._id
+      "
+      (click)="followUser()"
+    >
+      {{ "follow" | translate }}
+    </div>
+  </div>
+</div>

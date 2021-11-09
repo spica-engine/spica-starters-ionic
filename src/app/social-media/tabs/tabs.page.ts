@@ -9,6 +9,8 @@ import { ActivityService } from '../services/activity.service';
 import { DataService } from '../services/data.service';
 import { TabsService } from './tabs.service';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tabs',
@@ -22,15 +24,13 @@ export class TabsPage implements OnInit {
   selectedTab: string = 'home';
   backDropImage: string;
   unreadMessages: number = 0;
-  unseenActivities: number = 0;
 
   constructor(
     private _userService: UserService,
-    private _platform: Platform,
     private _chatService: ChatService,
     private _activityService: ActivityService,
     private _tabsService: TabsService,
-    // private _translateService: TranslateService,
+    private _translateService: TranslateService,
     private _dataService: DataService,
     private _router: Router
   ) {
@@ -51,9 +51,9 @@ export class TabsPage implements OnInit {
             new Date().getTime() - 600 * 1000;
           this._chatService.initialize();
           this._activityService.initialize();
-          this._activityService
-            .getUnseenActivity()
-            .subscribe((data) => (this.unseenActivities = data));
+          this._translateService.setDefaultLang('en');
+          this._translateService.currentLang = 'en';
+
           await this._dataService
             .setOnline(
               'user',
@@ -78,25 +78,5 @@ export class TabsPage implements OnInit {
       }
       this._tabsService.selectedTab = this.selectedTab;
     });
-  }
-  async addNewCountdown() {
-    // if (!this.countdownModalPresented) {
-    //   this.countdownModalPresented = true;
-    //   const modal = await this.modalController.create({
-    //     component: PostCountdownPage,
-    //     swipeToClose: true,
-    //     componentProps: {
-    //       user: this.me,
-    //     },
-    //   });
-    //   await modal.present();
-    //   let refresh = await modal.onDidDismiss();
-    //   this.countdownModalPresented = false;
-    //   if (refresh.data.refresh) {
-    //     this.tabsService.$activeTab.next(
-    //       `${this.selectedTab}_${refresh.data.editpost._id}`
-    //     );
-    //   }
-    // }
   }
 }

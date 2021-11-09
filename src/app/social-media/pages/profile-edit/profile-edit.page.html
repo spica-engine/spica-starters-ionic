@@ -30,7 +30,7 @@
           [alt]="'profile-photo' | translate"
         />
         <div class="on-center-image" *ngIf="!loading.image_uploading_loading">
-          <!-- <upload-image (change)="userUploadedImage($event)"></upload-image> -->
+          <upload-image (change)="userUploadedImage($event)"></upload-image>
         </div>
       </div>
       <div class="input">

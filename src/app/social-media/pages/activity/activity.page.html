@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{"activity" | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-refresher
+    slot="fixed"
+    pullFactor="0.5"
+    pullMin="100"
+    pullMax="200"
+    (ionRefresh)="doRefresh()"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="requests" *ngIf="user_requests.length>0">
+    <div class="requests-users">
+      <div class="user" *ngFor="let user of user_requests |slice:0:3">
+        <img [src]="user.thumbnail || default_user_image" alt="" />
+      </div>
+      <div class="user with-count" *ngIf="user_requests.length>3">
+        <span>+{{user_requests.length-3}}</span>
+      </div>
+    </div>
+    <div class="action" [routerLink]="['waiting-requests']">
+      {{"follow_requests"|translate}}
+      <ion-icon
+        name="chevron-forward-outline"
+      ></ion-icon>
+    </div>
+  </div>
+  <ion-list *ngIf="activities.length > 0">
+    <p *ngIf="showNew">{{"new" | translate }}</p>
+    <ion-item
+      class="ion-no-padding"
+      lines="none"
+      *ngFor="let activity of activities"
+    >
+      <activity-card [activity]="activity"></activity-card>
+    </ion-item>
+  </ion-list>
+  <p *ngIf="activities.length == 0">{{"no-activity" | translate }}</p>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

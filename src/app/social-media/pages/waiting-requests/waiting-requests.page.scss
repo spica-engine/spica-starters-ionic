@@ -1,0 +1,21 @@
+:host {
+  ion-list {
+    ion-item{
+      padding: 3px 10px;
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      ion-icon {
+        font-size: 22px;
+        &.passive {
+          color: var(--ion-color-light-shade);
+        }
+      }
+      span {
+        margin: 0 10px;
+        color: var(--ion-color-light-shade);
+      }
+    }
+  }
+}

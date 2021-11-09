@@ -1,0 +1,38 @@
+<div class="activity-card">
+  <div class="metadata">
+    <ion-avatar [routerLink]="['profile', activity?.user['_id']]">
+      <img
+        [src]="
+          activity?.user['thumbnail']
+            ? activity?.user['thumbnail']
+            : default_user_image
+        "
+      />
+    </ion-avatar>
+    <div class="info">
+      <div class="sub-info">
+        <span [routerLink]="['profile', activity?.user['_id']]"
+          >{{ activity?.user["username"] }}
+        </span>
+        <span>{{ actionText }}</span>
+        <span *ngIf="activity['action'] == 'comment'"
+          >: {{ activity.metadata }}
+        </span>
+        <span class="activity-date"
+          >{{ activity.created_at | date: "shortDate" }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="action" *ngIf="activity['action'] != 'follow_user'">
+    <div
+      class="post"
+      *ngIf="activity?.post"
+      [class.post-text]="!activity?.post['image']"
+      [routerLink]="['post-detail', activity?.post['_id']]"
+    >
+      <img *ngIf="activity?.post['image']" [src]="activity?.post['image']" />
+      <span *ngIf="!activity?.post['image']">{{ activity?.post["text"] }}</span>
+    </div>
+  </div>
+</div>

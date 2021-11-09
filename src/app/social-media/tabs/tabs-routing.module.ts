@@ -11,17 +11,25 @@ const routes: Routes = [
       {
         path: '',
         redirectTo: 'home',
+        pathMatch: 'full',
       },
       {
         path: 'home',
         loadChildren: () =>
           import('../pages/home/home.module').then((m) => m.HomePageModule),
-       },
+      },
+      {
+        path: 'discover',
+        loadChildren: () =>
+          import('../pages/discover/discover.module').then(
+            (m) => m.DiscoverPageModule
+          ),
+      },
       {
         path: 'profile',
         loadChildren: () =>
-          import('../pages/profile/profile.module').then(
-            (m) => m.ProfilePageModule
+          import('../pages/social-profile/social-profile.module').then(
+            (m) => m.SocialProfilePageModule
           ),
       },
     ],

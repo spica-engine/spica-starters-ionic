@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-searchbar
+      [(ngModel)]="searchedText"
+      (ngModelChange)="getPostByHashTag($event)"
+      debounce="500"
+      [placeholder]="'search' | translate"
+    ></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="segments" *ngIf="showMentions">
+    <app-segmenttab
+      [segments]="['users','hashtags']"
+      [type]="showedSegment"
+      (typeChange)="segmentChanged($event)"
+    ></app-segmenttab>
+  </div>
+
+  <ion-refresher
+    slot="fixed"
+    pullFactor="0.5"
+    pullMin="100"
+    pullMax="200"
+    (ionRefresh)="doRefresh()"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-spinner
+    class="spinner-center-page"
+    name="crescent"
+    *ngIf="loading"
+  ></ion-spinner>
+  <mentions
+    [searchedText]="mentionText"
+    (userSelected)="goToUser($event)"
+    (tagSelected)="searchPostsWithTag($event)"
+    *ngIf="showMentions"
+  >
+  </mentions>
+  <div *ngIf="!hashtagId && !searchedText" class="posts">
+    <post-card
+      *ngFor="let post of posts;let index = index"
+      [post]="post"
+      (deletedPost)="deletedPost($event)"
+      (editedPost)="editedPost($event)"
+      [userFollowable]="true"
+      [class.discarded]="discarded_post==post._id"
+    >
+    </post-card>
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData()">
+      <ion-infinite-scroll-content loadingSpinner="bubbles">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
+  <div *ngIf="hashtagId && searchedText" class="posts">
+    <ng-container *ngFor="let post of posts">
+      <post-card
+        [post]="post"
+        (deletedPost)="deletedPost($event)"
+        (editedPost)="editedPost($event)"
+        (rePorted)="reportedPost($event)"
+        [userFollowable]="true"
+        [class.discarded]="discarded_post==post._id"
+      >
+      </post-card>
+    </ng-container>
+  </div>
+</ion-content>

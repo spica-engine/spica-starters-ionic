@@ -32,7 +32,6 @@ export class UserService {
   reportedPosts;
 
   constructor(
-    private _dataService: DataService,
     private _authService: AuthService
   ) {}
   getActiveUser(refresh: boolean = false): Observable<User> {
@@ -59,15 +58,15 @@ export class UserService {
         .then(() => this.getReportedPosts())
         .then(() => this.updateFollowerAndFollowings())
         .then(() => this.me);
-
+     
       this.$userRequest.then(
         (result) => {
           this.$userSubject.next(result);
         },
         (error) => {
           this.$userSubject.next(null);
-        }
-      );
+       }
+     );
     }
     return result || this.$userSubject;
   }
@@ -93,7 +92,7 @@ export class UserService {
     return this._authService.getIdentityId();
   }
 
-  updateProfilePhoto(photoUrl):Promise<User>{
+  updateProfilePhoto(photoUrl): Promise<User> {
     return user.patch({ _id: this.me._id, thumbnail: photoUrl });
   }
 
@@ -132,8 +131,11 @@ export class UserService {
   followUser(user: User) {
     return follow
       .insert({ following: user, follower: this.me._id as any })
-      .then((data) =>{ this.followingUsers.push(user); return data})
-      .then((data)=>data)
+      .then((data) => {
+        this.followingUsers.push(user);
+        return data;
+      })
+      .then((data) => data);
   }
 
   unFollowUser(followEntry: Follow) {
@@ -150,17 +152,17 @@ export class UserService {
       ? true
       : false;
   }
-  getWaitingRequest(user: User):Promise<Waiting_Request[]> {
+  getWaitingRequest(user: User): Promise<Waiting_Request[]> {
     let findedItem = this.sended_requests.filter(
       (item) => item.sender == this.me._id && item.reciever == user._id
     )[0];
     if (findedItem) return of([findedItem]).toPromise();
     return waiting_request
       .getAll({
-        queryParams: { filter: { sender: this.me._id, reciever: user } },
+        queryParams: { filter: { sender: this.me._id, reciever: user._id } },
       })
       .then((data) => (data[0] ? this.sended_requests.push(data[0]) : ''))
-      .then((data)=> data[0])
+      .then((data) => data[0]);
   }
   sendRequest(user: User) {
     return waiting_request.insert({
@@ -173,7 +175,7 @@ export class UserService {
   }
   getAllWaitingRequests() {
     return waiting_request.getAll({
-      queryParams: { filter: { reciever: this.me }, relation: 'sender' },
+      queryParams: { filter: { reciever: this.me._id }, relation: 'sender' },
     });
   }
   getAllSendedRequests() {
@@ -234,7 +236,7 @@ export class UserService {
   }
   checkBlockedMe(user) {
     return blocked_user.getAll({
-      queryParams: { filter: { blocked: this.me, blocking: user } },
+      queryParams: { filter: { blocked: this.me._id, blocking: user._id } },
     });
   }
 }
