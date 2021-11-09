@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-icon name="arrow-back-outline" (click)="dismiss('close')"></ion-icon>
     <span>Shipping Address</span>
@@ -9,13 +9,7 @@
   <div class="content">
     <ion-item lines="none">
       <ion-input placeholder="Address Title" [(ngModel)]="shippingData.title"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-input placeholder="Full Name" [(ngModel)]="shippingData.fullName"></ion-input>
-    </ion-item>   
-    <ion-item lines="none">
-      <ion-input placeholder="Phone Number" [(ngModel)]="shippingData.phone"></ion-input>
-    </ion-item>   
+    </ion-item>  
     <ion-item lines="none">
       <ion-input placeholder="Country" [(ngModel)]="shippingData.country"></ion-input>
     </ion-item>   
@@ -26,9 +20,8 @@
       <ion-input placeholder="Disctrict" [(ngModel)]="shippingData.district"></ion-input>
     </ion-item>   
     <ion-item lines="none">
-      <ion-textarea placeholder="Full Address" class="full-address" [(ngModel)]="shippingData.fullAddress"></ion-textarea>
+      <ion-textarea placeholder="Full Address" class="full-address" [(ngModel)]="shippingData.full_address"></ion-textarea>
     </ion-item>
     <ion-button (click)="dismiss('save_address')">Save Address</ion-button>
   </div>
-
 </ion-content>

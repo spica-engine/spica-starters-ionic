@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 import * as dataService from '../services/bucket';
 
 @Component({
@@ -8,58 +10,53 @@ import * as dataService from '../services/bucket';
 })
 export class FavoritePage implements OnInit {
   likedProducts: any = [];
+  likedDataId: string;
   isLoading: boolean = true;
+  user: dataService.E_Com_User;
 
-  constructor() {
-    dataService.initialize({ apikey: '5ks9718kiybw51i' });
+  constructor(private _authService: AuthService, private _router: Router) {
+    this._authService.initBucket();
   }
 
-  ngOnInit() {}
-
-  ionViewWillEnter() {
-    let likedData = localStorage.getItem('liked_products');
-
-    if (likedData) {
-      likedData = JSON.parse(likedData);
-
-      dataService.e_com_product
-        .getAll({
-          queryParams: {
-            filter: {
-              _id: { $in: likedData },
-            },
-          },
-        })
-        .then((res) => {
-          this.likedProducts = res;
-          this.likedProducts.forEach((el) => {
-            el['is_liked'] = true;
-          });
-          this.isLoading = false;
-        })
-        .catch((_) => (this.isLoading = false));
+  async ngOnInit() {
+    this.user = await this.getActiveUser();
+    if (this.user) {
+      await this.getLikedData();
     }
+    this.isLoading = false;
   }
 
-  likeChanged(value, id) {
-    let storageData = localStorage.getItem('liked_products');
+  async getActiveUser() {
+    return this._authService.getUser().toPromise();
+  }
 
-    if (storageData) {
-      let likedData = JSON.parse(storageData);
-
-      likedData.forEach((el) => {
-        if (el == id) {
-          likedData = likedData.filter((product) => {
-            return product !== id;
-          });
-        }
+  async getLikedData() {
+    return dataService.e_com_liked_product
+      .getAll({
+        queryParams: { filter: { user: this.user._id }, relation: true },
+      })
+      .then((res) => {
+        this.likedDataId = res[0]._id;
+        this.likedProducts = res[0].product;
+        this.likedProducts.forEach((el) => {
+          el['is_liked'] = true;
+        });
       });
+  }
 
-      localStorage.setItem('liked_products', JSON.stringify(likedData));
-
-      this.likedProducts = this.likedProducts.filter((el) => {
-        return el._id !== id;
-      });
+  likeChanged(id) {
+    if (!this._authService.getActiveToken()) {
+      this._router.navigate(['e-commerce/tabs/profile']);
+      return;
     }
+
+    this.likedProducts = this.likedProducts.filter((el) => {
+      return el._id !== id;
+    });
+
+    dataService.e_com_liked_product.patch({
+      product: this.likedProducts,
+      _id: this.likedDataId,
+    });
   }
 }

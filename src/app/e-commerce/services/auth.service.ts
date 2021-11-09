@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import * as identity from '@spica-devkit/identity';
-import * as Bucket from '@spica-devkit/bucket';
+import * as DataService from './bucket';
 import jwt_decode from 'jwt-decode';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-// import { DataService } from './data.service';
 import { HttpClient } from '@angular/common/http';
 
 import * as dataService from './bucket';
@@ -17,10 +16,7 @@ export class AuthService {
   activeUser: dataService.E_Com_User;
   activeToken: string;
 
-  constructor(
-    // private dataService: DataService,
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     dataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
@@ -28,10 +24,26 @@ export class AuthService {
     });
   }
 
+  initBucket() {
+    let tokenExpire = localStorage.getItem('spica_expire');
+    if (tokenExpire && new Date(tokenExpire) < new Date()) {
+      localStorage.clear();
+    }
+    if (localStorage.getItem('ecommerce_spica_token')) {
+      DataService.initialize({
+        identity: localStorage.getItem('ecommerce_spica_token'),
+      });
+    } else {
+      DataService.initialize({
+        apikey: environment.apikey,
+      });
+    }
+  }
+
   login(identifier, password) {
     return from(identity.login(identifier, password)).pipe(
       tap(async (token) => {
-        localStorage.setItem('spica_token', token);
+        localStorage.setItem('ecommerce_spica_token', token);
 
         let date = new Date();
         date.setDate(date.getDate() + 2); // 2 days later
@@ -43,8 +55,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('spica_token');
-    localStorage.removeItem('spica_expire');
+    localStorage.clear();
     return true;
   }
 
@@ -91,11 +102,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('spica_token') ? true : false;
+    return localStorage.getItem('ecommerce_spica_token') ? true : false;
   }
 
   getActiveToken(): any {
-    return this.tokenDecode(localStorage.getItem('spica_token'));
+    return this.tokenDecode(localStorage.getItem('ecommerce_spica_token'));
   }
 
   private tokenDecode(token) {
@@ -116,7 +127,6 @@ export class AuthService {
       ),
       map((users) => users[0]),
       tap((user) => (this.activeUser = user))
-      // tap(console.log)
     );
   }
 

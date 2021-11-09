@@ -11,15 +11,24 @@ export class SpicaFilterModalComponent implements OnInit {
   @Input() price_range: any = { lower: 0, upper: 0 };
   @Input() currency: string = 'USD';
   filter: any = [];
+  minMax = { lower: 0, upper: 0 };
 
   constructor(private modal: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.minMax = this.price_range;
+  }
 
   setFilter() {
     this.filter.push({ name: "price_range", value: this.price_range });
     this.modal.dismiss({
       filter: this.filter,
+    });
+  }
+
+  clearFilter(){
+    this.modal.dismiss({
+      action: 'clear_filter',
     });
   }
 

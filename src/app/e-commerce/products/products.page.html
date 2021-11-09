@@ -1,8 +1,7 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
     <ion-title>products</ion-title>
-    <ion-icon name="search" slot="end"></ion-icon>
   </ion-toolbar>
   <ion-toolbar>
     <ion-row>
@@ -20,12 +19,10 @@
 
 <ion-content>
   <ion-list class="products">
-    <!-- [routerLink]="['/e-commerce/products/product-detail/' + product._id]"  -->
     <spica-product-card
       *ngFor="let product of products"
       [data]="product"
       (likeChanged)="likeChanged($event, product._id )"
-      
     ></spica-product-card>
   </ion-list>
 </ion-content>

@@ -4,7 +4,7 @@
 
 export const environment = {
   apiUrl: "https://test-4061d.hq.spicaengine.com/api",
-  apikey: "5ks9718kiybw51i"
+  apikey: "1ffsye19kvl1f0qe"
 };
 
 /*

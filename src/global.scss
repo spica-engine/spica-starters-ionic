@@ -25,9 +25,6 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-html {
-}
-
 ion-button {
   --border-radius: 40px;
 }
@@ -50,44 +47,6 @@ ion-item {
 ion-button {
   --background-activated: none;
 }
-
-.spica-sort-modal-style {
-}
-.spica-card {
-  --background: var(
-    --ion-card-background,
-    var(--ion-item-background, var(--ion-background-color, #fff))
-  );
-  --color: var(
-    --ion-card-color,
-    var(--ion-item-color, var(--ion-color-step-550, #737373))
-  );
-  border-radius: 4px;
-  font-size: 14px;
-  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px,
-    rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
-  margin: 5px;
-  padding: 10px;
-  .spica-card-header {
-    width: 100%;
-  }
-  .spica-card-body {
-    width: 100%;
-    --padding-end: 0px;
-    --inner-padding-end: 0px;
-    img {
-      width: 100%;
-    }
-    ion-icon {
-      font-size: 20px;
-    }
-  }
-
-  .spica-card-footer {
-    width: 100%;
-  }
-}
-
 ion-spinner {
   &.spinner-center-page {
     position: fixed;

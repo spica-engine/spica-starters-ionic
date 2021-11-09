@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
     <div class="basket-container" slot="end" [routerLink]="['/e-commerce/tabs/basket']">
@@ -9,7 +9,7 @@
 </ion-header>
 <ng-container *ngIf="this.product">
   <ion-content>
-    <ion-slides pager="true" [options]="slideOpts">
+    <ion-slides pager="true" [options]="slideOpts" class="gallery-slide">
       <ion-slide *ngFor="let image of product.gallery">
         <img [src]="image" />
       </ion-slide>
@@ -20,29 +20,25 @@
         <ion-label>{{product.title}}</ion-label>
         <ion-label>{{product.sub_title}}</ion-label>
       </div>
-      <ion-icon [name]="product.is_liked ? 'heart' : 'heart-outline'" slot="end" (click)="likeChanged(!product.is_liked, product._id)"></ion-icon>
+      <ion-icon [name]="isLiked ? 'heart' : 'heart-outline'" slot="end" (click)="likeChanged(!isLiked, product._id); isLiked = !isLiked"></ion-icon>
     </ion-item>
 
     <ion-list class="attributes">
       <ion-item lines="none" *ngFor="let attribute of product.attribute">
         <ion-label>Select {{attribute['name']}}</ion-label>
-        <ion-select interface="popover">
+        <ion-select interface="popover" (ionChange)="seletAttribute(attribute['name'], $event.target['value'])">
           <ion-select-option *ngFor="let value of attribute['value']" [value]="value">{{value}}</ion-select-option>
         </ion-select>
       </ion-item>
     </ion-list>
-    <ion-item lines="none" class="cargo-info">
-      <ion-icon name="car"></ion-icon>
-      <ion-label>Estimated delivery date: 25-30 October</ion-label>
-    </ion-item>
-    
+
 
     <div class="divider"></div>
 
     <div class="details-container">
       <ion-label class="container-title">Product Details</ion-label>
-      <div [innerHTML]="product.description" class="description" [class.all-detail]="allDetail"></div>
-      <ion-button slot="end" (click)="allDetail = !allDetail">{{allDetail ? 'Less' : 'More'}}</ion-button>
+      <div #getHeight [innerHTML]="product.description" class="description" [class.all-detail]="allDetail"></div>
+      <ion-button *ngIf="getHeight.offsetHeight>99" slot="end" (click)="allDetail = !allDetail">{{allDetail ? 'Less' : 'More'}}</ion-button>
     </div>
 
     <div class="divider"></div>
@@ -63,7 +59,7 @@
         <ion-label class="normal-price">{{product.normal_price}} USD</ion-label>
         <ion-label class="discounted-price">{{product.discounted_price}} USD</ion-label>
       </div>
-      <ion-button slot="end" (click)="addToBasket(product._id)">Add To Basket</ion-button>
+      <ion-button slot="end" (click)="addToBasket()" [disabled]="disableAddToBasket">Add To Basket</ion-button>
     </ion-toolbar>
   </ion-footer>
 </ng-container>

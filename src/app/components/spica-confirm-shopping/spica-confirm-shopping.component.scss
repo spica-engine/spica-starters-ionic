@@ -93,6 +93,16 @@
           margin-right: 5px;
         }
       }
+
+      ion-list {
+        margin-top: 15px;
+        ion-radio-group {
+          ion-radio {
+            margin: 0;
+            margin-right: 10px;
+          }
+        }
+      }
     }
   }
 

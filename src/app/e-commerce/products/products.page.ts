@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as dataService from '../services/bucket';
 import { ModalController } from '@ionic/angular';
 import { SpicaSortModalComponent } from '../../components/spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
-import { StorageService } from '../services/storage.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-products',
@@ -13,27 +13,36 @@ import { StorageService } from '../services/storage.service';
 })
 export class ProductsPage implements OnInit {
   products: dataService.E_Com_Product[] = [];
-  filter: any = {};
+  filter: any = { is_available: true };
   sort: any = {};
-  likedProducts: dataService.E_Com_Liked_Product[] = [];
   promotionId: string;
+  user: any;
+  likedProducts: string[] = [];
+  likedDataId: string;
 
   constructor(
-    private route: ActivatedRoute,
-    public modalController: ModalController,
-    private storageService: StorageService
+    private _route: ActivatedRoute,
+    private _modalController: ModalController,
+    private _authService: AuthService,
+    private _router: Router
   ) {
-    dataService.initialize({ apikey: '5ks9718kiybw51i' });
+    this._authService.initBucket();
   }
 
-  ngOnInit() {
-    this.promotionId = this.route.snapshot.params.promotionId;
+  async ngOnInit() {
+    this.promotionId = this._route.snapshot.params.promotionId;
 
-    this.route.queryParams.subscribe((res) => {
+    this._route.queryParams.subscribe((res) => {
       if (res.cat_id) {
         this.filter['category'] = res.cat_id;
       }
     });
+
+    this.user = await this.getActiveUser();
+
+    if (this.user) {
+      await this.getLikedData();
+    }
 
     this.getData();
   }
@@ -54,8 +63,6 @@ export class ProductsPage implements OnInit {
         })
         .then((res) => {
           this.products = res;
-          this.likedProducts =
-            this.storageService.getLocalStorageParsedData('liked_products');
 
           if (this.likedProducts.length) {
             this.likedProducts.forEach((id) => {
@@ -70,20 +77,23 @@ export class ProductsPage implements OnInit {
     }
   }
 
-  ionViewWillEnter() {
-    // let likedData = localStorage.getItem('liked_products');
-    // if (likedData) {
-    //   this.likedProducts = JSON.parse(likedData);
-    //   this.likedProducts.forEach((id) => {
-    //     this.products.map(el => {
-    //       console.log("MAP", el)
-    //       if(el._id == id){
-    //         console.log("IF", el)
-    //         return el['is_liked'] = true;
-    //       }
-    //     })
-    //   });
-    // }
+  async getActiveUser() {
+    return this._authService.getUser().toPromise();
+  }
+
+  async getLikedData() {
+    await dataService.e_com_liked_product
+      .getAll({
+        queryParams: { filter: { user: this.user._id }, relation: true },
+      })
+      .then((res) => {
+        this.likedDataId = res[0]._id;
+        if (res[0].product.length) {
+          this.likedProducts = res[0].product.map((el) => {
+            return el['_id'];
+          });
+        }
+      });
   }
 
   ionViewWillLeave() {
@@ -91,7 +101,7 @@ export class ProductsPage implements OnInit {
   }
 
   async presentSortModal() {
-    const sortModal = await this.modalController.create({
+    const sortModal = await this._modalController.create({
       component: SpicaSortModalComponent,
       cssClass: 'spica-sort-modal-style',
       swipeToClose: true,
@@ -131,7 +141,7 @@ export class ProductsPage implements OnInit {
   async presentFilterModal() {
     const attributes = await this.getAttributes();
 
-    const filterModal = await this.modalController.create({
+    const filterModal = await this._modalController.create({
       component: SpicaFilterModalComponent,
       cssClass: 'spica-filter-modal-style',
       swipeToClose: true,
@@ -143,24 +153,42 @@ export class ProductsPage implements OnInit {
     });
 
     filterModal.onWillDismiss().then((res) => {
-      if (!res.data || !res.data.filter.length) {
+      if (!res.data) {
         return;
       }
 
-      res.data.filter.forEach((el) => {
-        if (el.name == 'price_range') {
-        } else {
-          this.filter[el.name] = { $in: el.value };
-        }
-      });
+      if (res.data.filter?.length) {
+        res.data.filter.forEach((el) => {
+          if (el.name == 'price_range') {
+            console.log(el);
+            this.filter['discounted_price'] = {
+              $gte: el.value.lower,
+              $lte: el.value.upper,
+            };
+          } else {
+            this.filter[el.name] = { $in: el.value };
+          }
+        });
+      }
+
+      if (res.data.action == 'clear_filter' && attributes.length) {
+        attributes.forEach((el) => {
+          delete this.filter[el.name];
+        });
+        delete this.filter['discounted_price'];
+      }
+
+      this.getData();
     });
 
     return await filterModal.present();
   }
 
   likeChanged(value, id) {
-    this.likedProducts =
-      this.storageService.getLocalStorageParsedData('liked_products');
+    if (!this._authService.getActiveToken()) {
+      this._router.navigate(['e-commerce/tabs/profile']);
+      return;
+    }
 
     if (value) {
       this.likedProducts.push(id);
@@ -174,10 +202,21 @@ export class ProductsPage implements OnInit {
       });
     }
 
-    this.storageService.setLocalStorageStringifyData(
-      'liked_products',
-      this.likedProducts
-    );
+    if (this.likedDataId) {
+      dataService.e_com_liked_product.patch({
+        product: this.likedProducts,
+        _id: this.likedDataId,
+      });
+    } else {
+      dataService.e_com_liked_product
+        .insert({
+          product: this.likedProducts,
+          user: this.user._id,
+        })
+        .then((res) => {
+          this.likedDataId = res._id;
+        });
+    }
   }
 
   async getAttributes() {

@@ -29,8 +29,8 @@
   }
 
   ion-content {
-    ion-slides {
-      height: 300px;
+    .gallery-slide {
+      height: 100vw;
     }
     .title-container {
       display: flex;
@@ -50,21 +50,6 @@
 
     .attributes {
       padding: 10px;
-
-      //     .color-box{
-      //       width: 10px;
-      //       height: 10px;
-      //       border-radius: 5px;
-      //       --background: red;
-      //     }
-    }
-
-    .cargo-info {
-      padding: 0 10px;
-
-      ion-label {
-        margin-left: 5px;
-      }
     }
 
     .divider {
@@ -77,11 +62,13 @@
       padding: 10px;
 
       .description {
-        height: 100px;
+        height: fit-content;
+        max-height: 100px;
         overflow: hidden;
         margin-top: 10px;
 
         &.all-detail {
+          max-height: fit-content;
           height: fit-content;
         }
       }
@@ -101,13 +88,21 @@
       padding: 10px;
       margin-bottom: 10px;
 
+      ion-slide {
+        min-width: calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+        margin: 10px;
+      }
+
       spica-product-card {
         margin: 5px;
+        max-width: 100% !important;
 
         ::ng-deep {
           ion-item {
             img {
               max-height: calc(100vw * 0.55) !important;
+              height: calc(100vw * 0.55) !important;
             }
           }
         }
