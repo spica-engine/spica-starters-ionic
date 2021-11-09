@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+
+    <ion-title>list</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="artist">
+  <div class="metadata">
+    <music-part-item [data]="artist"></music-part-item>
+    <div class="info">
+      <ion-text>Prepared for <span>idriska</span></ion-text>
+      <ion-text>7.416 like</ion-text>
+    </div>
+  </div>
+
+  <div class="list">
+    <music-list-item
+      [track]="track"
+      *ngFor="let track of artist.uploaded_Trackss"
+      (clicked)="setTrack(track)"
+    ></music-list-item>
+  </div>
+</ion-content>

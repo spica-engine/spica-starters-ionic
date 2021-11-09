@@ -1,0 +1,57 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <div class="logo">
+        <ion-icon name="logo-ionic"></ion-icon>
+        Music Streaming
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="user">
+  <div class="part-container">
+    <ion-text class="part-title">To Get You Started</ion-text>
+
+    <ion-slides [options]="slideOpts">
+      <ion-slide
+        *ngFor="let folowing of user.followings; let index = index"
+        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        [class.first]="index==0"
+      >
+        <music-part-item [data]="folowing"></music-part-item>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="part-container">
+    <ion-text class="part-title">Try Something Different</ion-text>
+
+    <ion-slides [options]="slideOpts">
+      <ion-slide
+        *ngFor="let folowing of user.followings let index = index"
+        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        [class.first]="index==0"
+      >
+        <music-part-item [data]="folowing"></music-part-item>
+      </ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="part-container last recommended">
+    <ion-text class="part-title">Recommended Artists</ion-text>
+
+    <ion-slides [options]="slideOpts">
+      <ion-slide
+        *ngFor="let folowing of user.followings let index = index"
+        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        [class.first]="index==0"
+      >
+        <div class="part-item">
+          <img [src]="folowing['profile_pictures'][0]" />
+        </div>
+        <ion-text>{{folowing['name']}}</ion-text>
+      </ion-slide>
+    </ion-slides>
+  </div>
+</ion-content>

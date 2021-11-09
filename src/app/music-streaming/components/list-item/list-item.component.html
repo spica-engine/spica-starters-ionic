@@ -1,0 +1,12 @@
+<ion-item lines="none">
+  <ion-avatar slot="start" (click)="contentClicked()">
+    <img [src]="track.cover">
+  </ion-avatar>
+  <ion-label class="track-info" (click)="contentClicked()">
+    <ion-text class="track-name">{{track.name}}</ion-text>
+    <ion-text class="atrist">{{track.artist.name}}</ion-text>
+  </ion-label>
+  <ion-label slot="end">
+    <ion-icon name="ellipsis-vertical"></ion-icon>
+  </ion-label>
+</ion-item>

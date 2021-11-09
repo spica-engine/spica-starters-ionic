@@ -1,0 +1,87 @@
+:host {
+  ion-toolbar {
+    ion-icon {
+      font-size: 26px;
+      padding: 0 20px;
+    }
+  }
+
+  ion-content {
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100vw;
+      height: calc(100vh - 44px);
+      padding: 25px;
+
+      ion-item {
+        --inner-padding-end: 0;
+      }
+
+      .track-info {
+        color: gray;
+        ion-label {
+          display: flex;
+          flex-direction: column;
+
+          .track-name {
+            color: black;
+            font-size: 22px;
+            font-weight: 500;
+          }
+          .atrist {
+            font-size: 16px;
+          }
+          ion-icon {
+            font-size: 26px;
+          }
+        }
+      }
+
+      .track-line {
+        ion-range {
+          --knob-size: 10px;
+          padding: 0 3px;
+          height: 30px;
+        }
+        .track-duration {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+
+          ion-text {
+            color: gray;
+            font-size: 12px;
+          }
+        }
+      }
+
+      .track-control {
+        margin: 20px 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .type-3 {
+          font-size: 70px;
+        }
+
+        .type-2 {
+          font-size: 40px;
+        }
+
+        .type-1 {
+          font-size: 25px;
+          padding: 5px;
+
+          &.active {
+            border-radius: 12px;
+            background: #e3e3e3;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<ion-item lines="none">
+  <ion-avatar slot="start" (click)="contentClicked()">
+    <img [src]="data.cover" />
+  </ion-avatar>
+  <ion-label (click)="contentClicked()">{{ data.name }}</ion-label>
+  <ion-label slot="end">
+    <ion-icon
+      [name]="isLiked ? 'heart' : 'heart-outline'"
+      (click)="likeClicked()"
+    ></ion-icon>
+    <ion-icon
+      [name]="paused ? 'play' : 'pause'"
+      (click)="playClicked()"
+    ></ion-icon>
+  </ion-label>
+  <!-- <div class="track-line-container">
+    <div class="track-line"></div>
+  </div> -->
+</ion-item>

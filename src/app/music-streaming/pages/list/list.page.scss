@@ -1,0 +1,36 @@
+:host {
+  .metadata {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+
+    ::ng-deep {
+      .part-item {
+        width: calc(100vw * 0.6) !important;
+        height: calc(100vw * 0.6) !important;
+        box-shadow: 0px 0px 12px 2px rgb(80, 80, 80) !important;
+      }
+    }
+
+    .info {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-top: 5px;
+      padding: 15px;
+
+      ion-text {
+        margin-bottom: 5px;
+        span{
+            font-weight: 700;
+        }
+      }
+    }
+  }
+
+  .list {
+    margin-bottom: 70px;
+  }
+}

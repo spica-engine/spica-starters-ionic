@@ -5,17 +5,19 @@ import jwt_decode from 'jwt-decode';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+
+import * as dataService from './bucket';
 import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  activeUser: DataService.E_Com_User;
+  activeUser: dataService.User;
   activeToken: string;
 
   constructor(private http: HttpClient) {
-    DataService.initialize({ apikey: environment.apikey });
+    dataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
       apikey: environment.apikey,
@@ -27,9 +29,9 @@ export class AuthService {
     if (tokenExpire && new Date(tokenExpire) < new Date()) {
       localStorage.clear();
     }
-    if (localStorage.getItem('ecommerce_spica_token')) {
+    if (localStorage.getItem('music-streaming_spica_token')) {
       DataService.initialize({
-        identity: localStorage.getItem('ecommerce_spica_token'),
+        identity: localStorage.getItem('music-streaming_spica_token'),
       });
     } else {
       DataService.initialize({
@@ -41,7 +43,7 @@ export class AuthService {
   login(identifier, password) {
     return from(identity.login(identifier, password)).pipe(
       tap(async (token) => {
-        localStorage.setItem('ecommerce_spica_token', token);
+        localStorage.setItem('music-streaming_spica_token', token);
 
         let date = new Date();
         date.setDate(date.getDate() + 2); // 2 days later
@@ -100,11 +102,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('ecommerce_spica_token') ? true : false;
+    return localStorage.getItem('music-streaming_spica_token') ? true : false;
   }
 
   getActiveToken(): any {
-    return this.tokenDecode(localStorage.getItem('ecommerce_spica_token'));
+    return this.tokenDecode(localStorage.getItem('music-streaming_spica_token'));
   }
 
   private tokenDecode(token) {
@@ -113,12 +115,12 @@ export class AuthService {
   }
 
   //Gets user info after taking token stored in local storage
-  getUser(clean: boolean = false): Observable<DataService.E_Com_User> {
+  getUser(clean: boolean = false): Observable<dataService.User> {
     if (this.activeUser && !clean) return of(this.activeUser);
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? DataService.e_com_user.getAll({
+          ? dataService.user.getAll({
               queryParams: { filter: { identity_id: token._id } },
             })
           : of([null])

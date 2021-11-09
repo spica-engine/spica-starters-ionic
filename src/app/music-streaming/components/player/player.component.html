@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-icon name="chevron-down" slot="start" (click)="hide()"></ion-icon>
+    <ion-title>Mix</ion-title>
+    <ion-icon name="menu" slot="end" (click)="goToList()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <img
+      [src]="track.cover"
+    />
+
+    <div class="player">
+      <ion-item lines="none" class="track-info">
+        <ion-label>
+          <ion-text class="track-name">{{track.name}}</ion-text>
+          <ion-text class="atrist">Atrist</ion-text>
+        </ion-label>
+        <ion-label slot="end">
+          <ion-icon name="heart-outline"></ion-icon>
+        </ion-label>
+      </ion-item>
+     
+      <div class="track-line">
+        <ion-range 
+          [min]="0"
+          [max]="audioService.duration()"
+          [value]="currentTime"
+          (ionChange)="setTime($event.target['value'])"     
+        ></ion-range>
+        <div class="track-duration">
+          <ion-text>{{currentTime | durationFormat}}</ion-text>
+          <ion-text>{{audioService.duration() || 0 | durationFormat}}</ion-text>
+        </div>
+      </div>
+
+      <div class="track-control">
+        <ion-icon name="shuffle" [class.active]="isShuffle" class="type-1" (click)="action('shuffle')"></ion-icon>
+        <ion-icon name="play-skip-back" class="type-2" (click)="action('prev')"></ion-icon>
+        <ion-icon [name]="audioService.paused() ? 'play-circle' : 'pause-circle' " class="type-3" (click)="action('play')"></ion-icon>
+        <ion-icon name="play-skip-forward" class="type-2" (click)="action('next')"></ion-icon>
+        <ion-icon name="sync" class="type-1"></ion-icon>
+      </div>
+
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,4 @@
+<ion-content>
+  <h3>Search</h3>
+  <ion-searchbar mode="ios" [debounce]="800" (ionChange)="search($event.target['value'])" [(ngModel)]="searchTerm"></ion-searchbar>
+</ion-content>

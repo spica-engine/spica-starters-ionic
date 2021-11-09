@@ -23,6 +23,10 @@ const routes: Routes = [
     path: 'social-media',
     loadChildren: () => import('./social-media/app.module').then( m => m.SocialMediaModule)
   },
+  {
+    path: 'music-streaming',
+    loadChildren: () => import('./music-streaming/app.module').then( m => m.MusicStreamingModule)
+  },
  ];
 
 @NgModule({
