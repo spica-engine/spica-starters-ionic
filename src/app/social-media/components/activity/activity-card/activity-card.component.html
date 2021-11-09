@@ -29,7 +29,6 @@
       class="post"
       *ngIf="activity?.post"
       [class.post-text]="!activity?.post['image']"
-      [routerLink]="['post-detail', activity?.post['_id']]"
     >
       <img *ngIf="activity?.post['image']" [src]="activity?.post['image']" />
       <span *ngIf="!activity?.post['image']">{{ activity?.post["text"] }}</span>

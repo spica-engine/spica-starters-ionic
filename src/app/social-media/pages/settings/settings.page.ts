@@ -51,21 +51,10 @@ export class SettingsPage {
     this.translateService.currentLang = this.me.language;
   }
 
-  async deleteAccount() {
-    await this.authService.deleteAccont(this.me._id);
-    this.authService.logOut();
-  }
-
   async openAccountSheet() {
     const actionSheet = await this.actionSheetCtrl.create({
       cssClass: 'my-custom-class',
       buttons: [
-        {
-          text: this.translateService.instant('delete_account'),
-          handler: () => {
-            this.deleteAccount();
-          },
-        },
         {
           text: this.translateService.instant('blocked_users'),
           handler: () => {
@@ -92,13 +81,13 @@ export class SettingsPage {
         {
           text: this.translateService.instant('terms'),
           handler: () => {
-            window.open('https://cloockie.com/terms', 'blank');
+            window.open('https://google.com', 'blank');
           },
         },
         {
           text: this.translateService.instant('privacy'),
           handler: () => {
-            window.open('https://cloockie.com/privacy', 'blank');
+            window.open('https://google.com', 'blank');
           },
         },
         {

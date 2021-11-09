@@ -68,14 +68,15 @@ export class HomePage implements OnInit {
       .subscribe(async (data) => {
         if (data && !this.me) {
           this.me = data;
-          let followers: any = await this.getUserFollowing();
-          this.user_followers = followers.map(
-            (item) => (item = item.following)
-          );
-          this.user_followers.push(this.me._id);
+          await this.setFollowers();
           this.getPosts();
         }
       });
+  }
+  async setFollowers() {
+    let followers: any = await this.getUserFollowing();
+    this.user_followers = followers.map((item) => (item = item.following));
+    this.user_followers.push(this.me._id);
   }
   getUserFollowing() {
     return follow.getAll({
@@ -133,9 +134,11 @@ export class HomePage implements OnInit {
     }
   }
   async doRefresh() {
+    this.posts = [];
+    await this.setFollowers();
     this.setInitialSettings();
     this.loading = false;
-    await this.getPosts();
+    this.getPosts();
   }
   reportedPost(post) {
     this.discarded_post = post._id;

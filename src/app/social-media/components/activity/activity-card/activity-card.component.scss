@@ -10,11 +10,18 @@
       align-items: center;
       ion-avatar {
         min-width: 48px;
+        width: 48px;
+        height: 48px;
       }
 
       .info {
         margin: 0 10px;
         .sub-info {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
           :first-child {
             font-weight: bold;
           }

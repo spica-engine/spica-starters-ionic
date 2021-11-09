@@ -31,10 +31,8 @@ export class ProfileEditPage {
     if (user_id == 'add') {
       this.me = {
         identity: this.userService.me.identity,
-        fcm_token: this.userService.me.fcm_token,
         last_online_date: this.userService.me.last_online_date,
         language: this.userService.me.language,
-        timezone: this.userService.me.timezone,
         notification: this.userService.me.notification,
         visibility: 'public',
         username: '',

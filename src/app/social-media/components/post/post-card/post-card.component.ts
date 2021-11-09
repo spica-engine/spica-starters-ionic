@@ -69,7 +69,6 @@ export class PostCardComponent implements OnInit {
   user: User;
   loading: boolean = false;
   follow_disabled: boolean = false;
-  show_event_date: boolean = false;
   fullScreenImage: string;
   default_user_image = environment.user_img;
 

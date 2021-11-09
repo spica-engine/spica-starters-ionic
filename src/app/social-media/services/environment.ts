@@ -6,6 +6,7 @@ export const environment = {
   project_id: "asset-playground-05dae",
   api_url: "https://asset-playground-05dae.hq.spicaengine.com/api",
   storage_read_apikey:"fskk1akvjfwnb1",
+  identity_read_apikey: "1dsp51bkvs0vuva",
   production: false,
   webURL: "",
   user_img:

@@ -82,7 +82,6 @@ export class MinifiedCardComponent implements OnInit {
     }
   }
   routeUser() {
-    console.log("iuser :",this.user)
     this.onRoute.emit(this.user);
     if (this.with_router) {
       this.router.navigate(["profile", this.user._id], {

@@ -1,42 +1,40 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { tap } from "rxjs/operators";
-import jwt_decode from "jwt-decode";
-import { Platform } from "@ionic/angular";
-import { DataService } from "./data.service";
-import { environment } from "./environment";
+import { Injectable } from '@angular/core';
+import { tap } from 'rxjs/operators';
+import jwt_decode from 'jwt-decode';
+import { Platform } from '@ionic/angular';
+import { DataService } from './data.service';
+import * as identity from '@spica-devkit/identity';
+import { environment } from './environment';
+import { from } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    public platform: Platform,
-    private dataService: DataService
-  ) {}
-
-  login(userObj: Object) {
-    return this.http
-      .post(`${environment.api_url}fn-execute/login`, {
-        user: userObj,
-      })
-      .pipe(
-        tap((res) => {
-          if (res && res["socialmedia_spica_token"]) {
-            localStorage.setItem("socialmedia_spica_token", res["socialmedia_spica_token"]);
-          } else {
-            return;
-          }
-        })
-      );
+  constructor(public platform: Platform, private _dataService: DataService) {
+    identity.initialize({
+      publicUrl: environment.api_url,
+      apikey: environment.identity_read_apikey,
+    });
   }
-  async deleteAccont(user_id) {
-    await this.dataService.deleteAccount(user_id).toPromise();
+  login(identifier, password) {
+    return from(identity.login(identifier, password)).pipe(
+      tap((token) => {
+        if (token) {
+          localStorage.setItem('socialmedia_spica_token', token);
+          let date = new Date();
+          date.setDate(date.getDate() + 2); // 2 days later
+          localStorage.setItem('socialmedia_spica_expire', String(date));
+        } else return;
+      })
+    );
+  }
+  register(user_data) {
+    return this._dataService.register(user_data)
   }
 
   getToken() {
-    return localStorage.getItem("socialmedia_spica_token");
+    return localStorage.getItem('socialmedia_spica_token');
   }
 
   getDecodeToken() {
@@ -44,7 +42,7 @@ export class AuthService {
     try {
       decoded = jwt_decode(this.getToken());
     } catch (error) {
-      console.log("Jwt error ", error);
+      console.log('Jwt error ', error);
     }
     return decoded;
   }
@@ -55,6 +53,6 @@ export class AuthService {
 
   logOut() {
     localStorage.clear();
-    window.location.href = "/";
+    window.location.href = '/';
   }
 }

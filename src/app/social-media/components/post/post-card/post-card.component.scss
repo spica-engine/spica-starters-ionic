@@ -1,5 +1,6 @@
 :host {
   display: flex;
+  width: 100%;
   ion-card {
     padding: 3px 0px;
     background: var(--cd-component-background-color);
@@ -21,8 +22,7 @@
     .image-container {
       position: relative;
       img,
-      video
-       {
+      video {
         width: calc(100% - 20px);
         margin: 10px;
         z-index: 2;
@@ -30,7 +30,7 @@
         border-radius: 5px;
         margin-top: 0px;
       }
-     
+
       video {
         height: auto !important;
         max-height: 400px;
@@ -43,7 +43,7 @@
         opacity: 0;
         transition: opacity 0.4s ease-out;
       }
-      img.opaque{
+      img.opaque {
         opacity: 1;
       }
     }
@@ -55,7 +55,7 @@
       + .created-at {
         margin-top: 35px;
       }
-      + .commented{
+      + .commented {
         margin-top: 40px;
       }
     }
@@ -68,10 +68,6 @@
       width: 100%;
       text-align: center;
       align-items: center;
-      > *:not(.countdown-container) {
-        flex-basis: 40%;
-        padding-bottom: 10px;
-      }
       > div:last-of-type {
         action-icon {
           float: right;

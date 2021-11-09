@@ -1,0 +1,54 @@
+<div class="auth-container">
+  <div class="nav-container">
+    <ion-label [class.active]="screen == 'login'" (click)="screen = 'login'"
+      >Login</ion-label
+    >
+    <ion-label
+      [class.active]="screen == 'register'"
+      (click)="screen = 'register'"
+      >Register</ion-label
+    >
+  </div>
+
+  <div class="form-container" *ngIf="screen == 'login'" [formGroup]="loginForm">
+    <ion-input
+      placeholder="E-Mail"
+      id="email"
+      formControlName="email"
+      required
+    ></ion-input>
+    <ion-input
+      placeholder="Password"
+      type="password"
+      id="password"
+      formControlName="password"
+      required
+    >
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-input>
+    <p><span>Forgot password?</span></p>
+    <ion-button (click)="login()" [disabled]="">Login</ion-button>
+  </div>
+
+  <div
+    class="form-container"
+    *ngIf="screen == 'register'"
+    [formGroup]="loginForm"
+  >
+    <ion-input placeholder="Name" formControlName="name"></ion-input>
+    <ion-input placeholder="Surname" formControlName="surname"></ion-input>
+    <ion-input placeholder="E-Mail" formControlName="email"></ion-input>
+    <ion-input
+      placeholder="Password"
+      type="password"
+      formControlName="password"
+    >
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-input>
+    <ion-item lines="none" class="agreement">
+      <ion-checkbox formControlName="termsOfUse"></ion-checkbox>
+      <ion-label>I accept the user agreement</ion-label>
+    </ion-item>
+    <ion-button (click)="register()">Register</ion-button>
+  </div>
+</div>

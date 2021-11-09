@@ -53,9 +53,8 @@ export class PostService {
     return this._dataService.getExplorePosts(limit).pipe(
       switchMap((data: any) => {
         return this.getPosts({
-          relation: ['post.user', 'post.tags', 'post.hashtags'],
           filter: { _id: { $in: data.posts.map((item) => item._id) } },
-          sort: { event_date: 1 },
+          sort: { _id: -1 },
         });
       })
     );

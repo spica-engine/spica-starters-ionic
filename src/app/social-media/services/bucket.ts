@@ -140,12 +140,10 @@ export interface User{
   email?: string;
   name?: string;
   surname?: string;
-  fcm_token?: string;
   headline?: string;
   last_online_date?: Date | string;
   language?: any ;
   notification?: boolean;
-  timezone?: number;
   visibility?: ('public'|'private');
   created_at?: Date | string;
 }

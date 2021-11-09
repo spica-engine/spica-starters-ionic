@@ -4,19 +4,24 @@
     text-align: center;
     font-size: smaller;
   }
-  .chats-content{
+  .chats-content {
     display: flex;
     flex-direction: column;
     height: 100%;
-    ion-list{
+    ion-list {
       overflow: auto;
       flex: 1;
-      ion-item{
-        touch-action: pan-y !important;  
+      ion-item {
+        touch-action: pan-y !important;
       }
     }
   }
   .chat-group {
+    ion-avatar {
+      width: 48px;
+      height: 48px;
+      margin-right: 10px;
+    }
     .chat-header {
       display: flex;
       width: 100%;

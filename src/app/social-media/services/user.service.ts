@@ -12,8 +12,8 @@ import {
   follow,
   blocked_user,
   reported_post,
+  initialize,
 } from '../services/bucket';
-import { DataService } from './data.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -31,9 +31,9 @@ export class UserService {
   blockedUsers: Blocked_User[];
   reportedPosts;
 
-  constructor(
-    private _authService: AuthService
-  ) {}
+  constructor(private _authService: AuthService) {
+    this.initializeOrm();
+  }
   getActiveUser(refresh: boolean = false): Observable<User> {
     let result;
     let identity_id = this.getIdentityId();
@@ -43,6 +43,7 @@ export class UserService {
 
     if (refresh || !this.$userRequest) {
       this.$userRequest = undefined;
+      this.initializeOrm();
       this.$userRequest = user
         .getAll({
           queryParams: {
@@ -58,15 +59,15 @@ export class UserService {
         .then(() => this.getReportedPosts())
         .then(() => this.updateFollowerAndFollowings())
         .then(() => this.me);
-     
+
       this.$userRequest.then(
         (result) => {
           this.$userSubject.next(result);
         },
         (error) => {
           this.$userSubject.next(null);
-       }
-     );
+        }
+      );
     }
     return result || this.$userSubject;
   }
@@ -166,8 +167,8 @@ export class UserService {
   }
   sendRequest(user: User) {
     return waiting_request.insert({
-      sender: this.me as any,
-      reciever: user as any,
+      sender: this.me._id || this.me as any,
+      reciever: user._id || user as any,
     });
   }
   deleteRequest(id) {
@@ -180,7 +181,7 @@ export class UserService {
   }
   getAllSendedRequests() {
     return waiting_request.getAll({
-      queryParams: { filter: { sender: this.me } },
+      queryParams: { filter: { sender: this.me._id || this.me } },
     });
   }
 
@@ -238,5 +239,8 @@ export class UserService {
     return blocked_user.getAll({
       queryParams: { filter: { blocked: this.me._id, blocking: user._id } },
     });
+  }
+  initializeOrm() {
+    initialize({ identity: localStorage.getItem('socialmedia_spica_token') });
   }
 }

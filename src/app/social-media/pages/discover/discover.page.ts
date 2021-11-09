@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './discover.page.html',
   styleUrls: ['./discover.page.scss'],
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage {
   constructor(
     private postService: PostService,
     private dataService: DataService,
@@ -43,7 +43,8 @@ export class DiscoverPage implements OnInit {
   showedSegment = 0;
   discarded_post: string = '';
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
+    this.posts = [];
     this.showMentions = false;
     this.hashtagId = await this.activatedRoute.snapshot.paramMap.get('search');
     if (this.hashtagId) {
@@ -58,7 +59,7 @@ export class DiscoverPage implements OnInit {
       this.loading = false;
     } else {
       this.content.scrollToTop(0);
-      this.infiniteScroll.disabled = true;
+      if (this.infiniteScroll) this.infiniteScroll.disabled = true;
       this.setInitialSettings();
       this.getPosts();
     }

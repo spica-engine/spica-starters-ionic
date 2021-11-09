@@ -3,7 +3,7 @@
 <ion-card>
   <div class="header">
     <user-minified-card [with_router]="with_router" [user]="post?.user" [type]="'horizontal'" [followable]="userFollowable"></user-minified-card>
-    <action-icon *ngIf="action" (click)="showActions()" [class.past-countdown-action]="percentage >= 100"
+    <action-icon *ngIf="action" (click)="showActions()" 
       [icon]="'ellipsis-vertical-outline'" [count]="-1">
     </action-icon>
   </div>

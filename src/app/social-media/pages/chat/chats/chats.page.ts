@@ -4,7 +4,7 @@ import { UserService } from './../../../services/user.service';
 // import { FollowingUsersComponent } from "src/app/components/chat/following-users/following-users.component";
 import { Router } from '@angular/router';
 import { Chat, user, User, chat } from '../../../services/bucket';
-import {  Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { environment } from 'src/app/social-media/services/environment';
 import { FollowingUsersComponent } from 'src/app/social-media/components/chat/following-users/following-users.component';
 import { ChatService } from 'src/app/social-media/services/chat.service';
@@ -23,6 +23,7 @@ export class ChatsPage {
   selectedChats = [];
   user_img_empty = environment.user_img;
   searchedText: string;
+  open_to_select: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -121,7 +122,8 @@ export class ChatsPage {
         chat_item.is_group &&
         !chat_item.last_active.filter(
           (item) =>
-            item.status == 'active' && chat_item.managers.includes(item.user as any)
+            item.status == 'active' &&
+            chat_item.managers.includes(item.user as any)
         )[0]
       ) {
         chat_item.managers = [
@@ -150,7 +152,7 @@ export class ChatsPage {
   }
 
   clickedToChat(chat) {
-    if (this.selectedChats.length) {
+    if (this.selectedChats.length || this.open_to_select) {
       this.selectToRemove(chat._id);
     } else {
       this.searchedText = '';
@@ -164,5 +166,9 @@ export class ChatsPage {
     this.searchedChats = this.chats.filter((item) =>
       item.name.toLowerCase().includes(this.searchedText.toLocaleLowerCase())
     );
+  }
+  openSelection() {
+    this.open_to_select = !this.open_to_select;
+    if (!this.open_to_select) this.selectedChats = [];
   }
 }

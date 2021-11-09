@@ -29,6 +29,9 @@
         [(ngModel)]="searchedText"
         (ngModelChange)="getChatBySearch()"
       ></ion-searchbar>
+      <ion-label (click)="openSelection()" slot="end"
+        > {{open_to_select ? "clear" : "select"}} </ion-label
+      >
     </ion-item>
     <ion-list>
       <ion-item *ngIf="!searchedChats.length && !searchedText">
@@ -40,6 +43,11 @@
         *ngFor="let chat of searchedChats"
         (click)="clickedToChat(chat)"
       >
+        <ion-checkbox
+          *ngIf="open_to_select"
+          slot="start"
+          value="buford"
+        ></ion-checkbox>
         <ion-avatar slot="start">
           <img [src]="chat.image ? chat.image : user_img_empty" />
         </ion-avatar>
