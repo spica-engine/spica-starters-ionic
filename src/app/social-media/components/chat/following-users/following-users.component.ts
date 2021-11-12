@@ -2,9 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "./../../../services/user.service";
 import { DataService } from "./../../../services/data.service";
 import { User, Follow,follow} from "../../../services/bucket";
-import { Observable } from "rxjs";
 import { ModalController } from "@ionic/angular";
-import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-following-users",

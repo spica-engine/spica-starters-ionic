@@ -1,15 +1,23 @@
-<div class="container" [class.recurring]="recurring" [class.current-user]="isCurrentUser">
-  <div class="avatar" [routerLink]="['profile',id]">
+<div
+  class="container"
+  [class.recurring]="recurring"
+  [class.current-user]="isCurrentUser"
+>
+  <div class="avatar" [routerLink]="['profile', id]">
     <img [src]="avatar" *ngIf="avatar != 'none'" />
   </div>
   <div class="message" *ngIf="!post && !image">
-    <app-mentionarea [text]="message"></app-mentionarea>
-    <div class="time">{{date | date:"hh:mm"}} </div>
+    <app-mentionarea
+      *ngIf="mode == 'social'"
+      [text]="message"
+    ></app-mentionarea>
+    <div class="message-text" *ngIf="mode == 'chat'">{{ message }} </div>
+    <div class="time">{{ date | date: "hh:mm" }}</div>
   </div>
   <div *ngIf="image" class="content image">
     <img [src]="image" (click)="clickImage()" />
   </div>
-  <div class="message post" *ngIf="post && post._id">
+  <div class="message post" *ngIf="post && post._id && mode == 'social'">
     <post-card [post]="post" [action]="false"></post-card>
   </div>
 </div>

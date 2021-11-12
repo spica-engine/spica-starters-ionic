@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end" *ngIf="user && user?._id!=me?._id">
+      <ion-button (click)="personProcess()">
+        <ion-icon
+          [name]="isFriend ?'person-remove-outline' : 'person-add-outline' "
+        ></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <spica-user-profile-picture
+    [imageEditable]="user?._id==me?._id"
+    (changeImage)="imageChange($event)"
+    [image]="user?.thumbnail"
+  ></spica-user-profile-picture>
+  <spica-item-list
+    *ngIf="listItems.length>0"
+    [items]="listItems"
+  ></spica-item-list>
+</ion-content>

@@ -3,11 +3,11 @@ import { Subscription } from 'rxjs';
 import { environment } from 'src/app/social-media/services/environment';
 
 @Component({
-  selector: 'upload-image',
-  templateUrl: './upload-image.component.html',
-  styleUrls: ['./upload-image.component.scss'],
+  selector: 'spica-upload-image',
+  templateUrl: './spica-upload-image.component.html',
+  styleUrls: ['./spica-upload-image.component.scss'],
 })
-export class UploadImageComponent {
+export class SpicaUploadImageComponent {
   @Output()
   change: EventEmitter<string> = new EventEmitter<string>();
   cameraSubs: Subscription;

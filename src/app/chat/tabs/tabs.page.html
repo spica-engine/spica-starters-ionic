@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-tabs *ngIf="me && !loading">
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button [class.tab-selected]="selectedTab=='chats'" tab="chats">
+        <ion-icon name="home"></ion-icon>
+        <ion-label>Chats</ion-label>
+      </ion-tab-button>
+      <ion-tab-button
+        (click)="selectedTab = 'profile'"
+        [class.tab-selected]="selectedTab=='profile'"
+        [tab]="'profile/'+me?._id"
+      >
+        <ion-icon name="person"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+  <spica-authorization
+    *ngIf="!me && !loading"
+    (clickLogin)="login($event)"
+    (clickRegister)="register($event)"
+  ></spica-authorization>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

@@ -16,7 +16,7 @@ export const environment = {
     { code: "tr", name: "Turkish" },
     { code: "ru", name: "Russian" },
   ],
-  example_base64:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg=="
+  example_base64:"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw=="
 };
 
 /*

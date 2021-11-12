@@ -27,6 +27,10 @@ const routes: Routes = [
     path: 'music-streaming',
     loadChildren: () => import('./music-streaming/app.module').then( m => m.MusicStreamingModule)
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('./chat/app.module').then( m => m.ChatModule)
+  },
  ];
 
 @NgModule({

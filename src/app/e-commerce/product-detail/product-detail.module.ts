@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProductDetailPageRoutingModule } from './product-detail-routing.module';
 
 import { ProductDetailPage } from './product-detail.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     ProductDetailPageRoutingModule,
-    ComponentsModule
+    SpicaComponentsModule
   ],
   declarations: [ProductDetailPage]
 })

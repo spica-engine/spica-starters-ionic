@@ -25,7 +25,6 @@ export class UserService {
   followingUsers: User[] = [];
   followerUsers: User[] = [];
   sended_requests: Waiting_Request[] = [];
-  user_id: string;
   $userSubject: Subject<User> = new Subject();
   $userRequest: Promise<User>;
   blockedUsers: Blocked_User[];
@@ -80,13 +79,6 @@ export class UserService {
   getUserByUsername(username) {
     if (username[0] == '@') username = username.substring(1);
     return user.getAll({ queryParams: { filter: { username: username } } });
-  }
-  getUserId() {
-    if (this.getIdentityId()) {
-      return (this.user_id = this.user_id
-        ? this.user_id
-        : localStorage.getItem('socialmedia_user_id'));
-    } else return null;
   }
 
   getIdentityId() {

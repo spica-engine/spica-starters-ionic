@@ -4,7 +4,6 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { ECommerceRoutingModule } from './app-routing.module';
-import { ComponentsModule } from '../components/components.module';
 import { CommonModule } from '@angular/common';
 
 @NgModule({

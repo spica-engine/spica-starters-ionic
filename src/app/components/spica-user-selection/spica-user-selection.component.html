@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-button (click)="cancle()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Users</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list lines="full">
+    <div class="no-item" *ngIf="showedUsers.length == 0">
+      There are no users
+    </div>
+    <ion-item
+      detail="false"
+      *ngFor="let user of showedUsers"
+      (click)="
+        selectionType == 'multiple' ? toggleUser(user) : selectUser(user)
+      "
+      [class.choosen]="choosen_users.includes(user)"
+    >
+      <div class="user-item">
+        <ion-avatar>
+          <img [src]="user?.thumbnail ? user?.thumbnail : default_user_image" />
+        </ion-avatar>
+        <div class="name">
+          {{ user?.username }}
+        </div>
+      </div>
+    </ion-item>
+  </ion-list></ion-content
+>

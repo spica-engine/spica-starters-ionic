@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Friends</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="my-friends">
+    <ion-list>
+      <ion-item>
+        <ion-searchbar
+          animated
+          debounce="1000"
+          placeholder="Add User By Username"
+          [(ngModel)]="searchedText"
+          (ngModelChange)="getUserBySearch()"
+        ></ion-searchbar>
+        <ion-icon *ngIf="personAvailable && !this.loading" (click)="addPerson()" name="person-add-outline"></ion-icon>
+        <ion-spinner *ngIf="this.loading" name="crescent"></ion-spinner>
+      </ion-item>
+      <ion-item
+        *ngFor="let friend of friends"
+        [routerLink]="['profile',friend['_id']]"
+      >
+        <ion-avatar slot="start">
+          <img [src]="friend['thumbnail'] ||default_image " />
+        </ion-avatar>
+        <ion-label> {{friend['username']}} </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

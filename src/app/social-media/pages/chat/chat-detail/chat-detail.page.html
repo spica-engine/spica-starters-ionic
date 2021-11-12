@@ -17,11 +17,11 @@
     <ion-item class="edit_content">
       <ion-avatar slot="start" class="group_image">
         <img [src]="chatGroup.image ? chatGroup.image : user_img_empty" />
-        <upload-image
+        <spica-upload-image
           *ngIf="chatGroup.managers.includes(me._id)"
           class="edit_image"
           (change)="changeImage($event)"
-        ></upload-image>
+        ></spica-upload-image>
       </ion-avatar>
       <ion-input
         *ngIf="chatGroup.managers.includes(me._id)"

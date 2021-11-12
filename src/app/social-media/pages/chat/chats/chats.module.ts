@@ -10,6 +10,7 @@ import { ChatsPage } from './chats.page';
 import { TranslateModule } from '@ngx-translate/core';
 // import { LongPressModule } from 'ionic-long-press';
 import { ComponentsModule } from 'src/app/social-media/components/components.module';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ComponentsModule } from 'src/app/social-media/components/components.mod
     ChatsPageRoutingModule,
     ComponentsModule,
     // LongPressModule,
-    TranslateModule.forChild()
+    TranslateModule.forChild(),
+    SpicaComponentsModule
   ],
   declarations:[
     ChatSinglePage,

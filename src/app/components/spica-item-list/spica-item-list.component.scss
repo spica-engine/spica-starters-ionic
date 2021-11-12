@@ -1,0 +1,30 @@
+:host {
+  .item-list {
+    padding: 0 10px;
+    .seperate-section {
+      display: flex;
+      ion-list {
+        &:first-of-type {
+          flex: 1;
+          ion-item {
+            font-weight: 500;
+          }
+        }
+        &:last-of-type {
+          width: 100%;
+          ion-item {
+            font-weight: 300;
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+    .unseperate-section {
+      ion-list {
+        ion-item {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<div class="item-list">
+  <div class="seperate-section">
+    <ion-list lines="inset">
+      <ion-item *ngFor="let item of seperatedItems">
+        <ion-label> {{ item.key |titlecase }}</ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list lines="inset">
+      <ion-item *ngFor="let item of seperatedItems">
+        <ion-label>{{ item.value }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="unseperate-section">
+    <ion-list lines="inset">
+      <ion-item
+        *ngFor="let item of unSeperatedItems"
+        [detail]="item.link"
+        [routerLink]="item.link ? [item.link] : []"
+      >
+        <ion-label> {{ item.value }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</div>

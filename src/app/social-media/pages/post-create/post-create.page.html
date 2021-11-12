@@ -29,7 +29,7 @@
     <ion-item *ngIf="!post?.file?.url">
       <ion-skeleton-text> </ion-skeleton-text>
       <div class="on-center-image">
-        <upload-image (change)="userUploadedImage($event)"></upload-image>
+        <spica-upload-image (change)="userUploadedImage($event)"></spica-upload-image>
       </div>
     </ion-item>
     <ion-item *ngIf="post?.file?.url">
@@ -52,10 +52,10 @@
           </video>
         </div>
         <div class="actions-side">
-          <upload-image
+          <spica-upload-image
             (change)="userUploadedImage($event)"
             [icon]="'refresh-outline'"
-          ></upload-image>
+          ></spica-upload-image>
           <ion-icon
             class="deleteImage"
             name="remove-circle-outline"

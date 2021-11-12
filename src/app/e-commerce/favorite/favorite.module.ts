@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FavoritePageRoutingModule } from './favorite-routing.module';
 
 import { FavoritePage } from './favorite.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 
 
@@ -17,7 +17,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     FavoritePageRoutingModule,
-    ComponentsModule
+    SpicaComponentsModule
   ],
   declarations: [FavoritePage]
 })

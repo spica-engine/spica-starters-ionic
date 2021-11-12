@@ -17,6 +17,7 @@ export class MessageSingleComponent implements OnInit {
   @Input() image: string;
   @Input() recurring: boolean;
   @Input() id: string;
+  @Input() mode="social"
 
   constructor(
     private _tabService: TabsService

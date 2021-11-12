@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ComponentsModule } from '../components/components.module';
+import { SpicaComponentsModule } from '../components/components.module';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(
     http,
@@ -17,7 +17,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   imports: [
     CommonModule,
-    ComponentsModule,
+    SpicaComponentsModule,
     SocialMediaRoutingModule,
     TranslateModule.forRoot({
       loader: {

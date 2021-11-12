@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
-import { ComponentsModule } from 'src/app/components/components.module';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -16,7 +16,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     ProfilePageRoutingModule,
     ReactiveFormsModule,
-    ComponentsModule
+    SpicaComponentsModule
   ],
   declarations: [ProfilePage]
 })

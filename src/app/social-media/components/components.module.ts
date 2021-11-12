@@ -14,10 +14,10 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ActivityCardComponent } from './activity/activity-card/activity-card.component';
 import { PostCreatePage } from '../pages/post-create/post-create.page';
 import { MentionsComponent } from './generics/mentions/mentions.component';
-import { UploadImageComponent } from './generics/upload-image/upload-image.component';
 import { SegmenttabComponent } from './generics/segmenttab/segmenttab.component';
 import { MessageSingleComponent } from './chat/message-single/message-single.component';
 import { PostCommentComponent } from './post/post-comment/post-comment.component';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { PostCommentComponent } from './post/post-comment/post-comment.component
     PostCardComponent,
     ActivityCardComponent,
     PostCreatePage,
-    UploadImageComponent,
     MentionsComponent,
     SegmenttabComponent,
     MessageSingleComponent,
@@ -44,7 +43,6 @@ import { PostCommentComponent } from './post/post-comment/post-comment.component
     PostCardComponent,
     ActivityCardComponent,
     PostCreatePage,
-    UploadImageComponent,
     MentionsComponent,
     TranslateModule,
     SegmenttabComponent,
@@ -59,6 +57,7 @@ import { PostCommentComponent } from './post/post-comment/post-comment.component
     HttpClientModule,
     IonicModule,
     TranslateModule,
+    SpicaComponentsModule
   ],
   providers: [HttpClientModule],
 })
