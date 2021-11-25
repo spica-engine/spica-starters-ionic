@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AuthorizationPageRoutingModule } from './authorization-routing.module';
 
 import { AuthorizationPage } from './authorization.page';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { AuthorizationPage } from './authorization.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    AuthorizationPageRoutingModule
+    AuthorizationPageRoutingModule,
+    SpicaComponentsModule
   ],
   declarations: [AuthorizationPage]
 })

@@ -1,0 +1,13 @@
+:host{
+
+    .button-container{
+        width: 100%;
+        display: flex;
+        margin-top: 15px;
+        .logout{
+            width: 120px;
+            margin: auto;
+            --background: rgb(170, 0, 0);;
+        }
+    }
+}

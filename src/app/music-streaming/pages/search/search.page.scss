@@ -1,0 +1,27 @@
+:host {
+  h3 {
+    margin-left: 10px;
+  }
+
+  .kind-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 70px;
+
+    .kind-item {
+      width: calc(100vw / 2 - 15px);
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+  }
+
+  .list {
+    padding: 0 15px;
+    margin-bottom: 70px;
+  }
+}

@@ -1,0 +1,23 @@
+:host {
+  ion-toolbar {
+    padding: 0 10px;
+    ion-icon {
+      font-size: 28px;
+    }
+  }
+
+  ion-content {
+    .container {
+      padding: 15px;
+      margin-bottom: 70px;
+
+      .artist-item {
+        &::ng-deep {
+          .action-icon {
+            color: rgb(170, 0, 0);
+          }
+        }
+      }
+    }
+  }
+}

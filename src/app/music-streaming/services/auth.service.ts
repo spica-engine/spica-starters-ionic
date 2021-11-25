@@ -13,7 +13,7 @@ import { environment } from './environment';
   providedIn: 'root',
 })
 export class AuthService {
-  activeUser: dataService.User;
+  activeUser: dataService.Music_User;
   activeToken: string;
 
   constructor(private http: HttpClient) {
@@ -61,7 +61,7 @@ export class AuthService {
 
   register(user_data) {
     return this.http
-      .post(`${environment.apiUrl}/fn-execute/register`, {
+      .post(`${environment.apiUrl}/fn-execute/music-register`, {
         user_data,
       })
       .toPromise();
@@ -115,12 +115,12 @@ export class AuthService {
   }
 
   //Gets user info after taking token stored in local storage
-  getUser(clean: boolean = false): Observable<dataService.User> {
+  getUser(clean: boolean = false): Observable<dataService.Music_User> {
     if (this.activeUser && !clean) return of(this.activeUser);
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? dataService.user.getAll({
+          ? dataService.music_user.getAll({
               queryParams: { filter: { identity_id: token._id } },
             })
           : of([null])

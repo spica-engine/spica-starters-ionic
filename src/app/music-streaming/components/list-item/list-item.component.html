@@ -1,12 +1,13 @@
 <ion-item lines="none">
-  <ion-avatar slot="start" (click)="contentClicked()">
-    <img [src]="track.cover">
+  <ion-avatar slot="start" (click)="clicked('content')" [class.avatar-circle]="data.isCircle">
+    <img *ngIf="data.image" [src]="data.image" />
+    <ion-icon *ngIf="!data.image" [name]="data.avatarIcon" class="avatar-icon"></ion-icon>
   </ion-avatar>
-  <ion-label class="track-info" (click)="contentClicked()">
-    <ion-text class="track-name">{{track.name}}</ion-text>
-    <ion-text class="atrist">{{track.artist.name}}</ion-text>
+  <ion-label class="track-info" (click)="clicked('content')">
+    <h2>{{ data.title }}</h2>
+    <p>{{ data.subTitle }}</p>
   </ion-label>
   <ion-label slot="end">
-    <ion-icon name="ellipsis-vertical"></ion-icon>
+    <ion-icon class="action-icon" [name]="data.actionIcon" (click)="clicked('action')"></ion-icon>
   </ion-label>
 </ion-item>

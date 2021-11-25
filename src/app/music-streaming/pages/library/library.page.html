@@ -1,9 +1,50 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>library</ion-title>
+    <ion-avatar [routerLink]="['/music-streaming/profile']">
+      <img src="https://geekstra.com/wp-content/uploads/2014/06/avatar.jpg" />
+    </ion-avatar>
+    <ion-title slot="start">Library</ion-title>
+    <ion-icon slot="end" name="add" (click)="createPlayListModal()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div class="container" *ngIf="user">
+    <music-list-item
+      *ngFor="let playList of playLists"
+      lines="none"
+      (click)="navigateToList(playList._id)"
+      [data]="{
+      image: playList.image,
+      avatarIcon: 'musical-notes-outline',
+      title: playList.name,
+      subTitle: 'Play list | ' + user.username
+    }"
+    >
+    </music-list-item>
 
+    <music-list-item
+      *ngFor="let artist of user.followed_artists || []"
+      [data]="{
+      image: artist['profile_picture'],
+      title: artist['name'],
+      subTitle: 'Artist',
+      actionIcon: 'remove-circle-outline',
+      isCircle: true
+    }"
+      class="artist-item"
+      (clickAction)="itemClicked($event, artist['_id'])"
+    >
+    </music-list-item>
+
+    <music-list-item
+      [data]="{
+      avatarIcon: 'add',
+      title: 'Add Followed Artist',
+      isCircle: true
+    }"
+      (clickAction)="followableModal()"
+    >
+    </music-list-item>
+  </div>
 </ion-content>

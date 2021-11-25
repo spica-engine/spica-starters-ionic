@@ -1,36 +1,28 @@
 :host {
-    width: 100%;
-    padding: 0 10px;
-    ion-item {
-      height: 100%;
-      --background: none;
-      --padding-start: 10px;
-      color: gray;
-      position: relative;
-  
-      ion-avatar {
-        --border-radius: 0;
-        width: calc(100vw * 0.13);
-        height: calc(100vw * 0.13);
+  width: 100%;
+  padding: 0 10px;
+
+  ion-item {
+    ion-avatar {
+      width: calc(100vw * 0.15);
+      height: calc(100vw * 0.15);
+      overflow: hidden;
+      --border-radius: none;
+
+      &.avatar-circle {
+        --border-radius: 100%;
       }
 
-      .track-info{
-          display: flex;
-          flex-direction: column;
-        
-          .track-name{
-            color: black;
-            font-weight: 500;
-          }
-          .atrist{
-              font-size: 14px;
-          }
-      }
-  
-      ion-icon {
-        font-size: 22px;
-        margin-left: 10px;
+      .avatar-icon {
+        background: #8f8f8f6b;
+        font-size: 40px;
+        padding: 11px;
+        margin-right: 20px;
       }
     }
+
+    .action-icon {
+      font-size: 24px;
+    }
   }
-  
+}

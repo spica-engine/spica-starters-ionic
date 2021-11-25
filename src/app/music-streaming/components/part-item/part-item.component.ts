@@ -8,6 +8,7 @@ import { data } from '@spica-devkit/bucket';
 })
 export class PartItemComponent implements OnInit {
   @Input() data: any;
+  @Input() isCircle: boolean = false;
   constructor() {}
 
   ngOnInit() {

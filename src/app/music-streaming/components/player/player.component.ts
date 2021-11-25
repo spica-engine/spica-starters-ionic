@@ -36,6 +36,10 @@ export class PlayerComponent implements OnInit {
 
   startTimer() {
     this.currentTimeIntervel = setInterval(() => {
+      console.log(this.audioService.duration())
+      if (this.currentTime == Math.floor(this.audioService.duration() -1 )) {
+        this.stopTimer();
+      }
       this.currentTime += 1;
     }, 1000);
   }
@@ -80,8 +84,8 @@ export class PlayerComponent implements OnInit {
 
   goToList() {
     this._router.navigate([
-      `/music-streaming/tabs/home/list/${this.track.artist}`,
-    ]);
+      `/music-streaming/tabs/${this._router.url.split('/')[3]}/list/${this.track.artist}`,
+    ], {queryParams: {type: 'artist'}});
 
     this._modalController.dismiss();
   }

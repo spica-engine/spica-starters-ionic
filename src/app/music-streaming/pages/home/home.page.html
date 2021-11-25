@@ -15,8 +15,8 @@
 
     <ion-slides [options]="slideOpts">
       <ion-slide
-        *ngFor="let folowing of user.followings; let index = index"
-        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        *ngFor="let folowing of user.followed_artists; let index = index"
+        (click)="navigateToList(folowing['_id'])"
         [class.first]="index==0"
       >
         <music-part-item [data]="folowing"></music-part-item>
@@ -29,11 +29,11 @@
 
     <ion-slides [options]="slideOpts">
       <ion-slide
-        *ngFor="let folowing of user.followings let index = index"
-        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        *ngFor="let item of recommended let index = index"
+        (click)="navigateToList(item['_id'])"
         [class.first]="index==0"
       >
-        <music-part-item [data]="folowing"></music-part-item>
+        <music-part-item [data]="item"></music-part-item>
       </ion-slide>
     </ion-slides>
   </div>
@@ -43,14 +43,11 @@
 
     <ion-slides [options]="slideOpts">
       <ion-slide
-        *ngFor="let folowing of user.followings let index = index"
-        [routerLink]="['/music-streaming/tabs/home/list/' + folowing['_id']]"
+        *ngFor="let item of recommended let index = index"
+        (click)="navigateToList(item['_id'])"
         [class.first]="index==0"
       >
-        <div class="part-item">
-          <img [src]="folowing['profile_pictures'][0]" />
-        </div>
-        <ion-text>{{folowing['name']}}</ion-text>
+      <music-part-item [data]="item" [isCircle]="true"></music-part-item>
       </ion-slide>
     </ion-slides>
   </div>

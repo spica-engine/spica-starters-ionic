@@ -9,6 +9,9 @@ import { PartItemComponent } from './part-item/part-item.component';
 import { ListItemComponent } from './list-item/list-item.component';
 import { PlayerComponent } from './player/player.component';
 import { DurationFormatPipe } from '../pipes/duration-format.pipe';
+import { TypeCardComponent } from './type-card/type-card.component';
+import { CreatePlayListComponent } from './create-play-list/create-play-list.component';
+import { FollowableModalComponent } from './followable-modal/followable-modal.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,18 @@ import { DurationFormatPipe } from '../pipes/duration-format.pipe';
     PartItemComponent,
     ListItemComponent,
     PlayerComponent,
-    DurationFormatPipe
+    DurationFormatPipe,
+    TypeCardComponent,
+    CreatePlayListComponent,
+    FollowableModalComponent
   ],
   exports: [
     MiniPlayerComponent,
     PartItemComponent,
     ListItemComponent,
     PlayerComponent,
+    TypeCardComponent,
+    CreatePlayListComponent
   ],
   imports: [
     RouterModule,

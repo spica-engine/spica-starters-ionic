@@ -7,7 +7,11 @@ const routes: Routes = [
   {
     path: '',
     component: LibraryPage
-  }
+  },
+  {
+    path: 'list',
+    loadChildren: () => import('../list/list.module').then( m => m.ListPageModule)
+  },
 ];
 
 @NgModule({

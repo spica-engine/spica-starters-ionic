@@ -23,14 +23,30 @@
 
       ion-text {
         margin-bottom: 5px;
-        span{
-            font-weight: 700;
+        span {
+          font-weight: 700;
         }
+      }
+    }
+
+    &.kind {
+      position: relative;
+      img {
+        width: 100%;
+        height: calc(100vw * 0.6);
+      }
+      ion-text {
+        position: absolute;
+        color: white;
+        font-size: 20px;
+        font-weight: 700;
+        bottom: 15px;
       }
     }
   }
 
   .list {
+    padding: 0 15px;
     margin-bottom: 70px;
   }
 }

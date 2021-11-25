@@ -5,104 +5,12 @@
 </ion-header>
 
 <ion-content>
-  <div class="auth-container" *ngIf="!user && !isLoading">
-    <div class="nav-container">
-      <ion-label
-        [class.active]="screen=='login'"
-        (click)="changeScreen('login')"
-        >Login</ion-label
-      >
-      <ion-label
-        [class.active]="screen=='register'"
-        (click)="changeScreen('register')"
-        >Register</ion-label
-      >
-    </div>
-
-    <div class="form-container" *ngIf="screen=='login'" [formGroup]="loginForm">
-      <ion-input placeholder="E-Mail" id="email" formControlName="email" required></ion-input>
-      <ion-input
-        placeholder="Password"
-        type="password"
-        id="password"
-        formControlName="password"
-        required
-      >
-        <ion-icon name="eye-outline"></ion-icon>
-      </ion-input>
-      <p><span>Forgot password?</span></p>
-      <ion-button (click)="login()"
-      [disabled]=""
-      >Login</ion-button>
-    </div>
-
-    <div
-      class="form-container"
-      *ngIf="screen=='register'"
-      [formGroup]="loginForm"
-    >
-      <ion-input placeholder="Name" formControlName="name"></ion-input>
-      <ion-input placeholder="Surname" formControlName="surname"></ion-input>
-      <ion-input placeholder="E-Mail" formControlName="email"></ion-input>
-      <ion-input
-        placeholder="Password"
-        type="password"
-        formControlName="password"
-      >
-        <ion-icon name="eye-outline"></ion-icon>
-      </ion-input>
-      <ion-item lines="none" class="agreement">
-        <ion-checkbox formControlName="termsOfUse"></ion-checkbox>
-        <ion-label>I accept the user agreement</ion-label>
-      </ion-item>
-      <ion-button (click)="register()">Register</ion-button>
-    </div>
-  </div>
-
-  <div class="profile-content" *ngIf="user && !isLoading">
-    <ion-item lines="none" class="user-metadata">
-      <ion-label class="ion-text-wrap">
-        <ion-text class="welcome-box">
-          <span>
-            <span class="welcome-text">Welcome,</span> {{user.name}}
-            {{user.surname}}</span
-          >
-        </ion-text>
-        <ion-text>
-          <p>{{user.mail}}</p>
-        </ion-text>
-      </ion-label>
-    </ion-item>
-
-    <h6 class="nav-title">Account</h6>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="file-tray-stacked-outline"></ion-icon>
-        <span>Order</span>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        <span>Account Data</span>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="map-outline"></ion-icon>
-        <span>Addresses</span>
-      </ion-label>
-    </ion-item>
-
-    <ion-item lines="none" class="nav-item" (click)="logout()">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="log-out-outline"></ion-icon>
-        <span>Logout</span>
-      </ion-label>
-    </ion-item>
-  </div>
-
-  <div class="spinner-container" *ngIf="isLoading">
+  <spica-authorization
+    (clickLogin)="login($event)"
+    (clickRegister)="register($event)"
+  >
+  </spica-authorization>
+  <!-- <div class="spinner-container" *ngIf="isLoading">
     <ion-spinner></ion-spinner>
-  </div>
+  </div> -->
 </ion-content>

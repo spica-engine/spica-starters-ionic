@@ -9,14 +9,15 @@ import * as DataService from '../../services/bucket';
 })
 export class ListItemComponent implements OnInit {
 
-  @Input() track;
-  @Output() clicked : EventEmitter<string> = new EventEmitter();
+  @Input() data: any;
+  @Output() clickAction : EventEmitter<string> = new EventEmitter();
   constructor() { }
 
   ngOnInit() {}
 
-  contentClicked(){
-    this.clicked.emit('content');
+
+  clicked(value){
+    this.clickAction.emit(value);
   }
 
 }

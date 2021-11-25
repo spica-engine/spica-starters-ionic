@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { LibraryPageRoutingModule } from './library-routing.module';
 
 import { LibraryPage } from './library.page';
+import { MusicStreamingComponentModule } from '../../components/music-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    LibraryPageRoutingModule
+    LibraryPageRoutingModule,
+    MusicStreamingComponentModule
   ],
   declarations: [LibraryPage]
 })

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { PlayerComponent } from '../components/player/player.component';
 import { AudioService } from '../services/audio.service';
@@ -21,12 +22,21 @@ export class TabsPage implements OnInit {
     private _modalController: ModalController,
     private _authService: AuthService,
     public audioService: AudioService,
-    private _eventService: EventService
+    private _eventService: EventService,
+    private _router: Router,
   ) {
     this._authService.initBucket();
   }
 
+  async checkUserLogin(){
+    const user = await this._authService.getUser().toPromise()
+    if(!user){
+      this._router.navigate(['/music-streaming/authorization'])
+    }
+  }
+
   async ngOnInit() {
+    await this.checkUserLogin()
     await this.getTarcks();
     this.audioService.setTrack(this.tracks[this.trackIndex]);
 

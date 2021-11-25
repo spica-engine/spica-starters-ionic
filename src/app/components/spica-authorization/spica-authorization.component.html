@@ -35,6 +35,7 @@
     *ngIf="screen == 'register'"
     [formGroup]="loginForm"
   >
+    <ion-input placeholder="Username" formControlName="username"></ion-input>
     <ion-input placeholder="Name" formControlName="name"></ion-input>
     <ion-input placeholder="Surname" formControlName="surname"></ion-input>
     <ion-input placeholder="E-Mail" formControlName="email"></ion-input>

@@ -1,4 +1,31 @@
 <ion-content>
   <h3>Search</h3>
-  <ion-searchbar mode="ios" [debounce]="800" (ionChange)="search($event.target['value'])" [(ngModel)]="searchTerm"></ion-searchbar>
+  <ion-searchbar
+    mode="ios"
+    [debounce]="800"
+    (ionChange)="search($event.target['value'])"
+    [(ngModel)]="searchTerm"
+  ></ion-searchbar>
+
+  <div class="kind-container" *ngIf="!searchTerm">
+    <div
+      class="kind-item"
+      *ngFor="let item of musicKinds"
+      (click)="navigateToList(item._id)"
+    >
+      <type-card [data]="item"></type-card>
+    </div>
+  </div>
+
+  <div class="list" *ngIf="searchTerm">
+    <music-list-item
+      [data]="{
+      image: track.cover,
+      title: track.name,
+      subTitle: track.artist['name']
+    }"
+      *ngFor="let track of tracks"
+      (clicked)="setTrack(track)"
+    ></music-list-item>
+  </div>
 </ion-content>

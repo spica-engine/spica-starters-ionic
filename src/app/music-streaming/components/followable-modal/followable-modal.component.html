@@ -1,0 +1,21 @@
+<div class="container">
+  <h3>Followable Artist</h3>
+  <ion-searchbar
+    mode="ios"
+    [debounce]="800"
+    (ionChange)="search($event.target['value'])"
+    [(ngModel)]="searchTerm"
+  ></ion-searchbar>
+
+  <div class="artists-container">
+    <music-part-item
+      *ngFor="let artist of artists"
+      [data]="artist"
+      [isCircle]="true"
+      selectedArtists
+      (click)="selectArtist(artist._id)"
+      [class.selected]="selectedArtists.includes(artist._id)"
+    ></music-part-item>
+  </div>
+  <ion-button (click)="apply()">Apply</ion-button>
+</div>

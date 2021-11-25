@@ -1,0 +1,56 @@
+:host {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+      0deg,
+      rgb(32, 32, 32) 10%,
+      rgb(187, 187, 187) 100%
+    );
+
+    color: white;
+    padding: 15px;
+
+    h3 {
+      font-weight: 800;
+    }
+
+    .artists-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      overflow: scroll;
+      height: calc(100vh - 130px);
+      position: relative;
+
+      music-part-item {
+        &::ng-deep {
+          .part-item {
+            width: calc(100vw * 0.28) !important;
+            height: calc(100vw * 0.28) !important;
+            border-radius: 100% !important;
+            overflow: hidden;
+            margin-top: 20px;
+          }
+          ion-text {
+            color: rgba(255, 255, 255, 0.897) !important;
+          }
+        }
+
+        &.selected {
+          &::ng-deep {
+            img {
+              border: 2px solid #ff7600;
+            }
+          }
+        }
+      }
+    }
+    ion-button{
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, -50%); 
+    }
+  }
+}
