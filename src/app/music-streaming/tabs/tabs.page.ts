@@ -17,26 +17,27 @@ export class TabsPage implements OnInit {
   defaultTracks: DataService.Music_Track[] = [];
   shuffledTracks: DataService.Music_Track[] = [];
   trackIndex: number = 0;
+  user: DataService.Music_User;
 
   constructor(
     private _modalController: ModalController,
     private _authService: AuthService,
     public audioService: AudioService,
     private _eventService: EventService,
-    private _router: Router,
+    private _router: Router
   ) {
     this._authService.initBucket();
   }
 
-  async checkUserLogin(){
-    const user = await this._authService.getUser().toPromise()
-    if(!user){
-      this._router.navigate(['/music-streaming/authorization'])
+  async checkUserLogin() {
+    this.user = await this._authService.getUser().toPromise();
+    if (!this.user) {
+      this._router.navigate(['/music-streaming/authorization']);
     }
   }
 
   async ngOnInit() {
-    await this.checkUserLogin()
+    await this.checkUserLogin();
     await this.getTarcks();
     this.audioService.setTrack(this.tracks[this.trackIndex]);
 
@@ -46,11 +47,14 @@ export class TabsPage implements OnInit {
   }
 
   async showPlayer() {
-    this._modalController.create;
-
     const modal = await this._modalController.create({
       component: PlayerComponent,
       cssClass: 'my-custom-class',
+      componentProps: {
+        isLiked: this.user.liked_tracks.includes(
+          this.audioService.getTrack()._id
+        ),
+      },
     });
 
     modal.onWillDismiss().then((res) => {
@@ -68,7 +72,25 @@ export class TabsPage implements OnInit {
     } else if (event.action == 'play') {
       this.playPause();
     } else if (event.action == 'like') {
+      this.changeLike();
     }
+  }
+
+  changeLike() {
+    let trackId = this.audioService.getTrack()._id;
+    this.user.liked_tracks = this.user.liked_tracks || [];
+    if (this.user.liked_tracks.includes(trackId)) {
+      this.user.liked_tracks = this.user.liked_tracks.filter((el) => {
+        el != trackId;
+      });
+    } else {
+      this.user.liked_tracks.push(trackId);
+    }
+
+    DataService.music_user.patch({
+      _id: this.user._id,
+      liked_tracks: this.user.liked_tracks,
+    });
   }
 
   async getTarcks() {
@@ -87,6 +109,8 @@ export class TabsPage implements OnInit {
       this.audioService.setTrack(this.tracks[this.trackIndex]);
     } else if (action == 'shuffle') {
       this.shuffle();
+    } else if (action == 'like') {
+      this.changeLike();
     }
   }
 

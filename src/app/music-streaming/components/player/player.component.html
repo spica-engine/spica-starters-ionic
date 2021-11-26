@@ -19,7 +19,7 @@
           <ion-text class="atrist">Atrist</ion-text>
         </ion-label>
         <ion-label slot="end">
-          <ion-icon name="heart-outline"></ion-icon>
+          <ion-icon [name]="isLiked ? 'heart' : 'heart-outline'" (click)="action('like')"></ion-icon>
         </ion-label>
       </ion-item>
      

@@ -11,6 +11,8 @@ import { EventService } from '../../services/event.service';
   styleUrls: ['./player.component.scss'],
 })
 export class PlayerComponent implements OnInit {
+  @Input() isLiked: boolean;
+
   track: DataService.Music_Track = this.audioService.getTrack();
   paused: boolean = false;
   currentTime: number = 0;
@@ -74,6 +76,10 @@ export class PlayerComponent implements OnInit {
     if (value == 'shuffle') {
       this.isShuffle = !this.isShuffle;
       localStorage.setItem('shuffle', String(this.isShuffle));
+    }
+
+    if (value == 'like') {
+      this.isLiked = !this.isLiked;
     }
   }
 

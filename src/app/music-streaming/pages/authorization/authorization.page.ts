@@ -51,6 +51,10 @@ export class AuthorizationPage implements OnInit {
       .register({ ...registerData })
       .then((res) => {
         this._commonService.presentToast(res['message'], 1500);
+        this.login({
+          email: registerData.email,
+          password: registerData.password,
+        });
       })
       .catch((err) => {
         this._commonService.presentToast(err.error.message, 1500);

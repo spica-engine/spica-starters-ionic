@@ -1,7 +1,9 @@
 <ion-item lines="none">
   <ion-avatar slot="start" (click)="clicked('content')" [class.avatar-circle]="data.isCircle">
     <img *ngIf="data.image" [src]="data.image" />
-    <ion-icon *ngIf="!data.image" [name]="data.avatarIcon" class="avatar-icon"></ion-icon>
+    <div class="avatar-icon-box">
+      <ion-icon *ngIf="!data.image" [name]="data.avatarIcon" class="avatar-icon"></ion-icon>
+    </div>
   </ion-avatar>
   <ion-label class="track-info" (click)="clicked('content')">
     <h2>{{ data.title }}</h2>

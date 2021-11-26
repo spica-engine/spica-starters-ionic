@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-avatar [routerLink]="['/music-streaming/profile']">
-      <img src="https://geekstra.com/wp-content/uploads/2014/06/avatar.jpg" />
+      <img [src]="user && user['profile_picture'] ||  defaultImage " />
     </ion-avatar>
     <ion-title slot="start">Library</ion-title>
     <ion-icon slot="end" name="add" (click)="createPlayListModal()"></ion-icon>

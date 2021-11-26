@@ -5,6 +5,7 @@ import * as DataService from '../../services/bucket';
 import { CreatePlayListComponent } from '../../components/create-play-list/create-play-list.component';
 import { Router } from '@angular/router';
 import { FollowableModalComponent } from '../../components/followable-modal/followable-modal.component';
+import { environment } from '../../services/environment';
 
 @Component({
   selector: 'app-library',
@@ -14,6 +15,8 @@ import { FollowableModalComponent } from '../../components/followable-modal/foll
 export class LibraryPage implements OnInit {
   user: DataService.Music_User;
   playLists: DataService.Music_Playlist[] = [];
+  defaultImage = environment.user_img;
+
 
   constructor(
     private _authService: AuthService,

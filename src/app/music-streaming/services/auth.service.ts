@@ -5,19 +5,17 @@ import jwt_decode from 'jwt-decode';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
-
-import * as dataService from './bucket';
 import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  activeUser: dataService.Music_User;
+  activeUser: DataService.Music_User;
   activeToken: string;
 
   constructor(private http: HttpClient) {
-    dataService.initialize({ apikey: environment.apikey });
+    DataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
       apikey: environment.apikey,
@@ -115,12 +113,12 @@ export class AuthService {
   }
 
   //Gets user info after taking token stored in local storage
-  getUser(clean: boolean = false): Observable<dataService.Music_User> {
+  getUser(clean: boolean = false): Observable<DataService.Music_User> {
     if (this.activeUser && !clean) return of(this.activeUser);
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? dataService.music_user.getAll({
+          ? DataService.music_user.getAll({
               queryParams: { filter: { identity_id: token._id } },
             })
           : of([null])
