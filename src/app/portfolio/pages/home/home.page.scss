@@ -1,0 +1,414 @@
+:host {
+    ion-header {
+      ion-toolbar {
+        ion-menu-button {
+          font-size: 30px;
+          margin-right: 20px;
+          margin-top: 10px;
+        }
+      }
+    }
+    ion-content {
+      .user {
+        background-repeat: no-repeat;
+        background-position: 80%;
+        width: 100%;
+        min-height: 100%;
+        max-height: 100%;
+        opacity: 0.8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        ion-label {
+          h1 {
+            font-size: 35px;
+            font-weight: 600;
+            // font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+          }
+          h2 {
+            margin: 8px;
+            color: rgb(101, 99, 99);
+            font-size: 16px;
+          }
+        }
+      }
+      .about {
+        img{
+          width: 100%;
+        }
+        ion-label {
+          display: flex;
+          flex-direction: column;
+          h1 {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 30px;
+            text-align: center;
+            // font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+          }
+          
+          p {
+            color: rgb(81, 81, 81);
+            font-size: 16px;
+            // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+          span {
+            margin: 10px;
+            display: flex;
+            ion-icon {
+              color: rgb(83, 83, 233);
+              margin-right: 3px;
+            }
+            b {
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+      .facts {
+        p {
+          text-align: center;
+          color: rgb(101, 99, 99);
+        //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin-bottom: 4px;
+        }
+        h1 {
+          text-align: center;
+          font-weight: 600;
+        //   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+          font-size: 30px;
+        }
+        .facts-features {
+          margin-top: 50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          ion-icon {
+            margin-top: 20px;
+            font-size: 35px;
+            background: rgb(5, 103, 201);
+            border-radius: 50%;
+            color: white;
+            width: 30px;
+            height: 30px;
+            padding: 10px;
+          }
+          h2 {
+            font-weight: 600;
+            font-size: 35px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+          }
+          h6 {
+            margin-top: 0px;
+          }
+        }
+      }
+      .skills {
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        p {
+          text-align: center;
+          color: rgb(101, 99, 99);
+        //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin-bottom: 40px;
+        }
+        ion-label {
+          margin-top: 20px;
+          display: flex;
+          justify-content: space-between;
+          p {
+            color: rgb(55, 54, 54);
+            font-weight: 650;
+            font-size: 14px;
+            margin: 0 10px 0 10px;
+          }
+        }
+        .skill-percent {
+          width: 96%;
+          height: 12px;
+          background: #eeeeee;
+          margin-left: auto;
+          margin-right: auto;
+          .percent {
+            height: 12px;
+            background: rgb(85, 85, 238);
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+          }
+        }
+      }
+      .resume {
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        p {
+          text-align: center;
+          color: rgb(101, 99, 99);
+        //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin-bottom: 40px;
+        }
+        ion-label {
+          h3 {
+            text-align: left;
+            font-weight: 600;
+            font-size: 20px;
+            margin-left: 10px;
+          }
+          h4 {
+            p {
+              text-align: left;
+              color: rgb(65, 63, 63);
+            //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+              margin: 0 10px;
+              margin-top: 8px;
+              margin-bottom: 10px;
+            }
+            .year {
+              background-color: #eeee;
+              max-width: fit-content;
+              padding-left: 20px;
+              padding-right: 20px;
+              font-size: 16px;
+              font-weight: 600;
+              border-radius: 2px;
+            }
+            span {
+              p {
+                color: rgb(48, 48, 238);
+                font-weight: 700;
+                margin-left: 10px;
+              }
+            }
+          }
+        }
+      }
+      .portfolio {
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        p {
+          text-align: center;
+          color: rgb(101, 99, 99);
+        //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin-bottom: 4px;
+        }
+        ion-segment {
+          width: 70%;
+          margin-left: auto;
+          margin-right: auto;
+          margin-top: 60px;
+          ion-segment-button {
+            --color-checked: rgb(95, 95, 255);
+          }
+        }
+        ion-card {
+          position: relative;
+          max-height: 300px;
+          min-height: fit-content;
+          min-width: fit-content;
+          --background: white;
+          padding: 0 !important;
+          img{
+            min-width: 100%;
+          }
+          p {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 10px;
+            font-weight: 700;
+            color: rgb(94, 90, 90);
+            font-size: 20px;
+            margin-left: 10px;
+          }
+        }
+        ion-button{
+          width: 50%;
+          margin-left:25%;
+        }
+      }
+      .services {
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        p {
+          text-align: center;
+          color: rgb(101, 99, 99);
+          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+          margin-bottom: 4px;
+        }
+        ion-card {
+          min-height: 320px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          ion-avatar {
+            width: 100px;
+            height: 100px;
+            padding: 6px;
+            background-color: rgb(5, 103, 201);
+          }
+          ion-card-content {
+            text-align: center;
+          }
+        }
+      }
+      .testimonials {
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        ion-slides {
+          ion-slide {
+            ion-card {
+              min-height: 500px;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              ion-avatar {
+                width: 100px;
+                height: 100px;
+                margin-bottom: 20px;
+              }
+              ion-label {
+                :first-child {
+                  font-size: 20px;
+                  margin-bottom: 8px;
+                }
+                :last-child {
+                  color: rgb(101, 99, 99);
+                //   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                  margin-top: 30px;
+                  font-size: 17px;
+                  margin: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .contact{
+        h1 {
+          text-align: center;
+          font-weight: 600;
+          font-size: 25px;
+          margin-top: 80px;
+        }
+        ion-icon {
+          font-size: 20px;
+          background: #edf6ff;
+          border-radius: 50%;
+          color: #257ed1;
+          width: 25px;
+          height: 25px;
+          padding: 10px;
+          margin-right: 0.7rem;
+        }
+        ion-icon:hover{
+          color: white;
+          background: rgb(5, 103, 201);
+        }
+        ion-item{
+          margin-top: 20px;
+          padding-left: 10px;
+          font-family: 'Dongle', sans-serif;
+          .input{
+            --padding-start: 10px;
+            width: 90%;
+            border-radius: 5px;
+            border: 1px solid #CED4DA;
+          }
+          .input:hover{
+            border: 1px solid #86B7FE;
+          }
+          ion-textarea{
+            height: 100px;
+          }
+        }
+        ion-button{
+          width: 45%;
+          height: 40px;
+          margin-top: 20px;
+          --border-radius: 70px;
+          margin-left: 28%;
+        }
+      }
+    }
+    ion-footer{
+        width: 100%;
+        height: 250px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        ion-toolbar{
+          margin-bottom: 80px;
+          b{
+            color: #45505B;
+            font-size: 1.5rem;
+          }
+          p{
+            color: gray;
+            font-style: italic;
+            font-family: "Open Sans", sans-serif;
+          }
+        }
+        .socical-media{
+          width: 50%;
+        }
+        span{
+          padding: 15px;
+          font-size: 0.9rem;
+          font-family: "Open Sans", sans-serif;
+          color: gray;
+        }
+      }
+
+      .line {
+        width: 38%;
+        border-bottom: 2px solid;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        position: relative;
+        color: #dcdcdc;
+        z-index: -1;
+        .inner-line {
+            width: 30%;
+            border-bottom: 2px solid;
+            margin-left: 35%;
+            margin-top: 0px;
+            margin-bottom: 20px;
+            color:purple;
+            position: absolute;
+        }
+    }
+  }
+  

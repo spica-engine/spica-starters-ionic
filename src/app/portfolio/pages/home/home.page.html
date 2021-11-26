@@ -1,0 +1,213 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-menu-button color="dark" menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container *ngIf="user">
+    <div class="user" [ngStyle]="{'background-image': 'url(&quot;' + user.images[1] + '&quot;)'}">
+      <ion-label>
+        <h1>{{user.name}} {{user.surname}}</h1>
+        <h2>I'm <strong>{{user.jobs}}</strong></h2>
+      </ion-label>
+    </div>
+  
+    <div class="about" id="about">
+      <ion-label>
+        <h1>About</h1>
+        <div class="line">
+          <div class="inner-line"></div>
+        </div>
+        <p>{{user.bio}}</p>
+      </ion-label>
+      <img [src]="user.images[0]">
+      <ion-label>
+        <span><ion-icon name="chevron-forward-outline"></ion-icon><b>Birthday:</b> {{user.birthday | date: 'MM/dd/yyyy'}}</span>
+        <span><ion-icon name="chevron-forward-outline"></ion-icon><b>Phone:</b> {{user.phone}}</span>
+        <span><ion-icon name="chevron-forward-outline"></ion-icon><b>City:</b> {{user.location}}</span>
+        <span><ion-icon name="chevron-forward-outline"></ion-icon><b>Age:</b> {{age}}</span>
+        <span><ion-icon name="chevron-forward-outline"></ion-icon><b>Mail:</b> {{user.mail}}</span>
+      </ion-label>
+    </div>
+  
+    <div class="facts" id="facts" >
+      <h1>Facts</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <ion-label class="facts-features"  *ngFor="let fact of user.facts">
+        <ion-icon name="happy-outline"></ion-icon>
+        <h2>{{fact.count}}</h2>
+        <h6>{{fact.name}}</h6>
+      </ion-label>
+    </div>
+    
+    <div class="skills" id="skills">
+      <h1>Skills</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <div *ngFor="let skill of user.skills">
+        <ion-label>
+          <p>{{skill.name}}</p>
+          <p>{{skill.percent}}%</p>
+        </ion-label>
+        <div class="skill-percent">
+          <div class="percent" [ngStyle]="{'width': skill.percent+'%'}"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="resume" id="resume">
+      <h1>Resume</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <ion-label *ngFor="let resume of user.resume">
+        <h3>{{resume.category}}</h3>
+        <h4 *ngFor="let resumedetail of resume.resume_in">
+          <span><p>{{resumedetail.position}}</p></span>
+          <p class="year">{{resumedetail.years}}</p>
+          <p>{{resumedetail.description}}</p>
+        </h4>
+      </ion-label>
+    </div>
+
+    <div class="portfolio" id="portfolio">
+      <h1>Portfolio</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <p>Magnam dolores commodi suscipit. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <ion-segment value="all">
+        <ion-segment-button value="all">
+          <ion-label>All</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="app">
+          <ion-label>App</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="card">
+          <ion-label>Card</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="web">
+          <ion-label>Web</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      <ion-card *ngFor="let image of portfolio">
+        <a [href]="image.url">
+        <img [src]="image.images">
+        <p>{{image.name}}</p>
+        </a>
+      </ion-card>
+      <ion-button (click)="loadMore()">Load More</ion-button>
+    </div>
+
+    <div class="services" id="services">
+      <h1>Services</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <p>Magnam dolores commodi suscipit. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <ion-card *ngFor="let test of service">
+        <ion-avatar>
+          <img [src]="test.image">
+        </ion-avatar>
+        <ion-card-header>
+          <ion-card-title>{{test.name}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>{{test.description}}</ion-card-content>
+      </ion-card>
+    </div>
+    <div class="testimonials" id="testimonials">
+      <h1>Testimonials</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <ion-slides>
+        <ion-slide *ngFor="let testimonials of reference">
+          <ion-card>
+            <ion-avatar>
+              <img [src]="testimonials.profile_picture">
+            </ion-avatar>
+            <ion-label>
+              <ion-card-title>{{testimonials.name}}</ion-card-title>
+              <p>{{testimonials.position}}</p>
+              <p>{{testimonials.message}}</p>
+            </ion-label>
+            
+          </ion-card>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <div class="contact" id="contact">
+      <h1>Contact</h1>
+      <div class="line"><div class="inner-line"></div></div>
+      <ion-item lines="none">
+        <ion-icon name="location-outline"></ion-icon>
+        <ion-label>
+          <h3>Location:</h3>
+          <p>{{user.location}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-label>
+          <h2>Email:</h2>
+          <p>{{user.mail}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <ion-label>
+          <h3>Call:</h3>
+          <p>{{user.phone}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input class="input" placeholder="Your Name"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input class="input" placeholder="Your Email"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-input class="input" placeholder="Phone"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-textarea class="input" placeholder="Message"></ion-textarea>
+      </ion-item>
+      <section>
+        <ion-button>Send Message</ion-button>
+      </section>
+    </div>
+
+    <ion-footer class="ion-no-border">
+      <ion-toolbar>
+        <b>{{user.name}} {{user.surname}}</b>
+        <p>{{user.bio}}</p>
+      </ion-toolbar>
+      <div class="socical-media">
+        <ion-fab horizontal="start" vertical="bottom" slot="fixed" activated="true">
+          <ion-fab-button>
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="end">
+            <ion-fab-button color="light">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="https://twitter.com/enisberk0" color="light">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="https://www.instagram.com/enisaltnbs7/" color="light">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="https://www.discord.com/" color="light">
+              <ion-icon name="logo-discord"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button href="https://www.github.com/" color="light">
+              <ion-icon name="logo-github"></ion-icon>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
+      </div>
+  
+    </ion-footer>
+
+  </ng-container>
+    
+  
+</ion-content>
