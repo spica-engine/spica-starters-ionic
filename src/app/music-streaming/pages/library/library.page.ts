@@ -13,10 +13,10 @@ import { environment } from '../../services/environment';
   styleUrls: ['./library.page.scss'],
 })
 export class LibraryPage implements OnInit {
+  userId: string;
   user: DataService.Music_User;
   playLists: DataService.Music_Playlist[] = [];
   defaultImage = environment.user_img;
-
 
   constructor(
     private _authService: AuthService,
@@ -28,13 +28,14 @@ export class LibraryPage implements OnInit {
   }
 
   async ngOnInit() {
+    this.userId = (await this._authService.getUser().toPromise())._id;
     await this.getUser();
     this.playLists =
       (await this.getPlayLists()) as DataService.Music_Playlist[];
   }
 
   async getUser() {
-    this.user = await DataService.music_user.get('619e151dc76489002e9b7910', {
+    this.user = await DataService.music_user.get(this.userId, {
       queryParams: { relation: true },
     });
   }
@@ -108,6 +109,9 @@ export class LibraryPage implements OnInit {
   async followableModal() {
     const modal = await this._modalController.create({
       component: FollowableModalComponent,
+      componentProps: {
+        type: 'artist',
+      },
     });
 
     modal.onWillDismiss().then((res) => {

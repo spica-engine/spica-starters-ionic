@@ -20,7 +20,7 @@
       flex-wrap: wrap;
       justify-content: space-between;
       overflow: scroll;
-      height: calc(100vh - 130px);
+      max-height: calc(100vh - 130px);
       position: relative;
 
       music-part-item {
@@ -33,6 +33,7 @@
             margin-top: 20px;
           }
           ion-text {
+            max-width: calc(100vw * 0.28);
             color: rgba(255, 255, 255, 0.897) !important;
           }
         }

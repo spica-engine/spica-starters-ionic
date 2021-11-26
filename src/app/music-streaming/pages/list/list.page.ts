@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { FollowableModalComponent } from '../../components/followable-modal/followable-modal.component';
 import { AudioService } from '../../services/audio.service';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
+import { environment } from '../../services/environment';
 
 @Component({
   selector: 'app-list',
@@ -11,22 +14,27 @@ import * as DataService from '../../services/bucket';
 })
 export class ListPage implements OnInit {
   artist: DataService.Music_Artist;
-  tracks: DataService.Music_Track[] = [];
+  tracks: any[] = [];
   playList: DataService.Music_Playlist;
   kind: DataService.Music_Track_Kind;
   paramId: string;
+  defaultImage = environment.user_img;
 
   constructor(
     private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _audioService: AudioService
+    private _audioService: AudioService,
+    private _modalController: ModalController
   ) {
     this._authService.initBucket();
   }
 
   async ngOnInit() {
     this.paramId = this._route.snapshot.params.id;
+    this.manageData();
+  }
 
+  manageData() {
     this._route.queryParams.subscribe(async (param) => {
       if (param.type == 'musicKind') {
         this.kind = await this.getKind();
@@ -65,5 +73,39 @@ export class ListPage implements OnInit {
 
   setTrack(track) {
     this._audioService.setTrack(track);
+  }
+
+  itemClicked(event, track) {
+    if (event == 'action' && this.playList) {
+      this.tracks = this.tracks.filter((el) => {
+        return el._id != track._id;
+      }); 
+      
+      DataService.music_playlist.patch({
+        _id: this.playList._id,
+        tracks: this.tracks
+      });
+    } else {
+      this.setTrack(track);
+    }
+  }
+
+  async followableModal() {
+    const modal = await this._modalController.create({
+      component: FollowableModalComponent,
+      componentProps: {
+        type: 'track',
+        playListId: this.paramId,
+      },
+    });
+
+    modal.onWillDismiss().then((res) => {
+      if (!res.data) {
+        return;
+      }
+      this.manageData();
+    });
+
+    return await modal.present();
   }
 }

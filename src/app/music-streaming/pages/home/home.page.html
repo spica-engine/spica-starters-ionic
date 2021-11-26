@@ -19,7 +19,7 @@
         (click)="navigateToList(folowing['_id'])"
         [class.first]="index==0"
       >
-        <music-part-item [data]="folowing"></music-part-item>
+        <music-part-item [data]="{img: folowing['profile_picture'], text: folowing['name']}"></music-part-item>
       </ion-slide>
     </ion-slides>
   </div>
@@ -33,7 +33,7 @@
         (click)="navigateToList(item['_id'])"
         [class.first]="index==0"
       >
-        <music-part-item [data]="item"></music-part-item>
+        <music-part-item [data]="{img: item['profile_picture'], text: item['name']}"></music-part-item>
       </ion-slide>
     </ion-slides>
   </div>
@@ -47,7 +47,7 @@
         (click)="navigateToList(item['_id'])"
         [class.first]="index==0"
       >
-      <music-part-item [data]="item" [isCircle]="true"></music-part-item>
+      <music-part-item [data]="{img: item['profile_picture'], text: item['name']}" [isCircle]="true"></music-part-item>
       </ion-slide>
     </ion-slides>
   </div>

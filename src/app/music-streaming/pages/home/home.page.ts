@@ -22,6 +22,7 @@ export class HomePage implements OnInit {
     },
   };
 
+  userId: string;
   user: DataService.Music_User;
   recommended: DataService.Music_Artist[] = [];
 
@@ -34,6 +35,7 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
+    this.userId = (await this._authService.getUser().toPromise())._id;
     await this.getUser();
     if (!this.user.followed_artists.length) {
       this.followableModal();
@@ -42,7 +44,7 @@ export class HomePage implements OnInit {
   }
 
   async getUser() {
-    this.user = await DataService.music_user.get('619e151dc76489002e9b7910', {
+    this.user = await DataService.music_user.get(this.userId, {
       queryParams: { relation: true },
     });
   }
@@ -60,6 +62,9 @@ export class HomePage implements OnInit {
   async followableModal() {
     const modal = await this._modalController.create({
       component: FollowableModalComponent,
+      componentProps: {
+        type: 'artist',
+      },
     });
 
     modal.onWillDismiss().then((res) => {

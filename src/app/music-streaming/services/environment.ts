@@ -5,7 +5,8 @@
 export const environment = {
   apiUrl: "https://asset-test-9ef6b.hq.spicaengine.com/api",
   apikey: "2n1c1akw1uf4m5",
-  user_img: "https://www.faydavipegitim.com/media/contents/0ed09-user-profile.jpeg"
+  user_img: "https://www.faydavipegitim.com/media/contents/0ed09-user-profile.jpeg",
+  play_list_img: "https://ak.picdn.net/shutterstock/videos/1027045601/thumb/1.jpg?ip=x480"
 };
 
 /*

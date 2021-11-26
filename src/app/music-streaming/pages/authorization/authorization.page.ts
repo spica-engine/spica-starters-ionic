@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
@@ -11,42 +10,35 @@ import * as dataService from '../../services/bucket';
   styleUrls: ['./authorization.page.scss'],
 })
 export class AuthorizationPage implements OnInit {
-  screen: string = 'login';
-  loginForm: FormGroup;
   user: dataService.Music_User;
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   constructor(
-    private _formBuilder: FormBuilder,
     private _authService: AuthService,
     private _router: Router,
     private _commonService: CommonService
   ) {
     this._authService.initBucket();
-
-    this.loginForm = this._formBuilder.group({
-      email: '',
-      name: '',
-      surname: '',
-      password: '',
-      termsOfUse: '',
-    });
   }
 
   ngOnInit() {}
 
   login(loginData) {
+    this.isLoading = true;
     this._authService
       .login(loginData.email, loginData.password)
       .toPromise()
       .then((res) => {
+        this.isLoading = false;
         this._router.navigate(['/music-streaming/tabs/home']);
       })
-      .catch((err) => this._commonService.presentToast(err.message, 1500));
+      .catch((err) => {
+        this.isLoading = false;
+        this._commonService.presentToast(err.message, 1500)
+      });
   }
 
-  register(registerData) {
-    delete registerData['termsOfUse'];
-
+  register(registerData) {   
+    this.isLoading = true; 
     this._authService
       .register({ ...registerData })
       .then((res) => {
@@ -57,13 +49,8 @@ export class AuthorizationPage implements OnInit {
         });
       })
       .catch((err) => {
+        this.isLoading = false;
         this._commonService.presentToast(err.error.message, 1500);
       });
   }
-
-  // logout() {
-  //   this.user = undefined;
-  //   this._authService.logout();
-  //   window.location.reload();
-  // }
 }

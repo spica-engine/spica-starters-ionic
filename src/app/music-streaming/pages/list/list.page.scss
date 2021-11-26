@@ -48,5 +48,10 @@
   .list {
     padding: 0 15px;
     margin-bottom: 70px;
+    &::ng-deep {
+      .action-icon {
+        color: rgb(170, 0, 0);
+      }
+    }
   }
 }

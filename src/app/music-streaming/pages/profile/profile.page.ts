@@ -20,8 +20,8 @@ export class ProfilePage implements OnInit {
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    this.user = await this.getUser();
-
+    this.user = await this._authService.getUser().toPromise()
+    
     this.listItems = [
       { key: 'username', value: '', seperate: true },
       { key: 'name', value: '', seperate: true },
@@ -31,12 +31,6 @@ export class ProfilePage implements OnInit {
     this.listItems.forEach(
       (item) => (item.value = this.user[item.key] ? this.user[item.key] : '')
     );
-  }
-
-  getUser() {
-    return DataService.music_user.get('619e151dc76489002e9b7910', {
-      queryParams: { relation: true },
-    });
   }
 
   logout(){

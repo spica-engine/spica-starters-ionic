@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AudioService } from '../../services/audio.service';
+import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
 import { EventService } from '../../services/event.service';
 
@@ -14,6 +15,7 @@ export class PlayerComponent implements OnInit {
   @Input() isLiked: boolean;
 
   track: DataService.Music_Track = this.audioService.getTrack();
+  user: DataService.Music_User;
   paused: boolean = false;
   currentTime: number = 0;
   currentTimeIntervel: any;
@@ -23,10 +25,11 @@ export class PlayerComponent implements OnInit {
     public audioService: AudioService,
     private _modalController: ModalController,
     private _eventService: EventService,
-    private _router: Router
+    private _router: Router,
+    private _authService: AuthService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if (localStorage.getItem('shuffle') == 'true') {
       this.isShuffle = true;
     }
@@ -34,12 +37,12 @@ export class PlayerComponent implements OnInit {
     if (!this.audioService.paused()) {
       this.startTimer();
     }
+    await this.getUser();
   }
 
   startTimer() {
     this.currentTimeIntervel = setInterval(() => {
-      console.log(this.audioService.duration())
-      if (this.currentTime == Math.floor(this.audioService.duration() -1 )) {
+      if (this.currentTime == Math.floor(this.audioService.duration() - 1)) {
         this.stopTimer();
       }
       this.currentTime += 1;
@@ -71,6 +74,12 @@ export class PlayerComponent implements OnInit {
         this.startTimer();
       }
       this.track = this.audioService.getTrack();
+
+      if (this.user.liked_tracks.includes(this.track._id)) {
+        this.isLiked = true;
+      } else {
+        this.isLiked = false;
+      }
     }
 
     if (value == 'shuffle') {
@@ -89,10 +98,19 @@ export class PlayerComponent implements OnInit {
   }
 
   goToList() {
-    this._router.navigate([
-      `/music-streaming/tabs/${this._router.url.split('/')[3]}/list/${this.track.artist}`,
-    ], {queryParams: {type: 'artist'}});
+    this._router.navigate(
+      [
+        `/music-streaming/tabs/${this._router.url.split('/')[3]}/list/${
+          this.track.artist
+        }`,
+      ],
+      { queryParams: { type: 'artist' } }
+    );
 
     this._modalController.dismiss();
+  }
+
+  async getUser() {
+    this.user = await this._authService.getUser().toPromise();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import * as DataService from '../../services/bucket';
 import { AuthService } from '../../services/auth.service';
 import { ModalController } from '@ionic/angular';
@@ -11,8 +11,13 @@ import { ModalController } from '@ionic/angular';
 export class FollowableModalComponent implements OnInit {
   artists: DataService.Music_Artist[] = [];
   user: DataService.Music_User;
-  selectedArtists: string[] = [];
+  tracks: DataService.Music_Track[] = [];
+  playList: DataService.Music_Playlist;
+  selectedData: string[] = [];
   searchTerm: string;
+
+  @Input() type: string = 'artist';
+  @Input() playListId: string = '';
 
   constructor(
     private _authService: AuthService,
@@ -22,11 +27,17 @@ export class FollowableModalComponent implements OnInit {
   async ngOnInit() {
     this._authService.initBucket();
     this.user = await this.getUser();
-    this.artists = await this.getArtists();
+
+    if (this.type == 'artist') {
+      this.artists = await this.getArtists();
+    } else {
+      this.playList = await this.getPlayList();
+      this.tracks = await this.getTracks();
+    }
   }
 
   getUser() {
-    return this._authService.getUser().toPromise();
+    return this._authService.getUser(true).toPromise();
   }
 
   getArtists() {
@@ -39,35 +50,71 @@ export class FollowableModalComponent implements OnInit {
     });
   }
 
-  selectArtist(id) {
-    if (this.selectedArtists.includes(id)) {
-      this.selectedArtists = this.selectedArtists.filter((el) => {
-        return el != id;
-      });
-    } else {
-      this.selectedArtists.push(id);
-    }
-  }
-
-  async search(terms) {
-    this.artists = await DataService.music_artist.getAll({
+  getTracks() {
+    return DataService.music_track.getAll({
       queryParams: {
         filter: {
-          name: { $regex: terms, $options: 'i' },
-          _id: { $nin: this.user.followed_artists },
+          _id: { $nin: this.playList.tracks },
         },
-        limit: 10,
       },
     });
   }
 
-  async apply() {
-    if (this.selectedArtists.length) {
-      let newArr = this.user.followed_artists.concat(this.selectedArtists);
-      await DataService.music_user.patch({
-        _id: this.user._id,
-        followed_artists: newArr,
+  selectData(id) {
+    if (this.selectedData.includes(id)) {
+      this.selectedData = this.selectedData.filter((el) => {
+        return el != id;
       });
+    } else {
+      this.selectedData.push(id);
+    }
+  }
+
+  getPlayList() {
+    return DataService.music_playlist.get(this.playListId);
+  }
+
+  async search(terms) {
+    if(this.type == 'artist'){
+      this.artists = await DataService.music_artist.getAll({
+        queryParams: {
+          filter: {
+            name: { $regex: terms, $options: 'i' },
+            _id: { $nin: this.user.followed_artists },
+          },
+          limit: 10,
+        },
+      });
+    } else if(this.type == 'track'){
+      this.tracks = await DataService.music_track.getAll({
+        queryParams: {
+          filter: {
+            name: { $regex: terms, $options: 'i' },
+            _id: { $nin: this.playList.tracks },
+          },
+          limit: 10,
+        },
+      });
+    }
+    
+  }
+
+  async apply() {
+    if (this.selectedData.length) {
+      if (this.type == 'artist') {
+        let newArr = this.user.followed_artists.concat(this.selectedData);
+        await DataService.music_user.patch({
+          _id: this.user._id,
+          followed_artists: newArr,
+        });
+      } else if (this.type == 'track') {
+        let newArr = this.playList.tracks.concat(this.selectedData);
+        await DataService.music_playlist.patch({
+          _id: this.playList._id,
+          tracks: newArr,
+        });
+      }
+
       this._modalController.dismiss({ action: 'updated' });
     } else {
       this._modalController.dismiss();

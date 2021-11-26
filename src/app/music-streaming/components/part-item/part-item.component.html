@@ -1,5 +1,5 @@
 <div class="part-item">
-  <img [src]="data['profile_picture']" [class.circle-img]="isCircle"/>
-  <ion-text *ngIf="!isCircle">{{data['name']}}</ion-text>
+  <img [src]="data.img" [class.circle-img]="isCircle"/>
+  <ion-text *ngIf="!isCircle">{{data.text}}</ion-text>
 </div>
-<ion-text *ngIf="isCircle" [class.circle-text]="isCircle">{{data['name']}}</ion-text>
+<ion-text *ngIf="isCircle" [class.circle-text]="isCircle">{{data.text}}</ion-text>

@@ -7,10 +7,11 @@
 
 <ion-content *ngIf="tracks">
   <div class="metadata artist" *ngIf="artist">
-    <music-part-item [data]="artist"></music-part-item>
+    <music-part-item
+      [data]="{img: artist['profile_picture'], text: artist['name']}"
+    ></music-part-item>
     <div class="info">
       <ion-text>Prepared for <span>idriska</span></ion-text>
-      <ion-text>7.416 like</ion-text>
     </div>
   </div>
 
@@ -20,9 +21,7 @@
       <ion-text>{{kind.title}}</ion-text>
     </ng-container>
     <ng-container *ngIf="playList">
-      <img
-        [src]="playList.image || 'https://ak.picdn.net/shutterstock/videos/1027045601/thumb/1.jpg?ip=x480'"
-      />
+      <img [src]="playList.image || defaultImage" />
       <ion-text>{{playList.name}}</ion-text>
     </ng-container>
   </div>
@@ -35,15 +34,17 @@
       title: 'Add new track',
       isCircle: true
     }"
+      (click)="followableModal()"
     ></music-list-item>
     <music-list-item
       [data]="{
       image: track.cover,
       title: track.name,
+      actionIcon: playList ? 'remove-circle-outline' : undefined,
       subTitle: track.artist['name']
     }"
       *ngFor="let track of tracks"
-      (click)="setTrack(track)"
+      (clickAction)="itemClicked($event, track)"
     ></music-list-item>
   </div>
 </ion-content>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h3>Followable Artist</h3>
+  <h3>{{ type == "artist" ? "Followable Artist" : "Addable Tracks" }}</h3>
   <ion-searchbar
     mode="ios"
     [debounce]="800"
@@ -8,14 +8,24 @@
   ></ion-searchbar>
 
   <div class="artists-container">
-    <music-part-item
-      *ngFor="let artist of artists"
-      [data]="artist"
-      [isCircle]="true"
-      selectedArtists
-      (click)="selectArtist(artist._id)"
-      [class.selected]="selectedArtists.includes(artist._id)"
-    ></music-part-item>
+    <ng-container *ngIf="type == 'artist'">
+      <music-part-item
+        *ngFor="let artist of artists"
+        [data]="{ img: artist['profile_picture'], text: artist['name'] }"
+        [isCircle]="true"
+        (click)="selectData(artist._id)"
+        [class.selected]="selectedData.includes(artist._id)"
+      ></music-part-item>
+    </ng-container>
+    <ng-container *ngIf="type == 'track'">
+      <music-part-item
+        *ngFor="let track of tracks"
+        [data]="{ img: track['cover'], text: track['name'] }"
+        [isCircle]="true"
+        (click)="selectData(track._id)"
+        [class.selected]="selectedData.includes(track._id)"
+      ></music-part-item>
+    </ng-container>
   </div>
   <ion-button (click)="apply()">Apply</ion-button>
 </div>
