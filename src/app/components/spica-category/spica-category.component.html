@@ -1,0 +1,26 @@
+<div
+  class="item"
+  *ngFor="let category of categories"
+  lines="none"
+  detail="false"
+  [class.show-sub-cat]="showedCat == category._id"
+>
+  <div class="cat-container main-cat" (click)="clicked(category)">
+    <ion-avatar>
+      <img [src]="category.img" />
+    </ion-avatar>
+    <ion-label>{{ category.name }}</ion-label>
+    <ion-icon name="chevron-forward"></ion-icon>
+  </div>
+  <div
+    class="cat-container sub-cat"
+    *ngFor="let subCat of category.sub_category"
+    (click)="clicked(subCat)"
+  >
+    <ion-avatar>
+      <img [src]="subCat.img" />
+    </ion-avatar>
+    <ion-label>{{ subCat.name }}</ion-label>
+    <ion-icon name="chevron-forward"></ion-icon>
+  </div>
+</div>

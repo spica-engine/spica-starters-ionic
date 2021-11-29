@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { SpicaConfirmShoppingComponent } from 'src/app/components/spica-confirm-shopping/spica-confirm-shopping.component';
 import { SpicaShippingAddressComponent } from 'src/app/components/spica-shipping-address/spica-shipping-address.component';
-import { AuthService } from '../services/auth.service';
 import * as DataService from '../services/bucket';
 import { CommonService } from 'src/app/services/common.service';
 import { SpicaFuntionService } from '../services/spica-function.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-basket',

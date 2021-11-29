@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { CategoryPageRoutingModule } from './category-routing.module';
 
-import { ProfilePage } from './profile.page';
+import { CategoryPage } from './category.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,10 +14,9 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule,
-    ReactiveFormsModule,
+    CategoryPageRoutingModule,
     SpicaComponentsModule
   ],
-  declarations: [ProfilePage]
+  declarations: [CategoryPage]
 })
-export class ProfilePageModule {}
+export class CategoryPageModule {}

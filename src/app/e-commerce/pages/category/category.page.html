@@ -5,15 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-item *ngFor="let category of categories" lines="none" detail="false" (click)="navigateToProducts(category._id)">
-    <ion-avatar>
-      <img
-        [src]="category.img"
-      />
-    </ion-avatar>
-    <ion-label>{{category.name}}</ion-label>
-    <ion-icon name="chevron-forward"></ion-icon>
-  </ion-item>
+  <spica-category *ngIf="categories.length" [categories]="categories" (clickNavigate)="navigateToProducts($event)"></spica-category>
 
   <div class="overlay" *ngIf="searchTerm"></div>
 

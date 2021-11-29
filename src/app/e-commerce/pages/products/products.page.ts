@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as dataService from '../services/bucket';
 import { ModalController } from '@ionic/angular';
-import { SpicaSortModalComponent } from '../../components/spica-sort-modal/spica-sort-modal.component';
+import { SpicaSortModalComponent } from '../../../components/spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
 import { AuthService } from '../services/auth.service';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from 'src/app/e-commerce/services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
+import { AuthService } from '../services/auth.service';
 import * as dataService from '../services/bucket';
 
 @Component({
