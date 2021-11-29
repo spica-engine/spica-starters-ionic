@@ -51,7 +51,7 @@ export class TabsPage implements OnInit {
       component: PlayerComponent,
       cssClass: 'my-custom-class',
       componentProps: {
-        isLiked: this.user.liked_tracks.includes(
+        isLiked: this.user.liked_tracks?.includes(
           this.audioService.getTrack()._id
         ),
       },
@@ -79,7 +79,7 @@ export class TabsPage implements OnInit {
   changeLike() {
     let trackId = this.audioService.getTrack()._id;
     this.user.liked_tracks = this.user.liked_tracks || [];
-    if (this.user.liked_tracks.includes(trackId)) {
+    if (this.user.liked_tracks?.includes(trackId)) {
       this.user.liked_tracks = this.user.liked_tracks.filter((el) => {
         el != trackId;
       });

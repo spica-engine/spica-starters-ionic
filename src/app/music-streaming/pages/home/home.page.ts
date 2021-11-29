@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
   }
 
   async ngOnInit() {
-    this.userId = (await this._authService.getUser().toPromise())._id;
+    this.userId = (await this._authService.getUser().toPromise())?._id;
     await this.getUser();
     if (!this.user.followed_artists.length) {
       this.followableModal();

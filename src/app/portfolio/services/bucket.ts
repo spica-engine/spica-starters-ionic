@@ -134,6 +134,9 @@ export interface About_Me{
   bio?: string;
   images?: string[];
   location?: { type: "Point", coordinates: [number,number]};
+  about_facts?: string;
+  about_portfolio?:string;
+  about_services?:string;
   facts?: {
   name?: string;
   count?: number;}[];
@@ -143,6 +146,9 @@ export interface About_Me{
   position?: string;
   description?: string;
   years?: string;}[];}[];
+  socical_media?: {
+    name?: string;
+    link?: string;}[];
 }
 export namespace about_me {
   const BUCKET_ID = '61a0ae93c76489002e9b9c05';

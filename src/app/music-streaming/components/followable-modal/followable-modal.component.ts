@@ -44,7 +44,7 @@ export class FollowableModalComponent implements OnInit {
     return DataService.music_artist.getAll({
       queryParams: {
         filter: {
-          _id: { $nin: this.user.followed_artists },
+          _id: { $nin: this.user.followed_artists || [] },
         },
       },
     });
@@ -54,7 +54,7 @@ export class FollowableModalComponent implements OnInit {
     return DataService.music_track.getAll({
       queryParams: {
         filter: {
-          _id: { $nin: this.playList.tracks },
+          _id: { $nin: this.playList.tracks || [] },
         },
       },
     });
@@ -80,7 +80,7 @@ export class FollowableModalComponent implements OnInit {
         queryParams: {
           filter: {
             name: { $regex: terms, $options: 'i' },
-            _id: { $nin: this.user.followed_artists },
+            _id: { $nin: this.user.followed_artists || [] },
           },
           limit: 10,
         },
@@ -90,7 +90,7 @@ export class FollowableModalComponent implements OnInit {
         queryParams: {
           filter: {
             name: { $regex: terms, $options: 'i' },
-            _id: { $nin: this.playList.tracks },
+            _id: { $nin: this.playList.tracks  || []},
           },
           limit: 10,
         },
