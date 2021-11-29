@@ -6,7 +6,7 @@ import { SpicaShippingAddressComponent } from 'src/app/components/spica-shipping
 import { AuthService } from '../services/auth.service';
 import * as DataService from '../services/bucket';
 import { CommonService } from 'src/app/services/common.service';
-import { SpicaFuntionService } from '../services/spica-funtion.service';
+import { SpicaFuntionService } from '../services/spica-function.service';
 
 @Component({
   selector: 'app-basket',
