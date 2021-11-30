@@ -1,0 +1,18 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <div class="logo">
+        <ion-icon name="logo-ionic"></ion-icon>
+        Store Listing
+      </div>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <store-card
+    [data]="place"
+    *ngFor="let place of places"
+    routerLink="store-detail/{{place._id}}"
+  ></store-card>
+</ion-content>

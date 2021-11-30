@@ -1,0 +1,19 @@
+:host{
+    .logo {
+        align-items: center;
+        display: flex;
+        color: var(--cd-logo-color);
+        font-weight: bold;
+        ion-icon {
+          padding-right: 10px;
+        }
+      }
+    
+      ion-toolbar {
+        --border-color: var(--cd-divider-color);
+        ion-icon {
+          width: 30px;
+          height: 30px;
+        }
+      }
+}

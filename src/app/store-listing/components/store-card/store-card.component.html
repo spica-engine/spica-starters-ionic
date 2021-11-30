@@ -1,0 +1,14 @@
+<ion-card>
+  <img [src]="data.images[0]" />
+  <ion-card-header>
+    <ion-card-subtitle>
+      <span><ion-icon name="location"></ion-icon>
+      {{data.city}}</span>
+      <ion-text>{{data.phone}}</ion-text>
+    </ion-card-subtitle>
+    <ion-card-title>{{data.name}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    {{data.description}}
+  </ion-card-content>
+</ion-card>
