@@ -12,6 +12,7 @@ export class SpicaMenuBarComponent implements OnInit {
   @Input() project: string;
   @Output() clickMenuItem: EventEmitter<any> = new EventEmitter();
   items: MenuItem[];
+  activeLink: string;
   constructor(
     private _menu: MenuController,
     private _menuServices: MenuService
@@ -19,6 +20,7 @@ export class SpicaMenuBarComponent implements OnInit {
 
   ngOnInit() {
     this.items = this._menuServices.getMenuItems[this.project]();
+    this.activeLink = this.items[0].key;
   }
 
   openCustom() {
@@ -27,6 +29,8 @@ export class SpicaMenuBarComponent implements OnInit {
   }
   clickedItem(item) {
     this.clickMenuItem.emit(item.key);
-    this._menu.close('custom');
+    setTimeout(() => {
+      this._menu.close('custom');
+    }, 200);
   }
 }
