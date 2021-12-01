@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 import * as identity from '@spica-devkit/identity';
-import * as DataService from './v2_bucket';
+import * as DataService from './bucket';
 import jwt_decode from 'jwt-decode';
 import { from, Observable, of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
-import * as dataService from './v2_bucket';
 import { environment } from './environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  activeUser: dataService.Music_User;
+  activeUser: DataService.About_Me;
   activeToken: string;
 
   constructor(private http: HttpClient) {
-    dataService.initialize({ apikey: environment.apikey });
+    DataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
       apikey: environment.apikey,
@@ -115,12 +114,12 @@ export class AuthService {
   }
 
   //Gets user info after taking token stored in local storage
-  getUser(clean: boolean = false): Observable<dataService.Music_User> {
+  getUser(clean: boolean = false): Observable<DataService.About_Me> {
     if (this.activeUser && !clean) return of(this.activeUser);
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? dataService.music_user.getAll({
+          ? DataService.about_me.getAll({
               queryParams: { filter: { identity_id: token._id } },
             })
           : of([null])

@@ -1,0 +1,22 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-searchbar mode="ios" [debounce]="800" (ionChange)="searchProduct($event.target['value'])" [(ngModel)]="searchTerm"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <spica-category *ngIf="categories.length" [categories]="categories" (clickNavigate)="navigateToProducts($event)"></spica-category>
+
+  <div class="overlay" *ngIf="searchTerm"></div>
+
+  <div class="found-products-container" *ngIf="searchTerm">
+    <ion-list>
+      <ion-item lines="none" *ngFor="let product of products" (click)="goToProduct(product._id)">
+        <ion-label>
+          <h3>{{product.title}}</h3>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" size="small" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

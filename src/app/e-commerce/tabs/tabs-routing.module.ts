@@ -10,23 +10,23 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../home/home.module').then( m => m.HomePageModule)
+        loadChildren: () => import('../pages/home/home.module').then( m => m.HomePageModule)
       },
       {
         path: 'category',
-        loadChildren: () => import('../category/category.module').then( m => m.CategoryPageModule)
+        loadChildren: () => import('../pages/category/category.module').then( m => m.CategoryPageModule)
       },
       {
         path: 'basket',
-        loadChildren: () => import('../basket/basket.module').then( m => m.BasketPageModule)
+        loadChildren: () => import('../pages/basket/basket.module').then( m => m.BasketPageModule)
       },
       {
         path: 'favorite',
-        loadChildren: () => import('../favorite/favorite.module').then( m => m.FavoritePageModule)
+        loadChildren: () => import('../pages/favorite/favorite.module').then( m => m.FavoritePageModule)
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
+        loadChildren: () => import('../pages/profile/profile.module').then( m => m.ProfilePageModule)
       },
       {
         path: '',

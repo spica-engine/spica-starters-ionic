@@ -17,6 +17,7 @@ import { SpicaUserProfilePictureComponent } from './spica-user-profile-picture/s
 import { SpicaUploadImageComponent } from './spica-upload-image/spcia-upload-image.component';
 import { SpicaItemListComponent } from './spica-item-list/spica-item-list.component';
 import { SpicaMenuBarComponent } from './spica-menu-bar/spica-menu-bar.component';
+import { SpicaCategoryComponent } from './spica-category/spica-category.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SpicaMenuBarComponent } from './spica-menu-bar/spica-menu-bar.component
     SpicaUserProfilePictureComponent,
     SpicaUploadImageComponent,
     SpicaItemListComponent,
-    SpicaMenuBarComponent
+    SpicaMenuBarComponent,
+    SpicaCategoryComponent
   ],
   exports: [
     SpicaCardComponent,
@@ -47,7 +49,8 @@ import { SpicaMenuBarComponent } from './spica-menu-bar/spica-menu-bar.component
     SpicaUserProfilePictureComponent,
     SpicaUploadImageComponent,
     SpicaItemListComponent,
-    SpicaMenuBarComponent
+    SpicaMenuBarComponent,
+    SpicaCategoryComponent
   ],
   imports: [
     RouterModule,

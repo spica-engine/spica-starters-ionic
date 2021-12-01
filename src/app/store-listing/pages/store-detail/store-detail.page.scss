@@ -1,0 +1,73 @@
+:host {
+  ion-content {
+    ion-segment {
+      margin: 30px 0;
+      background: rgb(233, 233, 233);
+
+      ion-segment-button {
+        --background-checked: rgb(0, 0, 0);
+        --indicator-color: rgb(0, 0, 0);
+        --color-checked: white;
+      }
+    }
+
+    .map {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 15px;
+      width: calc(100vw - 30px);
+      height: calc(100vw * 0.7);
+      background: rgb(233, 233, 233);;
+    }
+
+    h4 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    p {
+      padding: 0 15px;
+      font-size: 14px;
+
+      span {
+        font-weight: 600;
+      }
+
+      &.working-hours-title {
+        margin-top: 30px;
+        border-top: 1px solid rgb(233, 233, 233);
+        border-bottom: 1px solid rgb(233, 233, 233);
+        padding: 15px 0;
+        text-align: center;
+      }
+
+      &.days {
+        display: flex;
+        justify-content: center;
+
+        :first-child {
+          text-align: end;
+        }
+        span {
+          flex: 1;
+          margin: 0 7px;
+          font-size: 12px;
+
+          &.hours {
+            font-weight: 400;
+          }
+        }
+      }
+    }
+
+    .gallery-slide {
+      max-height: 100vw * 0.7;
+      ion-slide {
+        img {
+          padding: 0 15px;
+        }
+      }
+    }
+  }
+}
