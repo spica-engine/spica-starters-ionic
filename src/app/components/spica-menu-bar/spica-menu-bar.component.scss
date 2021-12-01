@@ -1,0 +1,12 @@
+:host {
+  position: absolute;
+  z-index: 11;
+  min-width: 40px;
+  min-height: 40px;
+  ion-menu {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 11;
+  }
+}
