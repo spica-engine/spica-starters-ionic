@@ -1,0 +1,26 @@
+<div class="auth-container">
+  <div class="nav-container">
+    <ion-label>Login</ion-label
+    >
+  </div>
+
+  <div class="form-container" [formGroup]="loginForm">
+    <ion-input
+      placeholder="Username"
+      id="username"
+      formControlName="username"
+      required
+    ></ion-input>
+    <ion-input
+      placeholder="Password"
+      type="password"
+      id="password"
+      formControlName="password"
+      required
+    >
+      <ion-icon name="eye-outline"></ion-icon>
+    </ion-input>
+    <p><span>Forgot password?</span></p>
+    <ion-button (click)="login()" [disabled]="">Login</ion-button>
+  </div>
+</div>
