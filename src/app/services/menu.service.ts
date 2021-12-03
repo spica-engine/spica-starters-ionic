@@ -9,7 +9,7 @@ export class MenuService {
   getMenuItems = {
     job_portal: () => {
       return [
-        { key: 'home', value: 'Home', icon: 'home' },
+        { key: 'jobs', value: 'Jobs', icon: 'filter-outline' },
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },

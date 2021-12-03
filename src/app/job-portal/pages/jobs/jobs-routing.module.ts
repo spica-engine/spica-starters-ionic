@@ -6,8 +6,13 @@ import { JobsPage } from './jobs.page';
 const routes: Routes = [
   {
     path: '',
-    component: JobsPage
-  }
+    component: JobsPage,
+  },
+  {
+    path: 'profile',
+    loadChildren: () =>
+      import('../profile/profile.module').then((m) => m.ProfilePageModule),
+  },
 ];
 
 @NgModule({

@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { JobsPageRoutingModule } from './jobs-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { JobsPage } from './jobs.page';
+import { ProfilePage } from './profile.page';
 import { JobPortalComponentModule } from '../../components/job-portal-components.module';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
 
@@ -15,10 +15,10 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    JobsPageRoutingModule,
+    ProfilePageRoutingModule,
     JobPortalComponentModule,
-    SpicaComponentsModule,
+    SpicaComponentsModule
   ],
-  declarations: [JobsPage],
+  declarations: [ProfilePage],
 })
-export class JobsPageModule {}
+export class ProfilePageModule {}

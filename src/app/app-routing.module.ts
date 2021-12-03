@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { JobsPage } from './job-portal/pages/jobs/jobs.page';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule),
-  },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: 'food-delivery',
@@ -45,8 +46,7 @@ const routes: Routes = [
   },
   {
     path: 'job-portal',
-    loadChildren: () =>
-      import('./job-portal/app.module').then((m) => m.JobPortalModule),
+    component: JobsPage,
   },
   {
     path: 'store-listing',
