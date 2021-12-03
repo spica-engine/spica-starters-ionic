@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Survey Page</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="border"></div>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let survey of survey">
+    <ion-card-header>
+      <div class="survey-avatar">
+        <ion-avatar slot="start">
+          <img [src]="survey.user.profile_picture">
+        </ion-avatar>
+        <span>{{survey.user.nick}}</span>
+      </div>
+      <ion-card-title>{{survey.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-radio-group allowEmptySelection [value]="surveyAnswers[survey.title]" (click)="_vote(survey, $event.target['value'])">
+      <ion-item *ngFor="let select of survey.selections" lines="none">
+        <ion-radio mode="md" slot="start" [value]="select.option" ></ion-radio>
+        <ion-label>{{select.option}}</ion-label>
+        <span>{{select.voter?.length}}</span>
+      </ion-item>
+    </ion-radio-group>
+  </ion-card>
+</ion-content>

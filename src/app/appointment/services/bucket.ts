@@ -10,218 +10,211 @@ export function initialize(
   Bucket.initialize(...initOptions);
 }
 
-type Rest<T extends any[]> = ((...p: T) => void) extends ((p1: infer P1, ...rest: infer R) => void) ? R : never;
+type Rest<T extends any[]> = ((...p: T) => void) extends (
+  p1: infer P1,
+  ...rest: infer R
+) => void
+  ? R
+  : never;
 type getArgs = Rest<Parameters<typeof Bucket.data.get>>;
 type getAllArgs = Rest<Parameters<typeof Bucket.data.getAll>>;
 type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
 
-export interface Client{
+export interface Client {
   _id?: string;
   name?: string;
   surname?: string;
   identity_id?: string;
   age?: number;
-  appointments?: (Appointment & id | string)[];
+  appointments?: ((Appointment & id) | string)[];
+  phone?: string;
+  email?: string;
+  date_of_birth?: Date | string;
 }
 export namespace client {
   const BUCKET_ID = '61a73a23c76489002e9bb2c0';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Client & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Client & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Client, "_id">) {
-      ['appointments'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Client & id) {
-      ['appointments'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Client> & id
-    ) {
-      ['appointments'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Client & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Client & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Client, '_id'>) {
+    ['appointments'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Client & id) {
+    ['appointments'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Client> & id) {
+    ['appointments'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Client & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Client & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Client & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Client & id>(BUCKET_ID, ...args);
+    }
   }
 }
 
-export interface Appointment{
+export interface Appointment {
   _id?: string;
-  client?: (Client | string);
+  client?: Client | string;
   from?: Date | string;
   until?: Date | string;
   created_at?: Date | string;
   last_update?: Date | string;
-  client_status?: (-1|0|1);
-  employee_status?: (-1|0|1);
-  employee?: (Employee & id | string);
-  service?: (Service & id | string);
-  branch?: (Branch & id | string);
-  rating?: (Rating & id | string);
+  client_status?: -1 | 0 | 1;
+  employee_status?: -1 | 0 | 1;
+  employee?: (Employee & id) | string;
+  service?: (Service & id) | string;
+  branch?: (Branch & id) | string;
+  rating?: (Rating & id) | string;
+  note?: string;
 }
 export namespace appointment {
   const BUCKET_ID = '61a73a24c76489002e9bb2c3';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Appointment & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Appointment & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Appointment, "_id">) {
-      ['client','employee','service','branch','rating'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Appointment & id) {
-      ['client','employee','service','branch','rating'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Appointment> & id
-    ) {
-      ['client','employee','service','branch','rating'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Appointment & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Appointment & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Appointment, '_id'>) {
+    ['client', 'employee', 'service', 'branch', 'rating'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Appointment & id) {
+    ['client', 'employee', 'service', 'branch', 'rating'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Appointment> & id) {
+    ['client', 'employee', 'service', 'branch', 'rating'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Appointment & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Appointment & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Appointment & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Appointment & id>(BUCKET_ID, ...args);
+    }
   }
 }
 
-export interface Branch{
+export interface Branch {
   _id?: string;
   name?: string;
   address?: string;
   working_hours?: {
-  day_of_week?: (1|2|3|4|5|6|7);
-  hours?: {
-  from?: string;
-  until?: string;}[];}[];
-  employees?: (Employee & id | string)[];
+    day_of_week?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+    hours?: {
+      from?: string;
+      until?: string;
+    }[];
+  }[];
+  employees?: ((Employee & id) | string)[];
 }
 export namespace branch {
   const BUCKET_ID = '61a73a2bc76489002e9bb2cf';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Branch & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Branch & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Branch, "_id">) {
-      ['employees'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Branch & id) {
-      ['employees'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Branch> & id
-    ) {
-      ['employees'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Branch & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Branch & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Branch, '_id'>) {
+    ['employees'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Branch & id) {
+    ['employees'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Branch> & id) {
+    ['employees'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Branch & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Branch & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Branch & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Branch & id>(BUCKET_ID, ...args);
+    }
   }
 }
 
-export interface Public_Holiday{
+export interface Public_Holiday {
   _id?: string;
   name?: string;
   from?: Date | string;
@@ -229,107 +222,95 @@ export interface Public_Holiday{
 }
 export namespace public_holiday {
   const BUCKET_ID = '61a73a2dc76489002e9bb2d2';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Public_Holiday & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Public_Holiday & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Public_Holiday, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Public_Holiday & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Public_Holiday> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Public_Holiday & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Public_Holiday & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Public_Holiday, '_id'>) {
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Public_Holiday & id) {
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Public_Holiday> & id) {
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Public_Holiday & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Public_Holiday & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Public_Holiday & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Public_Holiday & id>(
+        BUCKET_ID,
+        ...args
+      );
+    }
   }
 }
 
-export interface Rating{
+export interface Rating {
   _id?: string;
-  star?: (1|2|3|4|5);
+  star?: 1 | 2 | 3 | 4 | 5;
   comment?: string;
-  appointment?: (Appointment & id | string);
+  appointment?: (Appointment & id) | string;
 }
 export namespace rating {
   const BUCKET_ID = '61a73a29c76489002e9bb2cc';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Rating & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Rating & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Rating, "_id">) {
-      ['appointment'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Rating & id) {
-      ['appointment'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Rating> & id
-    ) {
-      ['appointment'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Rating & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Rating & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Rating, '_id'>) {
+    ['appointment'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Rating & id) {
+    ['appointment'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Rating> & id) {
+    ['appointment'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Rating & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Rating & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Rating & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Rating & id>(BUCKET_ID, ...args);
+    }
   }
 }
 
-export interface Service{
+export interface Service {
   _id?: string;
   name?: string;
   duration?: number;
@@ -337,114 +318,102 @@ export interface Service{
 }
 export namespace service {
   const BUCKET_ID = '61a73a28c76489002e9bb2c9';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Service & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Service & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Service, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Service & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Service> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Service & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Service & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Service, '_id'>) {
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Service & id) {
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Service> & id) {
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Service & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Service & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Service & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Service & id>(BUCKET_ID, ...args);
+    }
   }
 }
 
-export interface Employee{
+export interface Employee {
   _id?: string;
   name?: string;
   surname?: string;
   picture?: string;
-  appointments?: (Appointment & id | string)[];
-  services?: (Service & id | string)[];
+  appointments?: ((Appointment & id) | string)[];
+  services?: ((Service & id) | string)[];
   working_hours?: {
-  day_of_week?: (1|2|3|4|5|6|7);
-  hours?: {
-  from?: string;
-  until?: string;}[];}[];
-  current_branch?: (Branch & id | string);
+    day_of_week?: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+    hours?: {
+      from?: string;
+      until?: string;
+    }[];
+  }[];
+  current_branch?: (Branch & id) | string;
   average_rating?: number;
   busy_hours?: {
-  from?: Date | string;
-  until?: Date | string;}[];
+    from?: Date | string;
+    until?: Date | string;
+  }[];
 }
 export namespace employee {
   const BUCKET_ID = '61a73a26c76489002e9bb2c6';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Employee & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Employee & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Employee, "_id">) {
-      ['appointments','services','current_branch'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Employee & id) {
-      ['appointments','services','current_branch'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Employee> & id
-    ) {
-      ['appointments','services','current_branch'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
+  export function get(...args: getArgs) {
+    return Bucket.data.get<Employee & id>(BUCKET_ID, ...args);
+  }
+  export function getAll(...args: getAllArgs) {
+    return Bucket.data.getAll<Employee & id>(BUCKET_ID, ...args);
+  }
+  export function insert(document: Omit<Employee, '_id'>) {
+    ['appointments', 'services', 'current_branch'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.insert(BUCKET_ID, document);
+  }
+  export function update(document: Employee & id) {
+    ['appointments', 'services', 'current_branch'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.update(BUCKET_ID, document._id, document);
+  }
+  export function patch(document: Partial<Employee> & id) {
+    ['appointments', 'services', 'current_branch'].forEach((field) => {
+      if (typeof document[field] == 'object') {
+        document[field] = Array.isArray(document[field])
+          ? document[field].map((v) => v._id ? v._id : v)
+          : document[field]._id;
+      }
+    });
+    return Bucket.data.patch(BUCKET_ID, document._id, document);
+  }
+  export function remove(documentId: string) {
+    return Bucket.data.remove(BUCKET_ID, documentId);
+  }
   export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Employee & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Employee & id>(BUCKET_ID, ...args);
-      };
+    export function get(...args: realtimeGetArgs) {
+      return Bucket.data.realtime.get<Employee & id>(BUCKET_ID, ...args);
+    }
+    export function getAll(...args: realtimeGetAllArgs) {
+      return Bucket.data.realtime.getAll<Employee & id>(BUCKET_ID, ...args);
+    }
   }
 }

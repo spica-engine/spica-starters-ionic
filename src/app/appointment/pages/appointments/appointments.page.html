@@ -5,5 +5,30 @@
 </ion-header>
 
 <ion-content>
+  <div class="nav-container">
+    <ion-label [class.active]="screen == 'coming'" (click)="screen = 'coming'"
+      >Coming</ion-label
+    >
+    <ion-label
+      [class.active]="screen == 'past'"
+      (click)="screen = 'past'"
+      >Past</ion-label
+    >
+  </div>
+
+  <div class="container" *ngIf="screen == 'coming'">
+    <ion-card>
+      <ion-label>
+        
+      </ion-label>
+      <ion-label>
+       
+      </ion-label>
+    </ion-card>
+  </div>
+
+  <div class="container" *ngIf="screen == 'past'">
+
+  </div>
 
 </ion-content>

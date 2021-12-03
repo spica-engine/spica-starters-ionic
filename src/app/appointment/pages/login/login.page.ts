@@ -29,13 +29,13 @@ export class LoginPage implements OnInit {
     });
   }
   login() {
-    this.loginForm.reset();
     this.isLoading = true;
     this._authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .toPromise()
       .then((res) => {
         this.isLoading = false;
+        this.loginForm.reset();
         this._router.navigate(['/appointment/tabs/home']);
       })
       .catch((err) => {

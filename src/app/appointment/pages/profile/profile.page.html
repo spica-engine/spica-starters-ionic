@@ -1,9 +1,22 @@
 <ion-header>
   <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
     <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <spica-user-profile-picture
+    [imageEditable]="user?._id==user?._id"
+    [image]="user?.picture"
+  ></spica-user-profile-picture>
+  <spica-item-list
+    *ngIf="listItems.length>0"
+    [items]="listItems"
+  ></spica-item-list>
 
+  <div class="button-container">
+    <ion-button class="logout" (click)="logout()">Log Out</ion-button>
+  </div>
+  
 </ion-content>
