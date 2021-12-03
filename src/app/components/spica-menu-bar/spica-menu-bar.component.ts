@@ -36,7 +36,7 @@ export class SpicaMenuBarComponent implements OnInit {
   clickedItem(item) {
     this.activeLink = item.key;
     this.clickMenuItem.emit(item.key);
-    this._router.navigateByUrl(item.key, {
+    this._router.navigateByUrl(`${this.project}/${item.key}`, {
       replaceUrl: true,
     });
     setTimeout(() => {

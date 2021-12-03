@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 import { DateAgoPipe } from './../../pipes/date-ago.pipe';
 import { HomePage } from './home.page';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { HomePage } from './home.page';
   CommonModule,
     FormsModule,
     IonicModule,
-    HomePageRoutingModule
+    HomePageRoutingModule,
+    SpicaComponentsModule
   ],
   declarations: [HomePage,DateAgoPipe]
 })

@@ -13,6 +13,12 @@ export class MenuService {
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
+    forum: () => {
+      return [
+        { key: 'home', value: 'Home', icon: 'home' },
+        { key: 'profile', value: 'Profile', icon: 'person' },
+      ] as MenuItem[];
+    },
   };
 }
 
