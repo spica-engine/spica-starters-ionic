@@ -1,4 +1,4 @@
-<spica-menu-bar project="job_portal"></spica-menu-bar>
+<spica-menu-bar project="job-portal"></spica-menu-bar>
 <ion-header *ngIf="me && !loading">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,7 +10,7 @@
 
 <ion-content *ngIf="me && !loading">
   <ion-card class="job-card" *ngFor="let job of jobs">
-    <ion-item button lines="none">
+    <ion-item button lines="none" [routerLink]="[job._id]">
       <ion-thumbnail slot="start">
         <img [src]="job.company['logo']" />
       </ion-thumbnail>
@@ -26,7 +26,7 @@
             </h6>
           </li>
         </ul>
-        <p>{{job.created_at|date:'dd/MM'}}</p>
+        <p class="date">{{job.created_at|date:'mediumDate'}}</p>
       </ion-label>
     </ion-item>
   </ion-card>

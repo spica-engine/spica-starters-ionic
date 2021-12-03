@@ -18,7 +18,6 @@ import { JobPortalModule } from './job-portal/job-portal.module';
     AppRoutingModule,
     HttpClientModule,
     SpicaComponentsModule,
-    JobPortalModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

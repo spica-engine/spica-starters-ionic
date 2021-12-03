@@ -8,12 +8,6 @@ import { ProfilePageModule } from '../e-commerce/pages/profile/profile.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    JobPortalRoutingModule,
-    SpicaComponentsModule,
-    JobsPageModule,
-    ProfilePageModule,
-  ],
+  imports: [CommonModule, JobPortalRoutingModule, SpicaComponentsModule],
 })
 export class JobPortalModule {}

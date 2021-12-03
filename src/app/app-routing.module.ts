@@ -46,7 +46,8 @@ const routes: Routes = [
   },
   {
     path: 'job-portal',
-    component: JobsPage,
+    loadChildren: () =>
+    import('./job-portal/job-portal.module').then((m) => m.JobPortalModule),
   },
   {
     path: 'store-listing',

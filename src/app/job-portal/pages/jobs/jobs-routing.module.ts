@@ -6,7 +6,17 @@ import { JobsPage } from './jobs.page';
 const routes: Routes = [
   {
     path: '',
-    component: JobsPage,
+    children: [
+      {
+        path: '',
+        component: JobsPage,
+      },
+      {
+        path: ':id',
+        loadChildren: () =>
+          import('./detail/detail.module').then((m) => m.DetailPageModule),
+      },
+    ],
   },
   {
     path: 'profile',
