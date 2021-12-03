@@ -1,0 +1,33 @@
+:host {
+  .projects {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 300px;
+    background-color: transparent;
+    right: -300px;
+    transition: all 0.3s cubic-bezier(0.37, 0.75, 0.37, 0.75);
+    ion-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -25px;
+      height: 50px;
+      width: 25px;
+      background: rgba(0, 0, 0, 0.35);
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+    &.open {
+      right: 0px;
+      height: 90%;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+      background: rgba(0, 0, 0, 0.4);
+      width: calc(100vw - 30px);
+    }
+  }
+  .opacity-passive {
+    opacity: 0.1;
+  }
+}

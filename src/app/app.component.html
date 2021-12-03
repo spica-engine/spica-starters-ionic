@@ -1,3 +1,19 @@
 <ion-app>
-  <ion-router-outlet id="main"></ion-router-outlet>
+  <ion-router-outlet
+    [class.opacity-passive]="showProjects"
+    id="main"
+  ></ion-router-outlet>
+  <div
+    [class.open]="showProjects"
+    class="projects"
+    *ngIf="router.url != '/home'"
+  >
+    <ion-icon
+      [name]="showProjects ? 'chevron-forward-outline' : 'chevron-back-outline'"
+      (click)="showProjects = !showProjects"
+    ></ion-icon>
+    <spica-starter-projects
+      (clickedProject)="showProjects = false"
+    ></spica-starter-projects>
+  </div>
 </ion-app>
