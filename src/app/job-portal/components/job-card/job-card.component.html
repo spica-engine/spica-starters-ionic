@@ -1,0 +1,42 @@
+<ion-card class="job-card" [routerLink]="routable ? ['jobs', job._id] : []">
+  <ion-item button lines="none">
+    <ion-thumbnail slot="start" (click)="clickedJob()">
+      <img
+        [src]="
+          job.company['logo'] ||
+          '../../../../assets/job-portal/broken-image.png'
+        "
+      />
+    </ion-thumbnail>
+    <ion-label (click)="clickedJob()">
+      <h2>
+        <b>{{ job.header }}</b>
+      </h2>
+      <ul>
+        <li>
+          <h4>{{ job.company["title"] }}</h4>
+        </li>
+        <li>
+          <h6>
+            {{ job.company["address"]["city"] }}/{{
+              job.company["address"]["country"]
+            }}
+          </h6>
+        </li>
+      </ul>
+      <p class="date">{{ job.created_at | date: "mediumDate" }}</p>
+    </ion-label>
+    <span (click)="saveJob()" class="save">
+      <ion-spinner
+        *ngIf="loading == job._id"
+        class="spinner-center-page"
+        name="crescent"
+      ></ion-spinner>
+      <ion-icon
+        [name]="
+          me?.saved_jobs?.includes(job._id) ? 'bookmark' : 'bookmark-outline'
+        "
+      ></ion-icon>
+    </span>
+  </ion-item>
+</ion-card>

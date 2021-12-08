@@ -12,9 +12,33 @@ const routes: Routes = [
         component: JobsPage,
       },
       {
-        path: ':id',
+        path: 'jobs',
         loadChildren: () =>
-          import('./detail/detail.module').then((m) => m.DetailPageModule),
+          import('../jobs/jobs.module').then(
+            (m) => m.JobsPageModule
+          ),
+      },
+      {
+        path: ':id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./detail/detail.module').then((m) => m.DetailPageModule),
+          },
+          {
+            path: 'company',
+            loadChildren: () =>
+              import('../company/company.module').then(
+                (m) => m.CompanyPageModule
+              ),
+          },
+        ],
+      },
+      {
+        path: 'company',
+        loadChildren: () =>
+          import('../company/company.module').then((m) => m.CompanyPageModule),
       },
     ],
   },

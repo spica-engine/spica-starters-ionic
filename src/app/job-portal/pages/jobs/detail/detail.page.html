@@ -7,4 +7,42 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <div *ngIf="job" class="metadata">
+    <ion-item [detail]="false" lines="none">
+      <ion-avatar [routerLink]="['company',job.company['_id']]" slot="start">
+        <img
+          [src]="job.company['logo'] || '../../../../assets/job-portal/broken-image.png'"
+          alt=""
+        />
+      </ion-avatar>
+      <h3 [routerLink]="['company',job.company['_id']]">
+        {{job.company['title']}}
+      </h3>
+      <ion-button *ngIf="!me?.companies?.includes(job.company['_id'])"
+        [disabled]="me?.applied_jobs?.includes(job._id)"
+        slot="end"
+        (click)="apply()"
+        >{{me?.applied_jobs?.includes(job._id) ? 'Applied' : 'Apply'}}
+      </ion-button>
+    </ion-item>
+    <div class="address">
+      {{job.company['address']['city']}}/{{job.company['address']['country']}}
+    </div>
+    <div class="job-info">
+      <h5>{{job.header}}</h5>
+      <div [innerHTML]="job.description"></div>
+    </div>
+    <div class="criterias">
+      <h2>Criterias</h2>
+      <div class="section" *ngFor="let criter of selectedCriterias">
+        <h5>{{criter | revokedUnderline |titlecase}}</h5>
+        <ion-chip *ngFor="let item of job.criterias[criter]">
+          <ion-label color="primary"
+            >{{item |revokedUnderline|titlecase}}</ion-label
+          >
+        </ion-chip>
+      </div>
+    </div>
+  </div>
+</ion-content>

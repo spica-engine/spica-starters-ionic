@@ -1,5 +1,5 @@
 <div class="picture-content">
-  <img [src]="image || defaultImage" alt="" />
+  <img [class.opacity]="imageEditable" [src]="image || defaultImage" alt="" />
   <spica-upload-image
     *ngIf="imageEditable"
     (change)="change($event)"

@@ -23,9 +23,9 @@ export class SpicaMenuBarComponent implements OnInit {
   ngOnInit() {
     this.items = this._menuServices.getMenuItems[this.project]();
     this.activeLink = this.items.filter(
-      (item) => item.key == this._router.url.substr(1)
+      (item) => this.project + '/' + item.key == this._router.url.substr(1)
     )[0]
-      ? this._router.url.substr(1)
+      ? this._router.url.substr(this.project.length + 2)
       : this.items[0].key;
   }
 
@@ -42,6 +42,5 @@ export class SpicaMenuBarComponent implements OnInit {
     setTimeout(() => {
       this._menu.close('custom');
     }, 150);
-    console.log(this.activeLink);
   }
 }

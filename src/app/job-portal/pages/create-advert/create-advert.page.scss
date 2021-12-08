@@ -1,0 +1,13 @@
+:host {
+  ion-list-header {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    font-size: 18px;
+  }
+  ion-item {
+    padding-left: 20px;
+    &.new-one {
+      margin-top: 20px;
+    }
+  }
+}

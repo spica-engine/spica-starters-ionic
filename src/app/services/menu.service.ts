@@ -10,7 +10,8 @@ export class MenuService {
     'job-portal': () => {
       return [
         { key: 'jobs', value: 'Jobs', icon: 'filter-outline' },
-        { key: 'profile', value: 'Profile', icon: 'person' },
+        { key: 'profile/me', value: 'Profile', icon: 'person' },
+        { key: 'create-advert', value: 'Create Advert', icon: 'add' },
       ] as MenuItem[];
     },
     forum: () => {

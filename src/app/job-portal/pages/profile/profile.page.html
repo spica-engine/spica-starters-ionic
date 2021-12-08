@@ -1,14 +1,15 @@
-<spica-menu-bar
-  project="job-portal"
-></spica-menu-bar>
+<spica-menu-bar project="job-portal"></spica-menu-bar>
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-buttons *ngIf="user?._id!=me?._id" slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <spica-user-profile-picture
-    [imageEditable]="true"
+    [imageEditable]="user?._id==me?._id"
     (changeImage)="imageChange($event)"
     [image]="me?.profile_picture"
   ></spica-user-profile-picture>

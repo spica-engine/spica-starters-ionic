@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Applied Jobs</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngFor="let job of me?.applied_jobs">
+    <job-card [job]="job"></job-card>
+  </ng-container>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

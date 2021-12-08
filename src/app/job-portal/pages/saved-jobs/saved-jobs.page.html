@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Saved Jobs</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngFor="let job of me?.saved_jobs">
+    <job-card
+      [class.discarded]="discardedJob==job['_id']"
+      [job]="job"
+      (clickSaved)="savedEmitter($event)"
+    ></job-card>
+  </ng-container>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

@@ -1,0 +1,11 @@
+:host {
+  .discarded {
+    ::ng-deep {
+      ion-card {
+        transform: translateX(200px);
+        opacity: 0.5;
+        transition: all 0.3s ease;
+      }
+    }
+  }
+}

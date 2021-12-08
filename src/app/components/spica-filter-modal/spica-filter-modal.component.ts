@@ -17,16 +17,17 @@ export class SpicaFilterModalComponent implements OnInit {
 
   ngOnInit() {
     this.minMax = this.price_range;
+    console.log('attributes :', this.attributes);
   }
 
   setFilter() {
-    this.filter.push({ name: "price_range", value: this.price_range });
+    this.filter.push({ name: 'price_range', value: this.price_range });
     this.modal.dismiss({
       filter: this.filter,
     });
   }
 
-  clearFilter(){
+  clearFilter() {
     this.modal.dismiss({
       action: 'clear_filter',
     });
@@ -42,13 +43,12 @@ export class SpicaFilterModalComponent implements OnInit {
         return el;
       }
     });
-
     if (tempParams) {
       this.filter = this.filter.filter((el) => {
         return el.name !== attribute;
       });
     }
-
-    this.filter.push({ name: attribute, value: target.value });
+    if (target.value.length > 0)
+      this.filter.push({ name: attribute, value: target.value });
   }
 }

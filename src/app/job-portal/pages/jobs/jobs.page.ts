@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
-import {
-  Attributes,
-  attributes,
-  Job_Advert,
-  User,
-} from '../../services/bucket';
+import { Job_Advert, User } from '../../services/bucket';
 import { UserService } from '../../services/user.service';
-import { job_advert } from '../../services/bucket';
+import { job_advert, initialize } from '../../services/bucket';
+import { DataService } from '../../services/data.service';
+import { ModalController } from '@ionic/angular';
+import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
 
 @Component({
   selector: 'app-jobs',
@@ -21,12 +18,15 @@ export class JobsPage implements OnInit {
     private _authService: AuthService,
     private _commonService: CommonService,
     private _userService: UserService,
-    private _router: Router
-  ) {}
+    private _dataService: DataService,
+    private _modalController: ModalController
+  ) {
+    initialize({ identity: localStorage.getItem('job-portal_spica_token') });
+  }
   loading: boolean = true;
   me: User;
   jobs: Job_Advert[] = [];
-  attributes: Attributes[];
+  filter = {};
   ngOnInit() {
     this.getMe();
   }
@@ -36,7 +36,7 @@ export class JobsPage implements OnInit {
         if (data && !this.me) {
           this.me = data;
           this.loading = false;
-          this.triggerAllRequests();
+          this.getJobs();
         } else this.loading = false;
       },
       (err) => {
@@ -75,14 +75,54 @@ export class JobsPage implements OnInit {
         this._commonService.presentToast(err.error.message, 1500);
       });
   }
-  async triggerAllRequests() {
-    this.jobs = await this.getJobs();
-    this.attributes = await this.getAttributes();
+  async getJobs() {
+    this.jobs = await job_advert.getAll({
+      queryParams: {
+        relation: true,
+        filter: Object.keys(this.filter).length > 0 ? this.filter : {},
+      },
+    });
   }
-  getJobs() {
-    return job_advert.getAll({ queryParams: { relation: true } });
+  async presentFilterModal() {
+    const attributes = this.getAttributes();
+
+    const filterModal = await this._modalController.create({
+      component: SpicaFilterModalComponent,
+      cssClass: 'spica-filter-modal-style',
+      swipeToClose: true,
+      componentProps: {
+        attributes: attributes,
+        currency: 'none',
+      },
+    });
+
+    filterModal.onWillDismiss().then(async (res) => {
+      if (!res.data) {
+        return;
+      }
+      if (res.data.filter?.length) {
+        res.data.filter.forEach((el) => {
+          if (el.name != 'price_range')
+            this.filter['criterias.' + el.name] = { $in: el.value };
+        });
+      }
+
+      if (res.data.action == 'clear_filter' && attributes.length) {
+        this.filter = {};
+      }
+      this.loading = true;
+      await this.getJobs();
+      this.loading = false;
+    });
+
+    return await filterModal.present();
   }
   getAttributes() {
-    return attributes.getAll();
+    let attributes = [];
+    let criterias = this._dataService.getCriterias();
+    Object.keys(criterias).forEach((element) => {
+      attributes.push({ name: element, value: criterias[element] });
+    });
+    return attributes;
   }
 }
