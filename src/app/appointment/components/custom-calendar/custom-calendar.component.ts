@@ -7,14 +7,14 @@ import {
   ViewChild,
   ElementRef,
 } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
 import { CalendarMode, Step } from "ionic2-calendar/calendar";
 import { CalendarComponent } from "ionic2-calendar";
 
+
 @Component({
-  selector: "custom-calendar",
-  templateUrl: "./custom-calendar.component.html",
-  styleUrls: ["./custom-calendar.component.scss"],
+  selector: 'custom-calendar',
+  templateUrl: './custom-calendar.component.html',
+  styleUrls: ['./custom-calendar.component.scss'],
 })
 export class CustomCalendarComponent implements OnInit {
   @Input() eventSource;
@@ -28,7 +28,7 @@ export class CustomCalendarComponent implements OnInit {
     return date < current;
   };
 
-  constructor(public translate: TranslateService, private el: ElementRef) {}
+  constructor() {}
 
   ngOnInit() {
     this.calendar = {
@@ -37,21 +37,17 @@ export class CustomCalendarComponent implements OnInit {
       currentDate: new Date(),
       dateFormatter: {
         formatMonthViewDayHeader: (date: Date) => {
-          let key = "days." + date.toString().split(" ")[0].toLowerCase();
-          return this.translate.instant(key);
+          return date.toString().split(" ")[0]
         },
       },
     };
   }
   onViewTitleChanged(title) {
-    this.viewTitle =
-      this.translate.instant("months." + title.split(" ")[0].toLowerCase()) +
-      " " +
-      title.split(" ")[1];
+    this.viewTitle = title.split(" ")[0]
   }
 
-  onTimeSelected($event) {
-    this.timeselected.emit($event);
+  onTimeSelected(event) {
+    this.timeselected.emit(event);
   }
   slideNext() {
     this.myCalendar.slideNext();

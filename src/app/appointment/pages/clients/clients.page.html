@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>clients</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="new-client">
+    <div (click)="clientModal()">
+      <ion-icon name="person-add-outline"></ion-icon>
+      <ion-text>Add new client</ion-text>
+    </div>
+  </div>
+  <ion-searchbar
+    mode="ios"
+    [debounce]="800"
+    (ionChange)="search($event.target['value'])"
+    [(ngModel)]="searchTerm"
+  ></ion-searchbar>
+  <ion-card *ngFor="let client of clients" (click)="clientModal(client)">
+    <ion-label>
+      <h2>{{client.name + ' ' + client.surname}}</h2>
+      <p>
+        <ion-icon name="calendar-number-outline"></ion-icon>
+        {{client.date_of_birth | date: 'dd-MM-yyyy'}}
+      </p>
+      <p><ion-icon name="call"></ion-icon> {{client.phone}}</p>
+    </ion-label>
+  </ion-card>
+</ion-content>

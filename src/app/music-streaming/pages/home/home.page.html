@@ -9,7 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="user">
+<ion-content>
+  <ng-container  *ngIf="user">
   <div class="part-container">
     <ion-text class="part-title">To Get You Started</ion-text>
 
@@ -51,4 +52,5 @@
       </ion-slide>
     </ion-slides>
   </div>
+</ng-container>
 </ion-content>

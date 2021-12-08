@@ -39,14 +39,15 @@ export class TabsPage implements OnInit {
   async createAppointmentModal() {
     const modal = await this._modalController.create({
       component: CreateAppointmentComponent,
-      cssClass: 'my-custom-class',
-      componentProps: {},
+      componentProps: {
+        action: 'create',
+      },
     });
 
     modal.onWillDismiss().then(async (res) => {
-      if (!res.data || res.data.value == 'close') {
+      if (!res.data || res.data.action == 'close') {
         return;
-      } else {
+      } else if(res.data.action == 'create'){
         let data = res.data.appointmentData;
         let client = {
           name: data.name,
@@ -58,7 +59,7 @@ export class TabsPage implements OnInit {
         const clientData = await this.createClient(client);
         let appointmentData = {
           client: clientData['_id'],
-          employee: data.employee,
+          employee: this.user._id,
           from: data.appointment_date,
           note: data.note,
         };
