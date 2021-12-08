@@ -7,13 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { DetailPageRoutingModule } from './detail-routing.module';
 
 import { DetailPage } from './detail.page';
+import { JobPortalComponentModule } from 'src/app/job-portal/components/job-portal-components.module';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
+    DetailPageRoutingModule,
+    JobPortalComponentModule,
+    SpicaComponentsModule
   ],
   declarations: [DetailPage]
 })

@@ -10,6 +10,7 @@ export class UserService {
   me: User;
   followingUsers: User[] = [];
   user_id: string;
+  savedJobIds = [];
   constructor(private _authService: AuthService) {
     this.initializeOrm();
   }
@@ -29,7 +30,7 @@ export class UserService {
         .then((data) => {
           this.me = data[0];
           return data[0];
-        });
+        })
     }
 
     return result;

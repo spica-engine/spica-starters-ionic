@@ -6,11 +6,9 @@ import { environment } from './environment';
 })
 export class DataService {
   constructor(private http: HttpClient) {}
-
   setHeader() {
     let header = new HttpHeaders({
-      authorization:
-        'IDENTITY ' + localStorage.getItem('chat_spica_token'),
+      authorization: 'IDENTITY ' + localStorage.getItem('chat_spica_token'),
     });
     return header;
   }
@@ -19,14 +17,24 @@ export class DataService {
       user_data,
     });
   }
-  setOnline(process, params, user_id) {
-    let chatObj = {
-      object: process,
-      params: params,
-      user_id,
+  getCriterias() {
+    return {
+      education_status: [
+        'primary_education',
+        'high_school',
+        'associate_degree',
+        'bachelor_degree',
+        'master_degree',
+      ],
+      experience: [
+        'at_last_1_year',
+        'at_last_2_year',
+        'at_last_3_year',
+        'at_last_5_year',
+      ],
+      sector: ['it', 'tourism'],
+      department: ['computing', 'marketing'],
+      position: ['senior_manager', 'intern'],
     };
-    return this.http.post(`${environment.api_url}/fn-execute/online`, chatObj, {
-      headers: this.setHeader(),
-    });
   }
 }

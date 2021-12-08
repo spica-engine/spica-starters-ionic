@@ -9,6 +9,9 @@
       height: 150px;
       object-fit: cover;
       border-radius: 50%;
+      &.opacity {
+        opacity: 0.8;
+      }
     }
     spica-upload-image {
       ::ng-deep {

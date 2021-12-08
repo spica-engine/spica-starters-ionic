@@ -1,0 +1,99 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{companyForm?.controls['title'].value }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="image-container">
+    <div class="cover-img">
+      <img
+        [class.opacity]="!company._id"
+        [class.broken-img]="company._id && !company.cover_photo"
+        *ngIf="company._id || company.cover_photo"
+        [src]="company.cover_photo || '../../../../assets/job-portal/broken-image.png'"
+        alt=""
+      />
+      <spica-upload-image
+        *ngIf="!company._id"
+        (change)="coverUpload($event)"
+      ></spica-upload-image>
+    </div>
+    <div class="logo">
+      <img
+        [class.opacity]="!company._id"
+        [class.broken-img]="company._id && !company.logo"
+        *ngIf="company._id || company.logo"
+        [src]="company.logo || '../../../../assets/job-portal/broken-image.png'"
+        alt=""
+      />
+      <spica-upload-image
+        *ngIf="!company._id"
+        (change)="logoUpload($event)"
+      ></spica-upload-image>
+    </div>
+  </div>
+  <div class="metadata" *ngIf="company._id">
+    <div class="company-info">
+      <h5>{{company.title}}</h5>
+      <div class="address">
+        {{company['address']['city']}}/{{company['address']['country']}}
+      </div>
+      <div class="description">{{company.description}}</div>
+    </div>
+  </div>
+  <form
+    class="metadata form-container"
+    [formGroup]="companyForm"
+    *ngIf="!company._id"
+  >
+    <ion-item>
+      <ion-label position="floating">Company Name</ion-label>
+      <ion-input formControlName="title" id="title" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Country</ion-label>
+      <ion-select
+        required
+        formControlName="country"
+        id="country"
+        (ionChange)="countryChange()"
+      >
+        <ion-select-option
+          [value]="country.name"
+          *ngFor="let country of countries"
+        >
+          {{ country.name }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">City</ion-label>
+      <ion-select id="city" required formControlName="city">
+        <ion-select-option [value]="city.name" *ngFor="let city of cities">
+          {{ city.name }}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Web Site</ion-label>
+      <ion-input formControlName="web_site" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">About</ion-label>
+      <ion-textarea
+        required
+        formControlName="description"
+        id="description"
+      ></ion-textarea>
+    </ion-item>
+    <div class="action-button">
+      <ion-button [disabled]="companyForm.invalid" (click)="addCompany()"
+        >Save</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

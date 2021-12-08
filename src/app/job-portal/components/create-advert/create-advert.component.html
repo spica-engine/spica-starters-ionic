@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Advert </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="close" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form class="form-container" [formGroup]="advertForm">
+    <ion-item>
+      <ion-label position="floating">Header</ion-label>
+      <ion-input formControlName="header" required></ion-input>
+    </ion-item>
+    <ion-list>
+      <h5>Criterias</h5>
+      <ion-item *ngFor="let criteria of keysOfCriterias">
+        <ion-label>{{ criteria | revokedUnderline | titlecase }} </ion-label>
+        <ion-select  (ionChange)="selectCriteria($event, criteria)" multiple="true" cancelText="Cancel" okText="Ok" required>
+          <ion-select-option
+           
+            [value]="item"
+            *ngFor="let item of criterias[criteria]"
+          >
+            {{ item | revokedUnderline | titlecase }}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea
+        required
+        formControlName="description"
+        id="description"
+      ></ion-textarea>
+    </ion-item>
+    <div class="action-button">
+      <ion-button [disabled]="advertForm.invalid" (click)="addAdvert()"
+        >Save</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

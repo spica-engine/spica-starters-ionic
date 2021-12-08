@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Applied Users </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="close" (click)="dismiss()"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-list-header> Users </ion-list-header>
+    <ion-item
+      *ngFor="let user of users"
+      [detail]="true"
+      (click)="gotoUser(user)"
+    >
+      <!-- <ion-checkbox slot="start"></ion-checkbox> -->
+      <ion-thumbnail slot="start">
+        <img
+          [src]="
+            user.profile_picture ||
+            '../../../../assets/job-portal/broken-image.png'
+          "
+        />
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ user.name }} {{ user.surname }}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

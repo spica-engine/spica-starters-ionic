@@ -1,0 +1,13 @@
+:host {
+  form {
+    margin: 0 15px;
+    .action-button {
+      width: 100%;
+      margin: 20px 0;
+      text-align: center;
+      ion-button {
+        width: 50%;
+      }
+    }
+  }
+}

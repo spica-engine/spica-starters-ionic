@@ -1,0 +1,44 @@
+:host {
+  ion-list {
+    padding-bottom: 10px;
+    margin-top: 15px;
+    padding-left: 10px;
+    font-size: 18px;
+    ion-item {
+      padding-left: 20px;
+      &.new-one {
+        margin-top: 20px;
+      }
+    }
+  }
+
+  .cover-img {
+    height: 100px;
+    box-shadow: 22px 2px 32px -12px rgb(0 0 0 / 43%);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .broken-img {
+    object-fit: contain !important;
+  }
+  .company-infos {
+    margin: 10px;
+    ion-item {
+      margin-top: 20px;
+    }
+    a {
+      font-size: 12px;
+      margin: 10px 20px;
+    }
+    .address {
+      opacity: 0.6;
+      font-size: 11px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+      padding-bottom: 10px;
+      margin: 5px 20px;
+    }
+  }
+}

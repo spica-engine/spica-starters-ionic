@@ -1,12 +1,19 @@
 <ion-list>
   <ion-item *ngFor="let attribute of attributes">
-    <ion-label>{{attribute.name}}</ion-label>
-    <ion-select multiple="true" (ionChange)="addNewFilterParams(attribute.name, $event.target)">
-      <ion-select-option [value]="value" *ngFor="let value of attribute.value">{{value}}</ion-select-option>
+    <ion-label>{{ attribute.name | revokedUnderline | titlecase }}</ion-label>
+    <ion-select
+      multiple="true"
+      (ionChange)="addNewFilterParams(attribute.name, $event.target)"
+    >
+      <ion-select-option
+        [value]="value"
+        *ngFor="let value of attribute.value"
+        >{{ value | revokedUnderline | titlecase }}</ion-select-option
+      >
     </ion-select>
   </ion-item>
 
-  <ion-item>
+  <ion-item *ngIf="currency!='none'">
     <ion-range
       id="dual-range"
       dual-knobs
@@ -19,10 +26,15 @@
       (ionChange)="changePrice($event.target['value'])"
     >
       <ion-label slot="start">Price</ion-label>
-      <ion-label slot="end">{{price_range.lower}}-{{price_range.upper}} {{currency}}</ion-label>
+      <ion-label slot="end"
+        >{{ price_range.lower }}-{{ price_range.upper }}
+        {{ currency }}</ion-label
+      >
     </ion-range>
   </ion-item>
 
   <ion-button (click)="setFilter()">Apply Filter</ion-button>
-  <ion-button class="clear-filter" (click)="clearFilter()">Clear Filter</ion-button>
+  <ion-button class="clear-filter" (click)="clearFilter()"
+    >Clear Filter</ion-button
+  >
 </ion-list>
