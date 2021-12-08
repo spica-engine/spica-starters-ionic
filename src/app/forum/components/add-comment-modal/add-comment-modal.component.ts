@@ -41,21 +41,24 @@ export class AddCommentModalComponent implements OnInit {
     this.textSearch = q;
   }
   async addInfo() {
-    this._dismiss();
     this.newComment = await DataService.comment.insert({
       user: this.user._id,
       content: this.textSearch,
       is_post: false,
     });
-    console.log(this.comment);
+
     this.comment.comments = this.comment.comments || [];
     this.comment.comments.push(this.newComment._id);
     DataService.comment.patch({
       _id: this.comment._id,
       comments: this.comment.comments,
     });
+
+    this._dismiss();
   }
   _dismiss() {
-    this.modal.dismiss();
+    this.modal.dismiss({
+      comment: this.newComment
+    });
   }
 }

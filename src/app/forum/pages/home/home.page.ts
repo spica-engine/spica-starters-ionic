@@ -19,6 +19,8 @@ export class HomePage {
   likedComments: DataService.Comment[] = [];
   dislikedComments: DataService.Comment[] = [];
   followedUsers: string[] = [];
+  defaultAvatar: string = environment.user_img;
+
   constructor(private _authService: AuthService, private _router: Router) {
     this._authService.initBucket();
   }
@@ -85,11 +87,14 @@ export class HomePage {
   async follow(user) {
     this.checkUserLogin();
     let followedUser = await DataService.user.get(user._id);
+    let commentIndex = this.comments.findIndex((el) => el.user['_id'] == user['_id']);
 
     let controlUnFollowRequest = followedUser.followings.find((el) => {
       return el == this.user._id;
     });
+
     if (controlUnFollowRequest) {
+      this.comments[commentIndex]['is_followed'] = false;
       followedUser.followings = followedUser.followings.filter((el) => {
         return el !== this.user._id;
       });
@@ -105,8 +110,9 @@ export class HomePage {
         followers: this.user.followers,
       });
     } else {
+      this.comments[commentIndex]['is_followed'] = true;
       this.user.followers.push(user);
-
+      
       followedUser.followings.push(this.user._id);
       DataService.user.patch({
         _id: followedUser._id,

@@ -29,6 +29,11 @@ const routes: Routes = [
         (m) => m.AuthorizationPageModule
       ),
   },
+  {
+    path: 'create-forum',
+    loadChildren: () =>
+      import('./pages/create-forum/create-forum.module').then((m) => m.CreateForumPageModule),
+  },
 ];
 
 @NgModule({

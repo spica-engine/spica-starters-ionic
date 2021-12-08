@@ -11,13 +11,13 @@
   </div>
 
   <div class="comments">
-    <ion-card *ngFor="let comment of this.comments" >
+    <ion-card *ngFor="let comment of comments" >
       <ion-card-header>
         <ion-avatar>
-          <img [src]="comment.user['profile_picture']" >
+          <img [src]="comment.user['profile_picture'] || defaultAvatar" >
         </ion-avatar>
         <span class="nick">{{comment.user['nick']}}</span>
-        <ion-button size="small" fill="clear" (click)="follow(comment.user)">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</ion-button>
+        <ion-button *ngIf="comment.user['_id'] != user._id" size="small" fill="clear" (click)="follow(comment.user)">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</ion-button>
         <span class="created_at">{{comment.date | dateAgo}}</span>
       </ion-card-header>
       <ion-card-content>
