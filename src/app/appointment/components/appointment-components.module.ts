@@ -5,10 +5,14 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
+import { AppointmentCardComponent } from './appointment-card/appointment-card.component';
+import { NgCalendarModule } from 'ionic2-calendar';
+import { CustomCalendarComponent } from './custom-calendar/custom-calendar.component';
+import { ClientModalComponent } from './client-modal/client-modal.component';
 
 @NgModule({
-  declarations: [CreateAppointmentComponent],
-  exports: [CreateAppointmentComponent],
+  declarations: [CreateAppointmentComponent, AppointmentCardComponent, CustomCalendarComponent, ClientModalComponent],
+  exports: [CreateAppointmentComponent, AppointmentCardComponent, CustomCalendarComponent, ClientModalComponent],
   imports: [
     RouterModule,
     ReactiveFormsModule,
@@ -16,6 +20,7 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
     CommonModule,
     HttpClientModule,
     IonicModule,
+    NgCalendarModule
   ],
   providers: [HttpClientModule],
 })

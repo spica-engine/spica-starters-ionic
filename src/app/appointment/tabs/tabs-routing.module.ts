@@ -10,16 +10,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'appointments',
         pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        loadChildren: () => import('../pages/home/home.module').then( m => m.HomePageModule)
       },
       {
         path: 'appointments',
         loadChildren: () => import('../pages/appointments/appointments.module').then( m => m.AppointmentsPageModule)
+      },
+      {
+        path: 'clients',
+        loadChildren: () => import('../pages/clients/clients.module').then( m => m.ClientsPageModule)
       },
       {
         path: 'profile',

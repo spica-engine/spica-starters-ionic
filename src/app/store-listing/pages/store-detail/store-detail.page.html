@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="store">
+<ion-content>
+  <ng-container *ngIf="store">
   <ion-segment
     value="info"
     (ionChange)="segmentChanged($event.target['value'])"
@@ -57,4 +58,5 @@
   <div #map id="map" class="map" *ngIf="activeSegment=='map'">
     <ion-spinner></ion-spinner>
   </div>
+</ng-container>
 </ion-content>

@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="tracks">
+<ion-content>
+  <ng-container *ngIf="tracks">
   <div class="metadata artist" *ngIf="artist">
     <music-part-item
       [data]="{img: artist['profile_picture'], text: artist['name']}"
@@ -46,4 +47,5 @@
       (clickAction)="itemClicked($event, track)"
     ></music-list-item>
   </div>
+</ng-container>
 </ion-content>

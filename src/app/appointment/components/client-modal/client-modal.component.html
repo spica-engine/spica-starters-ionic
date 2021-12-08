@@ -1,0 +1,42 @@
+
+<ion-header>
+    <ion-toolbar>
+        <ion-title>{{action=='create' ? 'New Client': 'Client Details'}}</ion-title>
+      <ion-icon name="close" slot="end" (click)="dismiss('close')"></ion-icon>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div class="content" *ngIf="!loading">
+      <ion-item lines="none">
+        <ion-input placeholder="Name" [(ngModel)]="client.name" ></ion-input>
+      </ion-item>  
+      <ion-item lines="none">
+        <ion-input placeholder="Surname" [(ngModel)]="client.surname" ></ion-input>
+      </ion-item>   
+      <ion-item lines="none">
+        <ion-input placeholder="Phone" [(ngModel)]="client.phone" ></ion-input>
+      </ion-item>   
+      <ion-item lines="none">
+        <ion-input placeholder="Email" [(ngModel)]="client.email" ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Date Of Birth</ion-label>
+        <ion-datetime [(ngModel)]="client.date_of_birth" ></ion-datetime>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>Employee</ion-label>
+        <ion-select [(ngModel)]="appointment.employee['_id']">
+          <ion-select-option [value]="employee._id" *ngFor="let employee of employees" >{{employee.name + ' ' + employee.surname}}</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+      <!-- <ion-item>
+        <ion-label>Appointment Date</ion-label>
+        <ion-datetime [(ngModel)]="appointment.from" ></ion-datetime>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-textarea rows="10" placeholder="Note" class="note" [(ngModel)]="appointment.note"></ion-textarea>
+      </ion-item>
+      <ion-button (click)="dismiss(action=='create' ? 'save' : 'update')">{{action=='create' ? 'Create Appointment': 'Update Appointment'}}</ion-button>
+      <ion-button class="delete" *ngIf="action=='update'" (click)="dismiss('delete')">{{'Delete Appointment'}}</ion-button> -->
+    </div>
+  </ion-content>

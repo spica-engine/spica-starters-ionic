@@ -5,30 +5,9 @@
 </ion-header>
 
 <ion-content>
-  <div class="nav-container">
-    <ion-label [class.active]="screen == 'coming'" (click)="screen = 'coming'"
-      >Coming</ion-label
-    >
-    <ion-label
-      [class.active]="screen == 'past'"
-      (click)="screen = 'past'"
-      >Past</ion-label
-    >
+  <custom-calendar *ngIf="!loading" (timeselected)="onTimeSelected($event.events)"  [eventSource]="eventSource"></custom-calendar>
+  <div class="container" *ngIf="eventSource && eventSource.length && currentAppointments.length">
+    <appointment-card [appointment]="appointment" *ngFor="let appointment of currentAppointments" (click)="appointmentDetailsModal(appointment)">
+    </appointment-card>
   </div>
-
-  <div class="container" *ngIf="screen == 'coming'">
-    <ion-card>
-      <ion-label>
-        
-      </ion-label>
-      <ion-label>
-       
-      </ion-label>
-    </ion-card>
-  </div>
-
-  <div class="container" *ngIf="screen == 'past'">
-
-  </div>
-
 </ion-content>

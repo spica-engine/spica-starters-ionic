@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-label class="date-info">
+    <ion-text>{{appointment.from | date: 'dd'}}</ion-text>
+    <ion-text>{{appointment.from | date: 'HH:mm'}}</ion-text>
+    <ion-text>{{appointment.from | date: 'MMM'}}</ion-text>
+  </ion-label>
+  <ion-label class="client-info">
+    <ion-text>{{appointment.client.name + ' ' + appointment.client.surname}}</ion-text>
+    <ion-text>{{appointment.client.phone}}</ion-text>
+    <ion-text>{{appointment.note}}</ion-text>
+  </ion-label>
+</ion-card>

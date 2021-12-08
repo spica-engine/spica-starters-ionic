@@ -1,40 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Create Appointment</ion-title>
+    <ion-title>{{action=='create' ? 'Create Appointment': 'Appointment Details'}}</ion-title>
     <ion-icon name="close" slot="end" (click)="dismiss('close')"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="content">
+  <div class="content" *ngIf="!loading">
+    <ion-item>
+      <ion-label>Client</ion-label>
+      <ion-select [value]="appointment.client['_id']" (ionChange)="setClient($event.target['value'])" okText="Select" cancelText="Clear" (ionCancel)="clearSelect()">
+        <ion-select-option [value]="client._id" *ngFor="let client of clients" >{{client.name + ' ' + client.surname}}</ion-select-option>
+      </ion-select>
+    </ion-item>
     <ion-item lines="none">
-      <ion-input placeholder="Name" [(ngModel)]="appointmentData.name"></ion-input>
+      <ion-input placeholder="Name" [(ngModel)]="appointment.client['name']" [disabled]="isDisable"></ion-input>
     </ion-item>  
     <ion-item lines="none">
-      <ion-input placeholder="Surname" [(ngModel)]="appointmentData.surname"></ion-input>
+      <ion-input placeholder="Surname" [(ngModel)]="appointment.client['surname']" [disabled]="isDisable"></ion-input>
     </ion-item>   
     <ion-item lines="none">
-      <ion-input placeholder="Phone" [(ngModel)]="appointmentData.phone"></ion-input>
+      <ion-input placeholder="Phone" [(ngModel)]="appointment.client['phone']" [disabled]="isDisable"></ion-input>
     </ion-item>   
     <ion-item lines="none">
-      <ion-input placeholder="Email" [(ngModel)]="appointmentData.email"></ion-input>
+      <ion-input placeholder="Email" [(ngModel)]="appointment.client['email']" [disabled]="isDisable"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Date Of Birth</ion-label>
-      <ion-datetime [(ngModel)]="appointmentData.date_of_birth" ></ion-datetime>
+      <ion-datetime [(ngModel)]="appointment.client['date_of_birth']" [disabled]="isDisable"></ion-datetime>
     </ion-item>
-    <ion-item>
+    <!-- <ion-item>
       <ion-label>Employee</ion-label>
-      <ion-select (ionChange)="appointmentData.employee = $event.target['value']">
+      <ion-select [(ngModel)]="appointment.employee['_id']">
         <ion-select-option [value]="employee._id" *ngFor="let employee of employees" >{{employee.name + ' ' + employee.surname}}</ion-select-option>
       </ion-select>
-    </ion-item>
+    </ion-item> -->
     <ion-item>
       <ion-label>Appointment Date</ion-label>
-      <ion-datetime [(ngModel)]="appointmentData.appointment_date" ></ion-datetime>
+      <ion-datetime [(ngModel)]="appointment.from" ></ion-datetime>
     </ion-item>
     <ion-item lines="none">
-      <ion-textarea placeholder="Note" class="note" [(ngModel)]="appointmentData.note"></ion-textarea>
+      <ion-textarea rows="10" placeholder="Note" class="note" [(ngModel)]="appointment.note"></ion-textarea>
     </ion-item>
-    <ion-button (click)="dismiss('save')">Create Appointment</ion-button>
+    <ion-button (click)="dismiss(action=='create' ? 'save' : 'update')">{{action=='create' ? 'Create Appointment': 'Update Appointment'}}</ion-button>
+    <ion-button class="delete" *ngIf="action=='update'" (click)="dismiss('delete')">{{'Delete Appointment'}}</ion-button>
   </div>
 </ion-content>
