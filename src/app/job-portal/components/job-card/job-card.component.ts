@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { Job_Advert, User, user } from '../../services/bucket';
 import { UserService } from '../../services/user.service';
@@ -15,7 +16,9 @@ export class JobCardComponent implements OnInit {
   @Output() clickJob: EventEmitter<any> = new EventEmitter();
   constructor(
     private _userService: UserService,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    private _router: Router,
+    private _route: ActivatedRoute
   ) {}
   me: User;
   loading = '';
@@ -40,5 +43,10 @@ export class JobCardComponent implements OnInit {
   }
   clickedJob() {
     this.clickJob.emit(this.job);
+    if (this.routable) {
+      this._router.navigate(['jobs', this.job._id], {
+        relativeTo: this._route,
+      });
+    }
   }
 }
