@@ -14,12 +14,12 @@ export class VideoDetailsPage implements OnInit {
   id: any;
   video: Video;
   userVideo;
-  constructor(private router: ActivatedRoute) {
+  constructor(private _route: ActivatedRoute) {
     initialize({ identity:  localStorage.getItem('fitness_spica_token') });
 
   }
   async ngOnInit() {
-    this.id = this.router.snapshot.params.id;
+    this.id = this._route.snapshot.params.id;
     this.video = await this.getVideo();
 
   }

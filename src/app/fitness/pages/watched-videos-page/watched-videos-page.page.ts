@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../services/environment';
 import { watched_video,Watched_Video, initialize} from '../../services/bucket';
 @Component({
   selector: 'app-watched-videos-page',
@@ -11,7 +10,7 @@ export class WatchedVideosPagePage implements OnInit {
 watchedVideos: Watched_Video[];
 id:any;
 text:any;
-  constructor(private router: ActivatedRoute) { 
+  constructor(private _route: ActivatedRoute) { 
 
     initialize({ identity:  localStorage.getItem('fitness_spica_token') });
 
@@ -25,7 +24,7 @@ async ionViewWillEnter(){
   }
 }
  async ngOnInit() {
-  this.id = this.router.snapshot.params.id;
+  this.id = this._route.snapshot.params.id;
   }
 
  async getWatchedVideos() {

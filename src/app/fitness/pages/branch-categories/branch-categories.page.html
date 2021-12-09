@@ -1,11 +1,9 @@
-<spica-menu-bar
-  project="fitness"
-></spica-menu-bar>
 <ion-header>
     <ion-toolbar>
+      <ion-back-button slot="start" defaultHref="/"></ion-back-button>
         <ion-title>{{categoryName?.name}}</ion-title>
     </ion-toolbar>
 </ion-header>
 <ion-content>
-<app-video-card [video]="test" *ngFor="let test of video"></app-video-card>
+<app-video-card [video]="video" *ngFor="let video of videos"></app-video-card>
 </ion-content>

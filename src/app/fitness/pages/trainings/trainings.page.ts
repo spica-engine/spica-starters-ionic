@@ -10,19 +10,14 @@ import { training, Training, initialize } from '../../services/bucket';
 export class TrainingsPage implements OnInit {
   id: any;
   training: Training[];
-  text: any;
-  constructor(private router: ActivatedRoute) {
+  constructor(private _route: ActivatedRoute) {
     initialize({ identity:  localStorage.getItem('fitness_spica_token')});
   }
   async ionViewWillEnter() {
     this.training = await this.getTraining();
-
-    if (this.training?.length <= 0) {
-      this.text = 'Training not found'
-    }
   }
   async ngOnInit() {
-    this.id = this.router.snapshot.params.id;
+    this.id = this._route.snapshot.params.id;
   }
   async getTraining() {
     return training.getAll({ queryParams: { filter: { user: this.id }, relation: "packet.videos" } });

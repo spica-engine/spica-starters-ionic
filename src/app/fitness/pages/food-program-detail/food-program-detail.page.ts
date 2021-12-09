@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../services/environment';
-import { food_program,Food_Program,initialize } from '../../services/bucket';
+import { food_program,initialize } from '../../services/bucket';
 
 @Component({
   selector: 'app-food-program-detail',
@@ -11,18 +10,20 @@ import { food_program,Food_Program,initialize } from '../../services/bucket';
 export class FoodProgramDetailPage implements OnInit {
 id:any;
 program:any;
-  constructor(private router: ActivatedRoute) { 
+  constructor(private _route: ActivatedRoute) { 
     initialize ({identity:  localStorage.getItem('fitness_spica_token')})
   }
 
  async ngOnInit() {
-    this.id = this.router.snapshot.params.id;
-    this.program = await this.getProgram();
-    console.log(this.program);
-    
+    this.id = this._route.snapshot.params.id;
+    this.program = await this.getProgram();    
   }
   async getProgram() {
     return food_program.get(this.id);
   }
-
+  slideOpts = {
+    initialSlide: 0,
+    sliderPerView: 1,
+    spaceBetween: 0,
+  }
 }

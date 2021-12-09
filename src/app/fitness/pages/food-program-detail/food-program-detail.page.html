@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content>
-<ion-card *ngFor="let item of program?.days">
+<ion-card *ngFor="let day of program?.days">
   <ion-card-header>
-    <ion-card-title >{{"Day "+item.day_of_week}}</ion-card-title>
+    <ion-card-title >{{"Day "+day.day_of_week}}</ion-card-title>
   </ion-card-header>
   <ion-card-content>
-    <ion-slides>
-      <ion-slide *ngFor="let meal of item.meal">
+    <ion-slides pager="true" [options]="slideOpts" >
+      <ion-slide *ngFor="let meal of day.meal">
         <ion-label>
           <h1>{{meal.number_of_meal+". Meal"}}</h1>
           <h3>{{meal.description}}</h3>

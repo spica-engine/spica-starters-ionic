@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>trainings</ion-title>
+    <ion-title>Trainings</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
@@ -9,23 +9,21 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngFor="let item of training">
+  <ng-container *ngFor="let exercise of training">
 
     <ion-card>
       <ion-card-header>
         <ion-card-title>
-          {{item.name}}
+          {{exercise.name}}
         </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-slides pager="true" [options]="slideOpts">
-          <ion-slide *ngFor="let item2 of item.packet.videos">
-            <img src="{{item2.image}}" alt="" [routerLink]="['/fitness/video-details/'+ item2._id]">
+          <ion-slide *ngFor="let trainingVideo of exercise.packet['videos']">
+            <img src="{{trainingVideo.image}}" alt="" [routerLink]="['/fitness/video-details/'+ trainingVideo._id]">
           </ion-slide>
         </ion-slides>
       </ion-card-content>
     </ion-card>
   </ng-container>
-  <span>{{text}}</span>
-
 </ion-content>

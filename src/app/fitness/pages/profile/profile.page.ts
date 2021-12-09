@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
 import { user, User, initialize, watched_video, Watched_Video, training, Training, performance, Performance } from '../../services/bucket';
-import { environment } from '../../services/environment';
 
 @Component({
   selector: 'app-profile',

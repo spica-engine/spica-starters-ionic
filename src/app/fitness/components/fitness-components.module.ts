@@ -4,12 +4,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { BranchCardComponent } from './branch-card/branch-card.component';
 import { VideoCardComponent } from './video-card/video-card.component';
 
 @NgModule({
-  declarations: [BranchCardComponent,VideoCardComponent],
-  exports: [BranchCardComponent,VideoCardComponent],
+  declarations: [VideoCardComponent],
+  exports: [VideoCardComponent],
   imports: [
   RouterModule,
     ReactiveFormsModule,

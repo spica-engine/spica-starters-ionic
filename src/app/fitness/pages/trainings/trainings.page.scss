@@ -3,14 +3,14 @@
         ion-card {
             margin: 15px 0 0 0;
             ion-card-header {
-                padding: 5px;
+                padding: 10px;
                 ion-card-title {
                     text-align: center;
                     font-size: 1.1rem;
                 }
             }
             ion-card-content {
-                padding: 0 10px 0 10px;
+                padding: 15px 0;
                 ion-slides {
                     ::ng-deep {
                         .swiper-pagination-bullet-active {
@@ -27,12 +27,6 @@
 
                 }
             }
-        }
-        span {
-            position: absolute;
-            top: 50%;
-            left: 33%;
-            color: gray;
         }
     }
 }

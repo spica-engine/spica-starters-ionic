@@ -7,6 +7,11 @@
    <spica-category [categories]="branches" (clickNavigate)="navigateCategory($event)" ></spica-category>
  </div>
 </ion-content>
+<ion-spinner
+  *ngIf="loading && !me"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>
 <spica-authorization
   *ngIf="!me && !loading"
   (clickLogin)="login($event)"

@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
   branches: Teacher_Speciality[];
   catagories: Category[];
   teacher: Teacher[];
-  loading: boolean;
+  loading: boolean=true;
   me: User;
 
   constructor(

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../services/environment';
 import { video, Video, initialize } from '../../services/bucket';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,11 +13,11 @@ export class BranchCategoriesPage implements OnInit {
     initialize({ identity:  localStorage.getItem('fitness_spica_token') });
   }
   id: any;
-  video: Video[];
+  videos: Video[];
   categoryName: any;
   async ionViewWillEnter() {
-    this.video = await this.getVideos();
-    this.categoryName = [] || this.video[0].category;
+    this.videos = await this.getVideos();
+    this.categoryName =  this.videos[0].category ;
   }
   async ngOnInit() {
     this.id = this._route.snapshot.params.id;
