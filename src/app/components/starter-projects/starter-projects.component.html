@@ -1,28 +1,13 @@
 <div class="container">
-  <ion-button (click)="gotoProject('/food-delivery/home')"
-    >Food Delivery Application Starter</ion-button
-  >
-  <ion-button (click)="gotoProject('/fitness/home')"
-    >Fitness Application Starter</ion-button
-  >
-  <ion-button (click)="gotoProject('/e-commerce')"
-    >E-Commerce Application Starter</ion-button
-  >
-  <ion-button (click)="gotoProject('/social-media')"
-    >Social Media Starter</ion-button
-  >
-  <ion-button
-    (click)="gotoProject('/music-streaming')"
-    >Music Streaming Starter</ion-button
-  >
-  <ion-button (click)="gotoProject('/chat')">Chat Starter</ion-button>
-  <ion-button (click)="gotoProject('/job-portal')"
-    >Job Portal Starter</ion-button
-  >
-  <ion-button (click)="gotoProject('/portfolio')">Portfolio</ion-button>
-  <ion-button (click)="gotoProject('/store-listing')"
-    >Store Listing</ion-button
-  >
-  <ion-button (click)="gotoProject('/appointment')">Appointment</ion-button>
-  <ion-button (click)="gotoProject('/forum')">Forum</ion-button>
+  <ion-list>
+    <ion-item
+      *ngFor="let project of projects"
+      lines="full"
+      button
+      (click)="gotoProject(project.route)"
+    >
+      <ion-icon slot="start" [name]="project.icon"></ion-icon>
+      <ion-label>{{ project.name }} </ion-label>
+    </ion-item>
+  </ion-list>
 </div>
