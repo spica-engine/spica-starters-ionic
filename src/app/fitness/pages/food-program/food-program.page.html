@@ -1,0 +1,17 @@
+<spica-menu-bar
+  project="fitness"
+></spica-menu-bar>
+
+<ion-header>
+  <ion-toolbar >
+    <ion-title>food-program</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let program of foodProgram" [routerLink]="['../../food-program-detail/' +program._id]"> 
+    <ion-card-header>
+      <ion-card-title>{{program.name}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+</ion-content>

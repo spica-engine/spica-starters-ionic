@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title>watched video</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <app-video-card [video]="test.video" *ngFor="let test of watchedVideos"></app-video-card>
+
+
+</ion-content>

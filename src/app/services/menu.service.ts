@@ -23,6 +23,13 @@ export class MenuService {
         { key: 'authorization', value: 'Authorization', icon: 'key' },
       ] as MenuItem[];
     },
+    'fitness': () => {
+      return [
+        { key: '/', value: 'Home', icon: 'filter-outline' },
+        { key: 'profile', value: 'Profile', icon: 'person' },
+        { key: 'authorization', value: 'Authorization', icon: 'key' },
+      ] as MenuItem[];
+    },
   };
 }
 
