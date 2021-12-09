@@ -1,26 +1,23 @@
-<spica-menu-bar project="forum"></spica-menu-bar>
 <ion-header>
   <ion-toolbar>
-    <ion-title>create-forum</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Create Forum</ion-card-title>
+      <ion-card-title>Create Post</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-textarea rows="10" cols="10" (ionInput)="getItems($event)" placeholder="Enter forum details..."></ion-textarea>
-      <ion-label>
-        <ion-item lines="none">
+      <ion-textarea rows="10" cols="10" [(ngModel)]="postText" placeholder="Enter post details..."></ion-textarea>
+      <ion-label class="category">
           <ion-label>Category</ion-label>
           <ion-select multiple okText="Okay" cancelText="Close" (ionChange)="onChange($event.target['value'])">
             <ion-select-option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</ion-select-option>
-          </ion-select>
-        </ion-item>
+          </ion-select>      
       </ion-label>
-      <ion-button expand="block" color="light" (click)="sendForum()">SEND FORUM</ion-button>
+      <ion-button expand="block" (click)="createPost()" [disabled]="!postText.length">CREATE POST</ion-button>
     </ion-card-content>
   </ion-card>
   

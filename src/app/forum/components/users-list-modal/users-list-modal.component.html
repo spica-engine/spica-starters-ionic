@@ -1,0 +1,19 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{operation | titlecase}}</ion-title>
+    <ion-icon name="close" slot="end" (click)="_dismiss()"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list >
+    <ion-item *ngFor="let user of users" lines="none">
+      <ion-avatar slot="start">
+        <img [src]="user?.profile_picture">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{user?.nick}}</h2>
+        <ion-button color="light" slot="end" (click)="action(user?._id)">{{operation=='followings' ? 'Unfollow' : 'Remove'}}</ion-button>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

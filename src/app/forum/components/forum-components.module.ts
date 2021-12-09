@@ -4,20 +4,22 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { FollowersModalComponent } from './followers-modal/followers-modal.component';
-import { FollowingsModalComponent } from './followings-modal/followings-modal.component';
 import { AddCommentModalComponent } from './add-comment-modal/add-comment-modal.component';
+import { PostCardComponent } from './post-card/post-card.component';
+import { DateAgoPipe } from '../pipes/date-ago.pipe';
+import { UsersListModalComponent } from './users-list-modal/users-list-modal.component';
 
 @NgModule({
   declarations: [
-    FollowersModalComponent,
-    FollowingsModalComponent,
+    UsersListModalComponent,
     AddCommentModalComponent,
+    PostCardComponent,
+    DateAgoPipe
   ],
   exports: [
-    FollowersModalComponent,
-    FollowingsModalComponent,
-    AddCommentModalComponent
+    UsersListModalComponent,
+    AddCommentModalComponent,
+    PostCardComponent
   ],
   imports: [
     RouterModule,

@@ -5,19 +5,19 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { DateAgoPipe } from './../../pipes/date-ago.pipe';
 import { HomePage } from './home.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
+import { ForumComponentModule } from '../../components/forum-components.module';
 
 @NgModule({
   imports: [
-  
-  CommonModule,
+    CommonModule,
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    SpicaComponentsModule
+    SpicaComponentsModule,
+    ForumComponentModule,
   ],
-  declarations: [HomePage,DateAgoPipe]
+  declarations: [HomePage],
 })
 export class HomePageModule {}

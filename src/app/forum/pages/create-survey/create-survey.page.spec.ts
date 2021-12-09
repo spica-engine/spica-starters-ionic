@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FollowingsModalComponent } from './followings-modal.component';
+import { CreateSurveyPage } from './create-survey.page';
 
-describe('FollowingsModalComponent', () => {
-  let component: FollowingsModalComponent;
-  let fixture: ComponentFixture<FollowingsModalComponent>;
+describe('CreateSurveyPage', () => {
+  let component: CreateSurveyPage;
+  let fixture: ComponentFixture<CreateSurveyPage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FollowingsModalComponent ],
+      declarations: [ CreateSurveyPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FollowingsModalComponent);
+    fixture = TestBed.createComponent(CreateSurveyPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

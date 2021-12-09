@@ -15,6 +15,9 @@ import { environment } from './environment';
 export class AuthService {
   activeUser: DataService.User;
   activeToken: string;
+  // followedUsers: string[] = [];
+  followingUsers: string[] = [];
+  
 
   constructor(private http: HttpClient) {
     dataService.initialize({ apikey: environment.apikey });
@@ -126,7 +129,12 @@ export class AuthService {
           : of([null])
       ),
       map((users) => users[0]),
-      tap((user) => (this.activeUser = user))
+      tap((user) => (this.activeUser = user)),
+      tap((user) => {
+        user?.followings?.forEach(following => {
+          this.followingUsers.push(following);
+        });
+      })
     );
   }
 
@@ -142,5 +150,13 @@ export class AuthService {
     )
       result = false;
     return of(result);
+  }
+
+  followUser(id) {
+    this.followingUsers.push(id);
+  }
+
+  unfollowUser(id) {
+    this.followingUsers = this.followingUsers.filter((el) => el !== id);
   }
 }

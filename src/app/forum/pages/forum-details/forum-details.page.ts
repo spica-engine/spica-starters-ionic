@@ -45,7 +45,7 @@ export class ForumDetailsPage implements OnInit {
   }
 
   checkUserLogin() {
-    if (!this.user._id) {
+    if (!this.user) {
       this._router.navigate(['/forum/authorization']);
       return false;
     } return true

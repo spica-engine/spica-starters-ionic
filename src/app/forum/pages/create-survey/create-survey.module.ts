@@ -4,21 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ProfilePageRoutingModule } from './profile-routing.module';
+import { CreateSurveyPageRoutingModule } from './create-survey-routing.module';
 
-import { ProfilePage } from './profile.page';
+import { CreateSurveyPage } from './create-survey.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
-import { ForumComponentModule } from '../../components/forum-components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ProfilePageRoutingModule,
-    SpicaComponentsModule,
-    ForumComponentModule
+    CreateSurveyPageRoutingModule,
+    SpicaComponentsModule
   ],
-  declarations: [ProfilePage]
+  declarations: [CreateSurveyPage]
 })
-export class ProfilePageModule {}
+export class CreateSurveyPageModule {}

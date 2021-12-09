@@ -1,0 +1,34 @@
+<spica-menu-bar project="forum"></spica-menu-bar>
+
+<ion-content>
+  <div class="content" *ngIf="user">
+    <h1>Create Survey</h1>
+    <ion-item lines="none" class="survey-title">
+      <ion-label position="floating"> Survey Title</ion-label>
+      <ion-input [(ngModel)]="surveyTitle"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none" *ngFor="let selection of selections; let idx = index" class="selections-container">
+      <ion-label>{{selection.label}}{{idx+1}}.</ion-label>
+      <ion-input
+        placeholder="Option"
+        [(ngModel)]="selections[idx].option"
+      ></ion-input>
+    </ion-item>
+    <ion-row class="buttons">
+      <ion-col
+        ><ion-button color="medium" (click)="addSelection()"
+          ><ion-icon name="add-outline"></ion-icon></ion-button
+      ></ion-col>
+      <ion-col
+        ><ion-button color="medium" (click)="removeSelection()"
+          ><ion-icon name="remove-outline"></ion-icon></ion-button
+      ></ion-col>
+      <ion-col
+        ><ion-button color="success" (click)="createSurvey()" [disabled]="!surveyTitle.length || !selections.length"
+          >Create</ion-button
+        ></ion-col
+      >
+    </ion-row>
+  </div>
+</ion-content>

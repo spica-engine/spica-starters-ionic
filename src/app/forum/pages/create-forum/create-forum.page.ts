@@ -12,11 +12,11 @@ import { environment } from '../../services/environment';
 export class CreateForumPage implements OnInit {
   user: DataService.User;
   categories: DataService.Category[] = [];
-  textSearch: string;
+  postText: string = '';
   newComment: DataService.Comment;
   forumCategories: string[];
-  constructor(private route: Router, private _authService: AuthService) {
-    DataService.initialize({ apikey: '2n1c1akvupiku4' });
+  constructor(private _route: Router, private _authService: AuthService) {
+    this._authService.initBucket();
   }
 
   async ngOnInit() {
@@ -32,15 +32,12 @@ export class CreateForumPage implements OnInit {
   onChange(ids) {
     this.forumCategories = ids;
   }
-  getItems(textarea) {
-    var q = textarea.srcElement.value;
-    this.textSearch = q;
-  }
-  async sendForum() {
-    this.route.navigate(['/forum']);
+
+  async createPost() {
+    this._route.navigate(['/forum']);
     this.newComment = await DataService.comment.insert({
       user: this.user._id,
-      content: this.textSearch,
+      content: this.postText,
       is_post: true,
       category: this.forumCategories,
     });
