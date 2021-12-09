@@ -1,34 +1,21 @@
-<spica-menu-bar project="forum"></spica-menu-bar>
+<spica-menu-bar project="forum" [routeble]="userId ? true : false" (clickMenuItem)="clickMenuItem()"></spica-menu-bar>
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-menu-button color="dark" menu="main-menu" slot="start"></ion-menu-button>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <div class="category">
+<ion-content [fullscreen]="true" class="hide-scroll-bar">
+  <div class="category hide-scroll-bar">
     <ion-button (click)="getComments()" color="light">All</ion-button>
     <ion-button *ngFor="let category of categoryes" (click)="getComments(category._id)" color="light">{{category.name}}</ion-button>
   </div>
 
   <div class="comments">
-    <ion-card *ngFor="let comment of comments" >
-      <ion-card-header>
-        <ion-avatar>
-          <img [src]="comment.user['profile_picture'] || defaultAvatar" >
-        </ion-avatar>
-        <span class="nick">{{comment.user['nick']}}</span>
-        <ion-button *ngIf="comment.user['_id'] != user._id" size="small" fill="clear" (click)="follow(comment.user)">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</ion-button>
-        <span class="created_at">{{comment.date | dateAgo}}</span>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-label>
-          <p>{{comment.content}}</p>
-        </ion-label>
-        <ion-button color="light" (click)="like(comment)"><ion-icon name="heart-outline"></ion-icon>{{comment.likes.length}}</ion-button>
-        <ion-button color="light" (click)="dislike(comment)"><ion-icon name="heart-dislike-outline"></ion-icon>{{comment.dislikes.length}}</ion-button>
-        <ion-button color="light"><ion-icon name="chatbox-outline"></ion-icon>{{comment.comments.length}}</ion-button>
-        <ion-button color="primary" class="right" [routerLink]="['/forum/forum-details/' + comment._id]">Read More</ion-button>
-      </ion-card-content>
-    </ion-card>
+    <post-card [comment]="comment" *ngFor="let comment of comments" ></post-card>
   </div>
 </ion-content>
+<ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="newPostModa()">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

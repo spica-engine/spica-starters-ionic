@@ -1,0 +1,33 @@
+:host {
+  ion-content {
+    .content {
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      padding: 0 20px;
+
+      .survey-title {
+        width: 100%;
+        border-bottom: 1px solid;
+        font-size: 18px;
+      }
+
+      .selections-container {
+        margin-top: 20px;
+        width: 100%;
+        padding: 0 20px;
+        ion-input {
+          border-bottom: 1px solid var(--ion-color-light-shade);
+          padding: 0 10px;
+        }
+      }
+
+      .buttons {
+        margin-top: 20px;
+      }
+    }
+  }
+}

@@ -1,63 +1,86 @@
 import { Component, OnInit } from '@angular/core';
 import * as DataService from '../../services/bucket';
-import { ModalController, AlertController } from '@ionic/angular';
-import { FollowersModalComponent } from '../../components/followers-modal/followers-modal.component';
-import { FollowingsModalComponent } from '../../components/followings-modal/followings-modal.component';
+import { AlertController, ModalController } from '@ionic/angular';
 import { environment } from '../../services/environment';
 import { AuthService } from '../../services/auth.service';
+import { UsersListModalComponent } from '../../components/users-list-modal/users-list-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
-  cycle: any;
-  isLoading: boolean = false;
+export class ProfilePage {
+  postIsLoading: boolean = true;
   userId: string;
   user: DataService.User;
   comments: DataService.Comment[] = [];
   defaultAvatar: string = environment.user_img;
+  queryParams = { relation: true, sort: { date: -1 } };
 
   constructor(
-    private modal: ModalController,
-    public alertController: AlertController,
-    private _authService: AuthService
+    private _modal: ModalController,
+    private _authService: AuthService,
+    private _alertController: AlertController,
+    private _router: Router
   ) {
-    DataService.initialize({ apikey: '2n1c1akvupiku4' });
+    this._authService.initBucket();
   }
 
-  async ngOnInit() {
-    this.isLoading = true;
+  async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
-    await this.getUser();
-    this.getComments();
+    if (!this.userId) {
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+    } else {
+      await this.getUser();
+      this.segmentChanged('posts');
+    }
   }
+
   async getUser() {
-    this.isLoading = true;
     this.user = await DataService.user.get(this.userId, {
       queryParams: { relation: true },
     });
   }
-  getComments() {
+
+  segmentChanged(value) {
+    this.postIsLoading = true;
+    if (value == 'comments') {
+      this.queryParams['filter'] = { 'comments.user': this.user._id };
+    } else if (value == 'liked') {
+      this.queryParams['filter'] = {
+        $or: [{ likes: this.user._id }, { dislikes: this.user._id }],
+      };
+    } else if (value == 'posts') {
+      this.queryParams['filter'] = { user: this.user._id, is_post: true };
+    }
+    this.getData();
+  }
+
+  getData() {
     DataService.comment
-      .getAll({
-        queryParams: {
-          filter: { user: this.user._id, is_post: true },
-          relation: true,
-          sort: { date: -1 },
-          limit: 5,
-        },
-      })
+      .getAll({ queryParams: this.queryParams })
       .then((res) => {
+        this.postIsLoading = false;
         this.comments = res;
-        this.isLoading = false;
       });
   }
-  async presentAlert(value) {
-    const alert = await this.alertController.create({
-      header: 'Alert',
-      message: 'Are you sure delete the comment',
+
+  async usersListModal(value) {
+    const modal = await this._modal.create({
+      component: UsersListModalComponent,
+      swipeToClose: true,
+      componentProps: {
+        operation: value,
+      },
+    });
+    return await modal.present();
+  }
+
+  async logOut() {
+    const alert = await this._alertController.create({
+      message: 'Are you sure you want to log out',
       buttons: [
         {
           text: 'Cancel',
@@ -67,77 +90,16 @@ export class ProfilePage implements OnInit {
           },
         },
         {
-          text: 'Okay',
+          text: 'Log Out',
           role: 'okay',
           handler: () => {
-            alert.dismiss(true);
+            this._authService.logout();
+            this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
           },
         },
       ],
     });
 
     await alert.present();
-    let result = await alert.onDidDismiss();
-
-    if (result) {
-      if (result.role == 'okay') {
-        this.isLoading = true;
-        await DataService.comment.remove(value);
-        this.getComments();
-      }
-    }
-  }
-  segmentChanged(event) {
-    this.cycle = event.detail.value;
-    if (event.detail.value == 'comments') {
-      this.isLoading = true;
-      this.getCommentContent();
-    } else if (event.detail.value == 'liked') {
-      this.isLoading = true;
-      this.getLikedComments();
-    } else if (event.detail.value == 'forums') {
-      this.isLoading = true;
-      this.getComments();
-    }
-  }
-  getLikedComments() {
-    DataService.comment
-      .getAll({
-        queryParams: {
-          filter: { likes: { $in: [this.user._id] } },
-          relation: true,
-        },
-      })
-      .then((res) => {
-        this.comments = res;
-        this.isLoading = false;
-      });
-  }
-  getCommentContent() {
-    DataService.comment
-      .getAll({
-        queryParams: {
-          filter: { 'comments.user': { $in: [this.user._id] } },
-          relation: true,
-        },
-      })
-      .then((res) => {
-        this.comments = res;
-        this.isLoading = false;
-      });
-  }
-  async followersModal() {
-    const followersModal = await this.modal.create({
-      component: FollowersModalComponent,
-      swipeToClose: true,
-    });
-    return await followersModal.present();
-  }
-  async followingsModal() {
-    const followingsModal = await this.modal.create({
-      component: FollowingsModalComponent,
-      swipeToClose: true,
-    });
-    return await followingsModal.present();
   }
 }

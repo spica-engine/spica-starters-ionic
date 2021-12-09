@@ -24,8 +24,10 @@ export class AppointmentsPage implements OnInit {
 
   async ngOnInit() {
     this.user = await this._authService.getUser().toPromise();
-    await this.getAppointments();
-    this.prepareAppointments();
+    if(this.user){
+      await this.getAppointments();
+      this.prepareAppointments();
+    }
   }
 
   async getAppointments() {
@@ -36,13 +38,15 @@ export class AppointmentsPage implements OnInit {
 
   prepareAppointments() {
     this.appointments?.forEach((appointment) => {
-      this.eventSource.push({
-        title: `${appointment.client['name']} ${appointment.client['surname']}`,
-        startTime: new Date(appointment.from),
-        endTime: new Date(appointment.from),
-        allDay: false,
-        _id: appointment._id,
-      });
+      if(appointment.client){
+        this.eventSource.push({
+          title: `${appointment.client['name']} ${appointment.client['surname']}`,
+          startTime: new Date(appointment.from),
+          endTime: new Date(appointment.from),
+          allDay: false,
+          _id: appointment._id,
+        });
+      }
     });
 
     this.loading = false;

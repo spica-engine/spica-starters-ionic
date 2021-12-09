@@ -66,3 +66,12 @@ ion-spinner {
     display: none;
   }
 }
+
+.hide-scroll-bar {
+  --offset-bottom: auto !important;
+  --overflow: hidden;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

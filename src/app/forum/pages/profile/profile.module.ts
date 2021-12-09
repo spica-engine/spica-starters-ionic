@@ -8,6 +8,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
+import { ForumComponentModule } from '../../components/forum-components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     ProfilePageRoutingModule,
-    SpicaComponentsModule
+    SpicaComponentsModule,
+    ForumComponentModule
   ],
   declarations: [ProfilePage]
 })

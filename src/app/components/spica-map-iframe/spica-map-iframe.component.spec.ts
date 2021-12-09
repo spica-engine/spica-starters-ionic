@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { FollowersModalComponent } from './followers-modal.component';
+import { SpicaMapIframeComponent } from './spica-map-iframe.component';
 
-describe('FollowersModalComponent', () => {
-  let component: FollowersModalComponent;
-  let fixture: ComponentFixture<FollowersModalComponent>;
+describe('SpicaMapIframeComponent', () => {
+  let component: SpicaMapIframeComponent;
+  let fixture: ComponentFixture<SpicaMapIframeComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ FollowersModalComponent ],
+      declarations: [ SpicaMapIframeComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(FollowersModalComponent);
+    fixture = TestBed.createComponent(SpicaMapIframeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

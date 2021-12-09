@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
       .then((res) => {
         this.isLoading = false;
         this.loginForm.reset();
-        this._router.navigate(['/appointment/tabs/home']);
+        this._router.navigateByUrl('/appointment/tabs/appointments', {replaceUrl: true});
       })
       .catch((err) => {
         this.isLoading = false;

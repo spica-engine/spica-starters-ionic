@@ -34,6 +34,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/create-forum/create-forum.module').then((m) => m.CreateForumPageModule),
   },
+  {
+    path: 'create-survey',
+    loadChildren: () =>
+      import('./pages/create-survey/create-survey.module').then((m) => m.CreateSurveyPageModule),
+  },
 ];
 
 @NgModule({

@@ -3,7 +3,6 @@ import { ModalController } from '@ionic/angular';
 import * as DataService from '../../services/bucket';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddCommentModalComponent } from '../../components/add-comment-modal/add-comment-modal.component';
-import { environment } from '../../services/environment';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -16,8 +15,8 @@ export class ForumDetailsPage implements OnInit {
   id: any;
   user: DataService.User;
   constructor(
-    private ActivatedRoute: ActivatedRoute,
-    private modalController: ModalController,
+    private _activatedRoute: ActivatedRoute,
+    private _modalController: ModalController,
     private _router: Router,
     private _authService: AuthService
   ) {
@@ -25,7 +24,7 @@ export class ForumDetailsPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.id = this.ActivatedRoute.snapshot.params.id;
+    this.id = this._activatedRoute.snapshot.params.id;
     this.user = await this._authService.getUser().toPromise()
     this.getComment();
   }
@@ -45,8 +44,8 @@ export class ForumDetailsPage implements OnInit {
   }
 
   checkUserLogin() {
-    if (!this.user._id) {
-      this._router.navigate(['/forum/authorization']);
+    if (!this.user) {
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
       return false;
     } return true
   }
@@ -55,7 +54,7 @@ export class ForumDetailsPage implements OnInit {
     if(!this.checkUserLogin()){
       return
     }
-    const commentModal = await this.modalController.create({
+    const commentModal = await this._modalController.create({
       component: AddCommentModalComponent,
       swipeToClose: true,
       componentProps: {

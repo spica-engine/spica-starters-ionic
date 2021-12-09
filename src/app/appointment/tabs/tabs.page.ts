@@ -10,11 +10,7 @@ import * as DataService from '../services/bucket';
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
 })
-export class TabsPage implements OnInit {
-  // tracks: DataService.Music_Track[] = [];
-  // defaultTracks: DataService.Music_Track[] = [];
-  // shuffledTracks: DataService.Music_Track[] = [];
-  // trackIndex: number = 0;
+export class TabsPage {
   user: DataService.Employee;
 
   constructor(
@@ -32,7 +28,7 @@ export class TabsPage implements OnInit {
     }
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     await this.checkUserLogin();
   }
 
@@ -47,20 +43,29 @@ export class TabsPage implements OnInit {
     modal.onWillDismiss().then(async (res) => {
       if (!res.data || res.data.action == 'close') {
         return;
-      } else if(res.data.action == 'create'){
+      } else if (res.data.action == 'create') {
         let data = res.data.appointmentData;
         let client = {
-          name: data.name,
-          surname: data.surname,
-          phone: data.phone,
-          email: data.email,
-          date_of_birth: data.date_of_birth,
+          _id: data.client?._id,
+          name: data.client.name,
+          surname: data.client.surname,
+          phone: data.client.phone,
+          email: data.client.email,
+          date_of_birth: data.client.date_of_birth,
         };
-        const clientData = await this.createClient(client);
+
+        let clientData;
+        if (!client._id) {
+          clientData = await this.createClient(client);
+        } else {
+          await this.updateClient(client);
+          clientData = { _id: data.client._id };
+        }
+
         let appointmentData = {
           client: clientData['_id'],
           employee: this.user._id,
-          from: data.appointment_date,
+          from: data.from,
           note: data.note,
         };
         this.createAppointment(appointmentData);
@@ -76,5 +81,9 @@ export class TabsPage implements OnInit {
 
   createClient(client) {
     return DataService.client.insert(client).catch((err) => console.log(err));
+  }
+
+  updateClient(client) {
+    return DataService.client.patch({ ...client });
   }
 }

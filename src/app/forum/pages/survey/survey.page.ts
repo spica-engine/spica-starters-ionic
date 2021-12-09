@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
 import { environment } from '../../services/environment';
@@ -8,22 +9,28 @@ import { environment } from '../../services/environment';
   templateUrl: './survey.page.html',
   styleUrls: ['./survey.page.scss'],
 })
-export class SurveyPage implements OnInit {
+export class SurveyPage {
   survey: DataService.Survey[] = [];
   control: DataService.Survey[] = [];
   user: DataService.User;
   userId: string;
   surveyAnswers = {};
 
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService, private _router: Router) {
     DataService.initialize({ apikey: '2n1c1akvupiku4' });
   }
-  async ngOnInit() {
-    await this.getUser();
-    this.getSurvey();
-  }
-  async getUser() {
+
+  async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
+    if (!this.userId) {
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+    } else{
+      await this.getUser();
+      this.getSurvey();
+    }
+  }
+
+  async getUser() {
     this.user = await DataService.user.get(this.userId);
   }
   async _vote(survey, option) {

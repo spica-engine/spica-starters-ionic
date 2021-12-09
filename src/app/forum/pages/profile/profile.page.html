@@ -1,15 +1,14 @@
 <spica-menu-bar project="forum"></spica-menu-bar>
 <ion-header>
   <ion-toolbar>
+    <ion-icon slot="end" name="log-out-outline" (click)="logOut()"></ion-icon>
   </ion-toolbar>
 </ion-header>
-
-
 <ion-content>
-  <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="!user">
     <ion-spinner></ion-spinner>
   </div>
-  <ng-container *ngIf="!isLoading">
+  <ng-container *ngIf="user">
     <div class="user">
       <ion-avatar>
         <img [src]="this.user.profile_picture || defaultAvatar" >
@@ -17,12 +16,12 @@
       <ion-label>
         <h1>{{this.user.nick}}</h1>
         <p>RANK: {{this.user.level}}</p>
-        <span (click)="followersModal()">{{this.user.followers.length}} Followers</span>
-        <span (click)="followingsModal()">{{this.user.followings.length}} Followings</span>
+        <span (click)="usersListModal('followers')">{{this.user.followers.length}} Followers</span>
+        <span (click)="usersListModal('followings')">{{this.user.followings.length}} Followings</span>
       </ion-label>
-      <ion-segment value="forums" (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="forums">
-          <ion-label>Forums</ion-label>
+      <ion-segment value="posts" (ionChange)="segmentChanged($event.target['value'])">
+        <ion-segment-button value="posts">
+          <ion-label>Posts</ion-label>
         </ion-segment-button>
         <ion-segment-button value="comments">
           <ion-label>Comments</ion-label>
@@ -32,18 +31,11 @@
         </ion-segment-button>
       </ion-segment>
     </div>
-    <div class="comments">
-      <ion-card *ngFor="let item of this.comments">
-        <ion-card-content>
-          <ion-label>
-            <p>{{item.content}}</p>
-          </ion-label>
-          <ion-button color="light"><ion-icon name="heart-outline"></ion-icon>{{item.likes?.length}}</ion-button>
-          <ion-button color="light"><ion-icon name="heart-dislike-outline"></ion-icon>{{item.dislikes?.length}}</ion-button>
-          <ion-button color="light"><ion-icon name="chatbox-outline"></ion-icon>{{item.comments?.length}}</ion-button>
-          <ion-button [disabled]="this.cycle=='liked'" color="light" class="trash" (click)="presentAlert(item._id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
-        </ion-card-content>
-      </ion-card>
+    <div class="spinner-container post" *ngIf="postIsLoading">
+      <ion-spinner></ion-spinner>
+    </div>
+    <div class="comments" *ngIf="!postIsLoading">
+      <post-card [comment]="item" *ngFor="let item of this.comments"></post-card>
     </div>
   </ng-container>
   
