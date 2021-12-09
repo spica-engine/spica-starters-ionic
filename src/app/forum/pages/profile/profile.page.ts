@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as DataService from '../../services/bucket';
 import { ModalController, AlertController } from '@ionic/angular';
-import { FollowersModalComponent } from '../../modals/followers-modal/followers-modal.component';
-import { FollowingsModalComponent } from '../../modals/followings-modal/followings-modal.component';
+import { FollowersModalComponent } from '../../components/followers-modal/followers-modal.component';
+import { FollowingsModalComponent } from '../../components/followings-modal/followings-modal.component';
 import { environment } from '../../services/environment';
 import { AuthService } from '../../services/auth.service';
 
@@ -17,6 +17,7 @@ export class ProfilePage implements OnInit {
   userId: string;
   user: DataService.User;
   comments: DataService.Comment[] = [];
+  defaultAvatar: string = environment.user_img;
 
   constructor(
     private modal: ModalController,

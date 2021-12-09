@@ -1,5 +1,12 @@
 :host{
     ion-content {
+        .spinner-container{
+            width: 100vw;
+            height: calc(100vh - 60px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
         .user{
             display: flex;
             justify-content: center;

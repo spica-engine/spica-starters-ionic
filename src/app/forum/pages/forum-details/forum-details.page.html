@@ -35,14 +35,14 @@
           <img [src]="answer['user'].profile_picture" >
         </ion-avatar>
         <span class="nick">{{answer['user'].nick}}</span>
-        <ion-button size="small" fill="clear">Follow</ion-button>
+        <ion-button *ngIf="answer['user']._id != user._id" size="small" fill="clear">Follow</ion-button>
       </ion-card-header>
       <ion-card-content>
         <ion-label>
           <p>{{answer['content']}}</p>
         </ion-label>
-        <ion-button color="light"><ion-icon name="heart-outline"></ion-icon>{{answer['likes'].length}}</ion-button>
-        <ion-button color="light"><ion-icon name="heart-dislike-outline"></ion-icon>{{answer['dislikes'].length}}</ion-button>
+        <ion-button color="light"><ion-icon name="heart-outline"></ion-icon>{{answer['likes']?.length}}</ion-button>
+        <ion-button color="light"><ion-icon name="heart-dislike-outline"></ion-icon>{{answer['dislikes']?.length}}</ion-button>
       </ion-card-content>
     </ion-card>
   </div>

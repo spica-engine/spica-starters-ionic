@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import * as DataService from '../../services/bucket';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddCommentModalComponent } from '../../modals/add-comment-modal/add-comment-modal.component';
+import { AddCommentModalComponent } from '../../components/add-comment-modal/add-comment-modal.component';
 import { environment } from '../../services/environment';
 import { AuthService } from '../../services/auth.service';
 
@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
 export class ForumDetailsPage implements OnInit {
   comment: DataService.Comment;
   id: any;
-  userId: string;
+  user: DataService.User;
   constructor(
     private ActivatedRoute: ActivatedRoute,
     private modalController: ModalController,
@@ -26,7 +26,7 @@ export class ForumDetailsPage implements OnInit {
 
   async ngOnInit() {
     this.id = this.ActivatedRoute.snapshot.params.id;
-    this.userId = (await this._authService.getUser().toPromise())?._id;
+    this.user = await this._authService.getUser().toPromise()
     this.getComment();
   }
   async getComment() {
@@ -45,7 +45,7 @@ export class ForumDetailsPage implements OnInit {
   }
 
   checkUserLogin() {
-    if (!this.userId) {
+    if (!this.user._id) {
       this._router.navigate(['/forum/authorization']);
       return false;
     } return true
@@ -58,11 +58,22 @@ export class ForumDetailsPage implements OnInit {
     const commentModal = await this.modalController.create({
       component: AddCommentModalComponent,
       swipeToClose: true,
-      cssClass: 'my-custom-modal-css',
       componentProps: {
         commentId: this.id,
       },
     });
+
+    commentModal.onWillDismiss().then(async (res) => {
+      if (!res.data || res.data.action == 'close') {
+        return;
+      } else {
+        res.data.comment['user'] = this.user;
+        this.comment.comments = this.comment.comments || [];
+        this.comment.comments.push(res.data.comment)
+      }
+    });
+
+    
     return await commentModal.present();
   }
 }

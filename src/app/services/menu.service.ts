@@ -17,7 +17,10 @@ export class MenuService {
     forum: () => {
       return [
         { key: 'home', value: 'Home', icon: 'home' },
+        { key: 'create-forum', value: 'Create Forum', icon: 'create' },
+        { key: 'survey', value: 'Survey', icon: 'clipboard-outline' },
         { key: 'profile', value: 'Profile', icon: 'person' },
+        { key: 'authorization', value: 'Authorization', icon: 'key' },
       ] as MenuItem[];
     },
   };

@@ -1,20 +1,18 @@
+<spica-menu-bar project="forum"></spica-menu-bar>
 <ion-header>
   <ion-toolbar>
-    <ion-back-button defaultHref="forum" slot="start"></ion-back-button>
   </ion-toolbar>
 </ion-header>
 
 
 <ion-content>
-  
   <div class="spinner-container" *ngIf="isLoading">
     <ion-spinner></ion-spinner>
   </div>
-  <ng-container *ngIf="this.user">
-    
+  <ng-container *ngIf="!isLoading">
     <div class="user">
       <ion-avatar>
-        <img [src]="this.user.profile_picture" >
+        <img [src]="this.user.profile_picture || defaultAvatar" >
       </ion-avatar>
       <ion-label>
         <h1>{{this.user.nick}}</h1>

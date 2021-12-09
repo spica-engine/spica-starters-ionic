@@ -6,6 +6,7 @@ export const environment = {
   apiUrl: "https://asset-test-9ef6b.hq.spicaengine.com/api",
   apikey: "2n1c1akw1uf4m5",
   TOKEN_KEY: 'forum_spica_token',
+  user_img: "https://www.faydavipegitim.com/media/contents/0ed09-user-profile.jpeg",
 };
 
 /*
