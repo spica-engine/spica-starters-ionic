@@ -57,8 +57,13 @@ export class HomePage {
     if(this.userId){
       this._router.navigate(['/forum/create-forum']);
     } else {
-      this._router.navigate(['/forum/authorization']);
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
     }
-   
+  }
+
+  clickMenuItem(){
+    if(!this.userId){
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+    }
   }
 }

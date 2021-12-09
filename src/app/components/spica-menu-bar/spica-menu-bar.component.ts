@@ -10,6 +10,7 @@ import { MenuItem, MenuService } from 'src/app/services/menu.service';
 })
 export class SpicaMenuBarComponent implements OnInit {
   @Input() side: string = 'start'; //can be end
+  @Input() routeble: boolean =true;
   @Input() project: string;
   @Output() clickMenuItem: EventEmitter<any> = new EventEmitter();
   items: MenuItem[];
@@ -29,18 +30,15 @@ export class SpicaMenuBarComponent implements OnInit {
       : this.items[0].key;
   }
 
-  openCustom() {
-    this._menu.enable(true, 'custom');
-    this._menu.open('custom');
-  }
   clickedItem(item) {
     this.activeLink = item.key;
     this.clickMenuItem.emit(item.key);
-    this._router.navigateByUrl(`${this.project}/${item.key}`, {
-      replaceUrl: true,
-    });
-    setTimeout(() => {
-      this._menu.close('custom');
-    }, 150);
+
+    if(this.routeble){
+      this._router.navigateByUrl(`${this.project}/${item.key}`, {
+        replaceUrl: true,
+      });
+    }
+    this._menu.close('custom');
   }
 }

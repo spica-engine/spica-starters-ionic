@@ -64,7 +64,7 @@ export class PostCardComponent implements OnInit {
 
   checkUserLogin() {
     if (!this.user) {
-      this._router.navigate(['/forum/authorization']);
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
       return false;
     }
     return true

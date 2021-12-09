@@ -9,7 +9,7 @@ import { environment } from '../../services/environment';
   templateUrl: './survey.page.html',
   styleUrls: ['./survey.page.scss'],
 })
-export class SurveyPage implements OnInit {
+export class SurveyPage {
   survey: DataService.Survey[] = [];
   control: DataService.Survey[] = [];
   user: DataService.User;
@@ -19,17 +19,14 @@ export class SurveyPage implements OnInit {
   constructor(private _authService: AuthService, private _router: Router) {
     DataService.initialize({ apikey: '2n1c1akvupiku4' });
   }
-  async ngOnInit() {
-    if (this.userId) {
-      await this.getUser();
-      this.getSurvey();
-    }
-  }
 
   async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
     if (!this.userId) {
-      this._router.navigate(['/forum/authorization']);
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+    } else{
+      await this.getUser();
+      this.getSurvey();
     }
   }
 

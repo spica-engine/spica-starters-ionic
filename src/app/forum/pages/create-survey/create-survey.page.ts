@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
 
@@ -17,7 +16,6 @@ export class CreateSurveyPage{
   newSurvey: DataService.Survey;
 
   constructor(
-    public navCtrl: NavController,
     private _router: Router,
     private _authService: AuthService
   ) {
@@ -27,7 +25,7 @@ export class CreateSurveyPage{
   async ionViewWillEnter() {
     this.user = await this._authService.getUser().toPromise();
     if (!this.user) {
-      this._router.navigate(['/forum/authorization']);
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
     }
   }
 

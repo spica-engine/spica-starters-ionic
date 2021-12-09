@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
   postIsLoading: boolean = true;
   userId: string;
   user: DataService.User;
@@ -20,7 +20,7 @@ export class ProfilePage implements OnInit {
   queryParams = { relation: true, sort: { date: -1 } };
 
   constructor(
-    private modal: ModalController,
+    private _modal: ModalController,
     private _authService: AuthService,
     private _alertController: AlertController,
     private _router: Router
@@ -28,17 +28,13 @@ export class ProfilePage implements OnInit {
     this._authService.initBucket();
   }
 
-  async ngOnInit() {
-    if (this.userId) {
-      await this.getUser();
-      this.segmentChanged('posts');
-    }
-  }
-
   async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
     if (!this.userId) {
-      this._router.navigate(['/forum/authorization']);
+      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+    } else {
+      await this.getUser();
+      this.segmentChanged('posts');
     }
   }
 
@@ -72,7 +68,7 @@ export class ProfilePage implements OnInit {
   }
 
   async usersListModal(value) {
-    const modal = await this.modal.create({
+    const modal = await this._modal.create({
       component: UsersListModalComponent,
       swipeToClose: true,
       componentProps: {
@@ -98,7 +94,7 @@ export class ProfilePage implements OnInit {
           role: 'okay',
           handler: () => {
             this._authService.logout();
-            this._router.navigate(['/forum/authorization']);
+            this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
           },
         },
       ],

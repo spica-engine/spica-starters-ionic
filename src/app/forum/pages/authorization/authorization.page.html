@@ -1,17 +1,17 @@
-<spica-menu-bar project="forum"></spica-menu-bar>
+<spica-menu-bar project="forum" [routeble]="false" (clickMenuItem)="clickMenuItem($event)"></spica-menu-bar>
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-title>profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <spica-authorization
+    *ngIf="!isLoading"
     (clickLogin)="login($event)"
     (clickRegister)="register($event)"
   >
   </spica-authorization>
-  <!-- <div class="spinner-container" *ngIf="isLoading">
+  <div class="spinner-container" *ngIf="isLoading">
     <ion-spinner></ion-spinner>
-  </div> -->
+  </div>
 </ion-content>
