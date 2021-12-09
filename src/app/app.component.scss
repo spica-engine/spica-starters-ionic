@@ -8,27 +8,69 @@
     right: -300px;
     transition: all 0.3s cubic-bezier(0.37, 0.75, 0.37, 0.75);
     ion-icon {
-      color: white;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       left: -25px;
       height: 50px;
       width: 25px;
-      background: rgba(0, 0, 0, 0.35);
+      background: white;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+    spica-starter-projects {
+      ::ng-deep {
+        ion-item {
+          opacity: 0;
+        }
+      }
     }
     &.open {
+      animation: fade 1s ease;
+      display: visible;
       right: 0px;
       height: 90%;
       border-top-left-radius: 20px;
       border-bottom-left-radius: 20px;
-      background: rgba(0, 0, 0, 0.4);
       width: calc(100vw - 30px);
+      border-left: 1px solid rgba(0, 0, 0, 0.2);
+      spica-starter-projects {
+        ::ng-deep {
+          ion-item {
+            animation: fly 0.5s;
+            transition: opacity 0.5s ease;
+            opacity: 1;
+            @for $i from 1 through 20 {
+              &:nth-of-type(#{$i}) {
+                animation-delay: #{$i/20}s;
+                transition-delay: #{$i/20}s;
+              }
+            }
+          }
+        }
+      }
     }
   }
   .opacity-passive {
     opacity: 0.1;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0.5;
+      right: -300px;
+    }
+    to {
+      opacity: 1;
+      right: 0;
+    }
+  }
+  @keyframes fly {
+    from {
+      transform: translateX(80px);
+    }
+    to {
+      transform: translateX(0);
+    }
   }
 }
