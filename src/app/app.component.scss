@@ -21,6 +21,9 @@
     }
     spica-starter-projects {
       ::ng-deep {
+        .container {
+          height: 100%;
+        }
         ion-item {
           opacity: 0;
         }
