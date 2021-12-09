@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -7,12 +7,11 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./spica-map-iframe.component.scss'],
 })
 export class SpicaMapIframeComponent implements OnInit {
-  data = {
-    // type: 'Point',
-    // coordinates: [32.67333984375001, 39.80220607474974],
-    type: 'Point',
-    coordinates: [28.705468922853473, 41.145467225494535],
-  };
+  // data = {
+  //   type: 'Point',
+  //   coordinates: [28.705468922853473, 41.145467225494535],
+  // };
+  @Input() data;
   link;
   constructor(private _sanitizer: DomSanitizer) {}
 
