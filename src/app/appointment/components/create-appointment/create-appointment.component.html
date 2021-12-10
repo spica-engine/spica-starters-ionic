@@ -28,12 +28,6 @@
       <ion-label>Date Of Birth</ion-label>
       <ion-datetime [(ngModel)]="appointment.client['date_of_birth']" [disabled]="isDisable"></ion-datetime>
     </ion-item>
-    <!-- <ion-item>
-      <ion-label>Employee</ion-label>
-      <ion-select [(ngModel)]="appointment.employee['_id']">
-        <ion-select-option [value]="employee._id" *ngFor="let employee of employees" >{{employee.name + ' ' + employee.surname}}</ion-select-option>
-      </ion-select>
-    </ion-item> -->
     <ion-item>
       <ion-label>Appointment Date</ion-label>
       <ion-datetime [(ngModel)]="appointment.from" ></ion-datetime>
@@ -41,7 +35,7 @@
     <ion-item lines="none">
       <ion-textarea rows="10" placeholder="Note" class="note" [(ngModel)]="appointment.note"></ion-textarea>
     </ion-item>
-    <ion-button (click)="dismiss(action=='create' ? 'save' : 'update')">{{action=='create' ? 'Create Appointment': 'Update Appointment'}}</ion-button>
+    <ion-button class="create-btn" (click)="dismiss(action=='create' ? 'create' : 'update')">{{action=='create' ? 'Create Appointment': 'Update Appointment'}}</ion-button>
     <ion-button class="delete" *ngIf="action=='update'" (click)="dismiss('delete')">{{'Delete Appointment'}}</ion-button>
   </div>
 </ion-content>

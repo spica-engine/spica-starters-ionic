@@ -41,7 +41,9 @@
           height: 50px;
           width: 100%;
           --border-radius: 5px;
-
+          &.create-btn{
+            margin-top: 15px;
+          }
           &.delete{
             --background: rgb(170, 0, 0);
           }

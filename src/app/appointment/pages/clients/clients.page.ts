@@ -19,7 +19,7 @@ export class ClientsPage implements OnInit {
   }
 
   async getClients() {
-    this.clients = await DataService.client.getAll();
+    this.clients = await DataService.client.getAll({queryParams: {sort: {_id: -1}}});
   }
 
   async clientModal(client = undefined) {
@@ -32,17 +32,32 @@ export class ClientsPage implements OnInit {
     });
 
     modal.onWillDismiss().then(async (res) => {
-      // if (!res.data || res.data.value == 'close') {
-      //   return;
-      // } else if (res.data.action == 'update') {
-      //   await this.updateClient(res.data.appointmentData.client);
-      //   this.updateAppointment(res.data.appointmentData);
-      // } else if (res.data.action == 'delete') {
-      //   this.deleteAppointment(res.data.appointmentData._id);
-      // }
+      if (!res.data || res.data.value == 'close') {
+        return;
+      } else if (res.data.action == 'create') {
+        const newClient = await this.createClient(res.data.client);
+        this.clients.unshift(newClient)
+      } else if (res.data.action == 'update') {
+        await this.updateClient(res.data.client);
+      } else if (res.data.action == 'delete') {
+        this.deleteClient(res.data.client._id);
+        this.clients = this.clients.filter(el => {
+          return el._id !== client._id
+        })
+      }
     });
 
     return await modal.present();
+  }
+
+  async createClient(client) {
+    return await DataService.client.insert(client);
+  }
+  async updateClient(client) {
+    await DataService.client.patch(client);
+  }
+  async deleteClient(id) {
+    await DataService.client.remove(id);
   }
 
   async search(terms) {

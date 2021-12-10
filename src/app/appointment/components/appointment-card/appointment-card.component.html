@@ -5,8 +5,14 @@
     <ion-text>{{appointment.from | date: 'MMM'}}</ion-text>
   </ion-label>
   <ion-label class="client-info">
-    <ion-text>{{appointment.client.name + ' ' + appointment.client.surname}}</ion-text>
-    <ion-text>{{appointment.client.phone}}</ion-text>
+    <ng-container *ngIf="!employee">
+      <ion-text>{{appointment.client.name + ' ' + appointment.client.surname}}</ion-text>
+      <ion-text>{{appointment.client.phone}}</ion-text>
+    </ng-container>
+    <ng-container *ngIf="employee">
+      <ion-text>{{appointment.employee.name + ' ' + appointment.employee.surname}}</ion-text>
+      <ion-text>{{appointment.employee.username}}</ion-text>
+    </ng-container>
     <ion-text>{{appointment.note}}</ion-text>
   </ion-label>
 </ion-card>

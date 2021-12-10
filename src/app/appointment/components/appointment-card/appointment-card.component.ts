@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AppointmentCardComponent implements OnInit {
 
   @Input() appointment;
+  @Input() employee = false;
   constructor() { }
 
   ngOnInit() {}

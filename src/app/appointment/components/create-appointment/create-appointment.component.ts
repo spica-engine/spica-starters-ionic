@@ -19,9 +19,6 @@ export class CreateAppointmentComponent implements OnInit {
       email: '',
       date_of_birth: '',
     },
-    // employee: {
-    //   _id: '',
-    // },
   };
   clients: DataService.Client[] = [];
   loading: boolean = true;
@@ -37,7 +34,6 @@ export class CreateAppointmentComponent implements OnInit {
   async ngOnInit() {
     this.clients = await this.getClients();
     this.loading = false;
-    console.log(this.clients);
   }
 
   getClients() {
@@ -52,13 +48,16 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
   setClient(id) {
+    if(!id){
+      return
+    }
     this.isDisable = true;
     this.appointment.client = this.clients.find((el) => el._id == id);
   }
 
   clearSelect() {
     this.isDisable = false;
-    this.appointment.client = {
+    this.appointment['client'] = {
       _id: '',
       name: '',
       surname: '',
