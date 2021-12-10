@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import * as dataService from '../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import * as dataService from '../../services/bucket';
 
 @Component({
   selector: 'app-favorite',
@@ -12,7 +12,7 @@ export class FavoritePage implements OnInit {
   likedProducts: any = [];
   likedDataId: string;
   isLoading: boolean = true;
-  user: dataService.E_Com_User;
+  user: dataService.User;
 
   constructor(private _authService: AuthService, private _router: Router) {
     this._authService.initBucket();
@@ -31,13 +31,13 @@ export class FavoritePage implements OnInit {
   }
 
   async getLikedData() {
-    return dataService.e_com_liked_product
+    return dataService.liked_product
       .getAll({
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
       .then((res) => {
         this.likedDataId = res[0]._id;
-        this.likedProducts = res[0].product;
+        this.likedProducts = res[0].products;
         this.likedProducts.forEach((el) => {
           el['is_liked'] = true;
         });
@@ -54,8 +54,8 @@ export class FavoritePage implements OnInit {
       return el._id !== id;
     });
 
-    dataService.e_com_liked_product.patch({
-      product: this.likedProducts,
+    dataService.liked_product.patch({
+      products: this.likedProducts,
       _id: this.likedDataId,
     });
   }

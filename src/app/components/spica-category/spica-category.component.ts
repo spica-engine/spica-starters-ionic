@@ -15,7 +15,7 @@ export class SpicaCategoryComponent implements OnInit {
   ngOnInit() {}
 
   clicked(category) {
-    if (!category.sub_category?.length) {
+    if (!category.sub_categories?.length) {
       this.clickNavigate.emit(category._id);
     } else {
       if (this.showedCat == category._id) {

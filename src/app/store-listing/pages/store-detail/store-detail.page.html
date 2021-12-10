@@ -1,6 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
+    <ion-title>{{store?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,7 +26,6 @@
     </ion-segment>
 
     <div class="info" *ngIf="activeSegment=='info'">
-      <h4>{{store.name}}</h4>
       <p><span>Phone: </span> {{store.phone}}</p>
       <p><span>Email: </span> {{store.mail}}</p>
       <p>
@@ -55,9 +55,7 @@
       </ion-slide>
     </ion-slides>
     <div *ngIf="activeSegment=='map'">
-      <div #map id="map" class="map">
-        <ion-spinner></ion-spinner>
-      </div>
+      <spica-map-iframe [data]="store.location"></spica-map-iframe>
     </div>
   </ng-container>
 </ion-content>

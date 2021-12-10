@@ -12,7 +12,7 @@
 <ion-content>
   <custom-calendar *ngIf="!loading" (timeselected)="onTimeSelected($event.events)"  [eventSource]="eventSource"></custom-calendar>
   <div class="container" *ngIf="eventSource && eventSource.length && currentAppointments.length">
-    <appointment-card [appointment]="appointment" *ngFor="let appointment of currentAppointments" [employee]="true" (click)="appointmentDetailsModal(appointment)">
+    <appointment-card [appointment]="appointment" *ngFor="let appointment of currentAppointments" (click)="appointmentDetailsModal(appointment)">
     </appointment-card>
   </div>
 </ion-content>

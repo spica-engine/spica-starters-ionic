@@ -1,6 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GoogleMapService } from 'src/app/services/google-map.service';
 import * as DataService from '../../services/bucket';
 import { environment } from '../../services/environment';
 
@@ -10,7 +9,6 @@ import { environment } from '../../services/environment';
   styleUrls: ['./store-detail.page.scss'],
 })
 export class StoreDetailPage implements OnInit {
-  @ViewChild('map') private mapElement: ElementRef;
   storeId: string;
   store: DataService.Place;
   activeSegment: string = 'info';
@@ -36,7 +34,6 @@ export class StoreDetailPage implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _mapService: GoogleMapService
   ) {
     DataService.initialize({ apikey: environment.apikey });
   }
@@ -52,16 +49,5 @@ export class StoreDetailPage implements OnInit {
 
   segmentChanged(value) {
     this.activeSegment = value;
-
-    if (value == 'map') {
-      setTimeout(() => {
-        let position = {
-          lat: this.store.location?.coordinates[1],
-          lng: this.store.location?.coordinates[0],
-        };
-        this._mapService.initMap(this.mapElement.nativeElement, position);
-        this._mapService.addMarker([position]);
-      }, 1000);
-    }
   }
 }

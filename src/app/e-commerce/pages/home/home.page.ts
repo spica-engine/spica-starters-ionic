@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import * as DataService from '../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import * as DataService from '../../services/bucket';
 
 @Component({
   selector: 'app-home',
@@ -20,24 +20,24 @@ export class HomePage implements OnInit {
     },
   };
 
-  categories: DataService.E_Com_Product_Category[] = [];
-  campaignProducts: DataService.E_Com_Campaign_Product[] = [];
+  categories: DataService.Category[] = [];
+  campaignProducts: DataService.Campaign_Product[] = [];
   searchTerm: string;
-  products: DataService.E_Com_Product[] = [];
+  products: DataService.Product[] = [];
 
   constructor(private _router: Router, private _authService: AuthService) {
     this._authService.initBucket();
   }
 
   ngOnInit() {
-    DataService.e_com_product_category
+    DataService.category
       .getAll({ queryParams: { filter: { is_sub_category: false } } })
       .then((res) => {
         this.categories = res;
       });
 
-    DataService.e_com_campaing_product
-      .getAll({ queryParams: { sort: { _id: -1 } } })
+    DataService.campaign_product
+      .getAll()
       .then((res) => {
         this.campaignProducts = res;
       });
@@ -50,7 +50,7 @@ export class HomePage implements OnInit {
   }
 
   async searchProduct(terms) {
-    this.products = await DataService.e_com_product.getAll({
+    this.products = await DataService.product.getAll({
       queryParams: {
         filter: {
           $or: [
