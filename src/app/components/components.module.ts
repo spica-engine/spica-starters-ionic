@@ -20,6 +20,7 @@ import { SpicaMenuBarComponent } from './spica-menu-bar/spica-menu-bar.component
 import { SpicaCategoryComponent } from './spica-category/spica-category.component';
 import { StarterProjectsComponent } from './starter-projects/starter-projects.component';
 import { RevokedUnderlinePipe } from '../pipes/revoked-underline.pipe';
+import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RevokedUnderlinePipe } from '../pipes/revoked-underline.pipe';
     SpicaMenuBarComponent,
     SpicaCategoryComponent,
     StarterProjectsComponent,
-    RevokedUnderlinePipe
+    RevokedUnderlinePipe,
+    SpicaMapIframeComponent,
   ],
   exports: [
     SpicaCardComponent,
@@ -56,7 +58,8 @@ import { RevokedUnderlinePipe } from '../pipes/revoked-underline.pipe';
     SpicaMenuBarComponent,
     SpicaCategoryComponent,
     StarterProjectsComponent,
-    RevokedUnderlinePipe
+    RevokedUnderlinePipe,
+    SpicaMapIframeComponent,
   ],
   imports: [
     RouterModule,
