@@ -28,7 +28,7 @@ export class StarterProjectsComponent implements OnInit {
       },
       {
         name: 'Fitness Application',
-        route: '/fitness/home',
+        route: '/fitness',
         icon: 'barbell-outline',
       },
       {

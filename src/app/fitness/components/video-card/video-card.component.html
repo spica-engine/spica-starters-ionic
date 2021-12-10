@@ -1,0 +1,20 @@
+<ion-card class="card-item">
+  <ion-card-header>
+    <ion-label>
+      <h2>{{video?.name}}</h2>
+    </ion-label>
+  </ion-card-header>
+  <ion-card-content>
+    <div class="image-play">
+      <ion-icon name="play-outline"></ion-icon>
+      <img [src]="video?.image" [routerLink]="['video-details',video?._id]">
+    </div>
+    <ion-item detail="false" lines="none" [routerLink]="['teacher-page',video?.teacher['_id']]">
+      <ion-avatar slot="end">
+        <img [src]="video?.teacher['picture']">
+      </ion-avatar>
+      <ion-label slot="end">{{video?.teacher['name']}}</ion-label>
+    </ion-item>
+
+  </ion-card-content>
+</ion-card>

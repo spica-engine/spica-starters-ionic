@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar >
+    <ion-title>Program</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card *ngFor="let day of program?.days">
+  <ion-card-header>
+    <ion-card-title >{{"Day "+day.day_of_week}}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-slides pager="true" [options]="slideOpts" >
+      <ion-slide *ngFor="let meal of day.meal">
+        <ion-label>
+          <h1>{{meal.number_of_meal+". Meal"}}</h1>
+          <h3>{{meal.description}}</h3>
+        </ion-label>
+      </ion-slide>
+    </ion-slides>
+  </ion-card-content>
+</ion-card>
+</ion-content>

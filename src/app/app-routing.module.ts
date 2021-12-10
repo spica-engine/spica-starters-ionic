@@ -64,6 +64,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./forum/app.module').then((m) => m.ForumModule),
   },
+  {
+    path: 'fitness',
+    loadChildren: () =>
+      import('./fitness/app.module').then((m) => m.FitnessModule),
+  },
 ];
 
 @NgModule({
