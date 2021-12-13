@@ -61,6 +61,7 @@ export class AuthService {
     return this.http
       .post(`${environment.apiUrl}/fn-execute/register`, {
         user_data,
+        project: 'E_COMMERCE'
       })
       .toPromise();
   }

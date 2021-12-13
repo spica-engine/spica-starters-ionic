@@ -39,6 +39,7 @@ export class HomePage {
         queryParams: {
           limit: 10,
           relation: true,
+          sort: {_id: -1},
           filter: { is_post: true, category: catId },
         },
       })

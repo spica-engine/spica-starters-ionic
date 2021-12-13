@@ -30,7 +30,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Appointment Date</ion-label>
-      <ion-datetime [(ngModel)]="appointment.from" ></ion-datetime>
+      <ion-datetime [(ngModel)]="appointment.from" displayFormat="D MMM YYYY H:mm"></ion-datetime>
     </ion-item>
     <ion-item lines="none">
       <ion-textarea rows="10" placeholder="Note" class="note" [(ngModel)]="appointment.note"></ion-textarea>

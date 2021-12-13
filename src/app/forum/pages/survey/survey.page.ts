@@ -17,7 +17,7 @@ export class SurveyPage {
   surveyAnswers = {};
 
   constructor(private _authService: AuthService, private _router: Router) {
-    DataService.initialize({ apikey: '2n1c1akvupiku4' });
+    _authService.initBucket();
   }
 
   async ionViewWillEnter() {
