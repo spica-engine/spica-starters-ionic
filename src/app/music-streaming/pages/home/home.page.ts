@@ -23,8 +23,9 @@ export class HomePage implements OnInit {
   };
 
   userId: string;
-  user: DataService.Music_User;
-  recommended: DataService.Music_Artist[] = [];
+  user: DataService.User;
+  recommended: DataService.Artist[] = [];
+  followedArtistsIds: string[] = [];
 
   constructor(
     private _authService: AuthService,
@@ -36,17 +37,24 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
-    await this.getUser();
-    if (!this.user.followed_artists.length) {
-      this.followableModal();
+
+    if(this.userId){
+      await this.getUser();
+      if (!this.user.followed_artists.length) {
+        this.followableModal();
+      }
+      this.recommended = await this.getRecommended();
     }
-    this.recommended = await this.getRecommended();
   }
 
   async getUser() {
-    this.user = await DataService.music_user.get(this.userId, {
+    this.user = await DataService.user.get(this.userId, {
       queryParams: { relation: true },
     });
+
+    this.user.followed_artists?.forEach((el) => {
+      this.followedArtistsIds.push(el['_id'])
+    })
   }
 
   navigateToList(id) {
@@ -56,7 +64,7 @@ export class HomePage implements OnInit {
   }
 
   getRecommended() {
-    return DataService.music_artist.getAll();
+    return DataService.artist.getAll({queryParams: {filter: {_id: {$nin: this.followedArtistsIds}}}});
   }
 
   async followableModal() {

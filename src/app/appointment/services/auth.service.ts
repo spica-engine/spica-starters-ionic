@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   initBucket() {
-    let tokenExpire = localStorage.getItem('spica_expire');
+    let tokenExpire = localStorage.getItem(environment.EXPIRE_KEY);
     if (tokenExpire && new Date(tokenExpire) < new Date()) {
       localStorage.clear();
     }
@@ -45,7 +45,7 @@ export class AuthService {
 
         let date = new Date();
         date.setDate(date.getDate() + 2); // 2 days later
-        localStorage.setItem('spica_expire', String(date));
+        localStorage.setItem(environment.EXPIRE_KEY, String(date));
         this.activeToken = token;
       }),
       switchMap(() => this.getUser())
@@ -135,8 +135,8 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     let result: boolean = true;
     if (
-      localStorage.getItem('spica_expire') &&
-      new Date() > new Date(localStorage.getItem('spica_expire'))
+      localStorage.getItem(environment.EXPIRE_KEY) &&
+      new Date() > new Date(localStorage.getItem(environment.EXPIRE_KEY))
     )
       result = false;
     return of(result);

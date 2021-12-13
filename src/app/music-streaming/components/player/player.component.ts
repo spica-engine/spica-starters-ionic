@@ -14,8 +14,8 @@ import { EventService } from '../../services/event.service';
 export class PlayerComponent implements OnInit {
   @Input() isLiked: boolean;
 
-  track: DataService.Music_Track = this.audioService.getTrack();
-  user: DataService.Music_User;
+  track: DataService.Track = this.audioService.getTrack();
+  user: DataService.User;
   paused: boolean = false;
   currentTime: number = 0;
   currentTimeIntervel: any;
@@ -75,7 +75,7 @@ export class PlayerComponent implements OnInit {
       }
       this.track = this.audioService.getTrack();
 
-      if (this.user.liked_tracks.includes(this.track._id)) {
+      if (this.user.liked_tracks?.includes(this.track._id)) {
         this.isLiked = true;
       } else {
         this.isLiked = false;

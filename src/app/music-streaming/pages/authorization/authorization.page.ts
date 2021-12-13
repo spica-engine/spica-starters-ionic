@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
-import * as dataService from '../../services/bucket';
+import * as DataService from '../../services/bucket';
 
 @Component({
   selector: 'app-authorization',
@@ -10,7 +10,7 @@ import * as dataService from '../../services/bucket';
   styleUrls: ['./authorization.page.scss'],
 })
 export class AuthorizationPage implements OnInit {
-  user: dataService.Music_User;
+  user: DataService.User;
   isLoading: boolean = false;
   constructor(
     private _authService: AuthService,

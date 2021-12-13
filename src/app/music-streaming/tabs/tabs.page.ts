@@ -13,18 +13,18 @@ import { EventService } from '../services/event.service';
   styleUrls: ['./tabs.page.scss'],
 })
 export class TabsPage implements OnInit {
-  tracks: DataService.Music_Track[] = [];
-  defaultTracks: DataService.Music_Track[] = [];
-  shuffledTracks: DataService.Music_Track[] = [];
+  tracks: DataService.Track[] = [];
+  defaultTracks: DataService.Track[] = [];
+  shuffledTracks: DataService.Track[] = [];
   trackIndex: number = 0;
-  user: DataService.Music_User;
+  user: DataService.User;
 
   constructor(
+    public audioService: AudioService,
     private _modalController: ModalController,
     private _authService: AuthService,
-    public audioService: AudioService,
     private _eventService: EventService,
-    private _router: Router
+    private _router: Router,
   ) {
     this._authService.initBucket();
   }
@@ -37,13 +37,19 @@ export class TabsPage implements OnInit {
   }
 
   async ngOnInit() {
-    await this.checkUserLogin();
-    await this.getTarcks();
-    this.audioService.setTrack(this.tracks[this.trackIndex]);
+    this.user = await this._authService.getUser().toPromise();
+    if(this.user){
+      await this.getTarcks();
+      this.audioService.setTrack(this.tracks[this.trackIndex]);
+  
+      this._eventService.$event.subscribe((action) => {
+        this.audioControl(action);
+      });
+    }
+  }
 
-    this._eventService.$event.subscribe((action) => {
-      this.audioControl(action);
-    });
+  async ionViewWillEnter(){
+    await this.checkUserLogin();
   }
 
   async showPlayer() {
@@ -87,14 +93,14 @@ export class TabsPage implements OnInit {
       this.user.liked_tracks.push(trackId);
     }
 
-    DataService.music_user.patch({
+    DataService.user.patch({
       _id: this.user._id,
       liked_tracks: this.user.liked_tracks,
     });
   }
 
   async getTarcks() {
-    this.tracks = await DataService.music_track.getAll();
+    this.tracks = await DataService.track.getAll();
     this.defaultTracks = this.tracks;
   }
 
