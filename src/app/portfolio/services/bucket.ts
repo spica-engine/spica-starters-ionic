@@ -6,7 +6,7 @@ import * as Bucket from '@spica-devkit/bucket';
 export function initialize(
   ...initOptions: Parameters<typeof Bucket.initialize>
 ) {
-  initOptions[0].publicUrl = 'https://asset-test-9ef6b.hq.spicaengine.com/api';
+  initOptions[0].publicUrl = 'https://spica-starters-7229b.hq.spicaengine.com/api';
   Bucket.initialize(...initOptions);
 }
 
@@ -17,6 +17,52 @@ type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
 
+export interface Comment{
+  _id?: string;
+  username?: string;
+  title?: string;
+  message?: string;
+  rating?: number;
+  date?: Date | string;
+}
+export namespace comment {
+  const BUCKET_ID = '61b761ccb7f4a7002e04e20c';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Comment & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Comment & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Comment, "_id">) {
+      
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Comment & id) {
+      
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Comment> & id
+    ) {
+      
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Comment & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Comment & id>(BUCKET_ID, ...args);
+      };
+  }
+}
 
 export interface About_Company{
   _id?: string;
@@ -29,15 +75,21 @@ export interface About_Company{
   social_medias?: {
   name?: string;
   url?: string;}[];
+  about_facts?: string;
+  about_portfolio?: string;
+  about_services?: string;
   facts?: {
   name?: string;
   count?: number;}[];
+  socical_media?: {
+  name?: string;
+  count?: string;}[];
   partners?: {
   logo?: string;
   name?: string;}[];
 }
 export namespace about_company {
-  const BUCKET_ID = '61a0ae8fc76489002e9b9bff';
+  const BUCKET_ID = '61b761cfb7f4a7002e04e210';
     export function get (...args: getArgs) {
       return Bucket.data.get<About_Company & id>(BUCKET_ID, ...args);
     };
@@ -82,7 +134,7 @@ export interface Company_Team{
   position?: string;
 }
 export namespace company_team {
-  const BUCKET_ID = '61a0ae91c76489002e9b9c02';
+  const BUCKET_ID = '61b761d0b7f4a7002e04e212';
     export function get (...args: getArgs) {
       return Bucket.data.get<Company_Team & id>(BUCKET_ID, ...args);
     };
@@ -134,24 +186,24 @@ export interface About_Me{
   bio?: string;
   images?: string[];
   location?: { type: "Point", coordinates: [number,number]};
-  about_facts?: string;
-  about_portfolio?:string;
-  about_services?:string;
   facts?: {
   name?: string;
   count?: number;}[];
+  social_medias?: {
+  name?: string;
+  url?: string;}[];
+  about_facts?: string;
+  about_portfolio?: string;
+  about_services?: string;
   resume?: {
   category?: string;
   resume_in?: {
   position?: string;
   description?: string;
   years?: string;}[];}[];
-  socical_media?: {
-    name?: string;
-    link?: string;}[];
 }
 export namespace about_me {
-  const BUCKET_ID = '61a0ae93c76489002e9b9c05';
+  const BUCKET_ID = '61b761d2b7f4a7002e04e215';
     export function get (...args: getArgs) {
       return Bucket.data.get<About_Me & id>(BUCKET_ID, ...args);
     };
@@ -200,7 +252,7 @@ export interface Service{
   description?: string;}[];
 }
 export namespace service {
-  const BUCKET_ID = '61a0ae95c76489002e9b9c08';
+  const BUCKET_ID = '61b761d4b7f4a7002e04e218';
     export function get (...args: getArgs) {
       return Bucket.data.get<Service & id>(BUCKET_ID, ...args);
     };
@@ -247,7 +299,7 @@ export interface Portfolio{
   date?: Date | string;
 }
 export namespace portfolio {
-  const BUCKET_ID = '61a0ae97c76489002e9b9c0b';
+  const BUCKET_ID = '61b761d6b7f4a7002e04e21b';
     export function get (...args: getArgs) {
       return Bucket.data.get<Portfolio & id>(BUCKET_ID, ...args);
     };
@@ -258,7 +310,7 @@ export namespace portfolio {
       ['service'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -268,7 +320,7 @@ export namespace portfolio {
       ['service'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -284,7 +336,7 @@ export namespace portfolio {
       ['service'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -311,7 +363,7 @@ export interface Blog{
   date?: Date | string;
 }
 export namespace blog {
-  const BUCKET_ID = '61a0ae99c76489002e9b9c0e';
+  const BUCKET_ID = '61b761d9b7f4a7002e04e223';
     export function get (...args: getArgs) {
       return Bucket.data.get<Blog & id>(BUCKET_ID, ...args);
     };
@@ -358,7 +410,7 @@ export interface Reference{
   position?: string;
 }
 export namespace reference {
-  const BUCKET_ID = '61a0ae9bc76489002e9b9c11';
+  const BUCKET_ID = '61b761dab7f4a7002e04e226';
     export function get (...args: getArgs) {
       return Bucket.data.get<Reference & id>(BUCKET_ID, ...args);
     };
@@ -406,7 +458,7 @@ export interface Contact{
   answer?: string;
 }
 export namespace contact {
-  const BUCKET_ID = '61a0ae9cc76489002e9b9c14';
+  const BUCKET_ID = '61b761dbb7f4a7002e04e229';
     export function get (...args: getArgs) {
       return Bucket.data.get<Contact & id>(BUCKET_ID, ...args);
     };
@@ -440,53 +492,6 @@ export namespace contact {
       };
       export function getAll (...args: realtimeGetAllArgs) {
         return Bucket.data.realtime.getAll<Contact & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Comment{
-  _id?: string;
-  username?: string;
-  title?: string;
-  message?: string;
-  rating?: number;
-  date?: Date | string;
-}
-export namespace comment {
-  const BUCKET_ID = '61a0ae8ec76489002e9b9bfc';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Comment & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Comment & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Comment, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Comment & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Comment> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Comment & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Comment & id>(BUCKET_ID, ...args);
       };
   }
 }

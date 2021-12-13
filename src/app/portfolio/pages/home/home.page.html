@@ -41,7 +41,7 @@
       <ion-label>
         <span><b>Birthday:</b> {{user.birthday | date: 'MM/dd/yyyy'}}</span>
         <span><b>Phone:</b> {{user.phone}}</span>
-        <span><b>City:</b> {{user.location}}</span>
+        <!-- <span><b>City:</b> {{user.location}}</span> -->
         <span><b>Age:</b> {{age}}</span>
         <span><b>Mail:</b> {{user.mail}}</span>
       </ion-label>
@@ -187,8 +187,8 @@
           <ion-fab-list side="end">
             <ion-fab-button 
               color="light" 
-              *ngFor="let media of user.socical_media"
-              [href]="media.link">
+              *ngFor="let media of user.social_medias"
+              [href]="media.url">
               <ion-icon name="logo-{{media.name.toLowerCase()}}"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
