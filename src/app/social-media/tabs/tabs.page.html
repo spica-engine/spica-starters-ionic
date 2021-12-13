@@ -1,21 +1,23 @@
 <ion-content>
   <ion-tabs *ngIf="me && !loading">
     <ion-tab-bar slot="bottom">
-      <ion-tab-button [class.tab-selected]="selectedTab=='home'" tab="home">
+      <ion-tab-button
+        [class.tab-selected]="selectedTab=='home'"
+        (click)="routeTab('home')"
+      >
         <ion-icon name="home"></ion-icon>
         <ion-label>Home</ion-label>
       </ion-tab-button>
       <ion-tab-button
+        (click)="routeTab('discover')"
         [class.tab-selected]="selectedTab=='discover'"
-        tab="discover"
       >
         <ion-icon name="search-outline"></ion-icon>
         <ion-label>Discover</ion-label>
       </ion-tab-button>
       <ion-tab-button
-        (click)="selectedTab = 'profile'"
+        (click)="selectedTab = 'profile' ; routeTab('profile/' + this.me?._id)"
         [class.tab-selected]="selectedTab=='profile'"
-        [tab]="'profile/' + this.me?._id"
       >
         <ion-icon name="person"></ion-icon>
         <ion-label>Profile</ion-label>

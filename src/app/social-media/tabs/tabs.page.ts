@@ -105,4 +105,9 @@ export class TabsPage implements OnInit {
         this._commonService.presentToast(err.error.message, 1500);
       });
   }
+  routeTab(route) {
+    this._router.navigateByUrl('/social-media/tabs/' + route, {
+      replaceUrl: true,
+    });
+  }
 }

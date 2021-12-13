@@ -38,8 +38,6 @@
       <div class="value">
         <ion-select
           [placeholder]="'select-one' | translate"
-          [(ngModel)]="me.language"
-          (ngModelChange)="reloadLanguage()"
           interface="popover"
         >
           <ion-select-option *ngFor="let item of languages" [value]="item"

@@ -43,7 +43,7 @@ export class ActivityPage implements OnInit {
       .getAllWaitingRequests()
       .then(
         (requestsData) =>
-          (this.user_requests = requestsData.map((item) => item.sender))
+          (this.user_requests = requestsData.map((item) => item.sender) as any)
       );
   }
 

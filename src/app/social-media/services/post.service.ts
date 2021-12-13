@@ -12,7 +12,7 @@ export class PostService {
     private _userService: UserService
   ) {}
 
-  getPosts(filterParams: Object = {}, cacheResults: boolean = false) {
+  getPosts(filterParams: Object = {}) {
     filterParams['relation'] = [
       ...(filterParams['relation'] || []),
       ...['user', 'hashtags', 'tags'],
@@ -26,7 +26,7 @@ export class PostService {
       .then((data: Post[]) => {
         data.map((post) => {
           let index_liked = this._userService.userLikes.findIndex(
-            (liked) => liked.post._id == post._id
+            (liked) => liked.post['_id'] == post._id
           );
           if (index_liked != -1) {
             post['liked_id'] = this._userService.userLikes[index_liked]._id;
@@ -59,17 +59,6 @@ export class PostService {
       })
     );
   }
-  // getTrendingPosts(skip, limit, user_id){
-  //   return this._dataService.getTrendingPosts(skip, limit, user_id).pipe(
-  //     switchMap((data: any) => {
-  //       return this.getPosts({
-  //         relation: ['post.user', 'post.tags', 'post.hashtags'],
-  //         filter: { _id: { $in: data.posts.map((item) => item._id) } },
-  //       });
-  //     })
-  //   );
-  // }
-
   reportPost(post) {
     return reported_post
       .insert({

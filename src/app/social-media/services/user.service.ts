@@ -46,7 +46,7 @@ export class UserService {
       this.$userRequest = user
         .getAll({
           queryParams: {
-            filter: { identity: identity_id },
+            filter: { identity_id: identity_id },
           },
         })
         .then((res) => {
@@ -74,7 +74,7 @@ export class UserService {
     return user.get(id);
   }
   getUserByIdentity(id) {
-    return user.getAll({ queryParams: { filter: { identity: id } } });
+    return user.getAll({ queryParams: { filter: { identity_id: id } } });
   }
   getUserByUsername(username) {
     if (username[0] == '@') username = username.substring(1);
@@ -114,16 +114,16 @@ export class UserService {
       .then((data: Follow[]) => {
         data.forEach((item) => {
           if (item.following['_id'] == this.me._id)
-            this.followerUsers.push(item.follower);
+            this.followerUsers.push(item.follower as any);
           if (item.follower['_id'] == this.me._id)
-            this.followingUsers.push(item.following);
+            this.followingUsers.push(item.following as any);
         });
       });
   }
 
   followUser(user: User) {
     return follow
-      .insert({ following: user, follower: this.me._id as any })
+      .insert({ following: user as any, follower: this.me._id as any })
       .then((data) => {
         this.followingUsers.push(user);
         return data;
@@ -159,8 +159,8 @@ export class UserService {
   }
   sendRequest(user: User) {
     return waiting_request.insert({
-      sender: this.me._id || this.me as any,
-      reciever: user._id || user as any,
+      sender: this.me._id || (this.me as any),
+      reciever: user._id || (user as any),
     });
   }
   deleteRequest(id) {
@@ -180,7 +180,7 @@ export class UserService {
   async receiveRequest(user, request_id) {
     await this.deleteRequest(request_id);
     await follow.insert({
-      following: this.me,
+      following: this.me as any,
       follower: user,
     });
     this.followerUsers.push(user);

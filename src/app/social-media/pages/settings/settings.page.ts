@@ -20,51 +20,42 @@ export class SettingsPage {
   me: User;
   visibilities = ['public', 'private'];
   expand_terms: boolean = false;
-  user_lang: string;
   languages = ['en', 'tr', 'ru'];
-
   constructor(
     private _userService: UserService,
-    public modalController: ModalController,
-    private translateService: TranslateService,
-    private authService: AuthService,
-    public toastController: ToastController,
-    private actionSheetCtrl: ActionSheetController,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    public _modalController: ModalController,
+    private _translateService: TranslateService,
+    private _authService: AuthService,
+    public _toastController: ToastController,
+    private _actionSheetCtrl: ActionSheetController,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {}
   async ionViewWillEnter() {
     this.me = await this._userService.getActiveUser().toPromise();
-    this.user_lang = this.me.language;
   }
   async logOut() {
-    this.authService.logOut();
+    this._authService.logOut();
   }
   async ionViewWillLeave() {
     await this._userService.updateProfile(this.me);
   }
-  reloadLanguage() {
-    this.translateService.use(this.me.language);
-    this.translateService.setDefaultLang(this.me.language);
-    this.translateService.currentLang = this.me.language;
-  }
-
   async openAccountSheet() {
-    const actionSheet = await this.actionSheetCtrl.create({
+    const actionSheet = await this._actionSheetCtrl.create({
       cssClass: 'my-custom-class',
       buttons: [
         {
-          text: this.translateService.instant('blocked_users'),
+          text: this._translateService.instant('blocked_users'),
           handler: () => {
-            this.router.navigate(['blockeds'], {
-              relativeTo: this.activatedRoute,
+            this._router.navigate(['blockeds'], {
+              relativeTo: this._activatedRoute,
             });
           },
         },
         {
-          text: this.translateService.instant('cancel'),
+          text: this._translateService.instant('cancel'),
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
@@ -75,23 +66,23 @@ export class SettingsPage {
     await actionSheet.present();
   }
   async openTermsSheet() {
-    const actionSheet = await this.actionSheetCtrl.create({
+    const actionSheet = await this._actionSheetCtrl.create({
       cssClass: 'my-custom-class',
       buttons: [
         {
-          text: this.translateService.instant('terms'),
+          text: this._translateService.instant('terms'),
           handler: () => {
             window.open('https://google.com', 'blank');
           },
         },
         {
-          text: this.translateService.instant('privacy'),
+          text: this._translateService.instant('privacy'),
           handler: () => {
             window.open('https://google.com', 'blank');
           },
         },
         {
-          text: this.translateService.instant('cancel'),
+          text: this._translateService.instant('cancel'),
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');

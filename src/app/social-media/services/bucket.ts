@@ -6,7 +6,7 @@ import * as Bucket from '@spica-devkit/bucket';
 export function initialize(
   ...initOptions: Parameters<typeof Bucket.initialize>
 ) {
-  initOptions[0].publicUrl = 'https://asset-playground-05dae.hq.spicaengine.com/api';
+  initOptions[0].publicUrl = 'https://spica-starters-7229b.hq.spicaengine.com/api';
   Bucket.initialize(...initOptions);
 }
 
@@ -17,54 +17,6 @@ type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
 
-export interface Firebase_Notification{
-  _id?: string;
-  title?: string;
-  body?: string;
-  topic?: string;
-  token?: string;
-  data?: string;
-  tag?: string;
-  created_at?: Date | string;
-}
-export namespace firebase_notification {
-  const BUCKET_ID = '618127beb0ba86002e5d6315';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Firebase_Notification & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Firebase_Notification & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Firebase_Notification, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Firebase_Notification & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Firebase_Notification> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Firebase_Notification & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Firebase_Notification & id>(BUCKET_ID, ...args);
-      };
-  }
-}
 
 export interface Activity{
   _id?: string;
@@ -76,7 +28,7 @@ export interface Activity{
   created_at?: Date | string;
 }
 export namespace activity {
-  const BUCKET_ID = '618127bfb0ba86002e5d6318';
+  const BUCKET_ID = '61b70a6db7f4a7002e04c4a8';
     export function get (...args: getArgs) {
       return Bucket.data.get<Activity & id>(BUCKET_ID, ...args);
     };
@@ -87,7 +39,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -97,7 +49,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -113,7 +65,7 @@ export namespace activity {
       ['owner','user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -134,21 +86,20 @@ export namespace activity {
 
 export interface User{
   _id?: string;
-  identity?: string;
-  username?: string;
+  identity_id?: string;
+  username: string;
   thumbnail?: string;
   email?: string;
   name?: string;
   surname?: string;
   headline?: string;
   last_online_date?: Date | string;
-  language?: any ;
   notification?: boolean;
   visibility?: ('public'|'private');
   created_at?: Date | string;
 }
 export namespace user {
-  const BUCKET_ID = '618127c0b0ba86002e5d631b';
+  const BUCKET_ID = '61b70a6fb7f4a7002e04c4ab';
     export function get (...args: getArgs) {
       return Bucket.data.get<User & id>(BUCKET_ID, ...args);
     };
@@ -168,7 +119,7 @@ export namespace user {
       );
     };  
     export function patch (
-      document: Partial<User>
+      document: Partial<User> & id
     ) {
       
       return Bucket.data.patch(BUCKET_ID, document._id, document);
@@ -189,19 +140,18 @@ export namespace user {
 export interface Post{
   _id?: string;
   text?: string;
-  user?: User;
-  tags?: User[];
-  visibility?: ('public'|'private');
+  user?: (User & id | string);
+  tags?: (User & id | string)[];
   created_at?: Date | string;
   like_count?: number;
   comment_count?: number;
-  hashtags?: Hashtag[];
+  hashtags?: (Hashtag & id | string)[];
   file?: {
   url?: string;
   mimetype?: string;};
 }
 export namespace post {
-  const BUCKET_ID = '618127c1b0ba86002e5d631e';
+  const BUCKET_ID = '61b70a71b7f4a7002e04c4ae';
     export function get (...args: getArgs) {
       return Bucket.data.get<Post & id>(BUCKET_ID, ...args);
     };
@@ -209,20 +159,20 @@ export namespace post {
       return Bucket.data.getAll<Post & id>(BUCKET_ID, ...args);
     };
     export function insert (document: Omit<Post, "_id">) {
-      ['user','tags','post','hashtags'].forEach((field) => {
+      ['user','tags','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
     export function update (document: Post & id) {
-      ['user','tags','post','hashtags'].forEach((field) => {
+      ['user','tags','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -235,10 +185,10 @@ export namespace post {
     export function patch (
       document: Partial<Post> & id
     ) {
-      ['user','tags','post','hashtags'].forEach((field) => {
+      ['user','tags','hashtags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -260,12 +210,12 @@ export namespace post {
 export interface Waiting_Request{
   _id?: string;
   request_id?: string;
-  sender?: User ;
-  reciever?: User;
+  sender?: (User & id | string);
+  reciever?: (User & id | string);
   created_at?: Date | string;
 }
 export namespace waiting_request {
-  const BUCKET_ID = '618127c2b0ba86002e5d6321';
+  const BUCKET_ID = '61b70a73b7f4a7002e04c4b1';
     export function get (...args: getArgs) {
       return Bucket.data.get<Waiting_Request & id>(BUCKET_ID, ...args);
     };
@@ -276,7 +226,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -286,7 +236,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -302,7 +252,7 @@ export namespace waiting_request {
       ['sender','reciever'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -321,282 +271,24 @@ export namespace waiting_request {
   }
 }
 
-export interface Blocked_User{
-  _id?: string;
-  title?: string;
-  blocking?: (User & id | string);
-  blocked?: User;
-  created_at?: Date | string;
-}
-export namespace blocked_user {
-  const BUCKET_ID = '618127c3b0ba86002e5d6324';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Blocked_User & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Blocked_User & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Blocked_User, "_id">) {
-      ['blocking','blocked'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Blocked_User & id) {
-      ['blocking','blocked'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Blocked_User> & id
-    ) {
-      ['blocking','blocked'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Blocked_User & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Blocked_User & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Liked_Post{
-  _id?: string;
-  like_id?: string;
-  user?: (User & id | string);
-  post?: Post;
-  created_at?: Date | string;
-}
-export namespace liked_post {
-  const BUCKET_ID = '618127c5b0ba86002e5d6327';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Liked_Post & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Liked_Post & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Liked_Post, "_id">) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Liked_Post & id) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Liked_Post> & id
-    ) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Liked_Post & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Liked_Post & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Notification{
-  _id?: string;
-  message?: string;
-  user?: (User & id | string);
-  post?: (Post & id | string);
-  created_at?: Date | string;
-  send_date?: Date | string;
-  data?: string;
-}
-export namespace notification {
-  const BUCKET_ID = '618127c6b0ba86002e5d632a';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Notification & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Notification & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Notification, "_id">) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Notification & id) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Notification> & id
-    ) {
-      ['user','post'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Notification & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Notification & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Follow{
-  _id?: string;
-  title?: string;
-  follower?: User
-  following?: User
-  date?: Date | string;
-}
-export namespace follow {
-  const BUCKET_ID = '618127c7b0ba86002e5d632d';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Follow & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Follow & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Follow, "_id">) {
-      ['follower','following'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Follow & id) {
-      ['follower','following'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Follow> & id
-    ) {
-      ['follower','following'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Follow & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Follow & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
 export interface Chat{
   _id?: string;
   name?: string;
   created_at?: Date | string;
   last_active?: {
   date?: Date | string;
-  user?: User;
+  user?: (User & id | string);
   unread_messages_count?: number;
   status?: ('active'|'deleted'|'requested');}[];
   last_message?: string;
   last_message_time?: Date | string;
-  last_message_owner?: User;
+  last_message_owner?: (User & id | string);
   is_group?: boolean;
   image?: string;
   managers?: (User & id | string)[];
 }
 export namespace chat {
-  const BUCKET_ID = '618127c8b0ba86002e5d6330';
+  const BUCKET_ID = '61b70a7ab7f4a7002e04c4bd';
     export function get (...args: getArgs) {
       return Bucket.data.get<Chat & id>(BUCKET_ID, ...args);
     };
@@ -607,7 +299,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -617,7 +309,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -633,7 +325,7 @@ export namespace chat {
       ['last_message_owner','managers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -652,17 +344,81 @@ export namespace chat {
   }
 }
 
+export interface Follow{
+  _id?: string;
+  title?: string;
+  follower?: (User & id | string);
+  following?: (User & id | string);
+  date?: Date | string;
+}
+export namespace follow {
+  const BUCKET_ID = '61b70a79b7f4a7002e04c4ba';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Follow & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Follow & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Follow, "_id">) {
+      ['follower','following'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Follow & id) {
+      ['follower','following'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Follow> & id
+    ) {
+      ['follower','following'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Follow & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Follow & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
 export interface Message{
   _id?: string;
   message?: string;
-  created_at?: string;
+  created_at?: Date | string;
   owner?: (User & id | string);
   chat?: (Chat & id | string);
-  post?:Post;
   image?: string;
+  post?: (Post & id | string);
 }
 export namespace message {
-  const BUCKET_ID = '618127c9b0ba86002e5d6333';
+  const BUCKET_ID = '61b70a7cb7f4a7002e04c4c0';
     export function get (...args: getArgs) {
       return Bucket.data.get<Message & id>(BUCKET_ID, ...args);
     };
@@ -670,20 +426,20 @@ export namespace message {
       return Bucket.data.getAll<Message & id>(BUCKET_ID, ...args);
     };
     export function insert (document: Omit<Message, "_id">) {
-      ['owner','chat'].forEach((field) => {
+      ['owner','chat','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
     export function update (document: Message & id) {
-      ['owner','chat'].forEach((field) => {
+      ['owner','chat','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -696,10 +452,10 @@ export namespace message {
     export function patch (
       document: Partial<Message> & id
     ) {
-      ['owner','chat'].forEach((field) => {
+      ['owner','chat','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -722,13 +478,13 @@ export interface Comment{
   _id?: string;
   comment?: string;
   post?: (Post & id | string);
-  user?: User;
+  user?: (User & id | string);
   date?: Date | string;
   hastags?: (Hashtag & id | string)[];
   tags?: (User & id | string)[];
 }
 export namespace comment {
-  const BUCKET_ID = '618127cab0ba86002e5d6336';
+  const BUCKET_ID = '61b70a7eb7f4a7002e04c4c3';
     export function get (...args: getArgs) {
       return Bucket.data.get<Comment & id>(BUCKET_ID, ...args);
     };
@@ -739,7 +495,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -749,7 +505,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -765,7 +521,7 @@ export namespace comment {
       ['post','user','hastags','tags'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -784,6 +540,70 @@ export namespace comment {
   }
 }
 
+export interface Liked_Post{
+  _id?: string;
+  like_id?: string;
+  user?: (User & id | string);
+  post?: (Post & id | string);
+  created_at?: Date | string;
+}
+export namespace liked_post {
+  const BUCKET_ID = '61b70a77b7f4a7002e04c4b7';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Liked_Post & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Liked_Post & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Liked_Post, "_id">) {
+      ['user','post'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Liked_Post & id) {
+      ['user','post'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Liked_Post> & id
+    ) {
+      ['user','post'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Liked_Post & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Liked_Post & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
 export interface Hashtag{
   _id?: string;
   hashtag?: string;
@@ -791,7 +611,7 @@ export interface Hashtag{
   created_at?: Date | string;
 }
 export namespace hashtag {
-  const BUCKET_ID = '618127cbb0ba86002e5d6339';
+  const BUCKET_ID = '61b70a80b7f4a7002e04c4c6';
     export function get (...args: getArgs) {
       return Bucket.data.get<Hashtag & id>(BUCKET_ID, ...args);
     };
@@ -837,7 +657,7 @@ export interface Reported_Post{
   created_at?: Date | string;
 }
 export namespace reported_post {
-  const BUCKET_ID = '618127ccb0ba86002e5d633c';
+  const BUCKET_ID = '61b70a81b7f4a7002e04c4c9';
     export function get (...args: getArgs) {
       return Bucket.data.get<Reported_Post & id>(BUCKET_ID, ...args);
     };
@@ -848,7 +668,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -858,7 +678,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -874,7 +694,7 @@ export namespace reported_post {
       ['user','post'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
+            ? document[field].map((v) => v._id || v)
             : document[field]._id;
         }
       });
@@ -889,6 +709,70 @@ export namespace reported_post {
       };
       export function getAll (...args: realtimeGetAllArgs) {
         return Bucket.data.realtime.getAll<Reported_Post & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Blocked_User{
+  _id?: string;
+  title?: string;
+  blocking?: (User & id | string);
+  blocked?: (User & id | string);
+  created_at?: Date | string;
+}
+export namespace blocked_user {
+  const BUCKET_ID = '61b70a75b7f4a7002e04c4b4';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Blocked_User & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Blocked_User & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Blocked_User, "_id">) {
+      ['blocking','blocked'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Blocked_User & id) {
+      ['blocking','blocked'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Blocked_User> & id
+    ) {
+      ['blocking','blocked'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id || v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Blocked_User & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Blocked_User & id>(BUCKET_ID, ...args);
       };
   }
 }

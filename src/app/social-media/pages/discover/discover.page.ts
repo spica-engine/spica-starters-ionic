@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, ViewChild } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Hashtag, post, Post } from './../../services/bucket';
 import { PostService } from './../../services/post.service';
-import { DataService } from './../../services/data.service';
 import { IonContent, IonInfiniteScroll, IonRefresher } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HashtagService } from '../../services/hashtag.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-discover',
@@ -15,12 +13,10 @@ import { UserService } from '../../services/user.service';
 })
 export class DiscoverPage {
   constructor(
-    private postService: PostService,
-    private dataService: DataService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private _hashtagService: HashtagService,
-    private _userservice: UserService
+    private _postService: PostService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _hashtagService: HashtagService
   ) {}
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
   @ViewChild(IonRefresher) ionRefresher: IonRefresher;
@@ -46,16 +42,17 @@ export class DiscoverPage {
   async ionViewWillEnter() {
     this.posts = [];
     this.showMentions = false;
-    this.hashtagId = await this.activatedRoute.snapshot.paramMap.get('search');
+    this.hashtagId = await this._activatedRoute.snapshot.paramMap.get('search');
     if (this.hashtagId) {
-      this.posts = await this.postService.getPosts({
+      this.posts = await this._postService.getPosts({
         filter: { hashtags: { $in: [this.hashtagId] } },
         sort: { _id: -1 },
       });
       this.searchedText =
         '#' +
-        this.posts[0].hashtags.filter((i) => i._id == this.hashtagId)[0]
-          .hashtag;
+        this.posts[0].hashtags.filter((i) => i['_id'] == this.hashtagId)[0][
+          'hashtag'
+        ];
       this.loading = false;
     } else {
       this.content.scrollToTop(0);
@@ -68,7 +65,7 @@ export class DiscoverPage {
   getPosts() {
     let subs: Promise<Post[]>;
     if (this.hashtagId) {
-      subs = this.postService.getPosts({
+      subs = this._postService.getPosts({
         filter: {
           hashtags: { $in: [this.hashtagId] },
         },
@@ -77,7 +74,7 @@ export class DiscoverPage {
         limit: this.scroll_params.limit,
       });
     } else if (this.searchedText && this.searchedText != '') {
-      subs = this.postService.getPosts({
+      subs = this._postService.getPosts({
         filter: {
           'hashtags._id': { $ne: [] },
           'hashtags.hashtag': { $regex: this.searchedText, $options: 'i' },
@@ -87,13 +84,13 @@ export class DiscoverPage {
         limit: this.scroll_params.limit,
       });
     } else {
-      subs = this.postService
+      subs = this._postService
         .getExplorePosts(this.scroll_params.limit)
         .toPromise();
     }
     subs.then((data) => {
       this.loading = false;
-      this.posts = this.posts.concat(data);
+      this.posts = this.posts.concat(data.filter((item)=>!this.posts.some((item2)=>item2._id==item._id)));
       this.ionRefresher?.complete();
       this.infiniteScroll?.complete();
       if (this.infiniteScroll) this.infiniteScroll.disabled = false;
@@ -113,8 +110,8 @@ export class DiscoverPage {
   }
 
   goToUser(user) {
-    this.router.navigate([`profile/${user._id}`], {
-      relativeTo: this.activatedRoute,
+    this._router.navigate([`profile/${user._id}`], {
+      relativeTo: this._activatedRoute,
     });
   }
   async searchPostsWithTag(tag: Hashtag) {

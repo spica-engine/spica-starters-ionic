@@ -18,7 +18,7 @@ export class ImageService {
     } else {
       initializeConfig = {
         publicUrl: environment.api_url,
-        apikey: environment.storage_read_apikey,
+        apikey: environment.public_apikey,
       };
     }
     Storage.initialize(initializeConfig);

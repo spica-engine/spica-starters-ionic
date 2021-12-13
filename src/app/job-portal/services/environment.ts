@@ -3,14 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  project_id: 'asset-playground-05dae',
+  project_id: 'spica-starters-7229b',
   api_url: 'https://master.spicaengine.com/api',
-  storage_read_apikey: 'fskk1akvjfwnb1',
-  identity_read_apikey: '1dsp51bkvs0vuva',
+  public_apikey: 'axfb9k1akx06fe2u',
   production: false,
   webURL: '',
   user_img:
-    'https://storage.googleapis.com/download/storage/v1/b/hq-asset-playground-05dae/o/6188d4455ee9b9002f152448?alt=media&timestamp=1636357190242',
+    'https://storage.googleapis.com/download/storage/v1/b/hq-spica-starters-7229b/o/61b70351fcfbb9002efed548?alt=media&timestamp=1639383890618',
   example_base64:
     'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==',
 };

@@ -3,7 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { UserService } from './../../../services/user.service';
 // import { FollowingUsersComponent } from "src/app/components/chat/following-users/following-users.component";
 import { Router } from '@angular/router';
-import { Chat, user, User, chat } from '../../../services/bucket';
+import { Chat, User, chat } from '../../../services/bucket';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/app/social-media/services/environment';
 import { FollowingUsersComponent } from 'src/app/social-media/components/chat/following-users/following-users.component';
@@ -26,14 +26,14 @@ export class ChatsPage {
   open_to_select: boolean = false;
 
   constructor(
-    private userService: UserService,
-    private modalController: ModalController,
-    private chatService: ChatService,
-    private router: Router
+    private _userService: UserService,
+    private _modalController: ModalController,
+    private _chatService: ChatService,
+    private _router: Router
   ) {}
 
   async ionViewWillEnter() {
-    this.user = await this.userService.getActiveUser().toPromise();
+    this.user = await this._userService.getActiveUser().toPromise();
     this.getChats();
   }
 
@@ -42,12 +42,12 @@ export class ChatsPage {
   }
 
   getChats() {
-    this.$chats = this.chatService.getChats().subscribe((data) => {
+    this.$chats = this._chatService.getChats().subscribe((data) => {
       this.chats = data;
       this.chats.forEach((item) => {
         if (!item.is_group) {
           let last_active_user_date = item.last_active.filter(
-            (active) => active.user._id != this.user._id
+            (active) => active.user['_id'] != this.user._id
           )[0].date;
           item['seen'] =
             item['new_message_count'] == 0 &&
@@ -62,7 +62,7 @@ export class ChatsPage {
   }
 
   async createNewGroup() {
-    const modal = await this.modalController.create({
+    const modal = await this._modalController.create({
       component: FollowingUsersComponent,
     });
 
@@ -75,13 +75,13 @@ export class ChatsPage {
       if (data.users.length == 1) name = data.users[0].username;
       else name = `${data.users[0].username}, ${data.users[1].username}...`;
       data.users.unshift(this.user);
-      let chatExists = await this.chatService.isChatExists(data.users);
+      let chatExists = await this._chatService.isChatExists(data.users);
       if (!chatExists.result) {
         if (data.users.length == 2) {
           let opponent = data.users.find((user) => this.user._id != user._id);
           this.navigateToChat(opponent);
         } else
-          this.chatService.createChat({
+          this._chatService.createChat({
             name: name,
             is_group: data.users.length > 2,
             last_active: data.users.map((user) => {
@@ -89,19 +89,19 @@ export class ChatsPage {
             }) as [],
           });
       } else {
-        this.router.navigate([
-          `home/chats/${chatExists.chat['_id']}`,
+        this._router.navigate([
+          `/social-media/tabs/home/chats/${chatExists.chat['_id']}`,
           { chat: JSON.stringify(chatExists.chat) },
-        ]);
+        ],{replaceUrl:true});
       }
     }
   }
 
   navigateToChat(user) {
-    this.router.navigate([
-      `home/chats/${undefined}`,
+    this._router.navigate([
+      `/social-media/tabs/home/chats/${undefined}`,
       { user: JSON.stringify(user) },
-    ]);
+    ],{replaceUrl:true});
   }
 
   async deleteChats() {
@@ -110,11 +110,11 @@ export class ChatsPage {
     );
     for (let chat_item of selectedChats) {
       chat_item.last_active.filter(
-        (la) => la.user._id == this.user._id
+        (la) => la.user['_id'] == this.user._id
       )[0].status = 'deleted';
 
       chat_item.last_active = chat_item.last_active.map((item) => {
-        item.user = item.user._id as User;
+        item.user = item.user['_id'];
         return item;
       });
       console.log('chat :', JSON.parse(JSON.stringify(chat)));
@@ -139,7 +139,7 @@ export class ChatsPage {
     }
 
     this.searchedChats = this.chats;
-    this.chatService.initialize();
+    this._chatService.initialize();
   }
 
   selectToRemove(chatID) {
@@ -156,10 +156,10 @@ export class ChatsPage {
       this.selectToRemove(chat._id);
     } else {
       this.searchedText = '';
-      this.router.navigate([
+      this._router.navigate([
         `/social-media/tabs/home/chats/${chat._id}`,
         { chat: JSON.stringify(chat) },
-      ]);
+      ],{replaceUrl:true});
     }
   }
   getChatBySearch() {

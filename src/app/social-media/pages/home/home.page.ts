@@ -10,10 +10,8 @@ import { PostService } from '../../services/post.service';
 import { ActivityService } from './../../services/activity.service';
 import { HashtagService } from './../../services/hashtag.service';
 import { first } from 'rxjs/operators';
-// import { ConfirmationModalComponent } from 'src/app/components/generics/confirmation-modal/confirmation-modal.component';
 import { ChatService } from './../../services/chat.service';
 import { TranslateService } from '@ngx-translate/core';
-// import { OnboardingPage } from '../onboarding/onboarding.page';
 import { UserService } from '../../services/user.service';
 import { Post, User, post, initialize, follow } from '../../services/bucket';
 import { PostCreatePage } from '../post-create/post-create.page';
@@ -44,25 +42,25 @@ export class HomePage implements OnInit {
   user_followers = [];
 
   constructor(
-    private userService: UserService,
+    private _userService: UserService,
     private _postService: PostService,
-    private activityService: ActivityService,
-    private hashtagService: HashtagService,
+    private _activityService: ActivityService,
+    private _hashtagService: HashtagService,
     public modalController: ModalController,
-    private chatService: ChatService,
-    private toastController: ToastController,
-    private translateService: TranslateService
+    private _chatService: ChatService,
+    private _toastController: ToastController,
+    private _translateService: TranslateService
   ) {
     initialize({ identity: localStorage.getItem('socialmedia_spica_token') });
   }
   ngOnInit() {
-    this.activityService
+    this._activityService
       .getUnseenActivity()
       .subscribe((data) => (this.unseenActivities = data));
-    this.chatService
+    this._chatService
       .getUnreadMessageCount()
       .subscribe((data) => (this.unreadMessages = data));
-    this.userService
+    this._userService
       .getActiveUser()
       .pipe(first())
       .subscribe(async (data) => {
@@ -122,7 +120,7 @@ export class HomePage implements OnInit {
   }
 
   async checkTagCreate(text) {
-    this.hasTags = await this.hashtagService.checkTagCreate(text, this.hasTags);
+    this.hasTags = await this._hashtagService.checkTagCreate(text, this.hasTags);
   }
 
   editedPost(event) {
@@ -157,15 +155,12 @@ export class HomePage implements OnInit {
     let resData = await modal.onDidDismiss();
     if (resData.data.refresh) {
       this._postService
-        .getPosts(
-          { filter: { _id: { $in: [resData.data.editpost._id] } } },
-          true
-        )
+        .getPosts({ filter: { _id: { $in: [resData.data.editpost._id] } } })
         .then(async (data) => {
           this.posts.unshift(data[0]);
           this.content.scrollToTop();
-          let toast = await this.toastController.create({
-            header: this.translateService.instant('post-create-info'),
+          let toast = await this._toastController.create({
+            header: this._translateService.instant('post-create-info'),
             duration: 3000,
             cssClass: 'toast-custom-class',
           });

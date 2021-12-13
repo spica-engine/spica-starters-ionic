@@ -24,15 +24,15 @@ export class FriendPage{
   sendedRequests = [];
 
   constructor(
-    private route: ActivatedRoute,
+    private _route: ActivatedRoute,
     private _userService: UserService,
   ) {}
 
   async ionViewWillEnter() {
     this.userFollows = undefined;
     this.me = await this._userService.getActiveUser().toPromise();
-    this.query_user_id = await this.route.snapshot.paramMap.get("userId");
-    this.type = (await this.route.snapshot.params.type) || 0;
+    this.query_user_id = await this._route.snapshot.paramMap.get("userId");
+    this.type = (await this._route.snapshot.params.type) || 0;
     if (this.me._id == this.query_user_id) {
       this.user = this.me;
     } else
@@ -64,13 +64,13 @@ export class FriendPage{
       this.myFollows = JSON.parse(JSON.stringify(this.userFollows));
     else this.myFollows = await this.getMyFollows()
     this.userFollows.forEach((item) => {
-      if (item.follower._id == this.user._id)
+      if (item.follower['_id'] == this.user._id)
         this.user_follows_arr.push({
           user: item.following,
           type: 1,
           _id: item._id,
         });
-      if (item.following._id == this.user._id)
+      if (item.following['_id'] == this.user._id)
         this.user_follows_arr.push({
           user: item.follower,
           type: 0,

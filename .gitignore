@@ -29,3 +29,4 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+#spica bucket orm --url https://spica-starters-7229b.hq.spicaengine.com/api --apikey axfb9k1akx06dgck --path src/app/social-media/services

@@ -30,9 +30,8 @@ export class ProfileEditPage {
     let user_id = this.activatedRoute.snapshot.paramMap.get('id');
     if (user_id == 'add') {
       this.me = {
-        identity: this.userService.me.identity,
+        identity_id: this.userService.me.identity_id,
         last_online_date: this.userService.me.last_online_date,
-        language: this.userService.me.language,
         notification: this.userService.me.notification,
         visibility: 'public',
         username: '',
@@ -73,9 +72,11 @@ export class ProfileEditPage {
   updateProfile() {
     this.loading.main = true;
 
-    this.userService
-      .updateProfile(this.me)
-      .then((_) => this.router.navigate(['profile', this.me._id]));
+    this.userService.updateProfile(this.me).then((_) =>
+      this.router.navigate(['profile', this.me._id], {
+        relativeTo: this.activatedRoute,
+      })
+    );
   }
   checkUserName() {
     this.validUsername = false;

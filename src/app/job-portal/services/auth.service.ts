@@ -14,7 +14,7 @@ export class AuthService {
   constructor(public platform: Platform, private _dataService: DataService) {
     identity.initialize({
       publicUrl: environment.api_url,
-      apikey: environment.identity_read_apikey,
+      apikey: environment.public_apikey,
     });
   }
   login(identifier, password) {

@@ -3,20 +3,20 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  project_id: "asset-playground-05dae",
-  api_url: "https://asset-playground-05dae.hq.spicaengine.com/api",
-  storage_read_apikey:"fskk1akvjfwnb1",
-  identity_read_apikey: "1dsp51bkvs0vuva",
+  project_id: 'spica-starters-7229b',
+  api_url: 'https://spica-starters-7229b.hq.spicaengine.com/api',
+  public_apikey: 'axfb9k1akx06fe2u',
   production: false,
-  webURL: "",
+  webURL: '',
   user_img:
-    "https://storage.googleapis.com/download/storage/v1/b/hq-asset-playground-05dae/o/6188d4455ee9b9002f152448?alt=media&timestamp=1636357190242",
+    'https://storage.googleapis.com/download/storage/v1/b/hq-spica-starters-7229b/o/61b70351fcfbb9002efed548?alt=media&timestamp=1639383890618',
   languages: [
-    { code: "en", name: "English" },
-    { code: "tr", name: "Turkish" },
-    { code: "ru", name: "Russian" },
+    { code: 'en', name: 'English' },
+    { code: 'tr', name: 'Turkish' },
+    { code: 'ru', name: 'Russian' },
   ],
-  example_base64:"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw=="
+  example_base64:
+    'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAAAAACH5BAAAAAAALAAAAAABAAEAAAICTAEAOw==',
 };
 
 /*

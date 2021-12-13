@@ -23,6 +23,7 @@ export class DataService {
   register(user_data) {
     return this.http.post(`${environment.api_url}/fn-execute/register`, {
       user_data,
+      project: 'SOCIAL_MEDIA',
     });
   }
   setOnline(process, params, user_id) {
