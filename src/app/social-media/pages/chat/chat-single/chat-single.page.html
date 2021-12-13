@@ -29,18 +29,18 @@
     *ngIf="(usersInChatGroup && user) && ((chatGroup.is_group && usersInChatGroup[user._id]?.status == 'active') || !chatGroup.is_group)"
   >
     <ng-container *ngFor="let message of messages;let index = index">
-      <div class="date-divider" *ngIf="message.first_message">
+      <div class="date-divider" *ngIf="message['first_message']">
         {{message.created_at | date: "dd/MM/YYYY"}}
       </div>
       <message-single
         [date]="message.created_at"
-        [recurring]="message.recurring"
+        [recurring]="message['recurring']"
         [avatar]="!messages[(index + 1)] || messages[(index + 1)].owner != message.owner ? usersInChatGroup[message.owner].user.thumbnail : 'none'"
         [message]="message.message"
         [isCurrentUser]="message.owner == user._id"
         [image]="message.image"
         [id]="usersInChatGroup[message.owner].user._id"
-        [post]="message.post"
+        [post]="message['post']"
       ></message-single>
     </ng-container>
   </ng-container>

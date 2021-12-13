@@ -12,7 +12,7 @@ import { environment } from "src/app/social-media/services/environment";
 })
 export class MinifiedCardComponent implements OnInit {
   @Input() type: string = "vertical"; // "vertical", "horizontal";
-  @Input() user: User;
+  @Input() user: any;
   @Input() with_router: boolean = true;
   @Input() followable: boolean = false;
 

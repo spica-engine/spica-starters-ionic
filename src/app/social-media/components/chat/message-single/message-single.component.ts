@@ -12,7 +12,7 @@ export class MessageSingleComponent implements OnInit {
   @Input() isCurrentUser: boolean;
   @Input() message: string;
   @Input() avatar: string;
-  @Input() post: Post;
+  @Input() post: any;
   @Input() date: string;
   @Input() image: string;
   @Input() recurring: boolean;

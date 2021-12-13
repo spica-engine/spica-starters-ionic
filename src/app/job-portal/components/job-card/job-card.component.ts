@@ -10,7 +10,7 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./job-card.component.scss'],
 })
 export class JobCardComponent implements OnInit {
-  @Input() job: Job_Advert;
+  @Input() job: any;
   @Input() routable: boolean = true;
   @Output() clickSaved: EventEmitter<any> = new EventEmitter();
   @Output() clickJob: EventEmitter<any> = new EventEmitter();

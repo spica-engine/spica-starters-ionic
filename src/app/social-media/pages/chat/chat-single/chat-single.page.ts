@@ -21,7 +21,7 @@ export class ChatSinglePage {
 
   message: string = '';
   chatId: string;
-  messages: Message[] = [];
+  messages: any[] = [];
   $messages: any;
   messagesSubscription: any;
   chatGroupSubscription: any;

@@ -25,6 +25,26 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+html {
+  &.plt-desktop {
+    body {
+      width: 360px;
+      height: 660px;
+      max-width: 360px;
+      max-height: 660px;
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    // width: 360px;
+    // height: 660px;
+    // max-width: 360px;
+    // max-height: 660px;
+  }
+}
+
 ion-button {
   --border-radius: 40px;
 }

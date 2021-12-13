@@ -17,9 +17,9 @@
     <ion-card-header>
       <div class="survey-avatar">
         <ion-avatar slot="start">
-          <img [src]="survey.user.profile_picture">
+          <img [src]="survey.user['profile_picture']">
         </ion-avatar>
-        <span>{{survey.user.nick}}</span>
+        <span>{{survey.user['nick']}}</span>
       </div>
       <ion-card-title>{{survey.title}}</ion-card-title>
     </ion-card-header>

@@ -11,7 +11,7 @@ import { environment } from '../../services/environment';
 })
 export class VideoCardComponent{
 
-  @Input() video:Video;
+  @Input() video;
   constructor() {
   
   }
