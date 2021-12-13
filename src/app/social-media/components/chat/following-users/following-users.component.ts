@@ -39,7 +39,7 @@ export class FollowingUsersComponent implements OnInit {
      
     if (this.extract_users.length) {
       this.allUsers = this.allUsers.filter(
-        (item) => !this.extract_users.some((eu) => eu._id == item.following._id)
+        (item) => !this.extract_users.some((eu) => eu._id == item.following['_id'])
       );
     }
     this.showedUsers = [...this.allUsers];
@@ -81,7 +81,7 @@ export class FollowingUsersComponent implements OnInit {
   }
   getUserBySearch() {
     this.showedUsers = this.allUsers.filter((item) =>
-      item.following.username
+      item.following['username']
         .toLowerCase()
         .includes(this.searchedText.toLocaleLowerCase())
     );

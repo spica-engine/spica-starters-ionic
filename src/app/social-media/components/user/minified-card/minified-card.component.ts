@@ -27,8 +27,8 @@ export class MinifiedCardComponent implements OnInit {
 
   constructor(
     private _userService: UserService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute
   ) {}
 
   async ngOnInit() {
@@ -51,7 +51,7 @@ export class MinifiedCardComponent implements OnInit {
             }
             if (
               this._userService.blockedUsers.filter(
-                (item) => item.blocked._id == this.user._id
+                (item) => item.blocked['_id'] == this.user._id
               )[0]
             )
               this.followable = false;
@@ -84,8 +84,8 @@ export class MinifiedCardComponent implements OnInit {
   routeUser() {
     this.onRoute.emit(this.user);
     if (this.with_router) {
-      this.router.navigate(["profile", this.user._id], {
-        relativeTo: this.activatedRoute,
+      this._router.navigate(["profile", this.user._id], {
+        relativeTo: this._activatedRoute,
       });
     }
   }

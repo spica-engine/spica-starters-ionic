@@ -76,13 +76,13 @@ export class PostCardComponent implements OnInit {
     private _dataService: DataService,
     private _userService: UserService,
     private _postService: PostService,
-    public modalController: ModalController,
-    public toastController: ToastController,
+    public _modalController: ModalController,
+    public _toastController: ToastController,
     public _tabService: TabsService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private actionSheetCtrl: ActionSheetController,
-    private translateService: TranslateService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _actionSheetCtrl: ActionSheetController,
+    private _translateService: TranslateService,
     private _chatService: ChatService,
     private el: ElementRef,
     public platform: Platform
@@ -134,14 +134,14 @@ export class PostCardComponent implements OnInit {
       this.post['liked'] = true;
       this.post.like_count = this.post.like_count += 1;
       let didUserLiked = this._userService.userLikes.filter(
-        (ul) => ul.post._id == this.post._id
+        (ul) => ul.post['_id'] == this.post._id
       );
       if (!didUserLiked.length) {
         liked_post
-          .insert({ post: this.post, user: this.user as string })
+          .insert({ post: this.post as any, user: this.user as any })
           .then(async (data) => {
             this.post['liked_id'] = data._id;
-            data.post = this.post;
+            data.post = this.post as any;
             this._userService.userLikes.push(data);
             this.liked.emit(this.post._id);
           });
@@ -152,8 +152,8 @@ export class PostCardComponent implements OnInit {
   }
 
   async sharePost() {
-    let toast = await this.toastController.create({
-      header: this.translateService.instant('shared-post'),
+    let toast = await this._toastController.create({
+      header: this._translateService.instant('shared-post'),
       duration: 3000,
       cssClass: 'toast-custom-class',
     });
@@ -163,7 +163,7 @@ export class PostCardComponent implements OnInit {
   async sendPost() {
     if (!this.isModalPresented) {
       this.isModalPresented = true;
-      const modal = await this.modalController.create({
+      const modal = await this._modalController.create({
         component: FollowingUsersComponent,
         componentProps: {
           addComment: true,
@@ -237,13 +237,13 @@ export class PostCardComponent implements OnInit {
   async messageOperation(chatGroup, dm) {
     await this.sendDm({
       chat: chatGroup,
-      owner: this.user as string,
-      post: this.post._id as Post,
+      owner: this.user as any,
+      post: this.post._id as any,
     });
     if (dm) {
       await this.sendDm({
         chat: chatGroup,
-        owner: this.user as string,
+        owner: this.user as any,
         message: dm,
       });
     }
@@ -256,48 +256,48 @@ export class PostCardComponent implements OnInit {
   async showActions() {
     let action_buttons = [
       {
-        text: this.translateService.instant('share-post'),
+        text: this._translateService.instant('share-post'),
         handler: () => {
           this.sharePost();
         },
       },
       {
-        text: this.translateService.instant('copy-link'),
+        text: this._translateService.instant('copy-link'),
         handler: () => {
           this.copyLink();
         },
       },
       {
-        text: this.translateService.instant('cancel'),
+        text: this._translateService.instant('cancel'),
         role: 'cancel',
         handler: () => {
           console.log('Cancel clicked');
         },
       },
     ];
-    if (this.post.user._id != this.user._id) {
+    if (this.post.user['_id'] != this.user._id) {
       action_buttons.splice(action_buttons.length - 1, 0, {
-        text: this.translateService.instant('report'),
+        text: this._translateService.instant('report'),
         handler: () => {
           this.reportPost();
         },
       });
     } else {
       action_buttons.splice(action_buttons.length - 1, 0, {
-        text: this.translateService.instant('edit-post'),
+        text: this._translateService.instant('edit-post'),
         handler: () => {
           this.editPost();
         },
       });
       action_buttons.splice(action_buttons.length - 1, 0, {
-        text: this.translateService.instant('delete-post'),
+        text: this._translateService.instant('delete-post'),
         handler: () => {
           this.deletePost();
         },
       });
     }
 
-    let actionSheet = await this.actionSheetCtrl.create({
+    let actionSheet = await this._actionSheetCtrl.create({
       buttons: action_buttons,
     });
 
@@ -305,8 +305,8 @@ export class PostCardComponent implements OnInit {
   }
 
   async copyLink() {
-    let toast = await this.toastController.create({
-      header: this.translateService.instant('copied'),
+    let toast = await this._toastController.create({
+      header: this._translateService.instant('copied'),
       duration: 3000,
       cssClass: 'toast-custom-class',
     });
@@ -320,7 +320,7 @@ export class PostCardComponent implements OnInit {
   async editPost() {
     if (!this.isModalPresented) {
       this.isModalPresented = true;
-      const modal = await this.modalController.create({
+      const modal = await this._modalController.create({
         component: PostCreatePage,
         swipeToClose: true,
         componentProps: {
@@ -339,7 +339,7 @@ export class PostCardComponent implements OnInit {
   }
 
   clickedMentions(event) {
-    this.router.navigate([event], { relativeTo: this.activatedRoute });
+    this._router.navigate([event], { relativeTo: this._activatedRoute });
   }
 
   clickedImage(mimeType, image) {
@@ -352,7 +352,7 @@ export class PostCardComponent implements OnInit {
   async openLikedModal() {
     if (!this.isModalPresented) {
       this.isModalPresented = true;
-      const modal = await this.modalController.create({
+      const modal = await this._modalController.create({
         component: UsersModalComponent,
         swipeToClose: true,
         componentProps: {
@@ -363,8 +363,8 @@ export class PostCardComponent implements OnInit {
       let dismissData = await modal.onDidDismiss();
       this.isModalPresented = false;
       if (dismissData.data['route']) {
-        this.router.navigate([dismissData.data['route']], {
-          relativeTo: this.activatedRoute,
+        this._router.navigate([dismissData.data['route']], {
+          relativeTo: this._activatedRoute,
         });
       }
       if (dismissData.data['is_followed']) {
@@ -376,7 +376,7 @@ export class PostCardComponent implements OnInit {
   async showComments() {
     if (!this.isModalPresented) {
       this.isModalPresented = true;
-      const modal = await this.modalController.create({
+      const modal = await this._modalController.create({
         component: PostCommentComponent,
         swipeToClose: true,
         componentProps: {
@@ -388,8 +388,9 @@ export class PostCardComponent implements OnInit {
       const { data } = await modal.onWillDismiss();
       this.isModalPresented = false;
       if (data?.route) {
-        this.router.navigate([`${data.route}`, data.param], {
-          relativeTo: this.activatedRoute,
+        console.log("rote")
+        this._router.navigate([`${data.route}`, data.param], {
+          relativeTo: this._activatedRoute,
         });
       }
     }
@@ -407,8 +408,8 @@ export class PostCardComponent implements OnInit {
     this._postService.reportPost(this.post).then(async () => {
       this.rePorted.emit(this.post);
       this.loading = false;
-      let toast = await this.toastController.create({
-        header: this.translateService.instant('reported-post'),
+      let toast = await this._toastController.create({
+        header: this._translateService.instant('reported-post'),
         duration: 3000,
         cssClass: 'toast-custom-class',
       });

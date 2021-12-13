@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent, IonInfiniteScroll } from '@ionic/angular';
-import { map, share, tap } from 'rxjs/operators';
+import { map, share } from 'rxjs/operators';
 import { ChatService } from 'src/app/social-media/services/chat.service';
 import { DataService } from 'src/app/social-media/services/data.service';
 import { ImageService } from 'src/app/social-media/services/image.service';
-import { User, Chat, Message, message ,post} from '../../../services/bucket';
+import { User, Chat, Message, message, post } from '../../../services/bucket';
 import { UserService } from './../../../services/user.service';
 
 @Component({
@@ -38,20 +38,20 @@ export class ChatSinglePage {
   };
   constructor(
     private _dataService: DataService,
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    private imageService: ImageService,
-    private chatService: ChatService
+    private _userService: UserService,
+    private _activatedRoute: ActivatedRoute,
+    private _imageService: ImageService,
+    private _chatService: ChatService
   ) {}
   async ionViewWillEnter() {
-    this.chatId = this.activatedRoute.snapshot.paramMap.get('chat_id');
-    this.user = await this.userService.getActiveUser().toPromise();
+    this.chatId = this._activatedRoute.snapshot.paramMap.get('chat_id');
+    this.user = await this._userService.getActiveUser().toPromise();
     if (this.chatId != 'undefined') {
       this.chatGroup = JSON.parse(
-        this.activatedRoute.snapshot.paramMap.get('chat')
+        this._activatedRoute.snapshot.paramMap.get('chat')
       );
       this.getMessagesAndUpdateChat();
-      this.chatGroupSubscription = this.chatService.$chatGroups.subscribe(
+      this.chatGroupSubscription = this._chatService.$chatGroups.subscribe(
         (chatGroups: Chat[]) => {
           let chatGroup = chatGroups.filter(
             (ch) => ch._id == this.chatGroup._id
@@ -66,7 +66,7 @@ export class ChatSinglePage {
     } else {
       this.loading = false;
       this.opponent = JSON.parse(
-        this.activatedRoute.snapshot.paramMap.get('user')
+        this._activatedRoute.snapshot.paramMap.get('user')
       );
       this.chatGroup['name'] = `${this.opponent.username}`;
     }
@@ -79,7 +79,7 @@ export class ChatSinglePage {
 
   getMessagesAndUpdateChat() {
     this.chatGroup.last_active.forEach((item) => {
-      this.usersInChatGroup[item.user._id] = item;
+      this.usersInChatGroup[item.user['_id']] = item;
     });
     if (
       (this.chatGroup.is_group &&
@@ -105,9 +105,13 @@ export class ChatSinglePage {
         .subscribe(async (data) => {
           this.scroll_params.skip = 0;
           this._dataService
-            .setOnline("chat", {
-              chat: this.chatGroup._id,
-            }, this.user._id)
+            .setOnline(
+              'chat',
+              {
+                chat: this.chatGroup._id,
+              },
+              this.user._id
+            )
             .toPromise();
           this.loading = false;
           if (data.length >= this.scroll_params.limit) {
@@ -127,14 +131,12 @@ export class ChatSinglePage {
     let currentMessage, previousMessage;
     let messages = [];
     for (let [index, message] of data.entries()) {
-      if (message.post && !message.post._id) {
-        message["post"] = await post
-          .get(message["post"] as string, {
-            queryParams: {
-              relation: ["post.user", "post.tags", "post.hashtags", "user"],
-            },
-          })
-          
+      if (message.post && !message.post['_id']) {
+        message['post'] = await post.get(message['post'] as string, {
+          queryParams: {
+            relation: ['post.user', 'post.tags', 'post.hashtags', 'user'],
+          },
+        });
       }
       previousMessage = { ...(data[index - 1] || null) };
       currentMessage = { ...message };
@@ -154,13 +156,13 @@ export class ChatSinglePage {
   }
   sendImage(data) {
     this.loading_image = true;
-    let file_buf = this.imageService.toBuffer(data, 'jpeg');
+    let file_buf = this._imageService.toBuffer(data, 'jpeg');
     let bufWithMeta = {
       contentType: 'image/jpeg',
       data: file_buf,
       name: 'image',
     };
-    this.imageService.insert(bufWithMeta, undefined).then((res) => {
+    this._imageService.insert(bufWithMeta, undefined).then((res) => {
       this.image_message = res.url;
       this.loading_image = false;
     });
@@ -176,15 +178,15 @@ export class ChatSinglePage {
       }
       this.$messages.insert({
         message: this.message,
-        owner: this.user._id as User,
+        owner: this.user._id,
         chat: this.chatId as Message,
         image: this.image_message,
       });
 
-      this.chatGroup = this.chatService.chatGroups.some(
+      this.chatGroup = this._chatService.chatGroups.some(
         (item) => item._id == this.chatGroup._id
       )
-        ? this.chatService.chatGroups.filter(
+        ? this._chatService.chatGroups.filter(
             (item) => item._id == this.chatGroup._id
           )[0]
         : this.chatGroup;
@@ -206,7 +208,7 @@ export class ChatSinglePage {
 
   async createChat() {
     let users = [this.user, this.opponent];
-    const data = await this.chatService
+    const data = await this._chatService
       .createChat({
         name: `${this.opponent.name} ${this.opponent.surname}`,
         last_active: users.map((user) => {
@@ -217,7 +219,7 @@ export class ChatSinglePage {
 
     this.chatGroup = data as Chat;
     this.chatGroup.last_active = this.chatGroup.last_active.map((item) => {
-      item.user = users.find((i) => i._id == item.user);
+      item.user = users.find((i) => i._id == item.user) as any;
       return item;
     });
 
@@ -226,18 +228,17 @@ export class ChatSinglePage {
   loadData() {
     this.scroll_params.skip =
       this.scroll_params.limit + this.scroll_params.skip;
-    this.getMessages()
-      .then(async (data) => {
-        this.messages = this.messages.concat(data);
-        this.messages = this.messages.sort((a, b) =>
-          a['_id'] > b['_id'] ? 1 : b['_id'] > a['_id'] ? -1 : 0
-        );
-        let messages = await this.setFirstLastMessage(this.messages);
-        this.messages = [...messages];
-        if (data.length < this.scroll_params.limit)
-          this.infiniteScroll.disabled = true;
-        this.infiniteScroll.complete();
-      });
+    this.getMessages().then(async (data) => {
+      this.messages = this.messages.concat(data);
+      this.messages = this.messages.sort((a, b) =>
+        a['_id'] > b['_id'] ? 1 : b['_id'] > a['_id'] ? -1 : 0
+      );
+      let messages = await this.setFirstLastMessage(this.messages);
+      this.messages = [...messages];
+      if (data.length < this.scroll_params.limit)
+        this.infiniteScroll.disabled = true;
+      this.infiniteScroll.complete();
+    });
   }
   getMessages() {
     return message.getAll({

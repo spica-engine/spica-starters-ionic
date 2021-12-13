@@ -17,7 +17,7 @@ export class SpicaAuthorizationComponent implements OnInit {
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       email: '',
-      username: '',
+      // username: '',
       name: '',
       surname: '',
       password: '',

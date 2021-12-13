@@ -23,12 +23,14 @@
         align-items: center;
         padding: 0 5px;
         ::ng-deep {
-          .spica-upload-image {
-            font-size: 1.3rem;
+          spica-upload-image {
+            ion-icon {
+              font-size: 22px;
+            }
           }
         }
         ion-icon {
-          font-size: 1.3rem;
+          font-size: 22px;
         }
         .deleteImage {
           border-top: 1px solid var(--border-color);
@@ -100,33 +102,6 @@
       max-height: 250px;
       object-fit: cover;
     }
-    ion-datetime {
-      padding: 0 6px;
-      --placeholder-color: var(--cd-component-text-color);
-    }
-
-    &.datetime {
-      // display: flex;
-      // justify-content: space-between;
-      // width: 100%;
-      .date {
-        padding: 0 6px;
-        color: var(--cd-text-color);
-        width: 100%;
-      }
-      // .time{
-      //   width: 100%;
-      //   position: relative;
-      // }
-      ion-list {
-        display: flex;
-        width: 100%;
-        ion-item {
-          margin: 0;
-          width: 100%;
-        }
-      }
-    }
   }
   .item-card {
     padding: 0 6px;
@@ -139,10 +114,6 @@
     }
     .value {
       flex: 1;
-      // ion-select {
-      //   float: right;
-      //   max-width: unset;
-      // }
       * {
         float: right;
         max-width: unset;
@@ -155,52 +126,6 @@
     color: var(--cd-text-color) !important;
   }
 
-  //   ion-datetime {
-  //     --placeholder-color: var(--cd-component-text-color);
-  //   }
-  //   &.button-container {
-  //     ion-button {
-  //       height: 100%;
-  //       margin: auto;
-  //       --padding-start: 40px;
-  //       --padding-end: 40px;
-  //     }
-  //   }
-  //   &.datetime {
-  //     --background: var(--cd-component-background-color);
-  //     --color: var(--cd-text-color);
-  //     border: 1px solid #e0e0e0;
-  //     padding: 0 5px;
-  //   }
-  //   &.posttext {
-  //     border: 1px solid #e0e0e0;
-  //     textarea {
-  //       padding: 5px;
-  //     }
-  //   }
-  //   img {
-  //     width: 100%;
-  //     object-fit: contain;
-  //     max-height: 240px;
-  //   }
-  // }
-
-  // .settings {
-  //   padding: 10px 15px 5px;
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   .actions {
-  //     display: flex;
-  //     ion-icon {
-  //       font-size: 2rem;
-  //     }
-  //     > * {
-  //       margin-right: 10px;
-  //     }
-  //   }
-  // }
-
   mentions {
     position: fixed;
     bottom: 0px;
@@ -210,44 +135,8 @@
     max-height: 10rem;
     overflow: scroll;
   }
-  // .deleteImage {
-  //   position: absolute;
-  //   top: 0;
-  //   right: 0;
-  //   font-size: large;
-  // }
   ion-backdrop {
     opacity: 0.3;
     z-index: 11;
-  }
-  .calendar-modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 12;
-    background: white;
-    width: 90%;
-    margin: auto;
-    .calendar-modal-header {
-      span {
-        color: var(--ion-color-primary);
-        font-size: 13px;
-      }
-      display: flex;
-      justify-content: space-evenly;
-      padding-bottom: 10px;
-      align-items: center;
-    }
-    ::ng-deep {
-      calendar {
-        ion-slide {
-          width: 100% !important;
-        }
-        .monthview-datetable {
-          width: fit-content;
-        }
-      }
-    }
   }
 }

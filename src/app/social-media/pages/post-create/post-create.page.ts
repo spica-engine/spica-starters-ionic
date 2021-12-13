@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
-import { User, Hashtag, Post, post } from '../../services/bucket';
+import { User, Post, post } from '../../services/bucket';
 import { ImageService } from '../../services/image.service';
-import { take, tap } from 'rxjs/operators';
-import { DomSanitizer } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
-import { DataService } from '../../services/data.service';
 import { HashtagService } from '../../services/hashtag.service';
-import { PostService } from '../../services/post.service';
 import { environment } from '../../services/environment';
 
 @Component({
@@ -24,14 +20,11 @@ export class PostCreatePage implements OnInit {
   uploadingImage: boolean = false;
   tempPost: Post;
   constructor(
-    private modalController: ModalController,
+    private _modalController: ModalController,
     private _imageService: ImageService,
-    private _dataService: DataService,
     private _hashtagService: HashtagService,
-    private sanitizer: DomSanitizer,
-    private toastController: ToastController,
-    private translateService: TranslateService,
-    private _postService: PostService
+    private _toastController: ToastController,
+    private _translateService: TranslateService
   ) {}
 
   async ngOnInit() {
@@ -44,7 +37,7 @@ export class PostCreatePage implements OnInit {
           url: undefined,
           mimetype: undefined,
         },
-        user: this.user,
+        user: this.user as any,
         tags: [],
         hashtags: [],
       };
@@ -54,7 +47,7 @@ export class PostCreatePage implements OnInit {
   async close(refresh: boolean = false) {
     if (this.post._id && !refresh)
       this.post = JSON.parse(JSON.stringify(this.tempPost));
-    await this.modalController.dismiss({
+    await this._modalController.dismiss({
       refresh: refresh,
       editpost: this.post,
     });
@@ -109,14 +102,14 @@ export class PostCreatePage implements OnInit {
     //-----------------------------avoiding for duplicate user
     let existUser;
     if (this.post.tags.length) {
-      if (this.post.tags.filter((item) => item._id == user._id)[0])
+      if (this.post.tags.filter((item) => item['_id'] == user._id)[0])
         existUser = user;
     }
 
     if (existUser) {
-      let toast = await this.toastController.create({
+      let toast = await this._toastController.create({
         color: 'warning',
-        header: this.translateService.instant('dublicate_tag'),
+        header: this._translateService.instant('dublicate_tag'),
         duration: 3000,
       });
       toast.present();
@@ -135,7 +128,7 @@ export class PostCreatePage implements OnInit {
     this.postTextChange();
   }
 
-  hashtagSelected(hashtag: Hashtag) {
+  hashtagSelected(hashtag) {
     this.searchedText = null;
     this.post.hashtags.push(hashtag);
     let lastMention = this.post.text.substr(0, this.lastCaretPosition);
@@ -160,20 +153,22 @@ export class PostCreatePage implements OnInit {
   }
   postTextChange() {
     //--tag
-    this.post.tags.forEach((element) => {
+    this.post.tags.forEach((element: any) => {
       let tag = !this.post.text.includes('@' + element.username)
         ? element
         : undefined;
       if (tag)
-        this.post.tags = this.post.tags.filter((item) => item._id != tag._id);
+        this.post.tags = this.post.tags.filter(
+          (item: any) => item._id != tag._id
+        );
     });
     //--hashtag
     let hashtag = this.post.hashtags.filter(
-      (item) => !this.post.text.includes('#' + item.hashtag)
+      (item: any) => !this.post.text.includes('#' + item.hashtag)
     )[0];
     if (hashtag)
       this.post.hashtags = this.post.hashtags.filter(
-        (item) => item._id != hashtag._id
+        (item: any) => item._id != hashtag['_id']
       );
   }
 }

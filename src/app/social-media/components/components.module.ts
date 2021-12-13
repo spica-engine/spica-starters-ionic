@@ -18,6 +18,7 @@ import { SegmenttabComponent } from './generics/segmenttab/segmenttab.component'
 import { MessageSingleComponent } from './chat/message-single/message-single.component';
 import { PostCommentComponent } from './post/post-comment/post-comment.component';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
+import { MentionDirective } from '../directives/mention.directive';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     SegmenttabComponent,
     MessageSingleComponent,
     PostCommentComponent,
+    MentionDirective,
   ],
   exports: [
     MinifiedCardComponent,
@@ -48,6 +50,7 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     SegmenttabComponent,
     MessageSingleComponent,
     PostCommentComponent,
+    MentionDirective,
   ],
   imports: [
     RouterModule,
@@ -57,7 +60,7 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     HttpClientModule,
     IonicModule,
     TranslateModule,
-    SpicaComponentsModule
+    SpicaComponentsModule,
   ],
   providers: [HttpClientModule],
 })

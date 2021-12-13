@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent, IonInfiniteScroll, ModalController } from '@ionic/angular';
-import { DataService } from 'src/app/social-media/services/data.service';
 import { environment } from 'src/app/social-media/services/environment';
 import { HashtagService } from 'src/app/social-media/services/hashtag.service';
 import { UserService } from 'src/app/social-media/services/user.service';
@@ -44,13 +43,11 @@ export class PostCommentComponent implements OnInit {
   };
   constructor(
     private modalController: ModalController,
-    private _dataService: DataService,
     private _userService: UserService,
     private _hashtagService: HashtagService
   ) {}
 
   ngOnInit() {
-    console.log(this.post);
     this._userService
       .getActiveUser()
       .toPromise()
@@ -106,6 +103,8 @@ export class PostCommentComponent implements OnInit {
       comment.insert(comment_data).then((res) => {
         comment_data['_id'] = res._id;
         comment_data['date'] = res.date;
+        comment_data['user'] = this.user;
+        
         this.tags = [];
         this.hasTags = [];
         this.comments.push(comment_data);
