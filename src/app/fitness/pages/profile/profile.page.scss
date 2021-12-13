@@ -1,0 +1,25 @@
+:host {
+    font-family: 'open-sans';
+    .line {
+        border-bottom: 4px solid;
+        color: #cccccc;
+    }
+    ion-icon {
+        font-size: 1.5rem;
+        
+        
+    }
+    ion-avatar {
+       border: 0;
+       width: 100px;
+       height: 100px;
+       border: solid 3px #eb445a;
+        margin: auto;
+        margin-top: 20px;
+    }
+    p {
+        text-align: center;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    
+}

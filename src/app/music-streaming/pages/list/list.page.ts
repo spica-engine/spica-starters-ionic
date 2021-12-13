@@ -13,10 +13,10 @@ import { environment } from '../../services/environment';
   styleUrls: ['./list.page.scss'],
 })
 export class ListPage implements OnInit {
-  artist: DataService.Music_Artist;
+  artist: DataService.Artist;
   tracks: any[] = [];
-  playList: DataService.Music_Playlist;
-  kind: DataService.Music_Track_Kind;
+  playList: DataService.Playlist;
+  kind: DataService.Track_Kind;
   paramId: string;
   defaultImage = environment.user_img;
 
@@ -41,32 +41,32 @@ export class ListPage implements OnInit {
         this.tracks = await this.getTracksByKind();
       } else if (param.type == 'artist') {
         this.artist = await this.getArtist();
-        this.tracks = this.artist.uploaded_tracks as DataService.Music_Track[];
+        this.tracks = this.artist.uploaded_tracks as DataService.Track[];
       } else if (param.type == 'playList') {
         this.playList = await this.getPlayList();
-        this.tracks = this.playList.tracks as DataService.Music_Track[];
+        this.tracks = this.playList.tracks as DataService.Track[];
       }
     });
   }
 
   getArtist() {
-    return DataService.music_artist.get(this.paramId, {
+    return DataService.artist.get(this.paramId, {
       queryParams: { relation: ['uploaded_tracks.artist'] },
     });
   }
 
   getKind() {
-    return DataService.music_track_kind.get(this.paramId);
+    return DataService.track_kind.get(this.paramId);
   }
 
   getTracksByKind() {
-    return DataService.music_track.getAll({
+    return DataService.track.getAll({
       queryParams: { filter: { kinds: { $in: [this.paramId] } } },
     });
   }
 
   getPlayList() {
-    return DataService.music_playlist.get(this.paramId, {
+    return DataService.playlist.get(this.paramId, {
       queryParams: { relation: true },
     });
   }
@@ -81,7 +81,7 @@ export class ListPage implements OnInit {
         return el._id != track._id;
       }); 
       
-      DataService.music_playlist.patch({
+      DataService.playlist.patch({
         _id: this.playList._id,
         tracks: this.tracks
       });

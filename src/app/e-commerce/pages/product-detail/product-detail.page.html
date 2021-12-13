@@ -7,8 +7,8 @@
     </div>
   </ion-toolbar>
 </ion-header>
-<ng-container *ngIf="this.product">
   <ion-content>
+    <ng-container *ngIf="this.product">
     <ion-slides pager="true" [options]="slideOpts" class="gallery-slide">
       <ion-slide *ngFor="let image of product.gallery">
         <img [src]="image" />
@@ -24,7 +24,7 @@
     </ion-item>
 
     <ion-list class="attributes">
-      <ion-item lines="none" *ngFor="let attribute of product.attribute">
+      <ion-item lines="none" *ngFor="let attribute of product.attributes">
         <ion-label>Select {{attribute['name']}}</ion-label>
         <ion-select interface="popover" (ionChange)="seletAttribute(attribute['name'], $event.target['value'])">
           <ion-select-option *ngFor="let value of attribute['value']" [value]="value">{{value}}</ion-select-option>
@@ -51,10 +51,10 @@
         </ion-slide>
       </ion-slides>
     </div>
-    
+  </ng-container>
   </ion-content>
   <ion-footer>
-    <ion-toolbar>
+    <ion-toolbar *ngIf="this.product">
       <div class="price">
         <ion-label class="normal-price">{{product.normal_price}} USD</ion-label>
         <ion-label class="discounted-price">{{product.discounted_price}} USD</ion-label>
@@ -62,4 +62,3 @@
       <ion-button slot="end" (click)="addToBasket()" [disabled]="disableAddToBasket">Add To Basket</ion-button>
     </ion-toolbar>
   </ion-footer>
-</ng-container>

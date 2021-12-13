@@ -17,7 +17,7 @@ export class ProfilePage {
   user: DataService.User;
   comments: DataService.Comment[] = [];
   defaultAvatar: string = environment.user_img;
-  queryParams = { relation: true, sort: { date: -1 } };
+  queryParams = { relation: true, sort: { _id: -1 } };
 
   constructor(
     private _modal: ModalController,

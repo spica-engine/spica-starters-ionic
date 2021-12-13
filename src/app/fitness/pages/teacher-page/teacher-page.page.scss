@@ -1,0 +1,20 @@
+:host {
+    ion-content{
+        ion-card{
+            margin: 0;
+            box-shadow: none !important;
+            ion-card-content{
+                ion-label{
+                    :first-child{
+                        border-bottom: 1px solid;
+                        border-color: #dcdcdc;
+                        width: fit-content;
+                        color: black;
+                        margin-bottom: 10px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

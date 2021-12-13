@@ -1,0 +1,20 @@
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Teacher</ion-title>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <spica-user-profile-picture [image]="me?.picture"></spica-user-profile-picture>
+  <spica-item-list *ngIf="listItems.length>0" [items]="listItems"></spica-item-list>
+  <ion-card>
+    <ion-card-content>
+      <ion-label>
+        <h2>Biography</h2>
+        {{teacher?.biography}}
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

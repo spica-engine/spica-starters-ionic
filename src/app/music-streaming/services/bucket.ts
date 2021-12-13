@@ -6,7 +6,7 @@ import * as Bucket from '@spica-devkit/bucket';
 export function initialize(
   ...initOptions: Parameters<typeof Bucket.initialize>
 ) {
-  initOptions[0].publicUrl = 'https://asset-test-9ef6b.hq.spicaengine.com/api';
+  initOptions[0].publicUrl = 'https://spica-starters-7229b.hq.spicaengine.com/api';
   Bucket.initialize(...initOptions);
 }
 
@@ -16,7 +16,7 @@ type getAllArgs = Rest<Parameters<typeof Bucket.data.getAll>>;
 type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
-export interface Music_User{
+export interface User{
   _id?: string;
   username?: string;
   name?: string;
@@ -29,27 +29,27 @@ export interface Music_User{
   country?: ('TR'|'EN'|'US'|'DE'|'BR');
   profile_picture?: string;
   is_verified?: boolean;
-  followed_artists?: (Music_Artist & id | string)[];
-  friends?: (Music_User & id | string)[];
-  uploaded_tracks?: (Music_Track & id | string)[];
+  followed_artists?: (Artist & id | string)[];
+  friends?: (User & id | string)[];
+  uploaded_tracks?: (Track & id | string)[];
   uploaded_albums?: (Music_Album & id | string)[];
-  uploaded_playlists?: (Music_Playlist & id | string)[];
-  play_history?: (Music_Track & id | string)[];
-  currently_playing?: (Music_Track & id | string);
-  playlists?: (Music_Playlist & id | string)[];
-  liked_tracks?: (Music_Track & id | string)[];
+  uploaded_playlists?: (Playlist & id | string)[];
+  play_history?: (Track & id | string)[];
+  currently_playing?: (Track & id | string);
+  playlists?: (Playlist & id | string)[];
+  liked_tracks?: (Track & id | string)[];
   liked_albums?: (Music_Album & id | string)[];
-  liked_playlists?: (Music_Playlist & id | string)[];
+  liked_playlists?: (Playlist & id | string)[];
 }
-export namespace music_user {
-  const BUCKET_ID = '619e1106c76489002e9b786c';
+export namespace user {
+  const BUCKET_ID = '61b73225b7f4a7002e04d305';
     export function get (...args: getArgs) {
-      return Bucket.data.get<Music_User & id>(BUCKET_ID, ...args);
+      return Bucket.data.get<User & id>(BUCKET_ID, ...args);
     };
     export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Music_User & id>(BUCKET_ID, ...args);
+      return Bucket.data.getAll<User & id>(BUCKET_ID, ...args);
     };
-    export function insert (document: Omit<Music_User, "_id">) {
+    export function insert (document: Omit<User, "_id">) {
       ['followed_artists','friends','uploaded_tracks','uploaded_albums','uploaded_playlists','play_history','currently_playing','playlists','liked_tracks','liked_albums','liked_playlists'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
@@ -59,7 +59,7 @@ export namespace music_user {
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
-    export function update (document: Music_User & id) {
+    export function update (document: User & id) {
       ['followed_artists','friends','uploaded_tracks','uploaded_albums','uploaded_playlists','play_history','currently_playing','playlists','liked_tracks','liked_albums','liked_playlists'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
@@ -74,7 +74,7 @@ export namespace music_user {
       );
     };  
     export function patch (
-      document: Partial<Music_User> & id
+      document: Partial<User> & id
     ) {
       ['followed_artists','friends','uploaded_tracks','uploaded_albums','uploaded_playlists','play_history','currently_playing','playlists','liked_tracks','liked_albums','liked_playlists'].forEach((field) => {
         if (typeof document[field] == 'object') {
@@ -90,14 +90,15 @@ export namespace music_user {
     };
   export namespace realtime {
       export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Music_User & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.get<User & id>(BUCKET_ID, ...args);
       };
       export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Music_User & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.getAll<User & id>(BUCKET_ID, ...args);
       };
   }
 }
-export interface Music_Artist{
+
+export interface Artist{
   _id?: string;
   name?: string;
   surname?: string;
@@ -106,20 +107,20 @@ export interface Music_Artist{
   birthday?: Date | string;
   bio?: string;
   is_verified?: boolean;
-  uploaded_tracks?: (Music_Track & id | string)[];
+  uploaded_tracks?: (Track & id | string)[];
   uploaded_albums?: (Music_Album & id | string)[];
-  followers?: (Music_User & id | string)[];
+  followers?: (User & id | string)[];
   popularity?: number;
 }
-export namespace music_artist {
-  const BUCKET_ID = '619e1104c76489002e9b7869';
+export namespace artist {
+  const BUCKET_ID = '61b73223b7f4a7002e04d302';
     export function get (...args: getArgs) {
-      return Bucket.data.get<Music_Artist & id>(BUCKET_ID, ...args);
+      return Bucket.data.get<Artist & id>(BUCKET_ID, ...args);
     };
     export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Music_Artist & id>(BUCKET_ID, ...args);
+      return Bucket.data.getAll<Artist & id>(BUCKET_ID, ...args);
     };
-    export function insert (document: Omit<Music_Artist, "_id">) {
+    export function insert (document: Omit<Artist, "_id">) {
       ['uploaded_tracks','uploaded_albums','followers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
@@ -129,7 +130,7 @@ export namespace music_artist {
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
-    export function update (document: Music_Artist & id) {
+    export function update (document: Artist & id) {
       ['uploaded_tracks','uploaded_albums','followers'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
@@ -144,7 +145,7 @@ export namespace music_artist {
       );
     };  
     export function patch (
-      document: Partial<Music_Artist> & id
+      document: Partial<Artist> & id
     ) {
       ['uploaded_tracks','uploaded_albums','followers'].forEach((field) => {
         if (typeof document[field] == 'object') {
@@ -160,14 +161,15 @@ export namespace music_artist {
     };
   export namespace realtime {
       export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Music_Artist & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.get<Artist & id>(BUCKET_ID, ...args);
       };
       export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Music_Artist & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.getAll<Artist & id>(BUCKET_ID, ...args);
       };
   }
 }
-export interface Music_Track{
+
+export interface Track{
   _id?: string;
   name?: string;
   description?: string;
@@ -175,11 +177,10 @@ export interface Music_Track{
   cover?: string;
   source?: string;
   clip?: string;
-  artist?: (Music_Artist & id | string);
-  user?: (Music_User & id | string);
+  artist?: (Artist & id | string);
+  user?: (User & id | string);
   album?: (Music_Album & id | string);
-  likes?: (Music_User & id | string)[];
-  kind?: (Music_Track_Kind & id | string)[];
+  likes?: (User & id | string)[];
   stream_count?: number;
   features?: {
   danceability?: number;
@@ -189,19 +190,20 @@ export interface Music_Track{
   tempo?: number;
   duration?: number;
   popularity?: number;
+  kinds?: (Track_Kind & id | string)[];
   explicit?: boolean;
   language?: ('English'|'Türkçe'|'Français'|'Español'|'Deutsch');};
 }
-export namespace music_track {
-  const BUCKET_ID = '619e1102c76489002e9b7866';
+export namespace track {
+  const BUCKET_ID = '61b73220b7f4a7002e04d2ff';
     export function get (...args: getArgs) {
-      return Bucket.data.get<Music_Track & id>(BUCKET_ID, ...args);
+      return Bucket.data.get<Track & id>(BUCKET_ID, ...args);
     };
     export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Music_Track & id>(BUCKET_ID, ...args);
+      return Bucket.data.getAll<Track & id>(BUCKET_ID, ...args);
     };
-    export function insert (document: Omit<Music_Track, "_id">) {
-      ['artist','user','album','likes', 'kind'].forEach((field) => {
+    export function insert (document: Omit<Track, "_id">) {
+      ['artist','user','album','likes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
             ? document[field].map((v) => v._id ? v._id : v)
@@ -210,8 +212,8 @@ export namespace music_track {
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
-    export function update (document: Music_Track & id) {
-      ['artist','user','album','likes','kind'].forEach((field) => {
+    export function update (document: Track & id) {
+      ['artist','user','album','likes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
             ? document[field].map((v) => v._id ? v._id : v)
@@ -225,9 +227,9 @@ export namespace music_track {
       );
     };  
     export function patch (
-      document: Partial<Music_Track> & id
+      document: Partial<Track> & id
     ) {
-      ['artist','user','album','likes','kind'].forEach((field) => {
+      ['artist','user','album','likes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
             ? document[field].map((v) => v._id ? v._id : v)
@@ -241,26 +243,27 @@ export namespace music_track {
     };
   export namespace realtime {
       export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Music_Track & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.get<Track & id>(BUCKET_ID, ...args);
       };
       export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Music_Track & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.getAll<Track & id>(BUCKET_ID, ...args);
       };
   }
 }
+
 export interface Music_Album{
   _id?: string;
   name?: string;
   cover?: string;
-  tracks?: (Music_Track & id | string)[];
+  tracks?: (Track & id | string)[];
   created_at?: Date | string;
-  likes?: (Music_User & id | string)[];
+  likes?: (User & id | string)[];
   popularity?: number;
-  artist?: (Music_Artist & id | string);
-  user?: (Music_User & id | string);
+  artist?: (Artist & id | string);
+  user?: (User & id | string);
 }
 export namespace music_album {
-  const BUCKET_ID = '619e1109c76489002e9b7872';
+  const BUCKET_ID = '61b73228b7f4a7002e04d30f';
     export function get (...args: getArgs) {
       return Bucket.data.get<Music_Album & id>(BUCKET_ID, ...args);
     };
@@ -315,92 +318,26 @@ export namespace music_album {
       };
   }
 }
-export interface Music_Playlist{
-  _id?: string;
-  name?: string;
-  image?: string;
-  tracks?: (Music_Track & id | string)[];
-  created_at?: Date | string;
-  popularity?: number;
-  owner?: (Music_User & id | string);
-  admins?: (Music_User & id | string)[];
-  likes?: (Music_User & id | string)[];
-  private?: boolean;
-}
-export namespace music_playlist {
-  const BUCKET_ID = '619e1107c76489002e9b786f';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Music_Playlist & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Music_Playlist & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Music_Playlist, "_id">) {
-      ['tracks','owner','admins','likes'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Music_Playlist & id) {
-      ['tracks','owner','admins','likes'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Music_Playlist> & id
-    ) {
-      ['tracks','owner','admins','likes'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id ? v._id : v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Music_Playlist & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Music_Playlist & id>(BUCKET_ID, ...args);
-      };
-  }
-}
 
-export interface Music_Track_Kind{
+export interface Track_Kind{
   _id?: string;
   title?: string;
   image?: string;
 }
-export namespace music_track_kind {
-  const BUCKET_ID = '619e392dc76489002e9b7e73';
+export namespace track_kind {
+  const BUCKET_ID = '61b7321fb7f4a7002e04d2fc';
     export function get (...args: getArgs) {
-      return Bucket.data.get<Music_Track_Kind & id>(BUCKET_ID, ...args);
+      return Bucket.data.get<Track_Kind & id>(BUCKET_ID, ...args);
     };
     export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Music_Track_Kind & id>(BUCKET_ID, ...args);
+      return Bucket.data.getAll<Track_Kind & id>(BUCKET_ID, ...args);
     };
-    export function insert (document: Omit<Music_Track_Kind, "_id">) {
+    export function insert (document: Omit<Track_Kind, "_id">) {
+      
       return Bucket.data.insert(BUCKET_ID, document);
     };
-    export function update (document: Music_Track_Kind & id) {
+    export function update (document: Track_Kind & id) {
+      
       return Bucket.data.update(
         BUCKET_ID,
         document._id,
@@ -408,8 +345,9 @@ export namespace music_track_kind {
       );
     };  
     export function patch (
-      document: Partial<Music_Track_Kind> & id
+      document: Partial<Track_Kind> & id
     ) {
+      
       return Bucket.data.patch(BUCKET_ID, document._id, document);
     };  
     export function remove (documentId: string) {
@@ -417,10 +355,79 @@ export namespace music_track_kind {
     };
   export namespace realtime {
       export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Music_Track_Kind & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.get<Track_Kind & id>(BUCKET_ID, ...args);
       };
       export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Music_Track_Kind & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.getAll<Track_Kind & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Playlist{
+  _id?: string;
+  name?: string;
+  image?: string;
+  tracks?: (Track & id | string)[];
+  created_at?: Date | string;
+  popularity?: number;
+  owner?: (User & id | string);
+  admins?: (User & id | string)[];
+  likes?: (User & id | string)[];
+  private?: boolean;
+}
+export namespace playlist {
+  const BUCKET_ID = '61b73226b7f4a7002e04d308';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Playlist & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Playlist & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Playlist, "_id">) {
+      ['tracks','owner','admins','likes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id ? v._id : v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Playlist & id) {
+      ['tracks','owner','admins','likes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id ? v._id : v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Playlist> & id
+    ) {
+      ['tracks','owner','admins','likes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id ? v._id : v)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Playlist & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Playlist & id>(BUCKET_ID, ...args);
       };
   }
 }

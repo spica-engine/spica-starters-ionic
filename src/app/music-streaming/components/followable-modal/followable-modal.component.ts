@@ -9,10 +9,10 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./followable-modal.component.scss'],
 })
 export class FollowableModalComponent implements OnInit {
-  artists: DataService.Music_Artist[] = [];
-  user: DataService.Music_User;
-  tracks: DataService.Music_Track[] = [];
-  playList: DataService.Music_Playlist;
+  artists: DataService.Artist[] = [];
+  user: DataService.User;
+  tracks: DataService.Track[] = [];
+  playList: DataService.Playlist;
   selectedData: string[] = [];
   searchTerm: string;
 
@@ -41,7 +41,7 @@ export class FollowableModalComponent implements OnInit {
   }
 
   getArtists() {
-    return DataService.music_artist.getAll({
+    return DataService.artist.getAll({
       queryParams: {
         filter: {
           _id: { $nin: this.user.followed_artists || [] },
@@ -51,7 +51,7 @@ export class FollowableModalComponent implements OnInit {
   }
 
   getTracks() {
-    return DataService.music_track.getAll({
+    return DataService.track.getAll({
       queryParams: {
         filter: {
           _id: { $nin: this.playList.tracks || [] },
@@ -71,12 +71,12 @@ export class FollowableModalComponent implements OnInit {
   }
 
   getPlayList() {
-    return DataService.music_playlist.get(this.playListId);
+    return DataService.playlist.get(this.playListId);
   }
 
   async search(terms) {
     if(this.type == 'artist'){
-      this.artists = await DataService.music_artist.getAll({
+      this.artists = await DataService.artist.getAll({
         queryParams: {
           filter: {
             name: { $regex: terms, $options: 'i' },
@@ -86,7 +86,7 @@ export class FollowableModalComponent implements OnInit {
         },
       });
     } else if(this.type == 'track'){
-      this.tracks = await DataService.music_track.getAll({
+      this.tracks = await DataService.track.getAll({
         queryParams: {
           filter: {
             name: { $regex: terms, $options: 'i' },
@@ -102,14 +102,15 @@ export class FollowableModalComponent implements OnInit {
   async apply() {
     if (this.selectedData.length) {
       if (this.type == 'artist') {
+        this.user.followed_artists = this.user.followed_artists || [];
         let newArr = this.user.followed_artists.concat(this.selectedData);
-        await DataService.music_user.patch({
+        await DataService.user.patch({
           _id: this.user._id,
           followed_artists: newArr,
         });
       } else if (this.type == 'track') {
         let newArr = this.playList.tracks.concat(this.selectedData);
-        await DataService.music_playlist.patch({
+        await DataService.playlist.patch({
           _id: this.playList._id,
           tracks: newArr,
         });

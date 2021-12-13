@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
-import { AuthService } from '../services/auth.service';
-import * as dataService from '../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import * as dataService from '../../services/bucket';
 
 @Component({
   selector: 'app-product-detail',
@@ -34,7 +34,7 @@ export class ProductDetailPage implements OnInit {
 
   allDetail: boolean = false;
 
-  recommendedProducts: dataService.E_Com_Product[] = [];
+  recommendedProducts: dataService.Product[] = [];
 
   productId: string;
   product: any;
@@ -44,8 +44,8 @@ export class ProductDetailPage implements OnInit {
   basketItemCount: number = 0;
   selectedAttribute = {};
   disableAddToBasket: boolean = true;
-  user: dataService.E_Com_User;
-  basket: dataService.E_Com_Basket;
+  user: dataService.User;
+  basket: dataService.Basket;
   isLiked: boolean = false;
 
   constructor(
@@ -59,7 +59,7 @@ export class ProductDetailPage implements OnInit {
 
   async ngOnInit() {
     this.productId = this._route.snapshot.params.productId;
-    this.basketItemCount = this.basket?.product.length;
+    this.basketItemCount = this.basket?.products.length;
 
     this.user = await this.getActiveUser();
     if (this.user) {
@@ -67,7 +67,7 @@ export class ProductDetailPage implements OnInit {
       await this.getLikedData();
     }
 
-    dataService.e_com_product
+    dataService.product
       .get(this.productId, { queryParams: { relation: true } })
       .then((res) => {
         this.product = res;
@@ -83,6 +83,10 @@ export class ProductDetailPage implements OnInit {
         if (isLiked) {
          this.isLiked = true;
         }
+
+        if(!this.product.attributes || !this.product.attributes.length){
+          this.disableAddToBasket = false;
+        }
       })
       .catch((err) => console.log(err));
 
@@ -94,7 +98,7 @@ export class ProductDetailPage implements OnInit {
   }
 
   async getBasketData() {
-    const data = dataService.e_com_basket.getAll({
+    const data = dataService.basket.getAll({
       queryParams: {
         filter: { user: this.user._id, is_completed: false },
         relation: true,
@@ -104,7 +108,7 @@ export class ProductDetailPage implements OnInit {
   }
 
   async getRecommendedProducts() {
-    return dataService.e_com_product
+    return dataService.product
       .getAll({
         queryParams: { limit: 10, relation: true, filter: {is_available: true} },
       })
@@ -123,15 +127,15 @@ export class ProductDetailPage implements OnInit {
   }
 
   async getLikedData() {
-    await dataService.e_com_liked_product
+    await dataService.liked_product
       .getAll({
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
       .then((res) => {
         if (res[0]) {
           this.likedDataId = res[0]._id;
-          if (res[0].product.length) {
-            this.likedProducts = res[0].product.map((el) => {
+          if (res[0].products.length) {
+            this.likedProducts = res[0].products.map((el) => {
               return el['_id'];
             });
           }
@@ -144,7 +148,7 @@ export class ProductDetailPage implements OnInit {
 
     if (
       Object.keys(this.selectedAttribute).length ==
-      this.product.attribute.length
+      this.product.attributes.length
     ) {
       this.disableAddToBasket = false;
     }
@@ -164,14 +168,14 @@ export class ProductDetailPage implements OnInit {
     }
 
     if (this.likedDataId) {
-      dataService.e_com_liked_product.patch({
-        product: this.likedProducts,
+      dataService.liked_product.patch({
+        products: this.likedProducts,
         _id: this.likedDataId,
       });
     } else {
-      dataService.e_com_liked_product
+      dataService.liked_product
         .insert({
-          product: this.likedProducts,
+          products: this.likedProducts,
           user: this.user._id,
         })
         .then((res) => {
@@ -193,7 +197,7 @@ export class ProductDetailPage implements OnInit {
     let exists = false;
 
     if (this.basket) {
-      this.basket.product.forEach((el) => {
+      this.basket.products.forEach((el) => {
         if (el['_id'] == this.product._id) {
           el['quantity'] += 1;
           exists = true;
@@ -201,13 +205,13 @@ export class ProductDetailPage implements OnInit {
       });
 
       if (!exists) {
-        this.basket.product.push(this.product);
+        this.basket.products.push(this.product);
       }
 
-      this.basket.metadata = this.prepareMetadata(this.basket.product);
+      this.basket.metadata = this.prepareMetadata(this.basket.products);
 
-      dataService.e_com_basket.patch({
-        product: this.basket.product,
+      dataService.basket.patch({
+        products: this.basket.products,
         metadata: this.basket.metadata,
         _id: this.basket._id,
       });
@@ -220,12 +224,12 @@ export class ProductDetailPage implements OnInit {
 
       data['metadata'] = this.prepareMetadata(data.product);
 
-      await dataService.e_com_basket.insert(data).then((res) => {
+      await dataService.basket.insert(data).then((res) => {
         this.basket = res;
       });
     }
 
-    this.basketItemCount = this.basket.product.length;
+    this.basketItemCount = this.basket.products.length;
   }
 
   prepareMetadata(basketData) {

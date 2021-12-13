@@ -11,8 +11,8 @@ import * as DataService from '../../services/bucket';
 })
 export class SearchPage implements OnInit {
   searchTerm: string;
-  tracks: DataService.Music_Track[] = [];
-  musicKinds: DataService.Music_Track_Kind[] = [];
+  tracks: DataService.Track[] = [];
+  musicKinds: DataService.Track_Kind[] = [];
 
   constructor(
     private _router: Router,
@@ -33,7 +33,7 @@ export class SearchPage implements OnInit {
   }
 
   async search(terms) {
-    this.tracks = await DataService.music_track.getAll({
+    this.tracks = await DataService.track.getAll({
       queryParams: {
         filter: {
           $or: [
@@ -47,7 +47,7 @@ export class SearchPage implements OnInit {
   }
 
   getMusicKinds() {
-    return DataService.music_track_kind.getAll();
+    return DataService.track_kind.getAll();
   }
 
   setTrack(track) {

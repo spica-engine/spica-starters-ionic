@@ -14,8 +14,8 @@ import { environment } from '../../services/environment';
 })
 export class LibraryPage implements OnInit {
   userId: string;
-  user: DataService.Music_User;
-  playLists: DataService.Music_Playlist[] = [];
+  user: DataService.User;
+  playLists: DataService.Playlist[] = [];
   defaultImage = environment.user_img;
 
   constructor(
@@ -31,11 +31,11 @@ export class LibraryPage implements OnInit {
     this.userId = (await this._authService.getUser().toPromise())._id;
     await this.getUser();
     this.playLists =
-      (await this.getPlayLists()) as DataService.Music_Playlist[];
+      (await this.getPlayLists()) as DataService.Playlist[];
   }
 
   async getUser() {
-    this.user = await DataService.music_user.get(this.userId, {
+    this.user = await DataService.user.get(this.userId, {
       queryParams: { relation: true },
     });
   }
@@ -56,14 +56,14 @@ export class LibraryPage implements OnInit {
   }
 
   async createPlayList(name) {
-    await DataService.music_playlist.insert({
+    await DataService.playlist.insert({
       name: name,
       owner: this.user._id,
     });
   }
 
   getPlayLists() {
-    return DataService.music_playlist
+    return DataService.playlist
       .getAll({ queryParams: { filter: { owner: this.user._id } } })
       .catch((err) => console.log(err));
   }
@@ -100,7 +100,7 @@ export class LibraryPage implements OnInit {
     this.user.followed_artists = this.user.followed_artists.filter((artist) => {
       return artist['_id'] != id;
     });
-    DataService.music_user.patch({
+    DataService.user.patch({
       _id: this.user._id,
       followed_artists: this.user.followed_artists,
     });

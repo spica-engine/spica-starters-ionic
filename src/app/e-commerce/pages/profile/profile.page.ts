@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
-import { AuthService } from '../services/auth.service';
-import * as dataService from '../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import * as dataService from '../../services/bucket';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +10,7 @@ import * as dataService from '../services/bucket';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: dataService.E_Com_User;
+  user: dataService.User;
   isLoading: boolean = true;
 
   constructor(

@@ -3,8 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: "https://test-4061d.hq.spicaengine.com/api",
-  apikey: "1ffsye19kvl1f0qe"
+  apiUrl: "https://spica-starters-7229b.hq.spicaengine.com/api",
+  apikey: "axfb9k1akx06fe2u",
+  TOKEN_KEY: 'ecommerce_spica_token',
+  EXPIRE_KEY: 'ecommerce_spica_expire',
 };
 
 /*

@@ -10,7 +10,7 @@ import { Item } from 'src/app/components/spica-item-list/spica-item-list.compone
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  user: DataService.Music_User;
+  user: DataService.User;
   listItems: Item[] = [];
 
   constructor(private _authService: AuthService, private _router: Router) {

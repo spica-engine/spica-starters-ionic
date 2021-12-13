@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  apiUrl: "https://asset-test-9ef6b.hq.spicaengine.com/api",
-  apikey: "2n1c1akw1uf4m5",
-  user_img: "https://www.faydavipegitim.com/media/contents/0ed09-user-profile.jpeg",
-  play_list_img: "https://ak.picdn.net/shutterstock/videos/1027045601/thumb/1.jpg?ip=x480"
+  apiUrl: "https://spica-starters-7229b.hq.spicaengine.com/api",
+  apikey: "axfb9k1akx06fe2u",
+  user_img:  "https://i.pinimg.com/originals/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg",
+  play_list_img: "https://ak.picdn.net/shutterstock/videos/1027045601/thumb/1.jpg?ip=x480",
+  TOKEN_KEY: 'music-streaming_spica_token',
+  EXPIRE_KEY: 'music-streaming_spica_expire',
 };
 
 /*

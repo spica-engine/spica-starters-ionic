@@ -6,11 +6,11 @@ import * as DataService from './bucket';
 })
 export class AudioService {
   audio = new Audio();
-  track: DataService.Music_Track;
+  track: DataService.Track;
 
   constructor() {}
 
-  setTrack(track: DataService.Music_Track) {
+  setTrack(track: DataService.Track) {
     let paused = this.paused();
     this.track = track;
     this.audio.src = this.track.source;

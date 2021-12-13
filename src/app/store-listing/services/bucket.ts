@@ -6,7 +6,7 @@ import * as Bucket from '@spica-devkit/bucket';
 export function initialize(
   ...initOptions: Parameters<typeof Bucket.initialize>
 ) {
-  initOptions[0].publicUrl = 'https://asset-test-9ef6b.hq.spicaengine.com/api';
+  initOptions[0].publicUrl = 'https://spica-starters-7229b.hq.spicaengine.com/api';
   Bucket.initialize(...initOptions);
 }
 
@@ -26,7 +26,7 @@ export interface Public_Holiday{
   until?: Date | string;
 }
 export namespace public_holiday {
-  const BUCKET_ID = '61a5e6a5c76489002e9bacfe';
+  const BUCKET_ID = '61b3453a97a0a8002e6a4f89';
     export function get (...args: getArgs) {
       return Bucket.data.get<Public_Holiday & id>(BUCKET_ID, ...args);
     };
@@ -72,7 +72,7 @@ export interface Rating{
   date?: Date | string;
 }
 export namespace rating {
-  const BUCKET_ID = '61a5e6a2c76489002e9bacf8';
+  const BUCKET_ID = '61b3453797a0a8002e6a4f83';
     export function get (...args: getArgs) {
       return Bucket.data.get<Rating & id>(BUCKET_ID, ...args);
     };
@@ -133,7 +133,7 @@ export interface Place{
   country?: string;
 }
 export namespace place {
-  const BUCKET_ID = '61a5e6a4c76489002e9bacfb';
+  const BUCKET_ID = '61b3453997a0a8002e6a4f86';
     export function get (...args: getArgs) {
       return Bucket.data.get<Place & id>(BUCKET_ID, ...args);
     };

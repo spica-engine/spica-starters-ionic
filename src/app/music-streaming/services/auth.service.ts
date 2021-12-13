@@ -11,7 +11,7 @@ import { environment } from './environment';
   providedIn: 'root',
 })
 export class AuthService {
-  activeUser: DataService.Music_User;
+  activeUser: DataService.User;
   activeToken: string;
 
   constructor(private http: HttpClient) {
@@ -23,13 +23,13 @@ export class AuthService {
   }
 
   initBucket() {
-    let tokenExpire = localStorage.getItem('spica_expire');
+    let tokenExpire = localStorage.getItem(environment.EXPIRE_KEY);
     if (tokenExpire && new Date(tokenExpire) < new Date()) {
       localStorage.clear();
     }
-    if (localStorage.getItem('music-streaming_spica_token')) {
+    if (localStorage.getItem(environment.TOKEN_KEY)) {
       DataService.initialize({
-        identity: localStorage.getItem('music-streaming_spica_token'),
+        identity: localStorage.getItem(environment.TOKEN_KEY),
       });
     } else {
       DataService.initialize({
@@ -41,11 +41,11 @@ export class AuthService {
   login(identifier, password) {
     return from(identity.login(identifier, password)).pipe(
       tap(async (token) => {
-        localStorage.setItem('music-streaming_spica_token', token);
+        localStorage.setItem(environment.TOKEN_KEY, token);
 
         let date = new Date();
         date.setDate(date.getDate() + 2); // 2 days later
-        localStorage.setItem('spica_expire', String(date));
+        localStorage.setItem(environment.EXPIRE_KEY, String(date));
         this.activeToken = token;
       }),
       switchMap(() => this.getUser())
@@ -100,11 +100,11 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    return localStorage.getItem('music-streaming_spica_token') ? true : false;
+    return localStorage.getItem(environment.TOKEN_KEY) ? true : false;
   }
 
   getActiveToken(): any {
-    return this.tokenDecode(localStorage.getItem('music-streaming_spica_token'));
+    return this.tokenDecode(localStorage.getItem(environment.TOKEN_KEY));
   }
 
   private tokenDecode(token) {
@@ -113,12 +113,12 @@ export class AuthService {
   }
 
   //Gets user info after taking token stored in local storage
-  getUser(clean: boolean = false): Observable<DataService.Music_User> {
+  getUser(clean: boolean = false): Observable<DataService.User> {
     if (this.activeUser && !clean) return of(this.activeUser);
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? DataService.music_user.getAll({
+          ? DataService.user.getAll({
               queryParams: { filter: { identity_id: token._id } },
             })
           : of([null])
@@ -135,8 +135,8 @@ export class AuthService {
   isAuthenticated(): Observable<boolean> {
     let result: boolean = true;
     if (
-      localStorage.getItem('spica_expire') &&
-      new Date() > new Date(localStorage.getItem('spica_expire'))
+      localStorage.getItem(environment.EXPIRE_KEY) &&
+      new Date() > new Date(localStorage.getItem(environment.EXPIRE_KEY))
     )
       result = false;
     return of(result);

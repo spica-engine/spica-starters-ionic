@@ -8,7 +8,7 @@ export class DataService {
   constructor(private http: HttpClient) {}
   setHeader() {
     let header = new HttpHeaders({
-      authorization: 'IDENTITY ' + localStorage.getItem('chat_spica_token'),
+      authorization: 'IDENTITY ' + localStorage.getItem('job-portal_spica_token'),
     });
     return header;
   }

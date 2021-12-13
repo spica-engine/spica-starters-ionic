@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
-import * as DataService from '../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import * as DataService from '../../services/bucket';
 
 @Component({
   selector: 'app-category',
@@ -9,8 +9,8 @@ import * as DataService from '../services/bucket';
   styleUrls: ['./category.page.scss'],
 })
 export class CategoryPage implements OnInit {
-  categories: DataService.E_Com_Product_Category[] = [];
-  products: DataService.E_Com_Product[] = [];
+  categories: DataService.Category[] = [];
+  products: DataService.Product[] = [];
   searchTerm: string;
 
 
@@ -19,7 +19,7 @@ export class CategoryPage implements OnInit {
   }
 
   ngOnInit() {
-    DataService.e_com_product_category
+    DataService.category
       .getAll({ queryParams: { filter: { is_sub_category: false }, relation: true } })
       .then((res) => {
         this.categories = res;
@@ -33,7 +33,7 @@ export class CategoryPage implements OnInit {
   }
 
   async searchProduct(terms) {
-    this.products = await DataService.e_com_product.getAll({
+    this.products = await DataService.product.getAll({
       queryParams: {
         filter: {
           $or: [

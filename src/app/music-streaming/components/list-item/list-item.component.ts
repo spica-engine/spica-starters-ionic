@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import * as DataService from '../../services/bucket';
-
 
 @Component({
   selector: 'music-list-item',

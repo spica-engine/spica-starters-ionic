@@ -3,10 +3,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { SpicaConfirmShoppingComponent } from 'src/app/components/spica-confirm-shopping/spica-confirm-shopping.component';
 import { SpicaShippingAddressComponent } from 'src/app/components/spica-shipping-address/spica-shipping-address.component';
-import * as DataService from '../services/bucket';
+import * as DataService from '../../services/bucket';
 import { CommonService } from 'src/app/services/common.service';
-import { SpicaFuntionService } from '../services/spica-function.service';
-import { AuthService } from '../services/auth.service';
+import { SpicaFuntionService } from '../../services/spica-function.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-basket',
@@ -26,22 +26,22 @@ export class BasketPage implements OnInit {
 
   quantity = [...Array(10).keys()];
   totalPrice: number = 0;
-  paymentMethods: DataService.E_Com_Payment_Method[] = [];
+  paymentMethods: DataService.Payment_Method[] = [];
   isLoading: boolean = false;
 
-  user: DataService.E_Com_User;
+  user: DataService.User;
   basket: any = [];
   couponCode: string;
 
   async ngOnInit() {
     this.isLoading = true;
-    this.paymentMethods = await DataService.e_com_payment_method.getAll();
+    this.paymentMethods = await DataService.payment_method.getAll();
 
     this.user = await this.getActiveUser();
     if (this.user) {
       this.basket = await this.getBasketData();
     }
-    if (this.basket?.product?.length) {
+    if (this.basket?.products?.length) {
       this.calculateTotalPrice();
     }
     this.isLoading = false;
@@ -52,7 +52,7 @@ export class BasketPage implements OnInit {
   }
 
   async getBasketData() {
-    const data = await DataService.e_com_basket.getAll({
+    const data = await DataService.basket.getAll({
       queryParams: {
         filter: { user: this.user._id, is_completed: false },
         relation: true,
@@ -60,7 +60,7 @@ export class BasketPage implements OnInit {
     });
 
     if(data[0]){
-      for (let product of data[0].product) {
+      for (let product of data[0].products) {
         let metadata = data[0].metadata.find((el) => {
           return el.product_id == product['_id'];
         });
@@ -74,7 +74,7 @@ export class BasketPage implements OnInit {
   }
 
   removeFromBasket(id) {
-    this.basket.product = this.basket.product.filter((el) => {
+    this.basket.products = this.basket.products.filter((el) => {
       return el._id !== id;
     });
 
@@ -86,21 +86,21 @@ export class BasketPage implements OnInit {
   }
 
   changeQuantity(quantity, id) {
-    this.basket.product.map((el) => {
+    this.basket.products.map((el) => {
       if (el._id == id) {
         el['quantity'] = quantity;
       }
     });
 
-    this.basket.metadata = this.prepareMetadata(this.basket.product);
+    this.basket.metadata = this.prepareMetadata(this.basket.products);
 
     this.patchBasketData();
     this.calculateTotalPrice();
   }
 
   patchBasketData() {
-    DataService.e_com_basket.patch({
-      product: this.basket.product,
+    DataService.basket.patch({
+      products: this.basket.products,
       metadata: this.basket.metadata,
       _id: this.basket._id,
     });
@@ -122,7 +122,7 @@ export class BasketPage implements OnInit {
 
   calculateTotalPrice() {
     this.totalPrice = 0;
-    this.basket.product.forEach((el) => {
+    this.basket.products.forEach((el) => {
       if (el.discounted_price) {
         this.totalPrice += el.discounted_price * el.quantity;
       } else {
@@ -191,7 +191,7 @@ export class BasketPage implements OnInit {
   saveAddress(data) {
     this.user.address.push(data);
 
-    DataService.e_com_user.patch({
+    DataService.user.patch({
       address: this.user.address,
       _id: this.user._id,
     });
@@ -217,7 +217,7 @@ export class BasketPage implements OnInit {
       basket: this.basket._id,
     };
 
-    const invoice = await DataService.e_com_invoice.insert(invoiceData);
+    const invoice = await DataService.invoice.insert(invoiceData);
 
     let orderData = {
       title: 'Order',
@@ -225,7 +225,7 @@ export class BasketPage implements OnInit {
       invoice: invoice._id,
     };
 
-    await DataService.e_com_order.insert(orderData).then((_) => {
+    await DataService.order.insert(orderData).then((_) => {
       this._commonService.presentToast(
         'Your order has been received successfully',
         2000

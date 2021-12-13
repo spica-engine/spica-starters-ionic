@@ -10,7 +10,7 @@ import * as DataService from '../../services/bucket';
 })
 export class CreateAppointmentComponent implements OnInit {
   @Input() action: string = 'create';
-  @Input() appointment: DataService.Appointment = {
+  @Input() appointment: any = {
     client: {
       _id: '',
       name: '',

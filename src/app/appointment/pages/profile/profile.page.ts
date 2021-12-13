@@ -25,7 +25,6 @@ export class ProfilePage implements OnInit {
       { key: 'username', value: '', seperate: true },
       { key: 'name', value: '', seperate: true },
       { key: 'surname', value: '', seperate: true },
-      { key: 'email', value: '', seperate: true },
     ];
     this.listItems.forEach(
       (item) => (item.value = this.user[item.key] ? this.user[item.key] : '')

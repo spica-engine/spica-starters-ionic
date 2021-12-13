@@ -17,7 +17,6 @@ export class SpicaFilterModalComponent implements OnInit {
 
   ngOnInit() {
     this.minMax = this.price_range;
-    console.log('attributes :', this.attributes);
   }
 
   setFilter() {
