@@ -14,9 +14,8 @@ export class PostCardComponent implements OnInit {
   @Input() comment;
   @Input() details: boolean = false;
   @Input() isComment: boolean = false;
+  @Input() user:DataService.User;
 
-  userId: string;
-  user: DataService.User;
   defaultAvatar: string = environment.user_img;
   isLoading: boolean = true;
   myAction: string;
@@ -30,18 +29,17 @@ export class PostCardComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.userId = (await this._authService.getUser().toPromise())?._id;
-    if(this.userId){
-      await this.getUser();
+
+    if(this.user?._id){
       let isDisliked = this.comment.dislikes.find((el) => {
-        return el._id == this.userId;
+        return el._id == this.user._id;
       });
   
       if (isDisliked) {
         this.myAction = 'disliked';
       } else {
         let isLiked = this.comment.likes.find((el) => {
-          return el._id == this.userId;
+          return el._id == this.user._id;
         });
         if (isLiked) {
           this.myAction = 'liked';
@@ -54,12 +52,6 @@ export class PostCardComponent implements OnInit {
     }
     
     this.isLoading = false;
-  }
-
-  async getUser() {
-    this.user = await DataService.user.get(this.userId, {
-      queryParams: { relation: true },
-    });
   }
 
   checkUserLogin() {
@@ -115,18 +107,18 @@ export class PostCardComponent implements OnInit {
       this._authService.unfollowUser(this.comment.user._id);
 
       this.comment.user.followers = this.comment.user.followers.filter((el) => {
-        return el !== this.userId;
+        return el !== this.user._id;
       });
     } else {
       this.comment['is_followed'] = true;
       this._authService.followUser(this.comment.user._id);
 
       this.comment.user.followers = this.comment.user.followers || [];
-      this.comment.user.followers.push(this.userId);
+      this.comment.user.followers.push(this.user._id);
     }
 
     DataService.user.patch({
-      _id: this.userId,
+      _id: this.user._id,
       followings: this._authService.followingUsers,
     });
     DataService.user.patch({

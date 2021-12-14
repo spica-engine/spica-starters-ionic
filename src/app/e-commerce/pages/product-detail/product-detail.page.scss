@@ -31,6 +31,7 @@
   ion-content {
     .gallery-slide {
       height: 100vw;
+      max-height: 350px;;
     }
     .title-container {
       display: flex;
@@ -101,7 +102,7 @@
         ::ng-deep {
           ion-item {
             img {
-              max-height: calc(100vw * 0.55) !important;
+              max-height: 190px !important;
               height: calc(100vw * 0.55) !important;
             }
           }

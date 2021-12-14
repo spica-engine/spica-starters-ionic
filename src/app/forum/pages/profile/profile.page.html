@@ -35,7 +35,7 @@
       <ion-spinner></ion-spinner>
     </div>
     <div class="comments" *ngIf="!postIsLoading">
-      <post-card [comment]="item" *ngFor="let item of this.comments"></post-card>
+      <post-card [comment]="item" *ngFor="let item of this.comments" [user]="user"></post-card>
     </div>
   </ng-container>
   

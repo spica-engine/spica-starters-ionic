@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
 export class ForumDetailsPage implements OnInit {
   comment: DataService.Comment;
   id: any;
+  userId: string;
   user: DataService.User;
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -25,9 +26,19 @@ export class ForumDetailsPage implements OnInit {
 
   async ngOnInit() {
     this.id = this._activatedRoute.snapshot.params.id;
-    this.user = await this._authService.getUser().toPromise()
+    this.userId = (await this._authService.getUser().toPromise())._id;
+    if (this.userId) {
+      this.getUser();
+    }
     this.getComment();
   }
+
+  async getUser() {
+    this.user = await DataService.user.get(this.userId, {
+      queryParams: { relation: true },
+    });
+  }
+
   async getComment() {
     this.comment = await DataService.comment.get(this.id, {
       queryParams: {
@@ -45,14 +56,15 @@ export class ForumDetailsPage implements OnInit {
 
   checkUserLogin() {
     if (!this.user) {
-      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+      this._router.navigateByUrl('/forum/authorization', { replaceUrl: true });
       return false;
-    } return true
+    }
+    return true;
   }
 
   async addCommentModal() {
-    if(!this.checkUserLogin()){
-      return
+    if (!this.checkUserLogin()) {
+      return;
     }
     const commentModal = await this._modalController.create({
       component: AddCommentModalComponent,
@@ -68,11 +80,10 @@ export class ForumDetailsPage implements OnInit {
       } else {
         res.data.comment['user'] = this.user;
         this.comment.comments = this.comment.comments || [];
-        this.comment.comments.push(res.data.comment)
+        this.comment.comments.push(res.data.comment);
       }
     });
 
-    
     return await commentModal.present();
   }
 }

@@ -21,10 +21,19 @@ export class HomePage {
 
   async ngOnInit() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
+    if(this.userId){
+      await this.getUser()
+    }
 
     await this.getCategory();
-    await this.getComments();
+    this.getComments();
     this.getTitles();
+  }
+
+  async getUser() {
+    this.user = await DataService.user.get(this.userId, {
+      queryParams: { relation: true },
+    });
   }
 
   getCategory() {

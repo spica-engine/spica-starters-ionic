@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-avatar [routerLink]="['/music-streaming/profile']">
+    <ion-avatar [routerLink]="['/music-streaming/profile']" slot="start">
       <img [src]="user && user['profile_picture'] ||  defaultImage " />
     </ion-avatar>
-    <ion-title slot="start">Library</ion-title>
+    <ion-title>Library</ion-title>
     <ion-icon slot="end" name="add" (click)="createPlayListModal()"></ion-icon>
   </ion-toolbar>
 </ion-header>

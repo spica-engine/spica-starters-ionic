@@ -37,6 +37,18 @@ html {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+
+      ion-popover {
+          .popover-wrapper {
+            .popover-content{
+              position: static !important;
+            }
+          }
+      }
+
+      ion-title{
+        text-align: center;
+      }
     }
     // width: 360px;
     // height: 660px;

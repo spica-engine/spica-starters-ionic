@@ -4,13 +4,13 @@
       <img [src]="comment.user['profile_picture'] || defaultAvatar" >
     </ion-avatar>
     <span class="nick">{{comment.user['nick']}}</span>
-    <span class="follow-button" *ngIf="comment.user['_id'] != userId" size="small" fill="clear" (click)="follow()">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</span>
+    <span class="follow-button" *ngIf="comment.user['_id'] != user._id" size="small" fill="clear" (click)="follow()">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</span>
     <span *ngIf="!details || isComment">{{comment.date | dateAgo}}</span>
     <ion-text *ngIf="details && !isComment" class="created-at">
       <ion-icon name="calendar-outline"></ion-icon>
       {{comment.date | date:'dd/MM/yyyy'}}
     </ion-text>
-    <ion-button *ngIf="!details && comment.user['_id'] == userId" (click)="presentAlert()" class="trash">
+    <ion-button *ngIf="!details && comment.user['_id'] == user._id" (click)="presentAlert()" class="trash">
       <ion-icon name="trash-outline"></ion-icon>
     </ion-button>
   </ion-card-header>

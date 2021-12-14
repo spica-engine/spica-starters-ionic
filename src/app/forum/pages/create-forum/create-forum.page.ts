@@ -34,7 +34,7 @@ export class CreateForumPage implements OnInit {
   }
 
   async createPost() {
-    this._route.navigate(['/forum']);
+    this._route.navigateByUrl('/forum', {replaceUrl: true});
     this.newComment = await DataService.comment.insert({
       user: this.user._id,
       content: this.postText,

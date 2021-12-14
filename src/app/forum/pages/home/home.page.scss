@@ -1,16 +1,19 @@
 :host {
-    ion-content {
-      .category {
-        display: flex;
-        overflow-x: auto;
-        ion-button {
-          --border-radius: 8px;
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        }
+  ion-content {
+    .category {
+      display: flex;
+      overflow-x: auto;
+      ion-button {
+        --border-radius: 8px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
-      .comments{
-        padding-bottom: 65px;
+    }
+    .comments {
+      padding-bottom: 65px;
+      .spinner{
+        width: 100%;
+        margin-top: 25px;
       }
     }
   }
-  
+}

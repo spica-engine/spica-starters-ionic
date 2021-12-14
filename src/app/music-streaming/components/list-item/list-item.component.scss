@@ -6,6 +6,8 @@
     ion-avatar {
       width: calc(100vw * 0.15);
       height: calc(100vw * 0.15);
+      max-width: 55px;
+      max-height: 55px;
       overflow: hidden;
       --border-radius: none;
 

@@ -33,19 +33,21 @@
 
       ion-slides {
         margin-top: 15px;
-       
+
         ion-slide {
           display: flex;
           flex-direction: column;
 
-          &.first{
+          &.first {
             margin-left: 15px;
           }
 
-          ::ng-deep{
-            .part-item{
+          ::ng-deep {
+            .part-item {
               width: calc(100vw * 0.38) !important;
               height: calc(100vw * 0.38) !important;
+              max-width: 136px;
+              max-height: 136px;
             }
           }
         }
