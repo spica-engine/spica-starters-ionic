@@ -23,7 +23,7 @@ export class UserService {
       result = user
         .getAll({
           queryParams: {
-            filter: { identity: identity_id },
+            filter: { identity_id: identity_id },
             relation: 'friends',
           },
         })
@@ -39,7 +39,7 @@ export class UserService {
     return user.get(id, { queryParams: { relation: relation } });
   }
   getUserByIdentity(id) {
-    return user.getAll({ queryParams: { filter: { identity: id } } });
+    return user.getAll({ queryParams: { filter: { identity_id: id } } });
   }
   getUserByUsername(username) {
     return user.getAll({ queryParams: { filter: { username: username } } });

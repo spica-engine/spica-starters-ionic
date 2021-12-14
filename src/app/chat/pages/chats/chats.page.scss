@@ -11,6 +11,7 @@
     ion-list {
       overflow: auto;
       flex: 1;
+      padding: 0 10px;
       ion-item {
         touch-action: pan-y !important;
       }

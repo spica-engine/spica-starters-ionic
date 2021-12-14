@@ -4,7 +4,7 @@
 
 export const environment = {
   project_id: 'spica-starters-7229b',
-  api_url: 'https://davuttestasset1-5daef.hq.spicaengine.com/api',
+  api_url: 'https://spica-starters-7229b.hq.spicaengine.com/api',
   public_apikey: 'axfb9k1akx06fe2u',
   production: false,
   webURL: '',

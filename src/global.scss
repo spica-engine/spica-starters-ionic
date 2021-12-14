@@ -39,15 +39,20 @@ html {
       transform: translate(-50%, -50%);
 
       ion-popover {
-          .popover-wrapper {
-            .popover-content{
-              position: static !important;
-            }
+        .popover-wrapper {
+          .popover-content {
+            position: static !important;
+            padding: 0 10px;
           }
+        }
       }
-
-      ion-title{
+      ion-title {
         text-align: center;
+      }
+      ion-modal {
+        .modal-wrapper {
+          min-height: 100%;
+        }
       }
     }
     // width: 360px;

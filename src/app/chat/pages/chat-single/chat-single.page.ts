@@ -203,7 +203,8 @@ export class ChatSinglePage {
           'chat',
           {
             chat: this.chatGroup._id,
-            last_message: this.message || 'send photo to you',
+            last_message:
+              this.message || (this.image_message ? 'send photo to you' : ''),
           },
           this.me._id
         )

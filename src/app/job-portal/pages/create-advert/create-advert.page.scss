@@ -6,8 +6,9 @@
   }
   ion-item {
     padding-left: 20px;
-    &.new-one {
-      margin-top: 20px;
+    &.none-item {
+      font-size: 14px;
+      opacity: 0.8;
     }
   }
 }

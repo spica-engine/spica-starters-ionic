@@ -15,6 +15,7 @@ export class DataService {
   register(user_data) {
     return this.http.post(`${environment.api_url}/fn-execute/register`, {
       user_data,
+      project:"JOB_PORTAL"
     });
   }
   getCriterias() {
