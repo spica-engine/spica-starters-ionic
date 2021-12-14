@@ -79,7 +79,7 @@ export namespace category {
       ['sub_categories'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -89,7 +89,7 @@ export namespace category {
       ['sub_categories'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -105,7 +105,7 @@ export namespace category {
       ['sub_categories'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -299,7 +299,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -309,7 +309,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -325,7 +325,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -375,7 +375,7 @@ export namespace product {
       ['categories','attributes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -385,7 +385,7 @@ export namespace product {
       ['categories','attributes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -401,7 +401,7 @@ export namespace product {
       ['categories','attributes'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -440,7 +440,7 @@ export namespace stock {
       ['product'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -450,7 +450,7 @@ export namespace stock {
       ['product'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -466,7 +466,7 @@ export namespace stock {
       ['product'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -514,7 +514,7 @@ export namespace invoice {
       ['basket','payment_method'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -524,7 +524,7 @@ export namespace invoice {
       ['basket','payment_method'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -540,7 +540,7 @@ export namespace invoice {
       ['basket','payment_method'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -580,7 +580,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -590,7 +590,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -606,7 +606,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -643,7 +643,7 @@ export namespace rating {
       ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -653,7 +653,7 @@ export namespace rating {
       ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -669,7 +669,7 @@ export namespace rating {
       ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -762,7 +762,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -772,7 +772,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -788,7 +788,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -826,7 +826,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -836,7 +836,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -852,7 +852,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -889,7 +889,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -899,7 +899,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -915,7 +915,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });

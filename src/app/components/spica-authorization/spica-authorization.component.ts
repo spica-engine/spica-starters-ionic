@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'spica-authorization',
@@ -16,11 +16,11 @@ export class SpicaAuthorizationComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
-      email: '',
+      email: ["", [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       // username: '',
       name: '',
       surname: '',
-      password: '',
+      password: ['', [Validators.required, Validators.minLength(5)]],
       termsOfUse: '',
     });
   }

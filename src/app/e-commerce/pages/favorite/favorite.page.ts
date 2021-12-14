@@ -36,11 +36,13 @@ export class FavoritePage implements OnInit {
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
       .then((res) => {
-        this.likedDataId = res[0]._id;
-        this.likedProducts = res[0].products;
-        this.likedProducts.forEach((el) => {
-          el['is_liked'] = true;
-        });
+        if(res.length){
+          this.likedDataId = res[0]._id;
+          this.likedProducts = res[0].products;
+          this.likedProducts.forEach((el) => {
+            el['is_liked'] = true;
+          });
+        }
       });
   }
 

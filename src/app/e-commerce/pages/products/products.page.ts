@@ -87,11 +87,13 @@ export class ProductsPage implements OnInit {
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
       .then((res) => {
-        this.likedDataId = res[0]._id;
-        if (res[0].products.length) {
-          this.likedProducts = res[0].products.map((el) => {
-            return el['_id'];
-          });
+        if(res.length){
+          this.likedDataId = res[0]._id;
+          if (res[0].products.length) {
+            this.likedProducts = res[0].products.map((el) => {
+              return el['_id'];
+            });
+          }
         }
       });
   }

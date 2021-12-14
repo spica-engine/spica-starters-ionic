@@ -132,7 +132,7 @@ export class ProductDetailPage implements OnInit {
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
       .then((res) => {
-        if (res[0]) {
+        if (res.length) {
           this.likedDataId = res[0]._id;
           if (res[0].products.length) {
             this.likedProducts = res[0].products.map((el) => {
