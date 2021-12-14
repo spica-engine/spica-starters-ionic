@@ -31,7 +31,7 @@
         (ngModelChange)="getChatBySearch()"
       ></ion-searchbar>
       <ion-label (click)="openSelection()" slot="end">
-        {{open_to_select ? "clear" : "select"}}
+        {{open_to_select ? "cancel" : "select"}}
       </ion-label>
     </ion-item>
     <ion-list *ngIf="!loading">

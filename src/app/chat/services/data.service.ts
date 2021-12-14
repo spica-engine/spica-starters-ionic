@@ -9,14 +9,14 @@ export class DataService {
 
   setHeader() {
     let header = new HttpHeaders({
-      authorization:
-        'IDENTITY ' + localStorage.getItem('chat_spica_token'),
+      authorization: 'IDENTITY ' + localStorage.getItem('chat_spica_token'),
     });
     return header;
   }
   register(user_data) {
     return this.http.post(`${environment.api_url}/fn-execute/register`, {
       user_data,
+      project: 'CHAT',
     });
   }
   setOnline(process, params, user_id) {

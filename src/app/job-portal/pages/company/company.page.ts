@@ -124,6 +124,9 @@ export class CompanyPage implements OnInit {
     delete companyData['country'];
     delete companyData['city'];
     let newCompany = await company.insert(companyData);
+    this._userservice.me.companies = this._userservice.me.companies
+      ? this._userservice.me.companies
+      : [];
     this._userservice.me.companies = [
       ...this._userservice.me.companies,
       newCompany._id,
@@ -137,7 +140,7 @@ export class CompanyPage implements OnInit {
       companyData['title'] + ' company is successfully created',
       2000
     );
-    this._router.navigateByUrl('/job-portal/profile/my-companies', {
+    this._router.navigateByUrl('/job-portal/profile/me/my-companies', {
       replaceUrl: true,
     });
   }

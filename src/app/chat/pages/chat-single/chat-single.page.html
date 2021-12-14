@@ -66,14 +66,13 @@
       <img class="send_image" [src]="image_message" />
     </ion-item>
     <ion-item lines="none">
-      <spica-upload-image
+      <spica-upload-image slot="start"
         *ngIf="!loading_image &&!message && !image_message"
         (change)="sendImage($event)"
       ></spica-upload-image>
       <ion-textarea
         *ngIf="!image_message"
         [(ngModel)]="message"
-        (keyup.enter)="sendMessage()"
         placeholder="Send Message"
         enterkeyhint="send"
         autoGrow="true"
