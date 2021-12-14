@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { video, Video, initialize } from '../../services/bucket';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-branch-categories',
@@ -9,8 +10,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BranchCategoriesPage implements OnInit {
 
-  constructor(private _route: ActivatedRoute) {
-    initialize({ identity:  localStorage.getItem('fitness_spica_token') });
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) {
+    this._authService.initBucket();
   }
   id: any;
   videos: Video[];

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../services/environment';
 import { food_program,Food_Program, initialize} from '../../services/bucket';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-food-program',
   templateUrl: './food-program.page.html',
@@ -10,8 +11,8 @@ import { food_program,Food_Program, initialize} from '../../services/bucket';
 export class FoodProgramPage implements OnInit {
 id:any;
 foodProgram:Food_Program[];
-  constructor(private _route: ActivatedRoute) {
-    initialize({ identity:  localStorage.getItem('fitness_spica_token') });
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) {
+    this._authService.initBucket();
 
    }
    async ionViewWillEnter(){

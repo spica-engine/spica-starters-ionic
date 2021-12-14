@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { food_program,initialize } from '../../services/bucket';
 
 @Component({
@@ -10,8 +11,8 @@ import { food_program,initialize } from '../../services/bucket';
 export class FoodProgramDetailPage implements OnInit {
 id:any;
 program:any;
-  constructor(private _route: ActivatedRoute) { 
-    initialize ({identity:  localStorage.getItem('fitness_spica_token')})
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) { 
+    this._authService.initBucket();
   }
 
  async ngOnInit() {

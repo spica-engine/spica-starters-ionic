@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 import { watched_video,Watched_Video, initialize} from '../../services/bucket';
 @Component({
   selector: 'app-watched-videos-page',
@@ -10,9 +11,9 @@ export class WatchedVideosPagePage implements OnInit {
 watchedVideos: Watched_Video[];
 id:any;
 text:any;
-  constructor(private _route: ActivatedRoute) { 
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) { 
 
-    initialize({ identity:  localStorage.getItem('fitness_spica_token') });
+    this._authService.initBucket();
 
   }
 

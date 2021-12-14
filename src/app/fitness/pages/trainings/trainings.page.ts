@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../services/environment';
 import { training, Training, initialize } from '../../services/bucket';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-trainings',
   templateUrl: './trainings.page.html',
@@ -10,8 +11,8 @@ import { training, Training, initialize } from '../../services/bucket';
 export class TrainingsPage implements OnInit {
   id: any;
   training: Training[];
-  constructor(private _route: ActivatedRoute) {
-    initialize({ identity:  localStorage.getItem('fitness_spica_token')});
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) {
+    this._authService.initBucket();
   }
   async ionViewWillEnter() {
     this.training = await this.getTraining();

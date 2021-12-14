@@ -12,7 +12,8 @@ export class UserService {
   user_id: string;
   savedJobIds = [];
   constructor(private _authService: AuthService) {
-    this.initializeOrm();
+    this._authService.initBucket();
+    this._authService.initBucket();
   }
   getActiveUser(): Promise<User> {
     let result: Promise<User>;
@@ -20,7 +21,6 @@ export class UserService {
     if (this.me) {
       result = of(this.me).toPromise();
     } else {
-      this.initializeOrm();
       result = user
         .getAll({
           queryParams: {
@@ -46,13 +46,10 @@ export class UserService {
   }
 
   getIdentityId() {
-    return this._authService.getIdentityId();
+    return this._authService.getActiveToken();
   }
 
   updateProfile(updatedUser) {
     return user.update(updatedUser);
-  }
-  initializeOrm() {
-    initialize({ identity: localStorage.getItem('fitness_spica_token') });
   }
 }

@@ -26,8 +26,7 @@ export class HomePage implements OnInit {
     private _userService: UserService,
     private _commonService: CommonService,
   ) {
-
-    initialize({ identity: localStorage.getItem('fitness_spica_token') });
+    this._authService.initBucket();
   }
 
   ngOnInit() {
@@ -68,7 +67,6 @@ export class HomePage implements OnInit {
   async register(registerData) {
     this._authService
       .register({ ...registerData })
-      .toPromise()
       .then((res) => {
         this.login(registerData);
         this._commonService.presentToast(res['message'], 1500);

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
+import { AuthService } from '../../services/auth.service';
 import { user, User, initialize, watched_video, Watched_Video, training, Training, performance, Performance } from '../../services/bucket';
 
 @Component({
@@ -16,8 +17,8 @@ export class ProfilePage implements OnInit {
   traning: Training[];
   performance: Performance[];
   listItems: Item[] = [];
-  constructor() {
-    initialize({ identity:  localStorage.getItem('fitness_spica_token')});
+  constructor(private _authService: AuthService) {
+    this._authService.initBucket();
   }
 
   async ngOnInit() {

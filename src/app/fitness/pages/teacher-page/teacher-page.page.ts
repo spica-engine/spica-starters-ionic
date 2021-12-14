@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { teacher,Teacher,initialize } from '../../services/bucket';
 import { environment } from '../../services/environment';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -15,8 +16,8 @@ id:any;
 teacher: Teacher;
 me: Teacher;
 listItems: Item[] = [];
-  constructor(private _route: ActivatedRoute) { 
-    initialize({ identity:  localStorage.getItem('fitness_spica_token') });
+  constructor(private _route: ActivatedRoute, private _authService: AuthService) { 
+    this._authService.initBucket();
   }
   async ngOnInit() {
    this.id = this._route.snapshot.params.id;
