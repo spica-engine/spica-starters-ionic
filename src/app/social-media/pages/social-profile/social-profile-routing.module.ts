@@ -40,6 +40,13 @@ const routes: Routes = [
                 (m) => m.ChatsPageModule
               ),
           },
+          {
+            path: 'profile',
+            loadChildren: () =>
+              import('../social-profile/social-profile.module').then(
+                (m) => m.SocialProfilePageModule
+              ),
+          },
         ],
       },
     ],

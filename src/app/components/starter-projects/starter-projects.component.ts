@@ -21,16 +21,16 @@ export class StarterProjectsComponent implements OnInit {
   }
   ngOnInit() {
     this.projects = [
-      {
-        name: 'Food Delivery',
-        route: '/food-delivery/home',
-        icon: 'fast-food-outline',
-      },
-      {
-        name: 'Fitness Application',
-        route: '/fitness',
-        icon: 'barbell-outline',
-      },
+      // {
+      //   name: 'Food Delivery',
+      //   route: '/food-delivery/home',
+      //   icon: 'fast-food-outline',
+      // },
+      // {
+      //   name: 'Fitness Application',
+      //   route: '/fitness',
+      //   icon: 'barbell-outline',
+      // },
       {
         name: 'E-Commerce Application',
         route: '/e-commerce',
