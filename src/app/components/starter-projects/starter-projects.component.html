@@ -1,9 +1,19 @@
 <div class="container">
   <ion-list>
     <div class="credentials">
-      <span>You can access all projects with the below credentials</span>
-      <p>Username : admin@gmail.com</p>
-      <p>Password : admin</p>
+      <h6>You can access all projects with the below credentials</h6>
+      <div>
+        <div class="credential-head">
+          <span> Username :</span>
+          <span> Password :</span>
+        </div>
+        <div class="credential-row">
+          <span (click)="copyToClipboard('admin@gmail.com')">
+            admin@gmail.com <ion-icon name="copy-outline"></ion-icon>
+          </span>
+          <span (click)="copyToClipboard('admin')"> admin <ion-icon name="copy-outline"></ion-icon></span>
+        </div>
+      </div>
     </div>
 
     <ion-item
