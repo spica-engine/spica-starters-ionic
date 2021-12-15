@@ -42,7 +42,6 @@ html {
         .popover-wrapper {
           .popover-content {
             position: static !important;
-            padding: 0 10px;
           }
         }
       }
@@ -84,9 +83,9 @@ ion-segment-button {
     0px 4px 13px -6px rgba(226, 11, 11, 0);
 }
 
-ion-item {
-  --padding-start: 0;
-}
+// ion-item {
+//   --padding-start: 0;
+// }
 ion-list {
   padding: 0 10px;
 }

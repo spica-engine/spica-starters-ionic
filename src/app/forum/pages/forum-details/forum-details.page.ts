@@ -26,7 +26,7 @@ export class ForumDetailsPage implements OnInit {
 
   async ngOnInit() {
     this.id = this._activatedRoute.snapshot.params.id;
-    this.userId = (await this._authService.getUser().toPromise())._id;
+    this.userId = (await this._authService.getUser().toPromise())?._id;
     if (this.userId) {
       this.getUser();
     }

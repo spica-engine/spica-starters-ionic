@@ -28,4 +28,6 @@
       (click)="setTrack(track)"
     ></music-list-item>
   </div>
+
+  <ion-spinner class="spinner-center-page" *ngIf="!musicKinds.length"></ion-spinner>
 </ion-content>

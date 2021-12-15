@@ -33,11 +33,9 @@
         max-width: calc(50% - 10px) !important;
 
         ::ng-deep {
-          ion-item {
-            img {
-              max-height: 190px !important;
-              height: calc(100vw * 0.55) !important;
-            }
+          img {
+            max-height: 175px !important;
+            height: calc(100vw * 0.55) !important;
           }
         }
       }

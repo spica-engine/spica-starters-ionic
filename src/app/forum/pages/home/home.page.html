@@ -11,7 +11,10 @@
   </div>
 
   <div class="comments">
-    <ion-spinner class="spinner" *ngIf="!comments.length"></ion-spinner>
+    <ion-spinner
+    *ngIf="!comments.length"
+    class="spinner-center-page"
+  ></ion-spinner>
     <post-card [comment]="comment" *ngFor="let comment of comments" [user]="user"></post-card>
   </div>
 </ion-content>
