@@ -54,6 +54,7 @@ export class AuthService {
   }
 
   logout() {
+    this.activeUser = undefined;
     localStorage.clear();
     return true;
   }

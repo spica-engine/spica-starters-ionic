@@ -4,6 +4,7 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-searchbar
+      mode="ios"
       [(ngModel)]="searchedText"
       (ngModelChange)="getPostByHashTag($event)"
       debounce="500"

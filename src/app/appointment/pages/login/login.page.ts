@@ -18,10 +18,18 @@ export class LoginPage implements OnInit {
     private _authService: AuthService,
     private _router: Router,
     private _commonService: CommonService
-  ) { 
+  ) {
     this._authService.initBucket();
   }
 
+  async ionViewWillEnter() {
+    if (await this._authService.getUser().toPromise()) {
+      this.loginForm.reset();
+      this._router.navigateByUrl('/appointment/tabs/appointments', {
+        replaceUrl: true,
+      });
+    }
+  }
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       username: '',
@@ -35,13 +43,15 @@ export class LoginPage implements OnInit {
       .toPromise()
       .then((res) => {
         this.isLoading = false;
-        this.loginForm.reset();
-        this._router.navigateByUrl('/appointment/tabs/appointments', {replaceUrl: true});
+        // this.loginForm.reset();
+        // this._router.navigateByUrl('/appointment/tabs/appointments', {
+        //   replaceUrl: true,
+        // });
+        window.location.reload();
       })
       .catch((err) => {
         this.isLoading = false;
-        this._commonService.presentToast(err.message, 1500)
+        this._commonService.presentToast(err.message, 1500);
       });
   }
-
 }
