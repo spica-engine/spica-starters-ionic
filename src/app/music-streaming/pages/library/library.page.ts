@@ -17,6 +17,7 @@ export class LibraryPage implements OnInit {
   user: DataService.User;
   playLists: DataService.Playlist[] = [];
   defaultImage = environment.user_img;
+  isLoading: boolean = true;
 
   constructor(
     private _authService: AuthService,
@@ -28,10 +29,10 @@ export class LibraryPage implements OnInit {
   }
 
   async ngOnInit() {
-    this.userId = (await this._authService.getUser().toPromise())._id;
+    this.userId = (await this._authService.getUser().toPromise())?._id;
     await this.getUser();
-    this.playLists =
-      (await this.getPlayLists()) as DataService.Playlist[];
+    this.playLists = (await this.getPlayLists()) as DataService.Playlist[];
+    this.isLoading = false;
   }
 
   async getUser() {

@@ -12,7 +12,8 @@
       flex-direction: column;
       justify-content: space-between;
       width: 100%;
-      height: calc(100vh - 44px);
+      // height: calc(100vh - 44px);
+      height: 100%;
       padding: 25px;
 
       ion-item {

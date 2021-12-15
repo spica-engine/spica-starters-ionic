@@ -19,7 +19,8 @@
       .content {
         padding: 20px;
         ion-item {
-          margin-top: 15px;
+          margin-top: 10px;
+          --padding-start: 0;
           --padding-end: 0px;
           --inner-padding-end: 0px;
           ion-input,

@@ -18,7 +18,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%,-50%);
+      transform: translate(-50%, -50%);
 
       ion-label {
         font-weight: 500;
@@ -44,11 +44,9 @@
         max-width: calc(50% - 10px) !important;
 
         ::ng-deep {
-          ion-item {
-            img {
-              max-height: 190px !important;
-              height: calc(100vw * 0.55) !important;
-            }
+          img {
+            max-height: 175px !important;
+            height: calc(100vw * 0.55) !important;
           }
         }
       }

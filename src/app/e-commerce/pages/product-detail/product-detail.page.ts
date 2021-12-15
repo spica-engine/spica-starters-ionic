@@ -155,6 +155,13 @@ export class ProductDetailPage implements OnInit {
   }
 
   likeChanged(value, id) {
+    if (!this._authService.getActiveToken()) {
+      this._router.navigate(['e-commerce/tabs/profile']);
+      return;
+    }
+
+    this.isLiked = !this.isLiked
+
     if (value) {
       this.likedProducts.push(id);
     } else {
