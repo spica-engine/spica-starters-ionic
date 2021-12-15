@@ -7,16 +7,23 @@
 
 <ion-content>
   <spica-user-profile-picture
-    [imageEditable]="user?._id==user?._id"
+    *ngIf="!isLoading"
+    [imageEditable]="true"
     [image]="user?.picture"
+    (changeImage)="imageChange($event)"
   ></spica-user-profile-picture>
   <spica-item-list
-    *ngIf="listItems.length>0"
+    *ngIf="listItems.length>0 && !isLoading"
     [items]="listItems"
+    (logout)="logout()"
   ></spica-item-list>
 
-  <div class="button-container">
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+  <!-- <div class="button-container">
     <ion-button class="logout" (click)="logout()">Log Out</ion-button>
-  </div>
-  
+  </div> -->
 </ion-content>

@@ -2,7 +2,7 @@
   <div class="seperate-section">
     <ion-list lines="inset">
       <ion-item *ngFor="let item of seperatedItems">
-        <ion-label> {{ item.key |titlecase }}</ion-label>
+        <ion-label> {{ item.key | titlecase }}</ion-label>
       </ion-item>
     </ion-list>
     <ion-list lines="inset">
@@ -19,6 +19,17 @@
         [routerLink]="item.link ? [item.link] : []"
       >
         <ion-label> {{ item.value }}</ion-label>
+      </ion-item>
+      <ion-item
+        *ngIf="canLogout"
+        [detail]="false"
+        class="logout"
+        button
+        (click)="logOut()"
+      >
+        <ion-label>
+          <div>Logout<ion-icon name="log-out-outline"></ion-icon></div>
+        </ion-label>
       </ion-item>
     </ion-list>
   </div>

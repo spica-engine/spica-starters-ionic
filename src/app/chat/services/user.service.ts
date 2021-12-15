@@ -59,4 +59,7 @@ export class UserService {
   initializeOrm() {
     initialize({ identity: localStorage.getItem('chat_spica_token') });
   }
+  logOut() {
+    localStorage.removeItem('chat_spica_token');
+  }
 }

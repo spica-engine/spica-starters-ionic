@@ -15,12 +15,14 @@
 </ion-header>
 <ion-content>
   <spica-user-profile-picture
+    *ngIf="!isLoading"
     [imageEditable]="user?._id==me?._id"
     (changeImage)="imageChange($event)"
     [image]="user?.thumbnail"
   ></spica-user-profile-picture>
   <spica-item-list
-    *ngIf="listItems.length>0"
+    *ngIf="listItems.length>0&& !isLoading"
     [items]="listItems"
+    (logout)="logout()"
   ></spica-item-list>
 </ion-content>

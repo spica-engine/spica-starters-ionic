@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
 import { AuthService } from '../../services/auth.service';
-import { user, User, initialize, watched_video, Watched_Video, training, Training, performance, Performance } from '../../services/bucket';
+import {
+  User,
+  Watched_Video,
+  Training,
+  Performance,
+} from '../../services/bucket';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +14,6 @@ import { user, User, initialize, watched_video, Watched_Video, training, Trainin
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-
   user: User;
   me: User;
   watchVideos: Watched_Video[];
@@ -17,11 +21,13 @@ export class ProfilePage implements OnInit {
   traning: Training[];
   performance: Performance[];
   listItems: Item[] = [];
+  isLoading: boolean = true;
   constructor(private _authService: AuthService) {
     this._authService.initBucket();
   }
 
   async ngOnInit() {
+    this.isLoading = true;
     this.user = await this._authService.getUser().toPromise();
     this.me = this.user;
     this.listItems = [
@@ -37,34 +43,26 @@ export class ProfilePage implements OnInit {
           key: 'trainings',
           value: 'Trainings',
           seperate: false,
-          link: '../trainings/'+this.user._id,
+          link: '../trainings/' + this.user._id,
         },
         {
           key: 'watched_videos',
           value: 'Watched Videos',
           seperate: false,
-          link: '../watched-videos-page/'+this.user._id,
+          link: '../watched-videos-page/' + this.user._id,
         },
         {
           key: 'food_program',
           value: 'Food Program',
           seperate: false,
-          link: '../food-program/'+this.user._id,
+          link: '../food-program/' + this.user._id,
         },
       ]);
     }
-    this.watchVideos = await this.getWatchVideos();
-    this.traning = await this.getTraning();
-    this.performance = await this.getPerformance();  
+    this.isLoading = false;
   }
-  
-  async getWatchVideos() {
-    return watched_video.getAll({ queryParams: { filter: { user: '618b75295ee9b9002f154683' }, relation: true, sort: { "_id": -1 } } });
-  }
-  async getTraning() {
-    return training.getAll({ queryParams: { filter: { user: '618b75295ee9b9002f154683' }, relation: "packet.videos" } });
-  }
-  async getPerformance() {
-    return performance.getAll({ queryParams: { filter: { user: '618b75295ee9b9002f154683' }, relation: true } });
+  logout() {
+    this.isLoading = true;
+    this._authService.logout();
   }
 }

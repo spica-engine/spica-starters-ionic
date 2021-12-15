@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface Item {
   key: string;
@@ -13,8 +14,10 @@ export interface Item {
 })
 export class SpicaItemListComponent implements OnInit {
   @Input() items: Item[] = [];
+  @Input() canLogout: boolean = true;
   seperatedItems: Item[];
   unSeperatedItems: Item[];
+  @Output() logout: EventEmitter<any> = new EventEmitter();
   /* Sample
   items = [
     {
@@ -31,10 +34,16 @@ export class SpicaItemListComponent implements OnInit {
     },
   ];
   */
-  constructor() {}
+  constructor(private _router: Router) {}
 
   ngOnInit() {
     this.seperatedItems = this.items.filter((item) => item.seperate);
     this.unSeperatedItems = this.items.filter((item) => !item.seperate);
+  }
+  logOut() {
+    this.logout.emit();
+    setTimeout(() => {
+      this._router.navigate(['/home'], { replaceUrl: true });
+    }, 1000);
   }
 }

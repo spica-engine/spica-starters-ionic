@@ -27,10 +27,19 @@ export class UserService {
             filter: { identity_id: identity_id },
           },
         })
-        .then((data) => {
-          this.me = data[0];
-          return data[0];
-        })
+        .then(
+          (data) => {
+            this.me = data[0];
+            return data[0];
+          },
+          (err) => {
+            console.log('err :,', err);
+            return of(null).toPromise();
+          }
+        )
+        .catch((e) => {
+          console.log('er :', e);
+        });
     }
 
     return result;
@@ -58,5 +67,9 @@ export class UserService {
   }
   initializeOrm() {
     initialize({ identity: localStorage.getItem('job-portal_spica_token') });
+  }
+  logOut() {
+    this.me=undefined;
+    localStorage.removeItem('job-portal_spica_token');
   }
 }

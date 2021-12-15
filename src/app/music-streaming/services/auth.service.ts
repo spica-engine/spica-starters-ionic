@@ -54,8 +54,7 @@ export class AuthService {
 
   logout() {
     this.activeUser = undefined;
-    localStorage.clear();
-    return true;
+    localStorage.removeItem(environment.TOKEN_KEY)
   }
 
   register(user_data) {

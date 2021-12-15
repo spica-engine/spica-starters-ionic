@@ -50,9 +50,4 @@ export class AuthService {
   getIdentityId() {
     return this.getDecodeToken()?._id || null;
   }
-
-  logOut() {
-    localStorage.clear();
-    window.location.href = '/';
-  }
 }

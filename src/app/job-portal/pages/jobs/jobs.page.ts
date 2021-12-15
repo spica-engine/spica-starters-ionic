@@ -40,7 +40,6 @@ export class JobsPage implements OnInit {
         } else this.loading = false;
       },
       (err) => {
-        console.log('err :', err);
         this.loading = false;
       }
     );

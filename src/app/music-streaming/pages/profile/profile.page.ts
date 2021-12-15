@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
@@ -12,21 +11,23 @@ import { Item } from 'src/app/components/spica-item-list/spica-item-list.compone
 export class ProfilePage implements OnInit {
   user: DataService.User;
   listItems: Item[] = [];
+  isLoading: boolean = true;
 
-  constructor(private _authService: AuthService, private _router: Router) {
+  constructor(private _authService: AuthService) {
     this._authService.initBucket();
   }
 
   ngOnInit() {}
 
   async ionViewWillEnter() {
-    this.user = await this._authService.getUser().toPromise()
+    this.isLoading = true;
+    this.user = await this._authService.getUser().toPromise();
 
-    if(!this.user){
+    if (!this.user) {
       this.logout();
       return;
     }
-    
+
     this.listItems = [
       { key: 'username', value: '', seperate: true },
       { key: 'name', value: '', seperate: true },
@@ -36,10 +37,11 @@ export class ProfilePage implements OnInit {
     this.listItems.forEach(
       (item) => (item.value = this.user[item.key] ? this.user[item.key] : '')
     );
+    this.isLoading = false;
   }
 
-  logout(){
+  logout() {
+    this.isLoading = true;
     this._authService.logout();
-    this._router.navigate(['/music-streaming/authorization'], {replaceUrl: true})
   }
 }

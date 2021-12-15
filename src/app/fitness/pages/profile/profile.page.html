@@ -1,6 +1,4 @@
-<spica-menu-bar
-  project="fitness"
-></spica-menu-bar>
+<spica-menu-bar project="fitness"></spica-menu-bar>
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-title>profile</ion-title>
@@ -9,10 +7,12 @@
 
 <ion-content>
   <spica-user-profile-picture
+    *ngIf="!isLoading"
     [image]="me?.image"
   ></spica-user-profile-picture>
   <spica-item-list
-    *ngIf="listItems.length>0"
+    *ngIf="listItems.length>0 && !isLoading"
     [items]="listItems"
+    (logout)="logout()"
   ></spica-item-list>
 </ion-content>

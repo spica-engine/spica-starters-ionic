@@ -53,15 +53,14 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear();
-    return true;
+    localStorage.removeItem(environment.TOKEN_KEY);
   }
 
   register(user_data) {
     return this.http
       .post(`${environment.apiUrl}/fn-execute/music-register`, {
         user_data,
-        project: 'FITNESS'
+        project: 'FITNESS',
       })
       .toPromise();
   }

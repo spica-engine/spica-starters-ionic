@@ -15,16 +15,16 @@ export class ProfilePage implements OnInit {
   user: User;
   me: User;
   listItems: Item[] = [];
+  isLoading: boolean = true;
   constructor(
     private _userService: UserService,
     private _imageService: ImageService,
     private _route: ActivatedRoute
   ) {}
   async ngOnInit() {
-
     this.me = await this._userService.getActiveUser();
     let queryParam = await this._route.snapshot.paramMap.get('userId');
-    if (queryParam && queryParam!='me'&& this.me._id != queryParam)
+    if (queryParam && queryParam != 'me' && this.me._id != queryParam)
       this.user = await this._userService.getUserById(queryParam, true);
     else this.user = this.me;
 
@@ -58,6 +58,7 @@ export class ProfilePage implements OnInit {
         },
       ]);
     }
+    this.isLoading = false;
   }
   imageChange(data) {
     let mimetype = data.split(';')[0].split(':')[1];
@@ -82,5 +83,9 @@ export class ProfilePage implements OnInit {
         profile_picture: this.me.profile_picture,
       });
     });
+  }
+  logout() {
+    this.isLoading = true;
+    this._userService.logOut();
   }
 }

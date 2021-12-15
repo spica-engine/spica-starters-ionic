@@ -23,6 +23,18 @@
       ion-list {
         ion-item {
           font-weight: 500;
+          &.logout {
+            ion-label > div {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              ion-icon {
+                height: 19px;
+                width: 19px;
+                margin-left: 10px;
+              }
+            }
+          }
         }
       }
     }

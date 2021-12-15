@@ -8,7 +8,7 @@
 
 <ion-content>
   <spica-user-profile-picture [image]="me?.picture"></spica-user-profile-picture>
-  <spica-item-list *ngIf="listItems.length>0" [items]="listItems"></spica-item-list>
+  <spica-item-list *ngIf="listItems.length>0" [items]="listItems" [canLogout]="false"></spica-item-list>
   <ion-card>
     <ion-card-content>
       <ion-label>

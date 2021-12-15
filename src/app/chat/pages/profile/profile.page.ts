@@ -18,6 +18,7 @@ export class ProfilePage {
   searchedText: string = '';
   listItems: Item[] = [];
   isFriend: boolean = false;
+  isLoading: boolean = true;
   constructor(
     private _userService: UserService,
     private _route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class ProfilePage {
   ) {}
 
   async ionViewWillEnter() {
+    this.isLoading = true;
     this.me = await this._userService.getActiveUser();
     let queryParam = await this._route.snapshot.paramMap.get('userId');
     if (queryParam && this.me._id != queryParam) {
@@ -52,6 +54,7 @@ export class ProfilePage {
         link: 'friends',
       });
     }
+    this.isLoading = false;
   }
   imageChange(data) {
     let mimetype = data.split(';')[0].split(':')[1];
@@ -93,5 +96,9 @@ export class ProfilePage {
     }
     this._userService.me = this.me;
     await user.patch(JSON.parse(JSON.stringify(this.me)) as any);
+  }
+  logout() {
+    this.isLoading = true;
+    this._userService.logOut();
   }
 }
