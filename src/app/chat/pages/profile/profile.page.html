@@ -24,5 +24,6 @@
     *ngIf="listItems.length>0&& !isLoading"
     [items]="listItems"
     (logout)="logout()"
+    [canLogout]="user?._id==me?._id"
   ></spica-item-list>
 </ion-content>

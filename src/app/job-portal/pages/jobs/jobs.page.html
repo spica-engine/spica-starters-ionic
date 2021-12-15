@@ -1,7 +1,4 @@
-<spica-menu-bar
-  *ngIf="me && !loading"
-  project="job-portal"
-></spica-menu-bar>
+<spica-menu-bar *ngIf="me && !loading" project="job-portal"></spica-menu-bar>
 <ion-header *ngIf="me && !loading" mode="ios">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -11,15 +8,18 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="me && !loading">
-<ion-item (click)="presentFilterModal()" lines="none">
-  <ion-label slot="end">Filter</ion-label>
-  <ion-icon slot="end" name="funnel-outline"></ion-icon>
-</ion-item>
-  <ng-container *ngFor="let job of jobs">
-    <job-card [job]="job"></job-card>
-  </ng-container>
+<ion-content>
+  <div *ngIf="me && !loading">
+    <ion-item (click)="presentFilterModal()" lines="none">
+      <ion-label slot="end">Filter</ion-label>
+      <ion-icon slot="end" name="funnel-outline"></ion-icon>
+    </ion-item>
+    <ng-container *ngFor="let job of jobs">
+      <job-card [job]="job"></job-card>
+    </ng-container>
+  </div>
 </ion-content>
+
 <ion-spinner
   *ngIf="loading && !me"
   class="spinner-center-page"
