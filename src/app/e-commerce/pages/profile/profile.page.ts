@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
@@ -13,15 +13,10 @@ import * as dataService from '../../services/bucket';
 export class ProfilePage implements OnInit {
   user: dataService.User;
   isLoading: boolean = true;
-  listItems: Item[] = [
-    { key: 'name', value: '', seperate: true },
-    { key: 'surname', value: '', seperate: true },
-    { key: 'email', value: '', seperate: true },
-  ];
+  listItems: Item[] = [];
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _route: ActivatedRoute,
     private _commonService: CommonService
   ) {
     this._authService.initBucket();
@@ -35,12 +30,6 @@ export class ProfilePage implements OnInit {
     } else {
       this.isLoading = false;
     }
-
-    this._route.queryParams.subscribe((res) => {
-      if (res.from_basket) {
-      }
-    });
-    this._router.navigate([]);
   }
 
   getUser() {
@@ -50,6 +39,11 @@ export class ProfilePage implements OnInit {
       .then((user) => {
         this.user = user;
         this.isLoading = false;
+        this.listItems = [
+          { key: 'name', value: '', seperate: true },
+          { key: 'surname', value: '', seperate: true },
+          { key: 'email', value: '', seperate: true },
+        ];
         this.listItems.forEach(
           (item) =>
             (item.value = this.user[item.key] ? this.user[item.key] : '')
@@ -65,7 +59,7 @@ export class ProfilePage implements OnInit {
             key: 'addresses',
             value: 'Addresses',
             seperate: false,
-            link: 'applied-jobs',
+            link: '',
           },
         ]);
       });

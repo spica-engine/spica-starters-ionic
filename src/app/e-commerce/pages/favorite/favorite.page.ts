@@ -8,7 +8,7 @@ import * as dataService from '../../services/bucket';
   templateUrl: './favorite.page.html',
   styleUrls: ['./favorite.page.scss'],
 })
-export class FavoritePage implements OnInit {
+export class FavoritePage {
   likedProducts: any = [];
   likedDataId: string;
   isLoading: boolean = true;
@@ -18,7 +18,7 @@ export class FavoritePage implements OnInit {
     this._authService.initBucket();
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.user = await this.getActiveUser();
     if (this.user) {
       await this.getLikedData();

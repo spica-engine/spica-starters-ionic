@@ -53,12 +53,13 @@ export class AuthService {
   }
 
   logout() {
+    this.activeUser = undefined;
     localStorage.removeItem(environment.TOKEN_KEY);
   }
 
   register(user_data) {
     return this.http
-      .post(`${environment.apiUrl}/fn-execute/music-register`, {
+      .post(`${environment.apiUrl}/fn-execute/register`, {
         user_data,
         project: 'FITNESS',
       })

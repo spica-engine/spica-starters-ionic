@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { video, Video, initialize } from '../../services/bucket';
+import { video, Video } from '../../services/bucket';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 

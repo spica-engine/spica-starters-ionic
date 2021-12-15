@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { food_program, initialize } from '../../services/bucket';
+import { food_program } from '../../services/bucket';
 
 @Component({
   selector: 'app-food-program-detail',
