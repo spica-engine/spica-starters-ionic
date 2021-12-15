@@ -5,12 +5,14 @@
 </ion-header>
 
 <ion-content>
-
   <div class="auth-container" *ngIf="!user && !isLoading">
-    <spica-authorization (clickLogin)="login($event)" (clickRegister)="register($event)"></spica-authorization>
+    <spica-authorization
+      (clickLogin)="login($event)"
+      (clickRegister)="register($event)"
+    ></spica-authorization>
   </div>
 
-  <div class="profile-content" *ngIf="user && !isLoading">
+  <!-- <div class="profile-content" *ngIf="user && !isLoading">
     <ion-item lines="none" class="user-metadata">
       <ion-label class="ion-text-wrap">
         <ion-text class="welcome-box">
@@ -51,9 +53,22 @@
         <span>Logout</span>
       </ion-label>
     </ion-item>
-  </div>
+  </div> -->
 
-  <div class="spinner-container" *ngIf="isLoading">
-    <ion-spinner></ion-spinner>
-  </div>
+  <spica-user-profile-picture
+    *ngIf="!isLoading && user"
+    [imageEditable]="false"
+    [image]="user.picture"
+  ></spica-user-profile-picture>
+  <spica-item-list
+    *ngIf="listItems.length>0&& !isLoading && user"
+    [items]="listItems"
+    (logout)="logout()"
+  ></spica-item-list>
+
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
 </ion-content>

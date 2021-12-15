@@ -1,6 +1,9 @@
 :host {
   .item-list {
     padding: 0 10px;
+    ion-list {
+      padding: 0;
+    }
     .seperate-section {
       display: flex;
       ion-list {

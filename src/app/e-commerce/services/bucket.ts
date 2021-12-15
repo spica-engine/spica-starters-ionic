@@ -695,6 +695,7 @@ export interface User{
   name?: string;
   surname?: string;
   phone?: string;
+  picture?: string;
   address?: {
   title?: string;
   country?: string;

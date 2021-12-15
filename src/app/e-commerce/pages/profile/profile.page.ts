@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
 import * as dataService from '../../services/bucket';
@@ -12,7 +13,11 @@ import * as dataService from '../../services/bucket';
 export class ProfilePage implements OnInit {
   user: dataService.User;
   isLoading: boolean = true;
-
+  listItems: Item[] = [
+    { key: 'name', value: '', seperate: true },
+    { key: 'surname', value: '', seperate: true },
+    { key: 'email', value: '', seperate: true },
+  ];
   constructor(
     private _authService: AuthService,
     private _router: Router,
@@ -39,22 +44,47 @@ export class ProfilePage implements OnInit {
   }
 
   getUser() {
-    this._authService.getUser().subscribe((user) => {
-      this.user = user;
-      this.isLoading = false;
-    });
+    this._authService
+      .getUser()
+      .toPromise()
+      .then((user) => {
+        this.user = user;
+        this.isLoading = false;
+        this.listItems.forEach(
+          (item) =>
+            (item.value = this.user[item.key] ? this.user[item.key] : '')
+        );
+        this.listItems = this.listItems.concat([
+          {
+            key: 'order',
+            value: 'Orders',
+            seperate: false,
+            link: '',
+          },
+          {
+            key: 'addresses',
+            value: 'Addresses',
+            seperate: false,
+            link: 'applied-jobs',
+          },
+        ]);
+      });
   }
 
   async login(loginData) {
-    this._authService.login(loginData.email, loginData.password).subscribe(
-      async (_) => {
-        this.getUser();
-        window.location.reload();
-      },
-      (err) => {
-        this._commonService.presentToast(err.message, 1500);
-      }
-    );
+    this.isLoading = true;
+    this._authService
+      .login(loginData.email, loginData.password)
+      .toPromise()
+      .then(
+        async (_) => {
+          this.getUser();
+          this._commonService.presentToast('Login Successful !', 1500);
+        },
+        (err) => {
+          this._commonService.presentToast(err.message, 1500);
+        }
+      );
   }
 
   async register(registerData) {
@@ -70,9 +100,9 @@ export class ProfilePage implements OnInit {
   }
 
   logout() {
+    this.isLoading = true;
     this.user = undefined;
     this._authService.logout();
-    window.location.reload();
   }
 
   navigateToBasket() {
