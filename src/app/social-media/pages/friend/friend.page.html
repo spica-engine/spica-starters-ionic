@@ -31,7 +31,7 @@
     *ngIf="loading"
   ></ion-spinner>
   <ion-list lines="full" *ngIf="!loading">
-    <ion-item detail="false" *ngFor="let item of showedUsers">
+    <ion-item class="ion-no-padding" detail="false" *ngFor="let item of showedUsers">
       <user-minified-card
         [user]="item.user"
         [type]="'horizontal'"

@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SpicaComponentsModule } from './components/components.module';
-import { JobPortalModule } from './job-portal/job-portal.module';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],

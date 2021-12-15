@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'spica-starter-projects',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class StarterProjectsComponent implements OnInit {
   @Output() clickedProject: EventEmitter<any> = new EventEmitter();
-  constructor(private _router: Router) {}
+  constructor(private _router: Router,private _commonService:CommonService) {}
 
   projects = [];
 
@@ -49,9 +50,23 @@ export class StarterProjectsComponent implements OnInit {
       { name: 'Chat', route: '/chat', icon: 'chatbox-ellipses-outline' },
       { name: 'Job Portal', route: '/job-portal', icon: 'filter-outline' },
       { name: 'Portfolio', route: '/portfolio', icon: 'newspaper-outline' },
-      { name: 'Store Listing', route: '/store-listing', icon: 'storefront-outline' },
+      {
+        name: 'Store Listing',
+        route: '/store-listing',
+        icon: 'storefront-outline',
+      },
       { name: 'Appointment', route: '/appointment', icon: 'calendar-outline' },
       { name: 'Forum', route: '/forum', icon: 'text-outline' },
     ];
+  }
+  copyToClipboard(str) {
+    const el = document.createElement('textarea');
+    el.value = str;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this._commonService.presentToast("Copied !",1000)
+    
   }
 }

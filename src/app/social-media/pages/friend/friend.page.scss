@@ -9,7 +9,11 @@
     width: 20px;
     color: unset;
   }
-  .d-flex{
+  .d-flex {
     display: flex;
+  }
+
+  ion-list {
+    margin: 0 10px;
   }
 }

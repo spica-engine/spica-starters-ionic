@@ -54,6 +54,10 @@ html {
           min-height: 100%;
         }
       }
+      ion-avatar {
+        width: 48px;
+        height: 48px;
+      }
     }
     // width: 360px;
     // height: 660px;
@@ -61,7 +65,10 @@ html {
     // max-height: 660px;
   }
 }
-
+ion-avatar {
+  width: 48px;
+  height: 48px;
+}
 ion-button {
   --border-radius: 40px;
 }
