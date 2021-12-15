@@ -22,6 +22,21 @@ export class AuthorizationPage implements OnInit {
 
   ngOnInit() {}
 
+  async ionViewWillEnter() {
+    this.isLoading = true;
+    let user = await this._authService.getUser().toPromise();
+    this.isLoading = false;
+    if (user) {
+      this.nvigateToHome();
+    }
+  }
+
+  nvigateToHome() {
+    this._router.navigateByUrl('/music-streaming/tabs/home', {
+      replaceUrl: true,
+    });
+  }
+
   login(loginData) {
     this.isLoading = true;
     this._authService
@@ -29,16 +44,16 @@ export class AuthorizationPage implements OnInit {
       .toPromise()
       .then((res) => {
         this.isLoading = false;
-        this._router.navigate(['/music-streaming/tabs/home']);
+        this.nvigateToHome();
       })
       .catch((err) => {
         this.isLoading = false;
-        this._commonService.presentToast(err.message, 1500)
+        this._commonService.presentToast(err.message, 1500);
       });
   }
 
-  register(registerData) {   
-    this.isLoading = true; 
+  register(registerData) {
+    this.isLoading = true;
     this._authService
       .register({ ...registerData })
       .then((res) => {

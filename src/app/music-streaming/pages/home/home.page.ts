@@ -10,7 +10,7 @@ import * as DataService from '../../services/bucket';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage {
   slideOpts = {
     slidesPerView: 2.4,
     coverflowEffect: {
@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
   user: DataService.User;
   recommended: DataService.Artist[] = [];
   followedArtistsIds: string[] = [];
+  isLoading: boolean = true;
 
   constructor(
     private _authService: AuthService,
@@ -35,7 +36,7 @@ export class HomePage implements OnInit {
     this._authService.initBucket();
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
 
     if(this.userId){
@@ -45,6 +46,7 @@ export class HomePage implements OnInit {
       }
       this.recommended = await this.getRecommended();
     }
+    this.isLoading = false;
   }
 
   async getUser() {

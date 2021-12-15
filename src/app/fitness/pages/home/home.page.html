@@ -1,11 +1,16 @@
-<spica-menu-bar
-*ngIf="me && !loading"
-  project="fitness"
-></spica-menu-bar>
+<spica-menu-bar *ngIf="me && !loading" project="fitness"></spica-menu-bar>
+<ion-header mode="ios" *ngIf="loading && !me">
+  <ion-toolbar>
+    <ion-title>Categories</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content slot="fixed" [fullscreen]="true" *ngIf="me && !loading">
- <div class="content">
-   <spica-category [categories]="branches" (clickNavigate)="navigateCategory($event)" ></spica-category>
- </div>
+  <div class="content">
+    <spica-category
+      [categories]="branches"
+      (clickNavigate)="navigateCategory($event)"
+    ></spica-category>
+  </div>
 </ion-content>
 <ion-spinner
   *ngIf="loading && !me"

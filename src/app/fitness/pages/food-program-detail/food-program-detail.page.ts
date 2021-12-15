@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { food_program,initialize } from '../../services/bucket';
+import { food_program, initialize } from '../../services/bucket';
 
 @Component({
   selector: 'app-food-program-detail',
@@ -9,15 +9,18 @@ import { food_program,initialize } from '../../services/bucket';
   styleUrls: ['./food-program-detail.page.scss'],
 })
 export class FoodProgramDetailPage implements OnInit {
-id:any;
-program:any;
-  constructor(private _route: ActivatedRoute, private _authService: AuthService) { 
+  id: any;
+  program: any;
+  constructor(
+    private _route: ActivatedRoute,
+    private _authService: AuthService
+  ) {
     this._authService.initBucket();
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.id = this._route.snapshot.params.id;
-    this.program = await this.getProgram();    
+    this.program = await this.getProgram();
   }
   async getProgram() {
     return food_program.get(this.id);
@@ -26,5 +29,5 @@ program:any;
     initialSlide: 0,
     sliderPerView: 1,
     spaceBetween: 0,
-  }
+  };
 }

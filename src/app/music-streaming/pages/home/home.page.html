@@ -10,47 +10,55 @@
 </ion-header>
 
 <ion-content>
-  <ng-container  *ngIf="user">
-  <div class="part-container">
-    <ion-text class="part-title">To Get You Started</ion-text>
+  <ion-spinner class="spinner-center-page" *ngIf="isLoading"></ion-spinner>
+  <ng-container *ngIf="user && !isLoading">
+    <div class="part-container">
+      <ion-text class="part-title">To Get You Started</ion-text>
 
-    <ion-slides [options]="slideOpts">
-      <ion-slide
-        *ngFor="let folowing of user.followed_artists; let index = index"
-        (click)="navigateToList(folowing['_id'])"
-        [class.first]="index==0"
-      >
-        <music-part-item [data]="{img: folowing['profile_picture'], text: folowing['name']}"></music-part-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
+      <ion-slides [options]="slideOpts">
+        <ion-slide
+          *ngFor="let folowing of user.followed_artists; let index = index"
+          (click)="navigateToList(folowing['_id'])"
+          [class.first]="index==0"
+        >
+          <music-part-item
+            [data]="{img: folowing['profile_picture'], text: folowing['name']}"
+          ></music-part-item>
+        </ion-slide>
+      </ion-slides>
+    </div>
 
-  <div class="part-container">
-    <ion-text class="part-title">Try Something Different</ion-text>
+    <div class="part-container">
+      <ion-text class="part-title">Try Something Different</ion-text>
 
-    <ion-slides [options]="slideOpts">
-      <ion-slide
-        *ngFor="let item of recommended let index = index"
-        (click)="navigateToList(item['_id'])"
-        [class.first]="index==0"
-      >
-        <music-part-item [data]="{img: item['profile_picture'], text: item['name']}"></music-part-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
+      <ion-slides [options]="slideOpts">
+        <ion-slide
+          *ngFor="let item of recommended let index = index"
+          (click)="navigateToList(item['_id'])"
+          [class.first]="index==0"
+        >
+          <music-part-item
+            [data]="{img: item['profile_picture'], text: item['name']}"
+          ></music-part-item>
+        </ion-slide>
+      </ion-slides>
+    </div>
 
-  <div class="part-container last recommended">
-    <ion-text class="part-title">Recommended Artists</ion-text>
+    <div class="part-container last recommended">
+      <ion-text class="part-title">Recommended Artists</ion-text>
 
-    <ion-slides [options]="slideOpts">
-      <ion-slide
-        *ngFor="let item of recommended let index = index"
-        (click)="navigateToList(item['_id'])"
-        [class.first]="index==0"
-      >
-      <music-part-item [data]="{img: item['profile_picture'], text: item['name']}" [isCircle]="true"></music-part-item>
-      </ion-slide>
-    </ion-slides>
-  </div>
-</ng-container>
+      <ion-slides [options]="slideOpts">
+        <ion-slide
+          *ngFor="let item of recommended let index = index"
+          (click)="navigateToList(item['_id'])"
+          [class.first]="index==0"
+        >
+          <music-part-item
+            [data]="{img: item['profile_picture'], text: item['name']}"
+            [isCircle]="true"
+          ></music-part-item>
+        </ion-slide>
+      </ion-slides>
+    </div>
+  </ng-container>
 </ion-content>

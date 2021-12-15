@@ -26,11 +26,11 @@ export class StarterProjectsComponent implements OnInit {
       //   route: '/food-delivery/home',
       //   icon: 'fast-food-outline',
       // },
-      // {
-      //   name: 'Fitness Application',
-      //   route: '/fitness',
-      //   icon: 'barbell-outline',
-      // },
+      {
+        name: 'Fitness Application',
+        route: '/fitness',
+        icon: 'barbell-outline',
+      },
       {
         name: 'E-Commerce Application',
         route: '/e-commerce',

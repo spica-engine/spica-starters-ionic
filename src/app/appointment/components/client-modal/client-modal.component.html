@@ -1,5 +1,5 @@
 
-<ion-header>
+<ion-header mode="ios">
     <ion-toolbar>
         <ion-title>{{action=='create' ? 'New Client': 'Client Details'}}</ion-title>
       <ion-icon name="close" slot="end" (click)="dismiss('close')"></ion-icon>
@@ -24,7 +24,7 @@
         <ion-datetime [(ngModel)]="client.date_of_birth" ></ion-datetime>
       </ion-item>
 
-      <div class="appointments-container hide-scroll-bar" [class.show]="showAppointments">
+      <div class="appointments-container hide-scroll-bar" [class.show]="showAppointments" *ngIf="action!='create'">
         <h6 class="show-btn" (click)="showAppointments = !showAppointments">Show Appointments <ion-icon name="chevron-forward-outline"></ion-icon></h6>
         <appointment-card [employee]="true" [appointment]="appointment" *ngFor="let appointment of appointments">
         </appointment-card>

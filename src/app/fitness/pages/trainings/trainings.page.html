@@ -1,26 +1,27 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar>
     <ion-title>Trainings</ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-
 </ion-header>
 
 <ion-content>
+  <ion-spinner class="spinner-center-page" *ngIf="!training"></ion-spinner>
   <ng-container *ngFor="let exercise of training">
-
     <ion-card>
       <ion-card-header>
-        <ion-card-title>
-          {{exercise.name}}
-        </ion-card-title>
+        <ion-card-title> {{exercise.name}} </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-slides pager="true" [options]="slideOpts">
           <ion-slide *ngFor="let trainingVideo of exercise.packet['videos']">
-            <img src="{{trainingVideo.image}}" alt="" [routerLink]="['/fitness/video-details/'+ trainingVideo._id]">
+            <img
+              [src]="trainingVideo.image"
+              alt=""
+              [routerLink]="['/fitness/video-details/'+ trainingVideo._id]"
+            />
           </ion-slide>
         </ion-slides>
       </ion-card-content>

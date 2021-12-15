@@ -24,12 +24,16 @@ export class LoginPage implements OnInit {
 
   async ionViewWillEnter() {
     if (await this._authService.getUser().toPromise()) {
-      this.loginForm.reset();
-      this._router.navigateByUrl('/appointment/tabs/appointments', {
-        replaceUrl: true,
-      });
+      this.navigateToAppointments();
     }
   }
+
+  navigateToAppointments(){
+    this._router.navigateByUrl('/appointment/tabs/appointments', {
+      replaceUrl: true,
+    });
+  }
+
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
       username: '',
@@ -43,11 +47,8 @@ export class LoginPage implements OnInit {
       .toPromise()
       .then((res) => {
         this.isLoading = false;
-        // this.loginForm.reset();
-        // this._router.navigateByUrl('/appointment/tabs/appointments', {
-        //   replaceUrl: true,
-        // });
-        window.location.reload();
+        this.loginForm.reset();
+        this.navigateToAppointments();
       })
       .catch((err) => {
         this.isLoading = false;

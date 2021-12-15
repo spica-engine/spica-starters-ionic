@@ -8,7 +8,9 @@
   ></ion-searchbar>
 
   <div class="artists-container">
-    <ng-container *ngIf="type == 'artist'">
+    <ion-spinner class="spinner-center-page" *ngIf="isLoading"></ion-spinner>
+
+    <ng-container *ngIf="type == 'artist' && artists.length">
       <music-part-item
         *ngFor="let artist of artists"
         [data]="{ img: artist['profile_picture'], text: artist['name'] }"
@@ -17,7 +19,7 @@
         [class.selected]="selectedData.includes(artist._id)"
       ></music-part-item>
     </ng-container>
-    <ng-container *ngIf="type == 'track'">
+    <ng-container *ngIf="type == 'track' && tracks.length">
       <music-part-item
         *ngFor="let track of tracks"
         [data]="{ img: track['cover'], text: track['name'] }"

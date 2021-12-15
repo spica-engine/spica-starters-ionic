@@ -22,7 +22,7 @@ export class ProfilePage implements OnInit {
   }
 
   async ngOnInit() {
-    this.user = await this.getUser();
+    this.user = await this._authService.getUser().toPromise();
     this.me = this.user;
     this.listItems = [
       { key: 'name', value: '', seperate: true },
@@ -58,9 +58,6 @@ export class ProfilePage implements OnInit {
     this.performance = await this.getPerformance();  
   }
   
-  async getUser() {
-    return user.get("618b75295ee9b9002f154683");
-  }
   async getWatchVideos() {
     return watched_video.getAll({ queryParams: { filter: { user: '618b75295ee9b9002f154683' }, relation: true, sort: { "_id": -1 } } });
   }

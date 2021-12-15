@@ -6,7 +6,7 @@
   </ion-card-header>
   <ion-card-content>
     <div class="image-play">
-      <ion-icon name="play-outline"></ion-icon>
+      <ion-icon name="play-outline" [routerLink]="['video-details',video?._id]"></ion-icon>
       <img [src]="video?.image" [routerLink]="['video-details',video?._id]">
     </div>
     <ion-item detail="false" lines="none" [routerLink]="['teacher-page',video?.teacher['_id']]">

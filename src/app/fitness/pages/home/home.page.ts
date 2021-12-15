@@ -37,7 +37,7 @@ export class HomePage implements OnInit {
   async getBranches() {
     this.branches = await teacher_speciality.getAll({ queryParams: { relation: true } });
     this.branches.forEach((item) => {
-      item['sub_category'] = item.categories;
+      item['sub_categories'] = item.categories;
       return item
     }) as any;
   }
@@ -78,6 +78,7 @@ export class HomePage implements OnInit {
   getMe() {
     this._userService.getActiveUser().then(
       async (data: User) => {
+        
         if (data && !this.me) {
           this.me = data;
           this.loading = false;

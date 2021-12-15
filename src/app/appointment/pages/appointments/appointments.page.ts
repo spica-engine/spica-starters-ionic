@@ -9,7 +9,7 @@ import * as DataService from '../../services/bucket';
   templateUrl: './appointments.page.html',
   styleUrls: ['./appointments.page.scss'],
 })
-export class AppointmentsPage implements OnInit {
+export class AppointmentsPage {
   screen: string = 'coming';
   user: DataService.Employee;
   appointments: DataService.Appointment[] = [];
@@ -22,7 +22,7 @@ export class AppointmentsPage implements OnInit {
     private _modalController: ModalController
   ) {}
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.user = await this._authService.getUser().toPromise();
     if(this.user){
       await this.getAppointments();

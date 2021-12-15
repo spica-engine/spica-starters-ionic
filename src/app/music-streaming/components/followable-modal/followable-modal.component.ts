@@ -15,6 +15,7 @@ export class FollowableModalComponent implements OnInit {
   playList: DataService.Playlist;
   selectedData: string[] = [];
   searchTerm: string;
+  isLoading: boolean = true;
 
   @Input() type: string = 'artist';
   @Input() playListId: string = '';
@@ -34,6 +35,7 @@ export class FollowableModalComponent implements OnInit {
       this.playList = await this.getPlayList();
       this.tracks = await this.getTracks();
     }
+    this.isLoading = false;
   }
 
   getUser() {

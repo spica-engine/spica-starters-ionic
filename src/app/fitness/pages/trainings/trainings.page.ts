@@ -16,6 +16,7 @@ export class TrainingsPage implements OnInit {
   }
   async ionViewWillEnter() {
     this.training = await this.getTraining();
+    console.log(this.training)
   }
   async ngOnInit() {
     this.id = this._route.snapshot.params.id;

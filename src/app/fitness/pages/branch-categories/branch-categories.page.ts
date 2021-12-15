@@ -18,7 +18,7 @@ export class BranchCategoriesPage implements OnInit {
   categoryName: any;
   async ionViewWillEnter() {
     this.videos = await this.getVideos();
-    this.categoryName =  this.videos[0].category ;
+    this.categoryName =  this.videos[0]?.category ;
   }
   async ngOnInit() {
     this.id = this._route.snapshot.params.id;

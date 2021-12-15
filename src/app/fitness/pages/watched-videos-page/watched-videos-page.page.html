@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar >
     <ion-title>Watched Video</ion-title>
     <ion-buttons slot="start">
@@ -8,8 +8,6 @@
 </ion-header>
 
 <ion-content>
-
   <app-video-card [video]="watched.video" *ngFor="let watched of watchedVideos"></app-video-card>
-
-
+  <ion-spinner class="spinner-center-page" *ngIf="!watchedVideos"></ion-spinner>
 </ion-content>

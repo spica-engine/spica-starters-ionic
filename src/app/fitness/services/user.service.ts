@@ -18,13 +18,14 @@ export class UserService {
   getActiveUser(): Promise<User> {
     let result: Promise<User>;
     let identity_id = this.getIdentityId();
+    
     if (this.me) {
       result = of(this.me).toPromise();
     } else {
       result = user
         .getAll({
           queryParams: {
-            filter: { identity: identity_id },
+            filter: { identity_id: identity_id },
           },
         })
         .then((data) => {
@@ -46,7 +47,7 @@ export class UserService {
   }
 
   getIdentityId() {
-    return this._authService.getActiveToken();
+    return (this._authService.getActiveToken())._id || null;
   }
 
   updateProfile(updatedUser) {

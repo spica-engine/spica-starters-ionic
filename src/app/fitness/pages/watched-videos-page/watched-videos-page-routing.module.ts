@@ -6,8 +6,18 @@ import { WatchedVideosPagePage } from './watched-videos-page.page';
 const routes: Routes = [
   {
     path: ':id',
-    component: WatchedVideosPagePage
-  }
+    // component: WatchedVideosPagePage
+    children: [
+      { path: '', component: WatchedVideosPagePage },
+      {
+        path: 'video-details',
+        loadChildren: () =>
+          import('../video-details/video-details.module').then(
+            (m) => m.VideoDetailsPageModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({

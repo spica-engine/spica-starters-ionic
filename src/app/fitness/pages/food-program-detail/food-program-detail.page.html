@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header mode="ios">
   <ion-toolbar >
     <ion-title>Program</ion-title>
     <ion-buttons slot="start">
@@ -17,10 +17,11 @@
       <ion-slide *ngFor="let meal of day.meal">
         <ion-label>
           <h1>{{meal.number_of_meal+". Meal"}}</h1>
-          <h3>{{meal.description}}</h3>
+          <h3 [innerHtml]="meal.description"></h3>
         </ion-label>
       </ion-slide>
     </ion-slides>
   </ion-card-content>
 </ion-card>
+<ion-spinner class="spinner-center-page" *ngIf="!program?.days"></ion-spinner>
 </ion-content>

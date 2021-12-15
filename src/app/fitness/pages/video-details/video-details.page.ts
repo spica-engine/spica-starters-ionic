@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from '../../services/environment';
-import { video,Video,initialize,watched_video} from '../../services/bucket';
+import { video,Video,initialize,watched_video, User} from '../../services/bucket';
 import { AuthService } from '../../services/auth.service';
 
 
@@ -14,21 +14,22 @@ export class VideoDetailsPage implements OnInit {
 
   id: any;
   video: Video;
+  user: User;
   userVideo;
   constructor(private _route: ActivatedRoute, private _authService: AuthService) {
     this._authService.initBucket();
 
   }
   async ngOnInit() {
+    this.user = (await this._authService.getUser().toPromise())
     this.id = this._route.snapshot.params.id;
     this.video = await this.getVideo();
-
   }
   async getVideo() {
     return video.get(this.id);
   }
   async watchVideo() {
-    return watched_video.getAll({ queryParams: { filter: { user: environment.user, video: this.id } } });
+    return watched_video.getAll({ queryParams: { filter: { user: this.user._id, video: this.id } } });
 
   }
 
@@ -37,7 +38,8 @@ export class VideoDetailsPage implements OnInit {
 
     if (!this.userVideo.length) {
       watched_video.insert({
-        user: environment.user,
+        name: this.user.mail,
+        user: this.user._id,
         video: this.id,
       })
 

@@ -21,6 +21,11 @@ export class ProfilePage implements OnInit {
 
   async ionViewWillEnter() {
     this.user = await this._authService.getUser().toPromise()
+
+    if(!this.user){
+      this.logout();
+      return;
+    }
     
     this.listItems = [
       { key: 'username', value: '', seperate: true },
@@ -35,6 +40,6 @@ export class ProfilePage implements OnInit {
 
   logout(){
     this._authService.logout();
-    this._router.navigate(['/music-streaming/authorization'])
+    this._router.navigate(['/music-streaming/authorization'], {replaceUrl: true})
   }
 }

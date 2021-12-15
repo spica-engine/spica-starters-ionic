@@ -1,9 +1,13 @@
-<ion-header>
-    <ion-toolbar>
-      <ion-back-button slot="start" defaultHref="/"></ion-back-button>
-        <ion-title>{{categoryName?.name}}</ion-title>
-    </ion-toolbar>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>{{categoryName?.name}}</ion-title>
+  </ion-toolbar>
 </ion-header>
 <ion-content>
-<app-video-card [video]="video" *ngFor="let video of videos"></app-video-card>
+  <app-video-card [video]="video" *ngFor="let video of videos"></app-video-card>
+  <ion-spinner
+    class="spinner-center-page"
+    *ngIf="!videos"
+  ></ion-spinner>
 </ion-content>

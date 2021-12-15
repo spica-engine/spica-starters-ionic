@@ -95,6 +95,7 @@ ion-spinner {
     transform: translate(-50%, -50%);
     color: var(--ion-color-primary);
     z-index: 100;
+    animation-duration: 0s !important;
   }
 }
 

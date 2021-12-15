@@ -32,7 +32,7 @@ export class TabsPage implements OnInit {
   async checkUserLogin() {
     this.user = await this._authService.getUser().toPromise();
     if (!this.user) {
-      this._router.navigate(['/music-streaming/authorization']);
+      this._router.navigate(['/music-streaming/authorization'], {replaceUrl: true});
     }
   }
 

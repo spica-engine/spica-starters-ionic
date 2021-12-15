@@ -1,6 +1,6 @@
-<ion-header mode="ios">
+<ion-header mode="ios" *ngIf="user">
   <ion-toolbar>
-    <ion-title>{{user?._id ? 'Profile' : ''}}</ion-title>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
