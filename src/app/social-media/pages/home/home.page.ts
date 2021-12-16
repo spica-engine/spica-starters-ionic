@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { UserService } from '../../services/user.service';
 import { Post, User, post, initialize, follow } from '../../services/bucket';
 import { PostCreatePage } from '../post-create/post-create.page';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -40,6 +41,9 @@ export class HomePage implements OnInit {
   discarded_post: string = '';
   unreadMessages: number = 0;
   user_followers = [];
+  activitySubscribe: Subscription;
+  chatSubscribe: Subscription;
+  userSubscription: Subscription;
 
   constructor(
     private _userService: UserService,
@@ -54,15 +58,14 @@ export class HomePage implements OnInit {
     initialize({ identity: localStorage.getItem('socialmedia_spica_token') });
   }
   ngOnInit() {
-    this._activityService
+    this.activitySubscribe = this._activityService
       .getUnseenActivity()
       .subscribe((data) => (this.unseenActivities = data));
-    this._chatService
+    this.chatSubscribe = this._chatService
       .getUnreadMessageCount()
       .subscribe((data) => (this.unreadMessages = data));
-    this._userService
+    this.userSubscription = this._userService
       .getActiveUser()
-      .pipe(first())
       .subscribe(async (data) => {
         if (data && !this.me) {
           this.me = data;
@@ -70,6 +73,13 @@ export class HomePage implements OnInit {
           this.getPosts();
         }
       });
+  }
+  ngOnDestroy(): void {
+    this.activitySubscribe.unsubscribe();
+    this.chatSubscribe.unsubscribe();
+    this.userSubscription.unsubscribe();
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
   }
   async setFollowers() {
     let followers: any = await this.getUserFollowing();
@@ -120,7 +130,10 @@ export class HomePage implements OnInit {
   }
 
   async checkTagCreate(text) {
-    this.hasTags = await this._hashtagService.checkTagCreate(text, this.hasTags);
+    this.hasTags = await this._hashtagService.checkTagCreate(
+      text,
+      this.hasTags
+    );
   }
 
   editedPost(event) {

@@ -94,7 +94,7 @@ export class ProfilePage {
           role: 'okay',
           handler: () => {
             this._authService.logout();
-            this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+            this._router.navigateByUrl('/home', {replaceUrl: true});
           },
         },
       ],

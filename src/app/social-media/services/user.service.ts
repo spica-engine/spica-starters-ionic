@@ -39,7 +39,6 @@ export class UserService {
     if (this.me) {
       result = of(this.me);
     }
-
     if (refresh || !this.$userRequest) {
       this.$userRequest = undefined;
       this.initializeOrm();
@@ -234,5 +233,12 @@ export class UserService {
   }
   initializeOrm() {
     initialize({ identity: localStorage.getItem('socialmedia_spica_token') });
+  }
+
+  logOut() {
+    this.me = undefined;
+    this.$userRequest = undefined;
+    localStorage.removeItem('socialmedia_spica_token');
+    localStorage.removeItem('socialmedia_user_id');
   }
 }

@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tabs',
@@ -22,7 +23,7 @@ export class TabsPage implements OnInit {
   backDropImage: string;
   unreadMessages: number = 0;
   loading: boolean = true;
-
+  userSubscribe: Subscription;
   constructor(
     private _userService: UserService,
     private _chatService: ChatService,
@@ -41,12 +42,14 @@ export class TabsPage implements OnInit {
     this.getMe();
   }
   getMe() {
-    this._userService.getActiveUser().subscribe(
+    this.userSubscribe = this._userService.getActiveUser(true).subscribe(
       async (data: User) => {
         if (data && !this.me) {
           this.me = data;
           this.loading = false;
-          this._router.navigate(['/social-media/tabs/home']);
+          this._router.navigate(['/social-media/tabs/home'], {
+            replaceUrl: true,
+          });
           this.isOldUser =
             new Date(this.me.created_at).getTime() <
             new Date().getTime() - 600 * 1000;
@@ -75,6 +78,11 @@ export class TabsPage implements OnInit {
       }
       this._tabsService.selectedTab = this.selectedTab;
     });
+  }
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    this.userSubscribe.unsubscribe();
   }
   async login(loginData) {
     this.loading = true;

@@ -25,7 +25,6 @@ export class SettingsPage {
     private _userService: UserService,
     public _modalController: ModalController,
     private _translateService: TranslateService,
-    private _authService: AuthService,
     public _toastController: ToastController,
     private _actionSheetCtrl: ActionSheetController,
     private _router: Router,
@@ -37,7 +36,8 @@ export class SettingsPage {
     this.me = await this._userService.getActiveUser().toPromise();
   }
   async logOut() {
-    this._authService.logOut();
+    this._userService.logOut();
+    this._router.navigate(['/home'], { replaceUrl: true });
   }
   async ionViewWillLeave() {
     await this._userService.updateProfile(this.me);

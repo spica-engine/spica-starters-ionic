@@ -1,9 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
-import { environment } from '../../services/environment';
 
 @Component({
   selector: 'app-add-comment-modal',
@@ -18,11 +16,10 @@ export class AddCommentModalComponent implements OnInit {
   newComment: DataService.Comment;
 
   constructor(
-    private route: ActivatedRoute,
     private modal: ModalController,
     private _authService: AuthService
   ) {
-    DataService.initialize({ apikey: '2n1c1akvupiku4' });
+    this._authService.initBucket();
   }
 
   async ngOnInit() {
@@ -58,7 +55,7 @@ export class AddCommentModalComponent implements OnInit {
   }
   _dismiss() {
     this.modal.dismiss({
-      comment: this.newComment
+      comment: this.newComment,
     });
   }
 }

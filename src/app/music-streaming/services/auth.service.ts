@@ -59,8 +59,9 @@ export class AuthService {
 
   register(user_data) {
     return this.http
-      .post(`${environment.apiUrl}/fn-execute/music-register`, {
+      .post(`${environment.apiUrl}/fn-execute/register`, {
         user_data,
+        project:"MUSIC_STREAM"
       })
       .toPromise();
   }

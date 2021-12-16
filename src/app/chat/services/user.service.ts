@@ -60,6 +60,7 @@ export class UserService {
     initialize({ identity: localStorage.getItem('chat_spica_token') });
   }
   logOut() {
+    this.me = undefined;
     localStorage.removeItem('chat_spica_token');
   }
 }

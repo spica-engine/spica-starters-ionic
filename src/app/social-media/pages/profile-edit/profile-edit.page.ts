@@ -73,8 +73,8 @@ export class ProfileEditPage {
     this.loading.main = true;
 
     this.userService.updateProfile(this.me).then((_) =>
-      this.router.navigate(['profile', this.me._id], {
-        relativeTo: this.activatedRoute,
+      this.router.navigate(['/social-media/tabs/profile', this.me._id], {
+        replaceUrl: true,
       })
     );
   }
