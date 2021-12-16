@@ -1,0 +1,22 @@
+<spica-menu-bar project="real-estate"></spica-menu-bar>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>Adversts</ion-title>
+  </ion-toolbar>
+  <ion-searchbar
+    mode="ios"
+    [debounce]="800"
+    (ionChange)="search($event.target['value'])"
+    [(ngModel)]="searchTerm"
+  ></ion-searchbar>
+</ion-header>
+
+<ion-content>
+  <div class="adversts-container" *ngIf="adversts.length">
+    <adverst-card
+      [data]="adverst"
+      [routerLink]="['/real-estate/adverst-detail/'+adverst._id]"
+      *ngFor="let adverst of adversts"
+    ></adverst-card>
+  </div>
+</ion-content>

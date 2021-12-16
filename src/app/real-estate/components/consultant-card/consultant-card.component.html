@@ -1,0 +1,12 @@
+<ion-card>
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img [src]="data.thumbnail" />
+    </ion-avatar>
+    <ion-label>
+      <span> {{ data.name + " " + data.surname }}</span>
+      <p>{{ data.phone_number }}</p>
+    </ion-label>
+    <ion-icon name="call"></ion-icon>
+  </ion-item>
+</ion-card>

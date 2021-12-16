@@ -28,6 +28,13 @@ export class MenuService {
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
+    'real-estate': () => {
+      return [
+        { key: 'adversts', value: 'Adversts', icon: 'filter-outline' },
+        // { key: 'profile/me', value: 'Profile', icon: 'person' },
+        // { key: 'create-advert', value: 'Create Advert', icon: 'add' },
+      ] as MenuItem[];
+    },
   };
 }
 
