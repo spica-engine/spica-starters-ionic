@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class SpicaAuthorizationComponent implements OnInit {
   screen: string = 'login';
   loginForm: FormGroup;
+  isPasswordVisible: boolean = false;
   @Output() clickLogin = new EventEmitter<any>();
   @Output() clickRegister = new EventEmitter<any>();
 
@@ -16,7 +17,13 @@ export class SpicaAuthorizationComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
-      email: ["", [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        ],
+      ],
       // username: '',
       name: '',
       surname: '',

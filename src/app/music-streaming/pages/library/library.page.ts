@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertController, ModalController } from '@ionic/angular';
 import * as DataService from '../../services/bucket';
@@ -12,7 +12,7 @@ import { environment } from '../../services/environment';
   templateUrl: './library.page.html',
   styleUrls: ['./library.page.scss'],
 })
-export class LibraryPage implements OnInit {
+export class LibraryPage {
   userId: string;
   user: DataService.User;
   playLists: DataService.Playlist[] = [];
@@ -28,7 +28,7 @@ export class LibraryPage implements OnInit {
     this._authService.initBucket();
   }
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
     await this.getUser();
     this.playLists = (await this.getPlayLists()) as DataService.Playlist[];
@@ -46,18 +46,19 @@ export class LibraryPage implements OnInit {
       component: CreatePlayListComponent,
     });
 
-    modal.onWillDismiss().then((res) => {
+    modal.onWillDismiss().then(async (res) => {
       if (!res.data) {
         return;
       }
-      this.createPlayList(res.data.title);
+      let newPlaylist = await this.createPlayList(res.data.title);
+      this.playLists.push(newPlaylist);
     });
 
     return await modal.present();
   }
 
   async createPlayList(name) {
-    await DataService.playlist.insert({
+    return DataService.playlist.insert({
       name: name,
       owner: this.user._id,
     });

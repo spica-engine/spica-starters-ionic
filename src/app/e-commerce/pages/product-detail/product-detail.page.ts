@@ -224,19 +224,19 @@ export class ProductDetailPage implements OnInit {
       });
     } else {
       let data = {
-        product: [this.product],
+        products: [this.product],
         user: this.user._id,
         title: 'Basket',
       };
 
-      data['metadata'] = this.prepareMetadata(data.product);
+      data['metadata'] = this.prepareMetadata(data.products);
 
       await dataService.basket.insert(data).then((res) => {
         this.basket = res;
       });
     }
 
-    this.basketItemCount = this.basket.products.length;
+    this.basketItemCount = this.basket.products?.length && 0;
   }
 
   prepareMetadata(basketData) {

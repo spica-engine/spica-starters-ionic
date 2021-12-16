@@ -29,7 +29,9 @@
     <ion-item *ngIf="!post?.file?.url">
       <ion-skeleton-text> </ion-skeleton-text>
       <div class="on-center-image">
-        <spica-upload-image (change)="userUploadedImage($event)"></spica-upload-image>
+        <spica-upload-image
+          (change)="userUploadedImage($event)"
+        ></spica-upload-image>
       </div>
     </ion-item>
     <ion-item *ngIf="post?.file?.url">
@@ -41,7 +43,7 @@
           />
           <video
             height="300"
-            poster="assets/logotype-white.png"
+            poster="../../../../assets/social-media/png/play.png"
             controls
             controlsList="nodownload"
             playsinline

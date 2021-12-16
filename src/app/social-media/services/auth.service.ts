@@ -6,12 +6,17 @@ import { DataService } from './data.service';
 import * as identity from '@spica-devkit/identity';
 import { environment } from './environment';
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(public platform: Platform, private _dataService: DataService) {
+  constructor(
+    public platform: Platform,
+    private _dataService: DataService,
+    private _router: Router
+  ) {
     identity.initialize({
       publicUrl: environment.api_url,
       apikey: environment.public_apikey,
@@ -30,7 +35,7 @@ export class AuthService {
     );
   }
   register(user_data) {
-    return this._dataService.register(user_data)
+    return this._dataService.register(user_data);
   }
 
   getToken() {
@@ -52,7 +57,8 @@ export class AuthService {
   }
 
   logOut() {
-    localStorage.clear();
-    window.location.href = '/';
+    localStorage.removeItem('socialmedia_spica_token');
+    localStorage.removeItem('socialmedia_user_id');
+    this._router.navigate(['/home'], { replaceUrl: true });
   }
 }

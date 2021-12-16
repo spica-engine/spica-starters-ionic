@@ -16,6 +16,13 @@ const routes: Routes = [
             (m) => m.VideoDetailsPageModule
           ),
       },
+      {
+        path: 'teacher-page',
+        loadChildren: () =>
+          import('../teacher-page/teacher-page.module').then(
+            (m) => m.TeacherPagePageModule
+          ),
+      },
     ],
   },
 ];

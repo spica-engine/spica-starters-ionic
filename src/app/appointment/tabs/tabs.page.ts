@@ -24,7 +24,7 @@ export class TabsPage {
   async checkUserLogin() {
     this.user = await this._authService.getUser().toPromise();
     if (!this.user) {
-      this._router.navigate(['/appointment/login']);
+      this._router.navigate(['/appointment/login'],{replaceUrl:true});
     }
   }
 

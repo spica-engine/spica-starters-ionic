@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  navigateToAppointments(){
+  navigateToAppointments() {
     this._router.navigateByUrl('/appointment/tabs/appointments', {
       replaceUrl: true,
     });
@@ -45,7 +45,7 @@ export class LoginPage implements OnInit {
     this._authService
       .login(this.loginForm.value.username, this.loginForm.value.password)
       .toPromise()
-      .then((res) => {
+      .then(() => {
         this.isLoading = false;
         this.loginForm.reset();
         this.navigateToAppointments();

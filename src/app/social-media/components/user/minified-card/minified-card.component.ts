@@ -1,17 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
-import { take } from "rxjs/operators";
-import { User } from "../../../services/bucket";
-import { UserService } from "src/app/social-media/services/user.service";
-import { environment } from "src/app/social-media/services/environment";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { User } from '../../../services/bucket';
+import { UserService } from 'src/app/social-media/services/user.service';
+import { environment } from 'src/app/social-media/services/environment';
 
 @Component({
-  selector: "user-minified-card",
-  templateUrl: "./minified-card.component.html",
-  styleUrls: ["./minified-card.component.scss"],
+  selector: 'user-minified-card',
+  templateUrl: './minified-card.component.html',
+  styleUrls: ['./minified-card.component.scss'],
 })
 export class MinifiedCardComponent implements OnInit {
-  @Input() type: string = "vertical"; // "vertical", "horizontal";
+  @Input() type: string = 'vertical'; // "vertical", "horizontal";
   @Input() user: any;
   @Input() with_router: boolean = true;
   @Input() followable: boolean = false;
@@ -37,17 +37,16 @@ export class MinifiedCardComponent implements OnInit {
       this._userService
         .getActiveUser()
         .pipe(take(1))
-        .subscribe((data) => {
+        .subscribe(async (data) => {
           this.me = data;
           if (this.followable) {
             this.isFollowing = this._userService.isFollowingUser(this.user);
-            if (this.user.visibility == "private" && !this.isFollowing) {
-              this._userService
-                .getWaitingRequest(this.user)
-                .then((requestData) => {
-                  this.wait_request_id = requestData[0]?._id;
-                  if (this.wait_request_id) this.isFollowing = true;
-                });
+            if (this.user.visibility == 'private' && !this.isFollowing) {
+              let waitingRequestData =
+                await this._userService.getWaitingRequest(this.user);
+
+              this.wait_request_id = waitingRequestData &&  waitingRequestData[0]?._id  ;
+              if (this.wait_request_id) this.isFollowing = true;
             }
             if (
               this._userService.blockedUsers.filter(
@@ -62,29 +61,25 @@ export class MinifiedCardComponent implements OnInit {
   followUser() {
     if (!this.followLoading) {
       this.followLoading = true;
-      if (this.user.visibility == "private") {
-        this._userService
-          .sendRequest(this.user)
-          .then(() => {
-            this.onFollow.emit(this.user);
-            this.isFollowing = true;
-            this.followLoading = false;
-          });
+      if (this.user.visibility == 'private') {
+        this._userService.sendRequest(this.user).then(() => {
+          this.onFollow.emit(this.user);
+          this.isFollowing = true;
+          this.followLoading = false;
+        });
       } else {
-        this._userService
-          .followUser(this.user)
-          .then(() => {
-            this.isFollowing = true;
-            this.onFollow.emit(this.user);
-            this.followLoading = false;
-          });
+        this._userService.followUser(this.user).then(() => {
+          this.isFollowing = true;
+          this.onFollow.emit(this.user);
+          this.followLoading = false;
+        });
       }
     }
   }
   routeUser() {
     this.onRoute.emit(this.user);
     if (this.with_router) {
-      this._router.navigate(["profile", this.user._id], {
+      this._router.navigate(['profile', this.user._id], {
         relativeTo: this._activatedRoute,
       });
     }
