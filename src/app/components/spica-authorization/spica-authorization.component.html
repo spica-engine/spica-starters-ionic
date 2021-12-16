@@ -18,14 +18,18 @@
     ></ion-input>
     <ion-input
       placeholder="Password"
-      type="password"
+      [type]="isPasswordVisible ? 'text' : 'password'"
       id="password"
       formControlName="password"
     >
-      <ion-icon name="eye-outline"></ion-icon>
+      <ion-icon (click)="isPasswordVisible=!isPasswordVisible"
+        [name]="isPasswordVisible ? 'eye-off-outline' : 'eye-outline'"
+      ></ion-icon>
     </ion-input>
     <p><span>Forgot password?</span></p>
-    <ion-button (click)="login()" [disabled]="!loginForm.valid">Login</ion-button>
+    <ion-button (click)="login()" [disabled]="!loginForm.valid"
+      >Login</ion-button
+    >
   </div>
 
   <div
@@ -48,6 +52,8 @@
       <ion-checkbox formControlName="termsOfUse"></ion-checkbox>
       <ion-label>I accept the user agreement</ion-label>
     </ion-item>
-    <ion-button (click)="register()" [disabled]="!loginForm.valid">Register</ion-button>
+    <ion-button (click)="register()" [disabled]="!loginForm.valid"
+      >Register</ion-button
+    >
   </div>
 </div>

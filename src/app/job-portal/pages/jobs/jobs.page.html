@@ -18,15 +18,14 @@
       <job-card [job]="job"></job-card>
     </ng-container>
   </div>
+  <spica-authorization
+    *ngIf="!me && !loading"
+    (clickLogin)="login($event)"
+    (clickRegister)="register($event)"
+  ></spica-authorization>
 </ion-content>
-
 <ion-spinner
   *ngIf="loading && !me"
   class="spinner-center-page"
   name="crescent"
 ></ion-spinner>
-<spica-authorization
-  *ngIf="!me && !loading"
-  (clickLogin)="login($event)"
-  (clickRegister)="register($event)"
-></spica-authorization>

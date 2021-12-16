@@ -14,7 +14,7 @@
   <div class="image-container" *ngIf="post?.file?.url" (click)="clickedImage(post?.file?.mimetype, post?.file?.url)">
     <img *ngIf="post.file.mimetype.includes('image')" [src]="post.file.url" (load)="isImageLoaded = true" [class.opaque]="isImageLoaded" />
     <video playsinline preload="metadata" [muted]="mediaIsMuted" [loop]="isIntersecting"
-      poster="assets/logotype-white.png" *ngIf="post.file.mimetype.includes('video')" #media>
+      poster="../../../../assets/social-media/png/play.png" *ngIf="post.file.mimetype.includes('video')" #media>
       <source [src]="post.file.url" [type]="post.file.mimetype" />
     </video>
   </div>

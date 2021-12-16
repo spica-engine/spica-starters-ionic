@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { SpicaConfirmShoppingComponent } from 'src/app/components/spica-confirm-shopping/spica-confirm-shopping.component';
 import { SpicaShippingAddressComponent } from 'src/app/components/spica-shipping-address/spica-shipping-address.component';
@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './basket.page.html',
   styleUrls: ['./basket.page.scss'],
 })
-export class BasketPage implements OnInit {
+export class BasketPage {
   constructor(
     private _router: Router,
     private _modalController: ModalController,
@@ -33,7 +33,7 @@ export class BasketPage implements OnInit {
   basket: any = [];
   couponCode: string;
 
-  async ngOnInit() {
+  async ionViewWillEnter() {
     this.isLoading = true;
     this.paymentMethods = await DataService.payment_method.getAll();
 
@@ -59,15 +59,15 @@ export class BasketPage implements OnInit {
       },
     });
 
-    if(data[0]){
+    if (data[0]) {
       for (let product of data[0].products) {
         let metadata = data[0].metadata.find((el) => {
           return el.product_id == product['_id'];
         });
-  
+
         product['quantity'] = metadata.quantity;
         product['selected_attribute'] = JSON.parse(metadata.selected_attribute);
-      } 
+      }
     }
 
     return data[0];
