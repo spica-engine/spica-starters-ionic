@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { AdverstCardComponent } from './adverst-card/adverst-card.component';
 import { ConsultantCardComponent } from './consultant-card/consultant-card.component';
+import { FilterModalComponent } from './filter-modal/filter-modal.component';
 
 @NgModule({
-  declarations: [AdverstCardComponent, ConsultantCardComponent],
-  exports: [AdverstCardComponent, ConsultantCardComponent],
+  declarations: [AdverstCardComponent, ConsultantCardComponent, FilterModalComponent],
+  exports: [AdverstCardComponent, ConsultantCardComponent, FilterModalComponent],
   imports: [
   RouterModule,
     ReactiveFormsModule,

@@ -31,7 +31,7 @@ export class MenuService {
     'real-estate': () => {
       return [
         { key: 'adversts', value: 'Adversts', icon: 'filter-outline' },
-        // { key: 'profile/me', value: 'Profile', icon: 'person' },
+        { key: 'announcement', value: 'Announcement', icon: 'megaphone-outline' },
         // { key: 'create-advert', value: 'Create Advert', icon: 'add' },
       ] as MenuItem[];
     },

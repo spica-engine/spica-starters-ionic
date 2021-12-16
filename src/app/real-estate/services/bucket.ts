@@ -35,6 +35,7 @@ export interface Adverst{
   trade?: boolean;
   bedroom_count?: string;
   address?: {
+  country?: string;
   district?: string;
   city?: string;};
   location?: { type: "Point", coordinates: [number,number]};
@@ -155,6 +156,7 @@ export interface Announcement{
   _id?: string;
   description?: string;
   name?: string;
+  created_at?:Date;
 }
 export namespace announcement {
   const BUCKET_ID = '61b9f850d6bd39002e927a77';

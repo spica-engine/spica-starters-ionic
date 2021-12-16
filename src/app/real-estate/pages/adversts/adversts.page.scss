@@ -1,4 +1,9 @@
 :host {
+  ion-header{
+    ion-icon{
+      margin-right: 5px;
+    }
+  }
   .adversts-container {
     display: flex;
     flex-wrap: wrap;

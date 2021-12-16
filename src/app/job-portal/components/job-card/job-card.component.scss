@@ -1,5 +1,10 @@
 :host {
   .job-card {
+    ion-thumbnail {
+      img {
+        border-radius: 5px;
+      }
+    }
     ul {
       list-style-type: disc;
       padding-left: 30px;

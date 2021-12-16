@@ -26,7 +26,7 @@ export class AdverstDetailPage implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    public location: Location
+    public location: Location,
   ) {
     this._authService.initBucket();
   }

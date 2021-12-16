@@ -19,4 +19,12 @@ export class LocationApiService {
       })
       .toPromise() as any;
   }
+  getStateByCity(country, state): Promise<[]> {
+    return this._http
+      .post('https://countriesnow.space/api/v0.1/countries/state/cities', {
+        country: country,
+        state: state
+      })
+      .toPromise() as any;
+  }
 }

@@ -1,0 +1,14 @@
+<spica-menu-bar project="real-estate"></spica-menu-bar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Announcement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let announcement of announcements">
+    <h5>{{announcement.name}}</h5>
+    <p>{{announcement.description}}</p>
+    <p>{{announcement.created_at | date: 'dd/MM/yyyy HH:MM'}}</p>
+  </ion-card>
+</ion-content>
