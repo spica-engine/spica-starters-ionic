@@ -1,0 +1,14 @@
+<ion-card>
+  <ion-item button lines="none">
+    <img [src]="data.cover_img"/>
+    <ion-label class="main-properties">
+      <ion-text class="price">{{data.price | number:'1.0':'en-US'}} {{data.currency}}</ion-text>
+      <ion-text class="location"><ion-icon name="location"></ion-icon>{{data.address.city + ' / ' + data.address.district}}</ion-text>
+      <ion-label class="properties">
+        <span><ion-icon name="bed-outline"></ion-icon>{{data.bedroom_count}}</span>
+        <span><ion-icon name="water-outline"></ion-icon>{{data.bathroom_count}}</span>
+        <span><ion-icon name="cube-outline"></ion-icon>{{data.square_meters}} m2</span>
+      </ion-label>
+     </ion-label>
+  </ion-item>
+</ion-card>

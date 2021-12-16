@@ -69,6 +69,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./fitness/app.module').then((m) => m.FitnessModule),
   },
+  {
+    path: 'real-estate',
+    loadChildren: () =>
+      import('./real-estate/real-estate.module').then((m) => m.RealEstateModule),
+  },
 ];
 
 @NgModule({

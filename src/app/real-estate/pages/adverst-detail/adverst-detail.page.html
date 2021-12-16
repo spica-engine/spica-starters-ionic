@@ -1,0 +1,55 @@
+<ion-content>
+  <ng-container *ngIf="adverst">
+    <div class="img-container">
+      <ion-icon name="arrow-back" class="back-btn" (click)="location.back()"></ion-icon>
+      <img [src]="adverst.cover_img" />
+    </div>
+    <div class="content">
+      <ion-label class="section">
+        <ion-text>{{adverst.address.city + ' / ' + adverst.address.district}}</ion-text>
+        <ion-text class="status">{{adverst.adverst_status | titlecase}}</ion-text>
+      </ion-label>
+      <ion-label class="section">
+        <h4>{{adverst.name}}</h4>        
+        <h4>{{adverst.price | number:'1.0':'en-US'}} {{adverst.currency}}</h4>       
+      </ion-label>
+      <ion-label class="properties">
+        <span><ion-icon name="bed-outline"></ion-icon>{{adverst.bedroom_count}}</span>
+        <span><ion-icon name="water-outline"></ion-icon>{{adverst.bathroom_count}}</span>
+        <span><ion-icon name="cube-outline"></ion-icon>{{adverst.square_meters}} m2</span>
+      </ion-label>
+
+      <consultant-card [data]="adverst.consultant"></consultant-card>
+
+      <ion-segment
+        value="info"
+        (ionChange)="segmentChanged($event.target['value'])"
+        >
+        <ion-segment-button value="info">
+          <ion-label> Info </ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="gallery">
+          <ion-label>Gallery</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="map">
+          <ion-label>Map</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      
+      <div class="info" *ngIf="activeSegment=='info'">
+       <p>{{adverst.description}}</p>
+      </div>
+      <ion-slides
+        pager="true"
+        [options]="slideOpts"
+        class="gallery-slide"
+        *ngIf="activeSegment=='gallery'"
+      >
+        <ion-slide *ngFor="let image of adverst.images">
+          <img [src]="image" />
+        </ion-slide>
+      </ion-slides>
+      <spica-map-iframe *ngIf="adverst.location && activeSegment=='map'" [data]="adverst.location"></spica-map-iframe>
+    </div>
+  </ng-container>
+</ion-content>
