@@ -39,7 +39,8 @@ export class AuthorizationPage implements OnInit {
       .toPromise()
       .then((res) => {
         this.isLoading = false;
-        this._router.navigate(['/forum/home']);
+        this._authService.initBucket();
+        this._router.navigate(['/forum/home'], { replaceUrl: true });
       })
       .catch((err) => {
         this.isLoading = false;
@@ -55,6 +56,7 @@ export class AuthorizationPage implements OnInit {
       .register({ ...registerData })
       .then((res) => {
         this.isLoading = false;
+        this.login(registerData);
         this._commonService.presentToast(res['message'], 1500);
       })
       .catch((err) => {

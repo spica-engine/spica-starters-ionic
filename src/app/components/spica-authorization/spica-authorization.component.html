@@ -1,11 +1,13 @@
 <div class="auth-container">
   <div class="nav-container">
-    <ion-label [class.active]="screen == 'login'" (click)="screen = 'login'"
+    <ion-label
+      [class.active]="screen == 'login'"
+      (click)="screen = 'login'; isPasswordVisible = false"
       >Login</ion-label
     >
     <ion-label
       [class.active]="screen == 'register'"
-      (click)="screen = 'register'"
+      (click)="screen = 'register'; isPasswordVisible = false"
       >Register</ion-label
     >
   </div>
@@ -16,20 +18,24 @@
       id="email"
       formControlName="email"
     ></ion-input>
-    <ion-input
-      placeholder="Password"
-      [type]="isPasswordVisible ? 'text' : 'password'"
-      id="password"
-      formControlName="password"
-    >
-      <ion-icon (click)="isPasswordVisible=!isPasswordVisible"
+    <div class="icon-input">
+      <ion-input
+        placeholder="Password"
+        [type]="isPasswordVisible ? 'text' : 'password'"
+        id="password"
+        formControlName="password"
+      >
+      </ion-input>
+      <ion-icon
+        (click)="isPasswordVisible = !isPasswordVisible"
         [name]="isPasswordVisible ? 'eye-off-outline' : 'eye-outline'"
       ></ion-icon>
-    </ion-input>
+    </div>
+
     <p><span>Forgot password?</span></p>
     <ion-button (click)="login()" [disabled]="!loginForm.valid"
-      >Login</ion-button
-    >
+      >Login
+    </ion-button>
   </div>
 
   <div
@@ -41,13 +47,19 @@
     <ion-input placeholder="Name" formControlName="name"></ion-input>
     <ion-input placeholder="Surname" formControlName="surname"></ion-input>
     <ion-input placeholder="E-Mail" formControlName="email"></ion-input>
-    <ion-input
-      placeholder="Password"
-      type="password"
-      formControlName="password"
-    >
-      <ion-icon name="eye-outline"></ion-icon>
-    </ion-input>
+    <div class="icon-input">
+      <ion-input
+        placeholder="Password"
+        [type]="isPasswordVisible ? 'text' : 'password'"
+        formControlName="password"
+      >
+      </ion-input>
+      <ion-icon
+        (click)="isPasswordVisible = !isPasswordVisible"
+        [name]="isPasswordVisible ? 'eye-off-outline' : 'eye-outline'"
+      ></ion-icon>
+    </div>
+
     <ion-item lines="none" class="agreement">
       <ion-checkbox formControlName="termsOfUse"></ion-checkbox>
       <ion-label>I accept the user agreement</ion-label>

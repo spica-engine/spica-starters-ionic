@@ -16,10 +16,9 @@ export class AuthService {
   activeToken: string;
   // followedUsers: string[] = [];
   followingUsers: string[] = [];
-  
 
   constructor(private http: HttpClient) {
-    DataService.initialize({ apikey: environment.apikey });
+    // DataService.initialize({ apikey: environment.apikey });
     identity.initialize({
       publicUrl: environment.apiUrl,
       apikey: environment.apikey,
@@ -57,16 +56,15 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem(environment.TOKEN_KEY);
     this.activeUser = undefined;
-    return true;
   }
 
   register(user_data) {
     return this.http
-      .post(`${environment.apiUrl}/fn-execute/forum-register`, {
+      .post(`${environment.apiUrl}/fn-execute/register`, {
         user_data,
-        project: 'FORUM'
+        project: 'FORUM',
       })
       .toPromise();
   }
@@ -132,7 +130,7 @@ export class AuthService {
       map((users) => users[0]),
       tap((user) => (this.activeUser = user)),
       tap((user) => {
-        user?.followings?.forEach(following => {
+        user?.followings?.forEach((following) => {
           this.followingUsers.push(following);
         });
       })

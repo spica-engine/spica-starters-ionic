@@ -38,8 +38,8 @@ export class HomePage {
 
   async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
-
-    if(this.userId){
+    console.log('userid :', this.userId);
+    if (this.userId) {
       await this.getUser();
       if (!this.user.followed_artists.length) {
         this.followableModal();
@@ -55,8 +55,8 @@ export class HomePage {
     });
 
     this.user.followed_artists?.forEach((el) => {
-      this.followedArtistsIds.push(el['_id'])
-    })
+      this.followedArtistsIds.push(el['_id']);
+    });
   }
 
   navigateToList(id) {
@@ -66,7 +66,9 @@ export class HomePage {
   }
 
   getRecommended() {
-    return DataService.artist.getAll({queryParams: {filter: {_id: {$nin: this.followedArtistsIds}}}});
+    return DataService.artist.getAll({
+      queryParams: { filter: { _id: { $nin: this.followedArtistsIds } } },
+    });
   }
 
   async followableModal() {

@@ -55,10 +55,4 @@ export class AuthService {
   getIdentityId() {
     return this.getDecodeToken()?._id || null;
   }
-
-  logOut() {
-    localStorage.removeItem('socialmedia_spica_token');
-    localStorage.removeItem('socialmedia_user_id');
-    this._router.navigate(['/home'], { replaceUrl: true });
-  }
 }

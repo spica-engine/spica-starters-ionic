@@ -20,15 +20,15 @@
     </ion-label>
     <ion-button (click)="likeDislike('like')" [class.active]="myAction=='liked'">
       <ion-icon name="heart-outline"></ion-icon>
-      {{comment.likes.length}}
+      {{comment?.likes?.length}}
     </ion-button>
     <ion-button (click)="likeDislike('dislike')" [class.active]="myAction=='disliked'">
       <ion-icon name="heart-dislike-outline"></ion-icon>
-      {{comment.dislikes.length}}
+      {{comment?.dislikes?.length}}
     </ion-button>
     <ion-button *ngIf="!isComment" >
       <ion-icon name="chatbox-outline"></ion-icon>
-      {{comment.comments.length}}
+      {{comment?.comments?.length}}
     </ion-button>
     <ion-button *ngIf="!details" color="primary" class="right" [routerLink]="['/forum/forum-details/' + comment?._id]">Read More</ion-button>
   </ion-card-content>

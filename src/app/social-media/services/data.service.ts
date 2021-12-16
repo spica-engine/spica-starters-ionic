@@ -32,7 +32,7 @@ export class DataService {
       params: params,
       user_id,
     };
-    return this.http.post(`${environment.api_url}/fn-execute/online`, chatObj, {
+    return this.http.post(`${environment.api_url}/fn-execute/socialOnline`, chatObj, {
       headers: this.setHeader(),
     });
   }

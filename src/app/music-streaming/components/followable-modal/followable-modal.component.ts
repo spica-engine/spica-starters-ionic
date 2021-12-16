@@ -77,7 +77,7 @@ export class FollowableModalComponent implements OnInit {
   }
 
   async search(terms) {
-    if(this.type == 'artist'){
+    if (this.type == 'artist') {
       this.artists = await DataService.artist.getAll({
         queryParams: {
           filter: {
@@ -87,18 +87,17 @@ export class FollowableModalComponent implements OnInit {
           limit: 10,
         },
       });
-    } else if(this.type == 'track'){
+    } else if (this.type == 'track') {
       this.tracks = await DataService.track.getAll({
         queryParams: {
           filter: {
             name: { $regex: terms, $options: 'i' },
-            _id: { $nin: this.playList.tracks  || []},
+            _id: { $nin: this.playList.tracks || [] },
           },
           limit: 10,
         },
       });
     }
-    
   }
 
   async apply() {
@@ -111,6 +110,7 @@ export class FollowableModalComponent implements OnInit {
           followed_artists: newArr,
         });
       } else if (this.type == 'track') {
+        this.playList.tracks = this.playList.tracks || [];
         let newArr = this.playList.tracks.concat(this.selectedData);
         await DataService.playlist.patch({
           _id: this.playList._id,
