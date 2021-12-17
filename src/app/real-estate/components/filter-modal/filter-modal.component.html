@@ -12,7 +12,7 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">City</ion-label>
-    <ion-select (ionChange)="cityChange($event.target['value'])" [disabled]="!filter.country">
+    <ion-select (ionChange)="cityChange($event.target['value'])" [disabled]="!filter.address.country">
       <ion-select-option [value]="city.name" *ngFor="let city of cities">
         {{ city.name }}</ion-select-option
       >
@@ -20,7 +20,7 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">District</ion-label>
-    <ion-select (ionChange)="districtChange($event.target['value'])" [disabled]="!filter.city">
+    <ion-select (ionChange)="districtChange($event.target['value'])" [disabled]="!filter.address.city">
       <ion-select-option [value]="state" *ngFor="let state of states">
         {{ state }}</ion-select-option
       >
@@ -28,11 +28,11 @@
   </ion-item>
   <ion-item>
     <ion-label position="floating">Min. Price</ion-label>
-    <ion-input type="number" [(ngModel)]="filter.price.min"></ion-input>
+    <ion-input type="number" [(ngModel)]="filter.price.$gte"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label position="floating">Max. Price</ion-label>
-    <ion-input type="number" [(ngModel)]="filter.price.max"></ion-input>
+    <ion-input type="number" [(ngModel)]="filter.price.$lte"></ion-input>
   </ion-item>
 
   <ion-button (click)="setFilter()">Apply Filter</ion-button>

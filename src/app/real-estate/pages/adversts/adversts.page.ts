@@ -12,12 +12,7 @@ import * as DataService from '../../services/bucket';
 export class AdverstsPage implements OnInit {
   searchTerm: string;
   adversts: DataService.Adverst[] = [];
-  filter = {
-    country: '',
-    city: '',
-    district: '',
-    price: { min: 0, max: 1000000000 },
-  };
+  filter = {};
 
   constructor(
     private _authService: AuthService,
@@ -34,7 +29,7 @@ export class AdverstsPage implements OnInit {
     return DataService.adverst.getAll({
       queryParams: {
         relation: true,
-        // filter: Object.keys(this.filter).length > 0 ? this.filter : {},
+        filter: Object.keys(this.filter).length > 0 ? this.filter : {},
       },
     });
   }
@@ -57,26 +52,19 @@ export class AdverstsPage implements OnInit {
     const filterModal = await this._modalController.create({
       component: FilterModalComponent,
       swipeToClose: true,
-      componentProps: this.filter,
     });
 
     filterModal.onWillDismiss().then(async (res) => {
       if (!res.data) {
         return;
       } else if (res.data.action == 'clear_filter') {
-        this.filter = {
-          country: '',
-          city: '',
-          district: '',
-          price: { min: 0, max: 1000000000 },
-        };
+        this.filter = {};
       } else {
+        res.data.filter =  JSON.parse(JSON.stringify(res.data.filter))
+        delete res.data.filter.address
         this.filter = res.data.filter;
-        this.getAdversts();
       }
-      // this.loading = true;
-      // await this.getJobs();
-      // this.loading = false;
+      this.adversts = await this.getAdversts();
     });
 
     return await filterModal.present();

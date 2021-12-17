@@ -13,11 +13,13 @@ export class FilterModalComponent implements OnInit {
   cities: any;
   states: any;
 
-  @Input() filter = {
-    country: '',
-    city: '',
-    district: '',
-    price: {min: 0, max: 1000000000}
+  filter = {
+    address: {
+      country: '',
+      city: '',
+      district: '',
+    },
+    price: {$gte: 0, $lte: 1000000000}
   };
 
   constructor(private _locationService: LocationApiService, private _modal: ModalController ) {}
@@ -32,28 +34,34 @@ export class FilterModalComponent implements OnInit {
   }
 
   async countryChange(value) {
-    this.filter.country = value;
+    this.filter.address.country = value;
     let citiesOfcountry = await this._locationService.getCityByCountry(value);
 
     this.cities = citiesOfcountry['data']['states'];
-    this.filter.city = '';
-    this.filter.district = '';
+    this.filter.address.city = '';
+    this.filter.address.district = '';
   }
 
   async cityChange(value) {
-    this.filter.city = value;
-    let stateOfcity = await this._locationService.getStateByCity(this.filter.country, value);
+    this.filter.address.city = value;
+    let stateOfcity = await this._locationService.getStateByCity(this.filter.address.country, value);
 
     this.states = stateOfcity['data'];
-    this.filter.district = '';
+    this.filter.address.district = '';
   }
 
   async districtChange(value){
-    this.filter.district = value;
+    this.filter.address.district = value;
   }
 
 
   setFilter() {
+    for(let key of  Object.keys(this.filter.address)){
+      if(this.filter.address[key]){
+        this.filter[`address.${key}`] = this.filter.address[key]
+      }
+    }
+    
     this._modal.dismiss({
       filter: this.filter,
     });
