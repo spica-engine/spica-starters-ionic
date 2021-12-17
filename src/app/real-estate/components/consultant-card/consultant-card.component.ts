@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ConsultantCardComponent implements OnInit {
 
   @Input() data: any;
+  @Input() showEmail: boolean = false;
   constructor() { }
 
   ngOnInit() {}

@@ -1,0 +1,27 @@
+<spica-menu-bar project="real-estate"></spica-menu-bar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>About Us</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="about">
+    <p>{{about.about}}</p>
+
+    <ion-card *ngFor="let office of about.offices">
+      <h6>{{office.title}}</h6>
+      <div class="content">
+        <ion-label>
+          <ion-icon name="call-outline"></ion-icon>
+          <ion-text>{{office.phone}}</ion-text>
+        </ion-label>
+        <ion-label>
+          <ion-icon name="mail-outline"></ion-icon>
+          <ion-text>{{office.email}}</ion-text>
+        </ion-label>
+        <spica-map-iframe [data]="office.location"></spica-map-iframe>
+      </div>
+    </ion-card>
+  </ng-container>
+</ion-content>

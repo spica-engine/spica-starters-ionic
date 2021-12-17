@@ -31,8 +31,9 @@ export class MenuService {
     'real-estate': () => {
       return [
         { key: 'adversts', value: 'Adversts', icon: 'filter-outline' },
+        { key: 'consultants', value: 'Our Consultants', icon: 'people-outline' },
         { key: 'announcement', value: 'Announcement', icon: 'megaphone-outline' },
-        // { key: 'create-advert', value: 'Create Advert', icon: 'add' },
+        { key: 'about', value: 'About Us', icon: 'receipt-outline' },
       ] as MenuItem[];
     },
   };

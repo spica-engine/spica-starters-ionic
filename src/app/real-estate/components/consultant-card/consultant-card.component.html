@@ -5,6 +5,7 @@
     </ion-avatar>
     <ion-label>
       <span> {{ data.name + " " + data.surname }}</span>
+      <p *ngIf="showEmail">{{ data.mail }}</p>
       <p>{{ data.phone_number }}</p>
     </ion-label>
     <ion-icon name="call"></ion-icon>

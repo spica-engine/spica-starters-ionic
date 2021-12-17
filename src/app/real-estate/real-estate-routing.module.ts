@@ -8,10 +8,6 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'consultant',
-    loadChildren: () => import('./pages/consultant/consultant.module').then( m => m.ConsultantPageModule)
-  },
-  {
     path: 'adverst-detail/:id',
     loadChildren: () => import('./pages/adverst-detail/adverst-detail.module').then( m => m.AdverstDetailPageModule)
   },
@@ -22,6 +18,14 @@ const routes: Routes = [
   {
     path: 'announcement',
     loadChildren: () => import('./pages/announcement/announcement.module').then( m => m.AnnouncementPageModule)
+  },
+  {
+    path: 'consultants',
+    loadChildren: () => import('./pages/consultants/consultants.module').then( m => m.ConsultantsPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about-us/about-us.module').then( m => m.AboutUsPageModule)
   },
 ];
 

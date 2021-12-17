@@ -1,0 +1,10 @@
+<spica-menu-bar project="real-estate"></spica-menu-bar>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Our Consultants</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <consultant-card [data]="consultant" *ngFor="let consultant of consultants" [showEmail]="true"></consultant-card>
+</ion-content>
