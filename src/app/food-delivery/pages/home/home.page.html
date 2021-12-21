@@ -1,0 +1,15 @@
+<spica-menu-bar project="food-delivery"></spica-menu-bar>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>Food Delivery</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="content-featured">
+  <div class="adversts-container" *ngIf="foods.length">
+    <food-card
+      (click)="openModal(food)"
+      *ngFor="let food of foods"
+      [data]="food"
+    ></food-card>
+  </div>
+</ion-content>

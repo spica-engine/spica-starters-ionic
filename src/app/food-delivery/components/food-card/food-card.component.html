@@ -1,0 +1,16 @@
+<ion-card>
+  <ion-item button lines="none">
+    <img [src]="data.image"/>
+    <ion-label class="main-properties">
+      <ion-text class="name">{{data.name}}</ion-text>
+      <div class="ingredients">
+        <ion-text class="ingredient" *ngFor="let ingredient of data.ingredients">{{ingredient['name']}}</ion-text>
+      </div>
+      <ion-label class="properties">
+        <span><ion-icon name="time-outline"></ion-icon>{{data.preparation_time}} min.</span>
+        <span><ion-icon name="flash-outline"></ion-icon>{{data.calories}} cal.</span>
+        <span><ion-icon name="cube-outline"></ion-icon>${{data.price | number:'1.0':'en-US'}}</span>
+      </ion-label>
+     </ion-label>
+  </ion-item>
+</ion-card>

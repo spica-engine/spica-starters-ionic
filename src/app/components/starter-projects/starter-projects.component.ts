@@ -24,7 +24,7 @@ export class StarterProjectsComponent implements OnInit {
     this.projects = [
       // {
       //   name: 'Food Delivery',
-      //   route: '/food-delivery/home',
+      //   route: '/food-delivery',
       //   icon: 'fast-food-outline',
       // },
       {
