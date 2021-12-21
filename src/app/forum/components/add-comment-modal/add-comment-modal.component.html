@@ -5,7 +5,7 @@
     </ion-label>
   </ion-card-header>
   <ion-card-content>
-    <ion-textarea rows="16" cols="16" (ionInput)="getItems($event)" placeholder="Enter any notes here..."></ion-textarea>
-    <ion-button expand="block" (click)="addInfo()" color="primary">Send Comment</ion-button>
+    <ion-textarea [(ngModel)]="commentText" rows="16" cols="16" (ionInput)="getItems($event)" placeholder="Enter any notes here..."></ion-textarea>
+    <ion-button expand="block" [disabled]="!commentText" (click)="addInfo()" color="primary">Send Comment</ion-button>
   </ion-card-content>
 </ion-card>

@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{hotel_room?.name}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container" *ngIf="hotel_room">
+    <div class="room">
+      <app-gallery [gallery]="hotel_room"></app-gallery>
+      <div class="room-description">
+        <h3>{{hotel_room.name}}</h3>
+        <span>{{hotel_room.description}}</span>
+      </div>
+      <div class="room-features">
+        <h3>Features</h3>
+        <div class="features">
+          <ion-card>
+            <ul *ngFor="let properties of hotel_room.properties">
+              <li>{{properties['name']}}</li>
+            </ul>
+          </ion-card>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

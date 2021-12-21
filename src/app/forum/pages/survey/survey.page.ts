@@ -15,6 +15,7 @@ export class SurveyPage {
   user: DataService.User;
   userId: string;
   surveyAnswers = {};
+  defaultImage = environment.user_img;
 
   constructor(private _authService: AuthService, private _router: Router) {
     _authService.initBucket();

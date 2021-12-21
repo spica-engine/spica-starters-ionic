@@ -1,0 +1,37 @@
+<spica-menu-bar project="booking"></spica-menu-bar>
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <div class="header-container" *ngIf="siteConfigurations">
+      <ion-buttons slot="start">
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <div class="room-header" *ngIf="siteConfigurations">
+      <img [src]="siteConfigurations?.homepage?.header" />
+      <div>
+        <span
+          >Start by exploring the details of your dream vacation in our
+          rooms.</span
+        >
+      </div>
+    </div>
+    <div class="rooms-suits">
+      <h2>Rooms & Suits</h2>
+      <div class="room" *ngFor="let hotel_room of rooms">
+        <img [src]="hotel_room?.head_image" />
+        <div class="room-description">
+          <h3>{{hotel_room.name}}</h3>
+          <ion-button mode="ios" [routerLink]="['room-details' ,hotel_room._id]"
+            >Explore &nbsp;<ion-icon name="arrow-forward-outline"></ion-icon
+          ></ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

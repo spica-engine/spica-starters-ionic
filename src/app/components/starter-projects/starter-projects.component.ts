@@ -9,12 +9,11 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class StarterProjectsComponent implements OnInit {
   @Output() clickedProject: EventEmitter<any> = new EventEmitter();
-  constructor(private _router: Router,private _commonService:CommonService) {}
+  constructor(private _router: Router, private _commonService: CommonService) {}
 
   projects = [];
 
   gotoProject(route) {
-    // this._router.navigate([route]);
     this._router.navigateByUrl(route, {
       replaceUrl: true,
     });
@@ -58,6 +57,7 @@ export class StarterProjectsComponent implements OnInit {
       { name: 'Appointment', route: '/appointment', icon: 'calendar-outline' },
       { name: 'Forum', route: '/forum', icon: 'text-outline' },
       { name: 'Real Estate', route: '/real-estate', icon: 'home' },
+      { name: 'Booking', route: '/booking', icon: 'bed-outline' },
     ];
   }
   copyToClipboard(str) {
@@ -67,7 +67,6 @@ export class StarterProjectsComponent implements OnInit {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    this._commonService.presentToast("Copied !",1000)
-    
+    this._commonService.presentToast('Copied !', 1000);
   }
 }

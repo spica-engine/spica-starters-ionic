@@ -1,0 +1,45 @@
+:host {
+    .container {
+        .room {
+            .room-description {
+                display: flex;
+                flex-direction: column;
+                margin: 0 15px;
+                h3 {
+                    color: #595959;
+                    font-size: 1.3rem;
+                }
+                span {
+                    text-align: center;
+                    padding: 0 15px 0 0;
+                    color: #6f6f6f;
+                    font-size: 0.9rem;
+                }
+            }
+            .room-features {
+                text-align: center;
+                h3 {
+                    text-align: center;
+                    color: #595959;
+                    font-size: 1.3rem;
+                    margin: 20px 70px;
+                    padding-bottom: 5px;
+                    border-bottom: 1px solid rgb(0, 40, 84);
+                }
+                .features {
+                    display: flex;
+                    align-items: center;
+                    ion-card {
+                        text-align: center;
+                        width: 100%;
+                        padding: 10px;
+                        margin-bottom: 20px;
+                        li {
+                            color: #6f6f6f;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

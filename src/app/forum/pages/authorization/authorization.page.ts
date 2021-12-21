@@ -37,10 +37,10 @@ export class AuthorizationPage implements OnInit {
     this._authService
       .login(loginData.email, loginData.password)
       .toPromise()
-      .then((res) => {
+      .then(() => {
         this.isLoading = false;
         this._authService.initBucket();
-        this._router.navigate(['/forum/home'], { replaceUrl: true });
+        this._router.navigate(['/forum'], { replaceUrl: true });
       })
       .catch((err) => {
         this.isLoading = false;

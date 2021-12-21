@@ -4,7 +4,7 @@
       <img [src]="comment.user['profile_picture'] || defaultAvatar" >
     </ion-avatar>
     <span class="nick">{{comment.user['nick']}}</span>
-    <span class="follow-button" *ngIf="comment?.user['_id'] != user?._id" size="small" fill="clear" (click)="follow()">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</span>
+    <span class="follow-button" *ngIf="user && comment?.user['_id'] != user?._id" size="small" fill="clear" (click)="follow()">{{comment['is_followed'] ? 'Followed' : 'Folow'}}</span>
     <span *ngIf="!details || isComment">{{comment.date | dateAgo}}</span>
     <ion-text *ngIf="details && !isComment" class="created-at">
       <ion-icon name="calendar-outline"></ion-icon>
@@ -18,15 +18,15 @@
     <ion-label>
       <p [class.details]="details">{{comment.content}}</p>
     </ion-label>
-    <ion-button (click)="likeDislike('like')" [class.active]="myAction=='liked'">
+    <ion-button [disabled]="!user" (click)="likeDislike('like')" [class.active]="myAction=='liked'">
       <ion-icon name="heart-outline"></ion-icon>
       {{comment?.likes?.length}}
     </ion-button>
-    <ion-button (click)="likeDislike('dislike')" [class.active]="myAction=='disliked'">
+    <ion-button [disabled]="!user"  (click)="likeDislike('dislike')" [class.active]="myAction=='disliked'">
       <ion-icon name="heart-dislike-outline"></ion-icon>
       {{comment?.dislikes?.length}}
     </ion-button>
-    <ion-button *ngIf="!isComment" >
+    <ion-button  [disabled]="!user" *ngIf="!isComment" >
       <ion-icon name="chatbox-outline"></ion-icon>
       {{comment?.comments?.length}}
     </ion-button>

@@ -18,9 +18,9 @@
       formControlName="password"
       required
     >
-      <ion-icon name="eye-outline"></ion-icon>
+      <!-- <ion-icon name="eye-outline"></ion-icon> -->
     </ion-input>
     <p><span>Forgot password?</span></p>
-    <ion-button (click)="login()" [disabled]="">Login</ion-button>
+    <ion-button [disabled]="loginForm.invalid" (click)="login()">Login</ion-button>
   </div>
 </div>

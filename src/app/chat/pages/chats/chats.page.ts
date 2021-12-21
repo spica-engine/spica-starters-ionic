@@ -57,9 +57,9 @@ export class ChatsPage {
         if (!this.searchedText) this.searchedChats = [...this.chats];
         else this.getChatBySearch();
       });
-     setTimeout(() => {
-      this.loading = false;
-     }, 1000);
+      setTimeout(() => {
+        this.loading = false;
+      }, 1000);
     });
   }
 
@@ -76,7 +76,7 @@ export class ChatsPage {
       data: { users: User[] };
     };
     if (data.users.length) {
-      this.loading=true
+      this.loading = true;
       let name;
       if (data.users.length == 1) name = data.users[0].username;
       else name = `${data.users[0].username}, ${data.users[1].username}...`;
@@ -112,7 +112,7 @@ export class ChatsPage {
   }
 
   async deleteChats() {
-    this.loading=true
+    this.loading = true;
     let selectedChats = this.chats.filter((cg) =>
       this.selectedChats.some((sc) => cg._id == sc)
     );
@@ -125,7 +125,6 @@ export class ChatsPage {
         item.user = item.user['_id'];
         return item;
       });
-      console.log('chat :', JSON.parse(JSON.stringify(chat)));
       if (
         chat_item.is_group &&
         !chat_item.informations.filter(
@@ -145,11 +144,8 @@ export class ChatsPage {
       );
       this.selectedChats = [];
     }
-
+    this.open_to_select = false;
     this.searchedChats = this.chats;
-    this.$chats.unsubscribe();
-    this.getChats();
-    // this._chatService.initialize();
   }
 
   selectToRemove(chatID) {

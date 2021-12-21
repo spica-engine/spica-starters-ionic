@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
@@ -7,11 +7,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/home/home.module').then((m) => m.HomePageModule),
   },
-  {
-    path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomePageModule),
-  },
+  // {
+  //   path: 'home',
+  //   loadChildren: () =>
+  //     import('./pages/home/home.module').then((m) => m.HomePageModule),
+  // },
   {
     path: 'profile',
     loadChildren: () =>
@@ -32,12 +32,16 @@ const routes: Routes = [
   {
     path: 'create-forum',
     loadChildren: () =>
-      import('./pages/create-forum/create-forum.module').then((m) => m.CreateForumPageModule),
+      import('./pages/create-forum/create-forum.module').then(
+        (m) => m.CreateForumPageModule
+      ),
   },
   {
     path: 'create-survey',
     loadChildren: () =>
-      import('./pages/create-survey/create-survey.module').then((m) => m.CreateSurveyPageModule),
+      import('./pages/create-survey/create-survey.module').then(
+        (m) => m.CreateSurveyPageModule
+      ),
   },
 ];
 
