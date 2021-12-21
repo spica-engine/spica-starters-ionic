@@ -22,17 +22,28 @@ export class MenuService {
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
-    'fitness': () => {
+    fitness: () => {
       return [
         { key: '/', value: 'Home', icon: 'filter-outline' },
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
+    booking: () => {
+      return [{ key: '/', value: 'Home', icon: 'home' }] as MenuItem[];
+    },
     'real-estate': () => {
       return [
         { key: 'adversts', value: 'Adversts', icon: 'filter-outline' },
-        { key: 'consultants', value: 'Our Consultants', icon: 'people-outline' },
-        { key: 'announcement', value: 'Announcement', icon: 'megaphone-outline' },
+        {
+          key: 'consultants',
+          value: 'Our Consultants',
+          icon: 'people-outline',
+        },
+        {
+          key: 'announcement',
+          value: 'Announcement',
+          icon: 'megaphone-outline',
+        },
         { key: 'about', value: 'About Us', icon: 'receipt-outline' },
       ] as MenuItem[];
     },

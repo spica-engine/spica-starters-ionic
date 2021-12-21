@@ -1,0 +1,18 @@
+<spica-menu-bar *ngIf="!loading" project="booking"></spica-menu-bar>
+<ion-header *ngIf="!loading" mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!loading">
+  </div>
+</ion-content>
+<ion-spinner
+  *ngIf="loading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>
