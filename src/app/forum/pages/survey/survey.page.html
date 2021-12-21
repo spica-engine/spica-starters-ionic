@@ -17,15 +17,19 @@
     <ion-card-header>
       <div class="survey-avatar">
         <ion-avatar slot="start">
-          <img [src]="survey.user['profile_picture']">
+          <img [src]="survey.user['profile_picture']||defaultImage" />
         </ion-avatar>
         <span>{{survey.user['nick']}}</span>
       </div>
       <ion-card-title>{{survey.title}}</ion-card-title>
     </ion-card-header>
-    <ion-radio-group allowEmptySelection [value]="surveyAnswers[survey.title]" (click)="_vote(survey, $event.target['value'])">
+    <ion-radio-group
+      allowEmptySelection
+      [value]="surveyAnswers[survey.title]"
+      (click)="_vote(survey, $event.target['value'])"
+    >
       <ion-item *ngFor="let select of survey.selections" lines="none">
-        <ion-radio mode="md" slot="start" [value]="select.option" ></ion-radio>
+        <ion-radio mode="md" slot="start" [value]="select.option"></ion-radio>
         <ion-label>{{select.option}}</ion-label>
         <span>{{select.voter?.length}}</span>
       </ion-item>

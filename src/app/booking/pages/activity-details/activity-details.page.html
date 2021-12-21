@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-title>Activities</ion-title>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <div class="activity" *ngIf="hotel_activities">
+      <app-gallery [gallery]="hotel_activities"></app-gallery>
+
+      <div class="activity-description">
+        <h3>{{hotel_activities.name}}</h3>
+        <div class="divider"></div>
+        <p>{{hotel_activities.description}}</p>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

@@ -64,9 +64,8 @@ export class BasketPage {
         let metadata = data[0].metadata.find((el) => {
           return el.product_id == product['_id'];
         });
-
         product['quantity'] = metadata.quantity;
-        product['selected_attribute'] = JSON.parse(metadata.selected_attribute);
+        product['selected_attribute'] = JSON.parse(metadata.selected_attribute || "{}");
       }
     }
 

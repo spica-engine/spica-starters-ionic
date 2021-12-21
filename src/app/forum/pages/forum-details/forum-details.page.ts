@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import * as DataService from '../../services/bucket';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AddCommentModalComponent } from '../../components/add-comment-modal/add-comment-modal.component';
 import { AuthService } from '../../services/auth.service';
 
@@ -18,7 +18,6 @@ export class ForumDetailsPage implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _modalController: ModalController,
-    private _router: Router,
     private _authService: AuthService
   ) {
     this._authService.initBucket();
@@ -54,18 +53,7 @@ export class ForumDetailsPage implements OnInit {
     });
   }
 
-  checkUserLogin() {
-    if (!this.user) {
-      this._router.navigateByUrl('/forum/authorization', { replaceUrl: true });
-      return false;
-    }
-    return true;
-  }
-
   async addCommentModal() {
-    if (!this.checkUserLogin()) {
-      return;
-    }
     const commentModal = await this._modalController.create({
       component: AddCommentModalComponent,
       swipeToClose: true,

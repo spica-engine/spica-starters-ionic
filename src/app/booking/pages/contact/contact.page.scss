@@ -1,0 +1,79 @@
+:host {
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        .contact-container {
+            .maps {
+                margin-top: 10px;
+                left: 50%;
+                right: 50%;
+                padding: 20px;
+            }
+            .contact {
+                width: 100%;
+                margin: 0;
+                background-color: #1f1f1f;
+                padding: 40px 30px 40px 30px;
+                h2 {
+                    font-size: 1.6rem;
+                    text-align: center;
+                    color: white;
+                }
+                .divider {
+                    width: 100%;
+                    height: 1px;
+                    margin: 20px 0 20px 0;
+                    background-color: rgb(75, 75, 75);
+                }
+
+                .contact-options {
+                    width: 100%;
+                    margin-top: 20px;
+                    text-align: center;
+                    .options {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;
+                        ion-icon {
+                            margin-top: 20px;
+                            font-size: 1.2rem;
+                            background-color: white;
+                            border-radius: 50%;
+                            padding: 10px;
+                        }
+                        h2 {
+                            font-size: 1.2rem;
+                            margin: 10px 0 5px 0;
+                            color: white;
+                        }
+                        p {
+                            font-size: 0.8rem;
+                            color: rgb(214, 214, 214);
+                        }
+                    }
+                }
+            }
+            .contact-social-media {
+                width: 100%;
+                background-color: white;
+                ion-label {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                    ion-icon {
+                        margin: 45px;
+                        font-size: 2.5rem;
+                        color: #1f1f1f;
+                    }
+                }
+            }
+        }
+    }
+}

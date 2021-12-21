@@ -14,7 +14,7 @@
         <img [src]="this.user.profile_picture || defaultAvatar" >
       </ion-avatar>
       <ion-label>
-        <h1>{{this.user.nick}}</h1>
+        <h1>{{this.user.username}}</h1>
         <p>RANK: {{this.user.level}}</p>
         <span (click)="usersListModal('followers')">{{this.user.followers.length}} Followers</span>
         <span (click)="usersListModal('followings')">{{this.user.followings.length}} Followings</span>

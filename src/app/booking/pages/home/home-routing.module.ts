@@ -1,29 +1,24 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { HomePage } from './home.page';
 
 const routes: Routes = [
   {
     path: '',
-    children: [
-      {
-        path: '',
-        component: HomePage,
-      },
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('./home.module').then(
-            (m) => m.HomePageModule
-          ),
-      },
-    ],
+    component: HomePage,
+  },
+  {
+    path: 'room-details',
+    loadChildren: () => import('../room-details/room-details.module').then(m => m.RoomDetailsPageModule)
+  },
+  {
+    path: 'activity-details',
+    loadChildren: () => import('../activity-details/activity-details.module').then(m => m.ActivityDetailsPageModule)
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class HomePageRoutingModule {}
+export class HomePageRoutingModule { }

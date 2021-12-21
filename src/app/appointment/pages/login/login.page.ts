@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
@@ -36,8 +36,8 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.loginForm = this._formBuilder.group({
-      username: '',
-      password: '',
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   login() {
@@ -47,7 +47,7 @@ export class LoginPage implements OnInit {
       .toPromise()
       .then(() => {
         this.isLoading = false;
-        this.loginForm.reset();
+        // this.loginForm.reset();
         this.navigateToAppointments();
       })
       .catch((err) => {

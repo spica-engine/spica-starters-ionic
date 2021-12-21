@@ -14,6 +14,7 @@ export class AddCommentModalComponent implements OnInit {
   textSearch: string;
   comment: DataService.Comment;
   newComment: DataService.Comment;
+  commentText: string;
 
   constructor(
     private modal: ModalController,

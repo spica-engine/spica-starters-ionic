@@ -63,7 +63,10 @@ export class ProductDetailPage implements OnInit {
 
     this.user = await this.getActiveUser();
     if (this.user) {
-      this.basket = await this.getBasketData();
+      {
+        let baskets = await this.getBasketData();
+        this.basket = baskets[0];
+      }
       await this.getLikedData();
     }
 
@@ -81,10 +84,10 @@ export class ProductDetailPage implements OnInit {
         });
 
         if (isLiked) {
-         this.isLiked = true;
+          this.isLiked = true;
         }
 
-        if(!this.product.attributes || !this.product.attributes.length){
+        if (!this.product.attributes || !this.product.attributes.length) {
           this.disableAddToBasket = false;
         }
       })
@@ -98,19 +101,22 @@ export class ProductDetailPage implements OnInit {
   }
 
   async getBasketData() {
-    const data = dataService.basket.getAll({
+    return dataService.basket.getAll({
       queryParams: {
         filter: { user: this.user._id, is_completed: false },
         relation: true,
       },
     });
-    return data[0];
   }
 
   async getRecommendedProducts() {
     return dataService.product
       .getAll({
-        queryParams: { limit: 10, relation: true, filter: {is_available: true} },
+        queryParams: {
+          limit: 10,
+          relation: true,
+          filter: { is_available: true },
+        },
       })
       .then((res) => {
         this.recommendedProducts = res;
@@ -160,7 +166,7 @@ export class ProductDetailPage implements OnInit {
       return;
     }
 
-    this.isLiked = !this.isLiked
+    this.isLiked = !this.isLiked;
 
     if (value) {
       this.likedProducts.push(id);
@@ -193,30 +199,32 @@ export class ProductDetailPage implements OnInit {
 
   async addToBasket() {
     if (!this.user) {
-      this._router.navigate(['e-commerce/tabs/profile']);
+      this._router.navigate(['e-commerce/tabs/profile'], { replaceUrl: true });
       return;
     }
     this._commonService.presentToast('Product added to basket', 800);
 
     this.product['selected_attribute'] = this.selectedAttribute;
     this.product['quantity'] = 1;
-
-    let exists = false;
-
     if (this.basket) {
-      this.basket.products.forEach((el) => {
-        if (el['_id'] == this.product._id) {
-          el['quantity'] += 1;
-          exists = true;
+      let index = this.basket.products.findIndex(
+        (item: any) => item._id == this.product._id
+      );
+      if (index >= 0) {
+        {
+          let metaQuantity = this.basket.metadata.filter(
+            (item: any) => item.product_id == this.product._id
+          )[0].quantity;
+          this.basket.products[index]['quantity'] = metaQuantity + 1;
         }
-      });
-
-      if (!exists) {
-        this.basket.products.push(this.product);
+      } else {
+        this.basket.products.push({
+          ...this.product,
+          quantity: 1,
+          selected_attribute: JSON.stringify(this.product.selected_attribute),
+        });
       }
-
       this.basket.metadata = this.prepareMetadata(this.basket.products);
-
       dataService.basket.patch({
         products: this.basket.products,
         metadata: this.basket.metadata,
@@ -244,7 +252,7 @@ export class ProductDetailPage implements OnInit {
     for (let data of basketData) {
       let obj = {
         product_id: data._id,
-        quantity: data.quantity,
+        quantity: data.quantity || 1,
         selected_attribute: JSON.stringify(data.selected_attribute),
       };
 

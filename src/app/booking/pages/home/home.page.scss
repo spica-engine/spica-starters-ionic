@@ -1,1 +1,167 @@
+:host {
+  .site-logo-img {
+    margin-top: 0px;
+    height: 50px;
+    width: 100%;
+    margin-left: 50px;
+    display: flex;
+    img {
+      right: 13px;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      margin: 5px 0;
+      filter: opacity(0.6);
+    }
+  }
 
+  .container {
+    width: 100%;
+    padding: 15px;
+    .slider {
+      width: 100%;
+      ion-slides {
+        ::ng-deep {
+          .swiper-pagination-bullet-active {
+            background-color: black;
+          }
+          .swiper-pagination-bullet {
+            background-color: black;
+          }
+        }
+        ion-slide {
+          padding-bottom: 30px;
+          div {
+            width: 100%;
+            height: 300px;
+            img {
+              width: 100%;
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    .rooms-and-suits {
+      h2 {
+        font-size: 1.5rem;
+        color: #595959;
+        text-align: center;
+        margin: 20px 70px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgb(0, 40, 84);
+      }
+      .room {
+        margin-bottom: 45px;
+        img {
+          width: 100%;
+          min-height: 200px;
+          max-height: 250px;
+        }
+        .room-description {
+          margin: -20px 50px 0 50px;
+          background-color: #f2f2f2;
+          padding: 15px;
+          text-align: center;
+          h3 {
+            color: #595959;
+            font-size: 1.3rem;
+          }
+          p {
+            padding: 0 15px 0 15px;
+            color: #6f6f6f;
+            font-size: 0.9rem;
+          }
+          ion-button {
+            padding: 1px;
+            border: 1px solid #575757;
+            --color: #6f6f6f;
+            --background: #f2f2f2;
+            --background-activated: #f3f3f3;
+            --border-radius: 0;
+            ion-icon {
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+    .activity {
+      width: 100%;
+      margin-bottom: 15px;
+      :last-child {
+        right: 0;
+      }
+      h2 {
+        font-size: 1.5rem;
+        color: #595959;
+        text-align: center;
+        margin: 20px 70px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgb(0, 40, 84);
+      }
+      .activity-info {
+        position: relative;
+        ion-slides {
+          width: 100%;
+          ion-slide {
+            display: flex;
+            flex-direction: column;
+            .activity-img {
+              width: 80%;
+              height: 250px;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+            .activity-description {
+              padding: 0 0 15px 0;
+              text-align: center;
+              h3 {
+                color: #595959;
+                font-size: 1.3rem;
+              }
+              p {
+                padding: 0 15px;
+                color: #6f6f6f;
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+        ion-button {
+          position: absolute;
+          z-index: 2;
+          top: 30%;
+          --background: black;
+          --color: white;
+          --background-activated: rgb(40, 40, 40);
+        }
+      }
+    }
+    .about {
+      width: 100%;
+      h2 {
+        font-size: 1.5rem;
+        color: #595959;
+        text-align: center;
+        margin: 15px 70px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid rgb(0, 40, 84);
+      }
+      .about-description {
+        width: 100%;
+        padding: 0 15px 15px 15px;
+        text-align: center;
+        span {
+          padding: 0 15px 0 15px;
+          color: #6f6f6f;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

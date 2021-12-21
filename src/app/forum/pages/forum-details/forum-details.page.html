@@ -14,6 +14,7 @@
         fill="outline"
         class="add-comment"
         (click)="addCommentModal()"
+        [disabled]="!user"
         >Add a comment</ion-button
       >
     </div>

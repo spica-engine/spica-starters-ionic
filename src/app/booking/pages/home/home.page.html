@@ -1,15 +1,76 @@
 <spica-menu-bar *ngIf="!loading" project="booking"></spica-menu-bar>
-<ion-header *ngIf="!loading" mode="ios">
+
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-    </ion-buttons>
-    <ion-title>Home</ion-title>
+    <div class="site-logo-img">
+      <img [src]="siteConfigurations?.homepage?.logo" />
+    </div>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-  <div *ngIf="!loading">
+  <div *ngIf="!loading"></div>
+  <div class="container">
+    <div class="slider">
+      <ion-slides pager="true" [options]="option">
+        <ion-slide *ngFor="let slide of siteConfigurations?.homepage?.slides">
+          <div>
+            <img [src]="slide" />
+          </div>
+        </ion-slide>
+      </ion-slides>
+    </div>
+
+    <app-reservation></app-reservation>
+
+    <div class="rooms-and-suits">
+      <h2>Rooms & Suits</h2>
+      <div class="room" *ngFor="let hotel_room of rooms">
+        <img [src]="hotel_room.head_image" />
+        <div class="room-description">
+          <h3>{{hotel_room.name}}</h3>
+          <p>{{hotel_room.description}}</p>
+          <ion-button mode="ios" [routerLink]="['room-details' ,hotel_room._id]"
+            >Explore &nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+    </div>
+
+    <div class="activity">
+      <h2>Activity & Fun</h2>
+      <div class="activity-info">
+        <ion-button slot="start" (click)="swipePrev()"
+          ><ion-icon name="arrow-back-outline"></ion-icon
+        ></ion-button>
+        <ion-slides #mySlider>
+          <ion-slide
+            *ngFor="let activities of activities"
+            [routerLink]="['activity-details' ,activities._id]"
+          >
+            <div class="activity-img">
+              <img [src]="activities.images[0]" />
+            </div>
+            <div class="activity-description">
+              <h3>{{activities.name}}</h3>
+              <p>{{activities.description}}</p>
+            </div>
+          </ion-slide>
+        </ion-slides>
+        <ion-button slot="end" (click)="swipeNext()"
+          ><ion-icon name="arrow-forward-outline"></ion-icon
+        ></ion-button>
+      </div>
+    </div>
+
+    <div class="about">
+      <h2>About Us</h2>
+      <div class="about-description" *ngIf="siteConfigurations">
+        <span>{{siteConfigurations.about}}</span>
+      </div>
+    </div>
   </div>
+
+  <app-footer></app-footer>
 </ion-content>
 <ion-spinner
   *ngIf="loading"

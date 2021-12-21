@@ -1,0 +1,48 @@
+<spica-menu-bar project="booking"></spica-menu-bar>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"> </ion-buttons>
+    <ion-title>Contact</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="container">
+    <div class="contact-container" *ngIf="site_configurations">
+      <div class="maps">
+       <spica-map-iframe [data]="site_configurations.contact.adress_map"></spica-map-iframe>
+      </div>
+      <div class="contact">
+        <h2>Contact Us</h2>
+        <div class="divider"></div>
+        <div class="contact-options">
+          <ion-label class="options">
+            <ion-icon name="business-outline"></ion-icon>
+            <h2>Be Our Guest</h2>
+            <p>{{site_configurations.contact.adress}}</p>
+            <ion-icon name="logo-whatsapp"></ion-icon>
+            <h2>Whatsapp</h2>
+            <p>{{site_configurations.contact.phone_number}}</p>
+            <ion-icon name="call-outline"></ion-icon>
+            <h2>Call Us</h2>
+            <p>{{site_configurations.contact.phone_number}}</p>
+            <ion-icon name="mail-open-outline"></ion-icon>
+            <h2>Write Us</h2>
+            <p>{{site_configurations.contact.mail}}</p>
+          </ion-label>
+        </div>
+      </div>
+      <div class="contact-social-media">
+        <ion-label>
+          <a [href]="site_configurations.contact.facebook_link">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+          <a [href]="site_configurations.contact.instagram_link">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </a>
+        </ion-label>
+      </div>
+    </div>
+  </div>
+
+  <app-footer></app-footer>
+</ion-content>

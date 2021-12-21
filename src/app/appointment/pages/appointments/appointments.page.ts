@@ -24,7 +24,7 @@ export class AppointmentsPage {
 
   async ionViewWillEnter() {
     this.user = await this._authService.getUser().toPromise();
-    if(this.user){
+    if (this.user) {
       await this.getAppointments();
       this.prepareAppointments();
     }
@@ -37,8 +37,9 @@ export class AppointmentsPage {
   }
 
   prepareAppointments() {
+    this.eventSource = [];
     this.appointments?.forEach((appointment) => {
-      if(appointment.client){
+      if (appointment.client) {
         this.eventSource.push({
           title: `${appointment.client['name']} ${appointment.client['surname']}`,
           startTime: new Date(appointment.from),
@@ -87,6 +88,7 @@ export class AppointmentsPage {
       } else if (res.data.action == 'delete') {
         this.deleteAppointment(res.data.appointmentData._id);
       }
+      
     });
 
     return await modal.present();

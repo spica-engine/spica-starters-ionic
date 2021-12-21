@@ -16,7 +16,7 @@ export class MenuService {
     },
     forum: () => {
       return [
-        { key: 'home', value: 'Home', icon: 'home' },
+        { key: '/', value: 'Home', icon: 'home' },
         { key: 'survey', value: 'Survey', icon: 'clipboard-outline' },
         { key: 'create-survey', value: 'Create Survey', icon: 'create' },
         { key: 'profile', value: 'Profile', icon: 'person' },
@@ -29,7 +29,11 @@ export class MenuService {
       ] as MenuItem[];
     },
     booking: () => {
-      return [{ key: '/', value: 'Home', icon: 'home' }] as MenuItem[];
+      return [
+        { key: '/', value: 'Home', icon: 'home' },
+        { key: 'rooms', value: 'Rooms', icon: 'bed-outline' },
+        { key: 'contact', value: 'Contact', icon: 'mail-outline' },
+      ] as MenuItem[];
     },
     'real-estate': () => {
       return [

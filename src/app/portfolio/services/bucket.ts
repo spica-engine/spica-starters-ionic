@@ -292,7 +292,7 @@ export namespace service {
 
 export interface Portfolio{
   _id?: string;
-  images?: string[];
+  image?: string;
   name?: string;
   service?: (Service & id | string)[];
   url?: string;

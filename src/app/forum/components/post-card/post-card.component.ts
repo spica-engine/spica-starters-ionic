@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
@@ -14,7 +13,7 @@ export class PostCardComponent implements OnInit {
   @Input() comment;
   @Input() details: boolean = false;
   @Input() isComment: boolean = false;
-  @Input() user:DataService.User;
+  @Input() user: DataService.User;
 
   defaultAvatar: string = environment.user_img;
   isLoading: boolean = true;
@@ -22,19 +21,17 @@ export class PostCardComponent implements OnInit {
 
   constructor(
     private _authService: AuthService,
-    private _router: Router,
     private _alertController: AlertController
   ) {
     this._authService.initBucket();
   }
 
   async ngOnInit() {
-
-    if(this.user?._id){
+    if (this.user?._id) {
       let isDisliked = this.comment.dislikes.find((el) => {
         return el._id == this.user._id;
       });
-  
+
       if (isDisliked) {
         this.myAction = 'disliked';
       } else {
@@ -45,25 +42,16 @@ export class PostCardComponent implements OnInit {
           this.myAction = 'liked';
         }
       }
-  
+
       if (this._authService.followingUsers.includes(this.comment.user._id)) {
         this.comment['is_followed'] = true;
       }
     }
-    
+
     this.isLoading = false;
   }
 
-  checkUserLogin() {
-    if (!this.user) {
-      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
-      return false;
-    }
-    return true
-  }
-
   likeDislike(action) {
-    if(!this.checkUserLogin()) return
     this.myAction = `${action}d`;
 
     let dislikes = this.comment.dislikes;
@@ -100,8 +88,6 @@ export class PostCardComponent implements OnInit {
   }
 
   async follow() {
-    if(!this.checkUserLogin()) return
-
     if (this._authService.followingUsers.includes(this.comment.user._id)) {
       this.comment['is_followed'] = false;
       this._authService.unfollowUser(this.comment.user._id);
