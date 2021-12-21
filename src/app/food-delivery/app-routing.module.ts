@@ -9,28 +9,16 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+    path: 'authorization',
+    loadChildren: () => import('./pages/authorization/authorization.module').then( m => m.AuthorizationPageModule)
   },
   {
-    path: 'menu',
-    loadChildren: () => import('./menu/menu.module').then( m => m.MenuPageModule)
-  },
-  {
-    path: 'menu-item',
-    loadChildren: () => import('./menu-item/menu-item.module').then( m => m.MenuItemPageModule)
-  },
-  {
-    path: 'category',
-    loadChildren: () => import('./category/category.module').then( m => m.CategoryPageModule)
-  },
-  {
-    path: 'landing',
-    loadChildren: () => import('./landing/landing.module').then( m => m.LandingPageModule)
-  },
+    path: 'order',
+    loadChildren: () => import('./pages/order/order.module').then( m => m.OrderPageModule)
+  }
 ];
 
 @NgModule({
