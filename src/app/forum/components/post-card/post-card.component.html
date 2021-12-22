@@ -19,11 +19,11 @@
       <p [class.details]="details">{{comment.content}}</p>
     </ion-label>
     <ion-button [disabled]="!user" (click)="likeDislike('like')" [class.active]="myAction=='liked'">
-      <ion-icon name="heart-outline"></ion-icon>
+      <ion-icon name="thumbs-up-outline"></ion-icon> 
       {{comment?.likes?.length}}
     </ion-button>
     <ion-button [disabled]="!user"  (click)="likeDislike('dislike')" [class.active]="myAction=='disliked'">
-      <ion-icon name="heart-dislike-outline"></ion-icon>
+      <ion-icon name="thumbs-down-outline"></ion-icon>
       {{comment?.dislikes?.length}}
     </ion-button>
     <ion-button  [disabled]="!user" *ngIf="!isComment" >

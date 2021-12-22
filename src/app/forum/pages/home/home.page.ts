@@ -21,8 +21,8 @@ export class HomePage {
 
   async ngOnInit() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
-    if(this.userId){
-      await this.getUser()
+    if (this.userId) {
+      await this.getUser();
     }
 
     await this.getCategory();
@@ -43,12 +43,13 @@ export class HomePage {
   }
 
   async getComments(catId = undefined) {
+    this.comments = [];
     await DataService.comment
       .getAll({
         queryParams: {
           limit: 10,
           relation: true,
-          sort: {_id: -1},
+          sort: { _id: -1 },
           filter: { is_post: true, category: catId },
         },
       })
@@ -64,16 +65,16 @@ export class HomePage {
   }
 
   newPostModa() {
-    if(this.userId){
+    if (this.userId) {
       this._router.navigate(['/forum/create-forum']);
     } else {
-      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+      this._router.navigateByUrl('/forum/authorization', { replaceUrl: true });
     }
   }
 
-  clickMenuItem(){
-    if(!this.userId){
-      this._router.navigateByUrl('/forum/authorization', {replaceUrl: true});
+  clickMenuItem() {
+    if (!this.userId) {
+      this._router.navigateByUrl('/forum/authorization', { replaceUrl: true });
     }
   }
 }

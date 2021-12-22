@@ -66,7 +66,7 @@ export class AuthorizationPage implements OnInit {
   }
 
   clickMenuItem(event) {
-    if (event == 'home') {
+    if (event == '/') {
       this._router.navigateByUrl(`/forum/${event}`, { replaceUrl: true });
     }
   }
