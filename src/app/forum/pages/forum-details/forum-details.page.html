@@ -22,11 +22,9 @@
       [comment]="answer"
       [isComment]="true"
       [details]="true"
+      [user]="user"
       *ngFor="let answer of this.comment.comments"
     ></post-card>
   </ng-container>
-  <ion-spinner
-    *ngIf="!comment"
-    class="spinner-center-page"
-  ></ion-spinner>
+  <ion-spinner *ngIf="!comment" class="spinner-center-page"></ion-spinner>
 </ion-content>

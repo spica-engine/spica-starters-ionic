@@ -3,6 +3,11 @@
     .category {
       display: flex;
       overflow-x: auto;
+      padding: 20px 10px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      background: white;
       ion-button {
         --border-radius: 8px;
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

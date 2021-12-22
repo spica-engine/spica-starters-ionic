@@ -4,8 +4,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
-import { SpicaCardComponent } from './spica-card/spica-card.component';
-import { SpicaListComponent } from './spica-list/spica-list.component';
 import { SpicaProductCardComponent } from './spica-product-card/spica-product-card.component';
 import { SpicaSortModalComponent } from './spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from './spica-filter-modal/spica-filter-modal.component';
@@ -24,8 +22,6 @@ import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.com
 
 @NgModule({
   declarations: [
-    SpicaCardComponent,
-    SpicaListComponent,
     SpicaProductCardComponent,
     SpicaSortModalComponent,
     SpicaFilterModalComponent,
@@ -43,8 +39,6 @@ import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.com
     SpicaMapIframeComponent,
   ],
   exports: [
-    SpicaCardComponent,
-    SpicaListComponent,
     SpicaProductCardComponent,
     SpicaSortModalComponent,
     SpicaFilterModalComponent,
