@@ -2,10 +2,14 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-title>Food Delivery</ion-title>
+    <div class="basket-box" slot="end" (click)="navigateToOrder()">
+      <ion-icon name="basket"></ion-icon>
+      <span *ngIf="basketCount>0">{{basketCount}}</span>
+    </div>
   </ion-toolbar>
 </ion-header>
 <ion-content class="content-featured">
-  <div class="adversts-container" *ngIf="foods.length">
+  <div class="foods-container" *ngIf="foods.length">
     <food-card
       (click)="openModal(food)"
       *ngFor="let food of foods"

@@ -188,6 +188,7 @@ export class BasketPage {
   }
 
   saveAddress(data) {
+    this.user.address = this.user.address || [];
     this.user.address.push(data);
 
     DataService.user.patch({

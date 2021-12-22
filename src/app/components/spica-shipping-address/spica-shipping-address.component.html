@@ -22,6 +22,9 @@
     <ion-item lines="none">
       <ion-textarea placeholder="Full Address" class="full-address" [(ngModel)]="shippingData.full_address"></ion-textarea>
     </ion-item>
+    <ion-item lines="none">
+      <ion-input placeholder="Phone" [(ngModel)]="shippingData.phone"></ion-input>
+    </ion-item> 
     <ion-button (click)="dismiss('save_address')">Save Address</ion-button>
   </div>
 </ion-content>

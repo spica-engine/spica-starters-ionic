@@ -54,7 +54,8 @@ export class MenuService {
     'food-delivery': () => {
       return [
         { key: 'home', value: 'Home', icon: 'home' },
-        { key: 'authorization', value: 'Authorization', icon: 'filter-outline' },
+        { key: 'order', value: 'Order', icon: 'basket' },
+        { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
   };

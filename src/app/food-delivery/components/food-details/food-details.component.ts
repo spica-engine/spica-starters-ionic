@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { CommonService } from 'src/app/services/common.service';
-import { Food, Ingredient } from '../../services/bucket';
+import { AuthService } from '../../services/auth.service';
+import { Food, Ingredient, User } from '../../services/bucket';
 import { OrderService } from '../../services/order.service';
 
 @Component({
@@ -17,14 +19,17 @@ export class FoodDetailsComponent implements OnInit {
   extras: string[] = [];
   removeds: string[] = [];
   count = 1;
-
+  user: User;
+  
   constructor(
     private _orderService: OrderService,
     private _modalController: ModalController,
-    private _commonService: CommonService
+    private _commonService: CommonService,
+    private _authService: AuthService,
+    private _router: Router
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.orderFood = {
       _id: this.food._id,
       name: this.food.name,
@@ -32,10 +37,17 @@ export class FoodDetailsComponent implements OnInit {
       price: this.food.price,
       image: this.food.image,
     };
+    this.user = await this._authService.getUser().toPromise();
   }
 
   addToOrder() {
-    this._commonService.presentToast('Successfully added to cart.', 2000)
+    if(!this.user){
+      this._router.navigate(['/food-delivery/profile'], {replaceUrl: true})
+      this._modalController.dismiss();
+      return;
+    }
+
+    this._commonService.presentToast('Successfully added to cart.', 1500)
 
     this.normalizeIngredients();
     this._orderService.addToOrder({ ...this.orderFood }, this.count);

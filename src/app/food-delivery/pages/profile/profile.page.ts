@@ -1,35 +1,55 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
-import * as DataService from '../../services/bucket';
+import { User } from '../../services/bucket';
 
 
 @Component({
-  selector: 'app-authorization',
-  templateUrl: './authorization.page.html',
-  styleUrls: ['./authorization.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class AuthorizationPage implements OnInit {
-  user: DataService.User;
+export class ProfilePage {
+
+  user: User;
+  listItems: Item[] = [];
   isLoading: boolean = false;
   constructor(
     private _authService: AuthService,
+    private _commonService: CommonService,
     private _router: Router,
-    private _commonService: CommonService
-  ) {
-    this._authService.initBucket();
-  }
-
-  ngOnInit() {}
+  ) { }
 
   async ionViewWillEnter() {
     this.isLoading = true;
-    let user = await this._authService.getUser().toPromise();
-    this.isLoading = false;
-    if (user) {
-      this.nvigateToHome();
+    this.user = await this._authService.getUser().toPromise();
+
+    if(this.user){
+      this.listItems = [
+        { key: 'username', value: '', seperate: true },
+        { key: 'name', value: '', seperate: true },
+        { key: 'surname', value: '', seperate: true },
+      ];
+      this.listItems.forEach(
+        (item) => (item.value = this.user[item.key] ? this.user[item.key] : '')
+      );
+      this.listItems = this.listItems.concat([
+        {
+          key: 'my_orders',
+          value: 'My Orders',
+          seperate: false,
+          link: 'my-orders',
+        }
+      ]);
     }
+    this.isLoading = false;
+  }
+
+  logout(){
+    this._authService.logout();
+    this.user = undefined;
   }
 
   nvigateToHome() {
@@ -69,4 +89,5 @@ export class AuthorizationPage implements OnInit {
         this._commonService.presentToast(err.error.message, 1500);
       });
   }
+
 }
