@@ -86,6 +86,7 @@ export interface User {
   name?: string;
   surname?: string;
   phone?: string;
+  email?:string;
   profile_picture?:string;
   address?: {
     title?: string;
@@ -151,6 +152,7 @@ export interface Order {
     full_address?: string;
     phone?: string;
   };
+  rating?: (Rating & id) | string;
 }
 export namespace order {
   const BUCKET_ID = '61bc93050ba24b002d197850';

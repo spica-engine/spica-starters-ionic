@@ -3,6 +3,10 @@
     <img [src]="data.image"/>
     <ion-label class="main-properties">
       <ion-text class="name">{{data.name}}</ion-text>
+      <ion-label *ngIf="rating > 0" class="rating">
+        <ion-icon name="star"></ion-icon>
+        <ion-text>{{rating.toFixed(1)}}</ion-text>
+      </ion-label>
       <div class="ingredients">
         <ion-text class="ingredient" *ngFor="let ingredient of data.ingredients">{{ingredient['name']}}</ion-text>
       </div>

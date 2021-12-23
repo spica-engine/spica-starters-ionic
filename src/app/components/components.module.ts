@@ -19,6 +19,7 @@ import { SpicaCategoryComponent } from './spica-category/spica-category.componen
 import { StarterProjectsComponent } from './starter-projects/starter-projects.component';
 import { RevokedUnderlinePipe } from '../pipes/revoked-underline.pipe';
 import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.component';
+import { SpicaRatingComponent } from './spica-rating/spica-rating.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.com
     StarterProjectsComponent,
     RevokedUnderlinePipe,
     SpicaMapIframeComponent,
+    SpicaRatingComponent
   ],
   exports: [
     SpicaProductCardComponent,
@@ -54,6 +56,7 @@ import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.com
     StarterProjectsComponent,
     RevokedUnderlinePipe,
     SpicaMapIframeComponent,
+    SpicaRatingComponent
   ],
   imports: [
     RouterModule,

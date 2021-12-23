@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as DataService from '../../services/bucket'
+import * as DataService from '../../services/bucket';
 
 @Component({
   selector: 'food-card',
@@ -7,11 +7,14 @@ import * as DataService from '../../services/bucket'
   styleUrls: ['./food-card.component.scss'],
 })
 export class FoodCardComponent implements OnInit {
-
   @Input() data: DataService.Food;
-  constructor() { }
+  rating: number = 0;
+  constructor() {}
 
   ngOnInit() {
+    this.data.ratings.forEach((el) => {
+      this.rating += el['rating'];
+    });
+    this.rating = this.rating / this.data.ratings.length;
   }
-
 }

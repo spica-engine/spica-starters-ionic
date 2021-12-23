@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MyOrdersPageRoutingModule } from './my-orders-routing.module';
 
 import { MyOrdersPage } from './my-orders.page';
+import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MyOrdersPageRoutingModule
+    MyOrdersPageRoutingModule,
+    SpicaComponentsModule
   ],
   declarations: [MyOrdersPage]
 })

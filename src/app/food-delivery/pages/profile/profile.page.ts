@@ -28,7 +28,7 @@ export class ProfilePage {
 
     if(this.user){
       this.listItems = [
-        { key: 'username', value: '', seperate: true },
+        { key: 'email', value: '', seperate: true },
         { key: 'name', value: '', seperate: true },
         { key: 'surname', value: '', seperate: true },
       ];

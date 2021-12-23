@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AuthorizationPage } from './authorization.page';
+import { SpicaRatingComponent } from './spica-rating.component';
 
-describe('AuthorizationPage', () => {
-  let component: AuthorizationPage;
-  let fixture: ComponentFixture<AuthorizationPage>;
+describe('SpicaRatingComponent', () => {
+  let component: SpicaRatingComponent;
+  let fixture: ComponentFixture<SpicaRatingComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthorizationPage ],
+      declarations: [ SpicaRatingComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AuthorizationPage);
+    fixture = TestBed.createComponent(SpicaRatingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

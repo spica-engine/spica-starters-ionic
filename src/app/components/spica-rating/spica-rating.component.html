@@ -1,0 +1,18 @@
+<div class="rating-container">
+  <div class="rating-box">
+    <ion-title *ngIf="title">{{title}}</ion-title>
+    <ion-label>
+      <ion-icon
+        name="star"
+        (click)="rate(value)"
+        [class.active]="rating >= value"
+        *ngFor="let value of [1,2,3,4,5];"
+      ></ion-icon>
+    </ion-label>
+    <ion-textarea placeholder="Enter your comment" [(ngModel)]="comment"></ion-textarea>
+    <div class="buttons">
+      <ion-button (click)="clicked('apply')">Apply</ion-button>
+      <ion-button (click)="clicked('cancel')">Cancel</ion-button>
+    </div>
+  </div>
+</div>
