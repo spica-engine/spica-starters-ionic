@@ -10,9 +10,8 @@
     z-index: 11;
     ion-item {
       transition: all 0.2s ease;
-      opacity: 0.6;
       &.active {
-        opacity: 1;
+       color:var(--ion-color-primary)
       }
     }
   }

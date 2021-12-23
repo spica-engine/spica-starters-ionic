@@ -1,19 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import { User, video, Video } from '../../services/bucket';
+import {
+  Category,
+  teacher,
+  Teacher,
+  teacher_speciality,
+  Teacher_Speciality,
+  User,
+} from '../../services/bucket';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.page.html',
-  styleUrls: ['./home.page.scss'],
+  selector: 'app-categories',
+  templateUrl: './categories.page.html',
+  styleUrls: ['./categories.page.scss'],
 })
-export class HomePage implements OnInit {
-  videos: Video[];
+export class CategoriesPage implements OnInit {
+  branches: Teacher_Speciality[];
+  catagories: Category[];
+  teacher: Teacher[];
   loading: boolean = true;
   me: User;
 
   constructor(
+    private _router: Router,
     private _authService: AuthService,
     private _commonService: CommonService
   ) {
@@ -22,6 +33,23 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.getMe();
+    // this.getBranches();
+    // this.getTeacher()
+  }
+  async getBranches() {
+    this.branches = await teacher_speciality.getAll({
+      queryParams: { relation: true },
+    });
+    this.branches.forEach((item) => {
+      item['sub_categories'] = item.categories;
+      return item;
+    }) as any;
+  }
+  async getTeacher() {
+    this.teacher = await teacher.getAll();
+  }
+  navigateCategory(id) {
+    this._router.navigate(['fitness/branch-categories/' + id]);
   }
   async login(loginData) {
     this.loading = true;
@@ -59,21 +87,15 @@ export class HomePage implements OnInit {
         async (data: User) => {
           if (data && !this.me) {
             this.me = data;
-            await this.getVideos();
             this.loading = false;
-          }
-          this.loading = false;
+            this.getBranches();
+            this.getTeacher();
+          } else this.loading = false;
         },
         (err) => {
           console.log('err :', err);
           this.loading = false;
         }
       );
-  }
-  async getVideos() {
-    this.loading = false;
-    this.videos = await video.getAll({
-      queryParams: { limit: 5, relation: true },
-    });
   }
 }

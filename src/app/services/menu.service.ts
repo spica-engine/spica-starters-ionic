@@ -24,7 +24,8 @@ export class MenuService {
     },
     fitness: () => {
       return [
-        { key: '/', value: 'Home', icon: 'filter-outline' },
+        { key: '/', value: 'Home', icon: 'home' },
+        { key: 'categories', value: 'Categories', icon: 'filter-outline' },
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
