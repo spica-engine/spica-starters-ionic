@@ -1,17 +1,12 @@
 :host {
   ion-content {
     ion-card {
-      margin: 8px 0 20px 0;
-      height: calc(100vh - 56vh);
+      height: 275px;
       ion-card-header {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         height: 60px;
-        ion-card-title {
-          border-bottom: 1px solid;
-          border-color: #dcdcdc;
-        }
       }
       ion-card-content {
         height: calc(100% - 60px);
@@ -20,12 +15,12 @@
           height: 100%;
           ::ng-deep {
             .swiper-pagination-bullet-active {
-                background-color: black;
+              background-color: black;
             }
-            .swiper-pagination-bullet{
-                background-color: black;
+            .swiper-pagination-bullet {
+              background-color: black;
             }
-        }
+          }
           ion-slide {
             position: relative;
             ion-label {
@@ -33,14 +28,10 @@
               display: flex;
               flex-direction: column;
               justify-content: center;
-              :first-child {
-                position: absolute;
-                top: 16%;
-                align-self: center;
-                font-weight: 600;
-                font-size: 1.2rem;
+              h1 {
+                margin-top: -50px;
               }
-              :last-child {
+              h3 {
                 width: 260px;
                 word-wrap: break-word;
               }

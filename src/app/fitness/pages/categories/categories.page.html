@@ -1,25 +1,26 @@
 <spica-menu-bar *ngIf="me && !loading" project="fitness"></spica-menu-bar>
 <ion-header mode="ios" *ngIf="!loading && me">
   <ion-toolbar>
-    <ion-title>Home</ion-title>
+    <ion-title>Categories</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="me && !loading"  class="videos">
-    <app-video-card
-      *ngFor="let video of videos"
-      [video]="video"
-    ></app-video-card>
+  <div *ngIf="me && !loading">
+    <spica-category
+      [categories]="branches"
+      (clickNavigate)="navigateCategory($event)"
+    ></spica-category>
   </div>
   <spica-authorization
-    *ngIf="!me && !loading"
-    (clickLogin)="login($event)"
-    (clickRegister)="register($event)"
-  ></spica-authorization>
+  *ngIf="!me && !loading"
+  (clickLogin)="login($event)"
+  (clickRegister)="register($event)"
+></spica-authorization>
 </ion-content>
 <ion-spinner
   *ngIf="loading"
   class="spinner-center-page"
   name="crescent"
 ></ion-spinner>
+

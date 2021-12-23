@@ -1,0 +1,9 @@
+:host {
+  .videos {
+    display: flex;
+    flex-flow: wrap;
+    app-video-card {
+      width: 50% !important;
+    }
+  }
+}

@@ -65,8 +65,8 @@ html {
   }
 }
 ion-avatar {
-  width: 48px;
-  height: 48px;
+  max-width: 48px;
+  max-height: 48px;
 }
 ion-button {
   --border-radius: 40px;

@@ -1,22 +1,42 @@
 <ion-header mode="ios">
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-title>{{video?.name}}</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button  defaultHref="/fitness"></ion-back-button>
+      <ion-back-button defaultHref="/fitness"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
-  
 </ion-header>
 
 <ion-content>
+  <div *ngIf="video">
+    <video (play)="watchedVideo()" [src]="video?.video" controls>
+      <span></span>
+    </video>
+    <div class="detail">
+      <h5>{{video.name}}</h5>
+      <div class="detail-row">
+        <div class="detail-column">Duration</div>
+        <div class="detail-column">{{video.duration}}MIN</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-column">Category</div>
+        <div class="detail-column">{{video.category['name']}}</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-column">Vip</div>
+        <div class="detail-column">{{video.vip.toString() |titlecase}}</div>
+      </div>
+      <ion-item
+        lines="none"
+        [routerLink]="['teacher-page', video?.teacher['_id']]"
+      >
+        <ion-avatar slot="end">
+          <img [src]="video?.teacher['picture']" />
+        </ion-avatar>
+        <ion-label slot="end">{{ video?.teacher["name"] }}</ion-label>
+      </ion-item>
+    </div>
 
- <ion-card >
-  <video (play)="watchedVideo()"  autoplay="true" [src]="video?.video" controls>
-    <span ></span>
-  </video>
-   <ion-card-content>
-     {{video?.description}}
-   </ion-card-content>
- </ion-card>
-
+    <div [innerHtml]="video?.description"></div>
+  </div>
 </ion-content>

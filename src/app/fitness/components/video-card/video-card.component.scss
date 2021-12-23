@@ -1,16 +1,51 @@
 :host {
-    .image-play {
-        position: relative;
-        ion-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            color: white;
-            font-size: 90px;
-            transform: translate(-50%, -50%);
+  width: 100%;
+  display: flex;
+  ion-card {
+    margin: 10px 5px;
+    width: calc(100% - 10px);
+    ion-card-header {
+      padding: 10px 10px 0;
+      ion-card-subtitle {
+        &:first-of-type {
+          font-size: 11px;
+          color: var(--ion-color-primary);
+          opacity: 0.6;
         }
+      }
     }
-    ion-avatar {
-        margin: 0;
+    ion-card-content {
+      padding: 10px 10px 20px 10px;
+      font-size: 13px;
     }
+  }
+  // width: 50%;
+  .image-play {
+    position: relative;
+    ion-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: white;
+      font-size: 30px;
+      transform: translate(-50%, -50%);
+    }
+    span {
+      position: absolute;
+      right: 10px;
+      background: white;
+      padding: 3px 7px;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0px 5px 18px 0px rgb(0 0 0 / 29%);
+      color: var(--ion-color-primary);
+      font-size: 11px;
+      font-weight: 600;
+    }
+    img {
+      width: 100%;
+      object-fit: cover;
+      height: 130px;
+    }
+  }
 }
