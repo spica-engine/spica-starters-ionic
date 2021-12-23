@@ -103,6 +103,7 @@
 
     .coupon-container {
       padding: 0 15px;
+      margin-bottom: 70px;
       ion-item {
         margin: 10px 0;
         ion-label {
@@ -134,6 +135,7 @@
       padding: 5px 0;
       border-top: 1px solid var(--ion-color-medium-tint);
       background: white;
+      z-index: 1;
 
       .total-price-container {
         margin-left: 15px;

@@ -18,31 +18,30 @@
       Add new address
     </ion-button>
 
-    <ion-slides [options]="slideOpts" *ngIf="addresses.length">
-      <ion-slide *ngFor="let address of addresses; let index = index">
-        <div
-          class="address-container active"
-          [class.active]="index == shoppingData.addressIndex"
-          (click)="shoppingData.addressIndex = index"
+    <div class="address-slide hide-scroll-bar">
+      <div
+      *ngFor="let address of addresses; let index = index"
+      class="address-container active"
+      [class.active]="index == shoppingData.addressIndex"
+      (click)="shoppingData.addressIndex = index"
+    >
+      <ion-checkbox
+        [class.visiblbe]="index == shoppingData.addressIndex"
+        slot="start"
+        [checked]="true"
+        type="md"
+        [disabled]="true"
+      ></ion-checkbox>
+      <div class="metadata">
+        <ion-text>{{ address["title"] }}</ion-text>
+        <ion-text>{{ address["full_address"] }}</ion-text>
+        <ion-text
+          >{{ address["district"] }} / {{ address["province"] }}</ion-text
         >
-          <ion-checkbox
-            [class.visiblbe]="index == shoppingData.addressIndex"
-            slot="start"
-            [checked]="true"
-            type="md"
-            [disabled]="true"
-          ></ion-checkbox>
-          <div class="metadata">
-            <ion-text>{{ address["title"] }}</ion-text>
-            <ion-text>{{ address["full_address"] }}</ion-text>
-            <ion-text
-              >{{ address["district"] }} / {{ address["province"] }}</ion-text
-            >
-            <ion-text>{{ address["phone"] }}</ion-text>
-          </div>
-        </div>
-      </ion-slide>
-    </ion-slides>
+        <ion-text>{{ address["phone"] }}</ion-text>
+      </div>
+    </div>
+    </div>
 
     <ion-list>
       <ion-radio-group

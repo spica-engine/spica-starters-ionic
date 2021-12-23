@@ -7,17 +7,6 @@ import { ModalController } from '@ionic/angular';
   styleUrls: ['./spica-confirm-shopping.component.scss'],
 })
 export class SpicaConfirmShoppingComponent implements OnInit {
-  slideOpts = {
-    slidesPerView: 1.6,
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
-  };
-
   shoppingData = {
     addressIndex: 0,
     paymentMethod: '',

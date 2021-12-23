@@ -20,6 +20,12 @@
       padding: 20px;
       padding-right: 0;
 
+      .address-slide{
+        display: flex;
+        overflow: scroll;
+        padding-right: 15px;
+      }
+
       .address-container {
         margin: 15px 5px 0;
         display: flex;
@@ -27,7 +33,7 @@
         background: rgb(250, 252, 255);
         border-radius: 10px;
         height: calc(100% * 0.45);
-        width: 100%;
+        min-width: 60%;
         border: 1px solid var(--ion-color-medium);
         position: relative;
 

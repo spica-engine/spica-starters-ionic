@@ -31,6 +31,7 @@ export class StoreDetailPage implements OnInit {
     'Saturday',
     'Sunday',
   ];
+  isLoading: boolean = false;
 
   constructor(
     private _route: ActivatedRoute,
@@ -49,5 +50,9 @@ export class StoreDetailPage implements OnInit {
 
   segmentChanged(value) {
     this.activeSegment = value;
+    if(value == 'map'){
+      this.isLoading = true;
+      setTimeout(() => {this.isLoading = false}, 1000)
+    }
   }
 }

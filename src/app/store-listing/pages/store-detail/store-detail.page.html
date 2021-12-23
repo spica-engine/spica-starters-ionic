@@ -26,6 +26,7 @@
     </ion-segment>
 
     <div class="info" *ngIf="activeSegment=='info'">
+      <p>{{store.description}}</p>
       <p><span>Phone: </span> {{store.phone}}</p>
       <p><span>Email: </span> {{store.mail}}</p>
       <p>
@@ -55,6 +56,11 @@
       </ion-slide>
     </ion-slides>
     <div *ngIf="activeSegment=='map'">
+      <ion-spinner
+        *ngIf="isLoading"
+        class="spinner-center-page"
+        name="crescent"
+      ></ion-spinner>
       <spica-map-iframe [data]="store.location"></spica-map-iframe>
     </div>
   </ng-container>
