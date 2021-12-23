@@ -17,8 +17,6 @@ export class SpicaScrollCategoryComponent implements OnInit {
 
   clicked(value){
     this.active = value;
-    console.log(this.active)
-    console.log(value)
     this.action.emit(value);
   }
 

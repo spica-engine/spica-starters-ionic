@@ -1,20 +1,49 @@
 :host {
-    ion-content{
-        ion-card{
-            margin: 0;
-            box-shadow: none !important;
-            ion-card-content{
-                ion-label{
-                    :first-child{
-                        border-bottom: 1px solid;
-                        border-color: #dcdcdc;
-                        width: fit-content;
-                        color: black;
-                        margin-bottom: 10px;
-                        font-weight: 600;
-                    }
-                }
-            }
-        }
+  spica-item-list {
+    ::ng-deep {
+      .item-list {
+        padding: 0px !important;
+      }
     }
+  }
+  .detail {
+    margin: 30px 15px;
+    .speciality {
+      width: 100%;
+      margin-bottom: 20px;
+      span {
+        background: #bfcfe5;
+        color: white;
+        padding: 5px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 500;
+        margin: 0 5px;
+        &:first-of-type {
+          margin: 0px;
+        }
+      }
+    }
+    .bio {
+      line-height: 1.5rem;
+      font-size: 14px;
+    }
+  }
+  .workouts {
+    margin-top: 30px;
+    ion-slides {
+      ::ng-deep {
+        .swiper-wrapper {
+          margin-bottom: 25px;
+        }
+        ion-slide {
+          app-video-card {
+            ion-card {
+              height: 250px;
+            }
+          }
+        }
+      }
+    }
+  }
 }
