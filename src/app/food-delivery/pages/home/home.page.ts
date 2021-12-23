@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { FoodDetailsComponent } from '../../components/food-details/food-details.component';
 import { AuthService } from '../../services/auth.service';
-import * as DataService from '../../services/bucket';
+import { Category, category, Food, food} from '../../services/bucket';
 import { OrderService } from '../../services/order.service';
 
 @Component({
@@ -12,8 +12,10 @@ import { OrderService } from '../../services/order.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  foods: DataService.Food[] = [];
+  foods: Food[] = [];
   basketCount: number = 0;
+  categories: Category[] = [];
+  isLoading: boolean = true;
 
   constructor(
     private _authService: AuthService,
@@ -26,13 +28,19 @@ export class HomePage implements OnInit {
 
   async ngOnInit() {
     this.foods = await this.getFoods();
+    this.categories = await this.getCategories();
+    this.isLoading = false;
   }
 
-  getFoods() {
-    return DataService.food.getAll({ queryParams: { relation: true } });
+  getFoods(catId=undefined) {
+    return food.getAll({ queryParams: { relation: true, filter: {categories: catId}, sort: {_id:-1} } });
   }
 
-  async openModal(food: DataService.Food) {
+  getCategories(){
+    return category.getAll()
+  }
+
+  async openModal(food: Food) {
     const modal = await this._modalController.create({
       component: FoodDetailsComponent,
       cssClass: 'modal',
@@ -52,7 +60,17 @@ export class HomePage implements OnInit {
     this.basketCount = this._orderService.getOrder()?.foods?.length;
   }
 
-  navigateToOrder(){
-    this._router.navigate(['/food-delivery/order'], {replaceUrl: true})
+  navigateToBasket(){
+    this._router.navigate(['/food-delivery/basket'], {replaceUrl: true})
+  }
+
+  async setCategory(value){
+    this.isLoading = true;
+    if(value == 'all'){
+      this.foods = await this.getFoods();
+    } else {
+      this.foods = await this.getFoods(value);
+    }
+    this.isLoading = false;
   }
 }

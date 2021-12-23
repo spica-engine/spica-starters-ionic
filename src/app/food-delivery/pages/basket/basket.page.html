@@ -1,17 +1,17 @@
 <spica-menu-bar project="food-delivery"></spica-menu-bar>
 <ion-header mode="ios">
   <ion-toolbar>
-    <ion-title>Order</ion-title>
+    <ion-title>Basket</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="content-featured">
+<ion-content>
   <ng-container *ngIf="!order.foods.length && !isLoading">
     <div class="empty-container">
       <img
         src="https://cdn.dribbble.com/users/1168645/screenshots/3152485/media/9beceb082a92006c310a72aa8e2fdfaa.png?compress=1&resize=400x300"
         alt=""
       />
-      <ion-label>There is no order</ion-label>
+      <ion-label>There is no food</ion-label>
       <ion-button (click)="navigateToHome()">Food List</ion-button>
     </div>
   </ng-container>

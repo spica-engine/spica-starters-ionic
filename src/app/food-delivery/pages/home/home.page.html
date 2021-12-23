@@ -2,18 +2,29 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-title>Food Delivery</ion-title>
-    <div class="basket-box" slot="end" (click)="navigateToOrder()">
+    <div class="basket-box" slot="end" (click)="navigateToBasket()">
       <ion-icon name="basket"></ion-icon>
       <span *ngIf="basketCount>0">{{basketCount}}</span>
     </div>
   </ion-toolbar>
 </ion-header>
-<ion-content class="content-featured">
-  <div class="foods-container" *ngIf="foods.length">
-    <food-card
-      (click)="openModal(food)"
-      *ngFor="let food of foods"
-      [data]="food"
-    ></food-card>
-  </div>
+<ion-content>
+  <ng-container *ngIf="!isLoading">
+    <spica-scroll-category
+      [categories]="categories"
+      (action)="setCategory($event)"
+    ></spica-scroll-category>
+    <div *ngIf="foods.length">
+      <food-card
+        (click)="openModal(food)"
+        *ngFor="let food of foods"
+        [data]="food"
+      ></food-card>
+    </div>
+  </ng-container>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
 </ion-content>

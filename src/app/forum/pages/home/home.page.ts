@@ -10,7 +10,7 @@ import * as DataService from '../../services/bucket';
 })
 export class HomePage {
   userId: string;
-  categoryes: DataService.Category[] = [];
+  categories: DataService.Category[] = [];
   comments: DataService.Comment[] = [];
   titles: DataService.Title[] = [];
   user: DataService.User;
@@ -38,7 +38,7 @@ export class HomePage {
 
   getCategory() {
     return DataService.category.getAll().then((res) => {
-      this.categoryes = res;
+      this.categories = res;
     });
   }
 

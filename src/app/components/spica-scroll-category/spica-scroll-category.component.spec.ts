@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { OrderPage } from './order.page';
+import { SpicaScrollCategoryComponent } from './spica-scroll-category.component';
 
-describe('OrderPage', () => {
-  let component: OrderPage;
-  let fixture: ComponentFixture<OrderPage>;
+describe('SpicaScrollCategoryComponent', () => {
+  let component: SpicaScrollCategoryComponent;
+  let fixture: ComponentFixture<SpicaScrollCategoryComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderPage ],
+      declarations: [ SpicaScrollCategoryComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(OrderPage);
+    fixture = TestBed.createComponent(SpicaScrollCategoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

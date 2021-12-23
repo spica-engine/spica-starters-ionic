@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="adversts-container" *ngIf="adversts.length">
+  <div *ngIf="adversts.length">
     <adverst-card
       [data]="adverst"
       [routerLink]="['/real-estate/adverst-detail/'+adverst._id]"

@@ -11,6 +11,7 @@ export class MyOrdersPage implements OnInit {
   user: User;
   orders: any[] = [];
   selectedOrder: string;
+  isLoading: boolean = true;
   constructor(private _authService: AuthService) {
     this._authService.initBucket();
   }
@@ -24,16 +25,17 @@ export class MyOrdersPage implements OnInit {
       if (new Date(el.created_at) > maxDate) {
         el['can_rate'] = true;
       }
+      this.isLoading = false;
     });
   }
 
   getMyOrders() {
-    return order.getAll({ queryParams: { filter: { user: this.user._id }, relation: true } });
+    return order.getAll({ queryParams: { filter: { user: this.user._id }, relation: true, sort: {_id: -1} }, });
   }
 
   async ratingAction(event) {
-    this.selectedOrder = undefined;
     if (event.data.value == 'apply') {
+      this.isLoading = true;
       let selectedOrder = this.orders.find((el) => {
         return el._id == this.selectedOrder;
       });
@@ -56,6 +58,8 @@ export class MyOrdersPage implements OnInit {
         tempFood.ratings.push(newRating._id);
         food.patch({ _id: tempFood._id, ratings: tempFood.ratings });
       }
+      this.isLoading = false;
     }
+    this.selectedOrder = undefined;
   }
 }

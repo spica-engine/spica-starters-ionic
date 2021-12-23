@@ -337,6 +337,7 @@ export namespace rating {
 export interface Food {
   _id?: string;
   name?: string;
+  categories?: ((Category & id) | string)[];
   description?: string;
   image?: string;
   original_price?: number;
@@ -477,7 +478,6 @@ export namespace discount {
 export interface Category {
   _id?: string;
   name?: string;
-  foods?: ((Food & id) | string)[];
 }
 export namespace category {
   const BUCKET_ID = '61bc930c0ba24b002d197862';
@@ -486,36 +486,6 @@ export namespace category {
   }
   export function getAll(...args: getAllArgs) {
     return Bucket.data.getAll<Category & id>(BUCKET_ID, ...args);
-  }
-  export function insert(document: Omit<Category, '_id'>) {
-    ['foods'].forEach((field) => {
-      if (typeof document[field] == 'object') {
-        document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id || v)
-          : document[field]._id;
-      }
-    });
-    return Bucket.data.insert(BUCKET_ID, document);
-  }
-  export function update(document: Category & id) {
-    ['foods'].forEach((field) => {
-      if (typeof document[field] == 'object') {
-        document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id || v)
-          : document[field]._id;
-      }
-    });
-    return Bucket.data.update(BUCKET_ID, document._id, document);
-  }
-  export function patch(document: Partial<Category> & id) {
-    ['foods'].forEach((field) => {
-      if (typeof document[field] == 'object') {
-        document[field] = Array.isArray(document[field])
-          ? document[field].map((v) => v._id || v)
-          : document[field]._id;
-      }
-    });
-    return Bucket.data.patch(BUCKET_ID, document._id, document);
   }
   export function remove(documentId: string) {
     return Bucket.data.remove(BUCKET_ID, documentId);

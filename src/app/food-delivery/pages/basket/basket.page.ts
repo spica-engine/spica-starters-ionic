@@ -9,11 +9,11 @@ import { SpicaShippingAddressComponent } from 'src/app/components/spica-shipping
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.page.html',
-  styleUrls: ['./order.page.scss'],
+  selector: 'app-basket',
+  templateUrl: './basket.page.html',
+  styleUrls: ['./basket.page.scss'],
 })
-export class OrderPage implements OnInit {
+export class BasketPage implements OnInit {
   order: Order;
   user: User;
   isLoading: boolean = false;
@@ -79,6 +79,7 @@ export class OrderPage implements OnInit {
 
     modal.onWillDismiss().then((res) => {
       if (res.data.value == 'close') {
+        this.presentConfirmModal(this.user.address);
         return;
       }
       this.saveAddress(res.data.shippingData);

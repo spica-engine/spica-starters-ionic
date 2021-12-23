@@ -1,0 +1,4 @@
+<div class="category hide-scroll-bar" *ngIf="categories">
+  <ion-button (click)="clicked('all')" color="light">All</ion-button>
+  <ion-button *ngFor="let category of categories" (click)="clicked(category._id)" color="light">{{category.name}}</ion-button>
+</div>

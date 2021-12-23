@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="orders-container" *ngIf="orders.length">
+  <div class="orders-container" *ngIf="orders.length && !isLoading">
     <ion-card *ngFor="let order of orders">
       <p class="status">Status: {{order.status}}</p>
       <div class="card-content">
@@ -30,4 +30,9 @@
     </ion-card>
   </div>
 </ion-content>
-<spica-rating *ngIf="selectedOrder" title="Rate Food" (action)="ratingAction($event)"></spica-rating>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>
+<spica-rating *ngIf="selectedOrder && !isLoading" title="Rate Food" (action)="ratingAction($event)"></spica-rating>
