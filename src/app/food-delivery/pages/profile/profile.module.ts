@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { OrderPageRoutingModule } from './order-routing.module';
+import { ProfilePageRoutingModule } from './profile-routing.module';
 
-import { OrderPage } from './order.page';
+import { ProfilePage } from './profile.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    OrderPageRoutingModule,
+    ProfilePageRoutingModule,
     SpicaComponentsModule
   ],
-  declarations: [OrderPage]
+  declarations: [ProfilePage]
 })
-export class OrderPageModule {}
+export class ProfilePageModule {}

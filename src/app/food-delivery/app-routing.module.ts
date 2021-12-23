@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'food-delivery',
+    path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
@@ -12,13 +12,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'authorization',
-    loadChildren: () => import('./pages/authorization/authorization.module').then( m => m.AuthorizationPageModule)
-  },
-  {
     path: 'order',
     loadChildren: () => import('./pages/order/order.module').then( m => m.OrderPageModule)
-  }
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({

@@ -1,0 +1,33 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="orders-container" *ngIf="orders.length">
+    <ion-card *ngFor="let order of orders">
+      <p class="status">Status: {{order.status}}</p>
+      <div class="card-content">
+        <ion-label>
+          <ion-text *ngFor="let food of order.foods">
+            {{food.count + ' ' + food.name}}
+          </ion-text>
+        </ion-label>
+        <p><span>Total:</span> {{order.price}}$</p>
+        <p><span>Date:</span> {{order.created_at | date:'dd-MM-yyyy HH:MM'}}</p>
+        <p *ngIf="!order['can_rate'] && !order.rating" class="cannot-rate-text">
+          You cannot rate because more than 2 days have passed since your order.
+        </p>
+        <ion-label *ngIf="order['can_rate'] && !order.rating" class="button-label"
+          ><ion-button (click)="selectedOrder=order._id; ">Rate</ion-button></ion-label
+        >
+        <p class="user-rate" *ngIf="order.rating"><span>Rated: </span> <ion-icon name="star"></ion-icon>{{order.rating?.rating}}</p>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
+<spica-rating *ngIf="selectedOrder" title="Rate Food" (action)="ratingAction($event)"></spica-rating>

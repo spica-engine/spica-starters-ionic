@@ -11,6 +11,17 @@
         object-fit: cover;
       }
 
+      .rating{
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        margin-top: 7px;
+        ion-icon{
+          color: rgb(255, 196, 0);
+          margin-right: 2px;
+        }
+      }
+
       .main-properties {
         margin: 10px 0;
         display: flex;

@@ -1,0 +1,30 @@
+<spica-menu-bar project="food-delivery"></spica-menu-bar>
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title *ngIf="user">Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="user">
+    <spica-user-profile-picture
+      *ngIf="!isLoading"
+      [imageEditable]="true"
+      [image]="user?.profile_picture"
+    ></spica-user-profile-picture>
+    <spica-item-list
+      *ngIf="listItems.length>0  && !isLoading"
+      [items]="listItems"
+      (logout)="logout()"
+    ></spica-item-list>
+    <ion-spinner
+      *ngIf="isLoading"
+      class="spinner-center-page"
+      name="crescent"
+    ></ion-spinner>
+  </ng-container>
+  <spica-authorization
+    *ngIf="!user && !isLoading"
+    (clickLogin)="login($event)"
+    (clickRegister)="register($event)"
+  ></spica-authorization>
+</ion-content>

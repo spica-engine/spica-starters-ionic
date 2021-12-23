@@ -11,54 +11,10 @@
       (clickRegister)="register($event)"
     ></spica-authorization>
   </div>
-
-  <!-- <div class="profile-content" *ngIf="user && !isLoading">
-    <ion-item lines="none" class="user-metadata">
-      <ion-label class="ion-text-wrap">
-        <ion-text class="welcome-box">
-          <span>
-            <span class="welcome-text">Welcome,</span> {{user.name}}
-            {{user.surname}}</span
-          >
-        </ion-text>
-        <ion-text>
-          <p>{{user.email}}</p>
-        </ion-text>
-      </ion-label>
-    </ion-item>
-
-    <h6 class="nav-title">Account</h6>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="file-tray-stacked-outline"></ion-icon>
-        <span>Order</span>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-        <span>Account Data</span>
-      </ion-label>
-    </ion-item>
-    <ion-item lines="none" class="nav-item">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="map-outline"></ion-icon>
-        <span>Addresses</span>
-      </ion-label>
-    </ion-item>
-
-    <ion-item lines="none" class="nav-item" (click)="logout()">
-      <ion-label class="ion-text-wrap">
-        <ion-icon name="log-out-outline"></ion-icon>
-        <span>Logout</span>
-      </ion-label>
-    </ion-item>
-  </div> -->
-
   <spica-user-profile-picture
     *ngIf="!isLoading && user"
     [imageEditable]="false"
-    [image]="user.picture"
+    [image]="user?.picture"
   ></spica-user-profile-picture>
   <spica-item-list
     *ngIf="listItems.length>0&& !isLoading && user"
