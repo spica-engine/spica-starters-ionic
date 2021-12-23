@@ -9,12 +9,16 @@ export class SpicaScrollCategoryComponent implements OnInit {
 
   @Input() categories;
   @Output() action = new EventEmitter<string>();
+  active: string = 'all';
   
   constructor() { }
 
   ngOnInit() {}
 
   clicked(value){
+    this.active = value;
+    console.log(this.active)
+    console.log(value)
     this.action.emit(value);
   }
 

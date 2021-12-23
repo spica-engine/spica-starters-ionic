@@ -9,11 +9,12 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <spica-scroll-category
+    [categories]="categories"
+    (action)="setCategory($event)"
+    *ngIf="categories.length"
+  ></spica-scroll-category>
   <ng-container *ngIf="!isLoading">
-    <spica-scroll-category
-      [categories]="categories"
-      (action)="setCategory($event)"
-    ></spica-scroll-category>
     <div *ngIf="foods.length">
       <food-card
         (click)="openModal(food)"

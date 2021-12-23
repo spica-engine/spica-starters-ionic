@@ -9,6 +9,10 @@
     background: white;
     ion-button {
       --border-radius: 8px;
+      --background: var(--ion-color-light-shade);
+      &.active{
+        --background: var(--ion-color-primary);
+      }
     }
   }
 }
