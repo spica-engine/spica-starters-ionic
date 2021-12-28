@@ -43,6 +43,9 @@ export class HomePage {
   }
 
   async getComments(catId = undefined) {
+    if(catId == 'all'){
+      catId = undefined;
+    }
     this.comments = [];
     await DataService.comment
       .getAll({

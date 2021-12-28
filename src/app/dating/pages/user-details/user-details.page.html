@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="user">
+    <ion-slides [pager]="user.gallery?.length > 1" class="gallery-slide">
+      <ion-slide *ngFor="let image of user.gallery">
+        <img [src]="image" />
+      </ion-slide>
+    </ion-slides>
+    <div class="user-info">
+      <h5>
+        {{user.name + ' ' + user.surname + ', ' +
+        commonService.calculateAge(user.birthday)}}
+      </h5>
+      <ion-button *ngIf="isMatched" (click)="sendSms()">Send Message</ion-button>
+      <ion-label *ngIf="user.school"><ion-icon name="school"></ion-icon> <ion-text>{{user.school}}</ion-text></ion-label>
+      <ion-label *ngIf="user.job"><ion-icon name="briefcase"></ion-icon><ion-text>{{user.job}}</ion-text></ion-label>
+      <p>{{user.description}}</p>
+    </div>
+  </ng-container>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="!isChoosed">
+  <ion-toolbar>
+    <action-bar (choiseAction)="choice($event)"></action-bar>
+  </ion-toolbar>
+</ion-footer>
+
+<match-dialog *ngIf="me && user && showMatch" [users]="[me, user]" (action)="matchAction($event)"></match-dialog>

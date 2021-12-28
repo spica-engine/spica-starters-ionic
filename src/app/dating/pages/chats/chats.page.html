@@ -1,0 +1,80 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chats</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="selectedChats.length" (click)="deleteChats()">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="chats-content">
+    <ion-item
+      *ngIf="searchedChats.length || searchedText"
+      lines="none"
+      class="ion-no-padding"
+      mode="ios"
+    >
+      <ion-searchbar
+        mode="ios"
+        animated
+        debounce="500"
+        placeholder="Search"
+        [(ngModel)]="searchedText"
+        (ngModelChange)="getChatBySearch()"
+      ></ion-searchbar>
+      <ion-label (click)="openSelection()" slot="end">
+        {{open_to_select ? "cancel" : "select"}}
+      </ion-label>
+    </ion-item>
+    <ion-list *ngIf="!loading">
+      <ion-item *ngIf="!searchedChats.length && !searchedText">
+        <div class="empty_chat">There is no chat yet</div>
+      </ion-item>
+      <ion-item
+        class="chat-group"
+        [class.selected]="selectedChats.includes(chat._id)"
+        *ngFor="let chat of searchedChats"
+        (click)="clickedToChat(chat)"
+        detail="true"
+      >
+        <ion-checkbox
+          *ngIf="open_to_select"
+          slot="start"
+          value="buford"
+        ></ion-checkbox>
+        <ion-avatar slot="start">
+          <img [src]="chat.image ? chat.image : user_img_empty" />
+        </ion-avatar>
+        <ion-label>
+          <div class="chat-header">
+            <h3>{{chat.name}}</h3>
+            <span *ngIf="chat.last_message && !chat['seen']"
+              >{{chat.last_message_time|date:"shortDate"}}
+            </span>
+          </div>
+          <p class="empty-chat" *ngIf="chat.last_message&&chat['seen']">Seen</p>
+          <div class="message" *ngIf="chat.last_message&&!chat['seen']">
+            <p>{{ chat.last_message}}</p>
+          </div>
+          <p class="empty-chat" *ngIf="!chat.last_message">
+            No message in this chat
+          </p>
+        </ion-label>
+        <ion-badge *ngIf="chat['new_message_count']" slot="end" color="success"
+          >{{chat['new_message_count']}}
+        </ion-badge>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

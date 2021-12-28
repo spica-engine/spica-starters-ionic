@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="logo">
+      <ion-icon name="logo-ionic"></ion-icon>
+      Dating
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="active_user.length">
+    <div class="users" [class.card-animation]="isDisabled">
+      <div class="user-container shadow">
+        <user-card [user]="active_user[0]"></user-card>
+      </div>
+      <div class="user-container third">
+        <user-card [user]="active_user[2]"></user-card>
+      </div>
+      <div class="user-container second">
+        <user-card [user]="active_user[1]"></user-card>
+      </div>
+      <div
+        class="user-container main-card"
+        [class.main-card-aninamation]="action"
+      >
+        <user-card [user]="active_user[0]"></user-card>
+      </div>
+      <div
+        class="user-container first {{action}}"
+        (swipeleft)="choice('dislike')"
+        (swiperight)="choice('like')"
+      >
+        <user-card
+          (clickedInfo)="userDetails(active_user[0]._id)"
+          [user]="active_user[0]"
+        ></user-card>
+      </div>
+    </div>
+  </ng-container>
+  <ion-item *ngIf="!isLoading && !active_user.length">
+    <div class="empty">There is no user yet</div>
+  </ion-item>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>
+<ion-footer class="ion-no-border" *ngIf="active_user.length">
+  <ion-toolbar>
+    <action-bar (choiseAction)="choice($event)"></action-bar>
+  </ion-toolbar>
+</ion-footer>
+<match-dialog
+  *ngIf="me && matchedUser && showMatch"
+  [users]="[me, matchedUser]"
+  (action)="matchAction($event)"
+></match-dialog>

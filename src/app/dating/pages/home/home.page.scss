@@ -1,0 +1,78 @@
+$animationSpeed: 1.5s;
+
+:host {
+  .logo {
+    align-items: center;
+    display: flex;
+    color: var(--cd-logo-color);
+    font-weight: bold;
+    ion-icon {
+      padding-right: 10px;
+    }
+  }
+  ion-content {
+    ion-item {
+      width: 100%;
+      .empty {
+        width: 100%;
+        text-align: center;
+        font-size: smaller;
+      }
+    }
+    .users {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      
+      .user-container {
+        top: 0;
+        left: 0;
+        position: absolute;
+        padding: 15px;
+        width: 100%;
+        height: calc(100% - 30px);
+
+        &.second {
+          transform: rotate(5deg);
+          opacity: 1;
+        }
+        &.third {
+          transform: rotate(-5deg);
+          opacity: 1;
+        }
+        &.shadow {
+          transform: rotate(-5deg);
+          opacity: 1;
+        }
+      }
+
+      &.card-animation {
+        .main-card-aninamation {
+          transition-delay: 1s;
+          opacity: 0;
+        }
+        .first {
+          transition-duration: $animationSpeed;
+          &.like {
+            transition: all $animationSpeed cubic-bezier(0.43, 0.92, 0.58, 0.99);
+            transform: translateX(120%) translateY(130px) rotate(65deg);
+            opacity: 0;
+          }
+          &.dislike {
+            transition: all $animationSpeed cubic-bezier(0.43, 0.92, 0.58, 0.99);
+            opacity: 0;
+            transform: translateX(-120%) translateY(130px) rotate(-65deg);
+          }
+        }
+        .second {
+          transition: transform $animationSpeed linear;
+          transform: rotate(0deg);
+        }
+        .shadow {
+          transition: all $animationSpeed linear;
+          transform: rotate(5deg);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Likes You</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="users-container" *ngIf="!isLoading">
+    <user-card
+      *ngFor="let likes of likesYou"
+      [details]="false"
+      [user]="likes.liked_user"
+      [matched]="likes.matched"
+      [routerLink]="['/dating/user-details/'+likes.liked_user['_id']]"
+      [queryParams]="{isMatched: likes.matched ? 'true' : 'false' }"
+    ></user-card>
+    <ion-item *ngIf="!likesYou.length">
+      <div class="empty">There is no likes yet</div>
+    </ion-item>
+  </div>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

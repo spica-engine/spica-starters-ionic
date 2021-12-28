@@ -1,0 +1,52 @@
+:host {
+  position: absolute;
+  background: rgba($color: #000000, $alpha: 0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  .container {
+    padding: 20px;
+    padding-top: 50px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ion-text{
+        font-size: 36px;
+        font-weight: bold;
+        font-family: cursive;
+    }
+
+    .users {
+      display: flex;
+      align-items: center;
+      margin: 50px 0;
+      img {
+        width: 120px;
+        height: 120px;
+        border-radius: 100%;
+        border: 2px solid white;
+        object-fit: cover;
+      }
+      ion-icon {
+        margin: 0 8px;
+        font-size: 26px;
+        color: #ffd000;
+      }
+    }
+
+    ion-button {
+      width: 200px;
+      height: 45px;
+      --background: none;
+      border-radius: 5px;
+      background: rgba($color: #000000, $alpha: .5);
+      border: 1px solid white;
+
+      ion-icon{
+          margin-right: 7px;
+      }
+    }
+  }
+}

@@ -16,4 +16,11 @@ export class CommonService {
     });
     toast.present();
   }
+
+  calculateAge(birthday) {
+    let month_diff = Date.now() - new Date(birthday).getTime();
+    let age_dt = new Date(month_diff);
+    let year = age_dt.getUTCFullYear();
+    return Math.abs(year - 1970);
+  }
 }

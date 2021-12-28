@@ -5,10 +5,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="category hide-scroll-bar" *ngIf="categories.length">
-    <ion-button (click)="getComments()" color="light">All</ion-button>
-    <ion-button *ngFor="let category of categories" (click)="getComments(category._id)" color="light">{{category.name}}</ion-button>
-  </div>
+  <spica-scroll-category [categories]="categories" *ngIf="categories.length" (action)="getComments($event)"></spica-scroll-category>
 
   <div class="comments">
     <ion-spinner

@@ -1,0 +1,10 @@
+<div class="container">
+  <ion-text>It's a Match!</ion-text>
+  <div class="users">
+    <img [src]="users[0].profile_photo" alt="">
+    <ion-icon name="star"></ion-icon>
+    <img [src]="users[1].profile_photo" alt="">
+  </div>
+  <ion-button (click)="btnClicked('message')"><ion-icon name="chatbubble-ellipses"></ion-icon>Send a Message</ion-button>
+  <ion-button (click)="btnClicked('playing')"><ion-icon name="copy"></ion-icon>Keep Playing</ion-button>
+</div>

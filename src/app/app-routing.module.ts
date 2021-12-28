@@ -79,6 +79,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./booking/booking.module').then((m) => m.BookingModule),
   },
+  {
+    path: 'dating',
+    loadChildren: () =>
+      import('./dating/dating.module').then((m) => m.DatingModule),
+  },
 ];
 
 @NgModule({

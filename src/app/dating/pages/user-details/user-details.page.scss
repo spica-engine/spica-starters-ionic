@@ -1,0 +1,38 @@
+:host {
+  ion-content {
+    .gallery-slide {
+      height: 260px;
+      max-height: 260px;
+
+      ion-slide {
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .user-info{
+      padding: 0 15px;
+      display: flex;
+      flex-direction: column;
+      ion-button{
+        margin-bottom: 15px;
+      }
+      ion-label{
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: gray;
+        ion-text{
+          margin-left: 7px;
+        }
+      }
+      p{
+        color: gray;
+        font-size: 14px;
+      }
+    }
+  }
+}

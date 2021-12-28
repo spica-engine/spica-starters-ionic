@@ -1,0 +1,12 @@
+<ion-card>
+  <img [src]="user.profile_photo">
+  <div class="match" *ngIf="matched">MATCH</div>
+  <div class="about">
+    <ion-label>
+      <ion-text>{{user.name}}</ion-text>
+      <ion-text>{{age}}</ion-text>
+      <ion-icon (click)="userDetails()" *ngIf="details" name="information-circle"></ion-icon>
+    </ion-label>
+    <p *ngIf="details">{{user.description}}</p>
+  </div>
+</ion-card>
