@@ -8,6 +8,7 @@ import { TeacherPagePageRoutingModule } from './teacher-page-routing.module';
 
 import { TeacherPagePage } from './teacher-page.page';
 import { SpicaComponentsModule } from 'src/app/components/components.module';
+import { FitnessComponentModule } from '../../components/fitness-components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { SpicaComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     TeacherPagePageRoutingModule,
-    SpicaComponentsModule
+    SpicaComponentsModule,
+    FitnessComponentModule
   ],
   declarations: [TeacherPagePage]
 })

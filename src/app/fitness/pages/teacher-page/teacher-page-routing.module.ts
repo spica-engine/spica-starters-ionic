@@ -6,8 +6,17 @@ import { TeacherPagePage } from './teacher-page.page';
 const routes: Routes = [
   {
     path: ':id',
-    component: TeacherPagePage
-  }
+    children: [
+      { path: '', component: TeacherPagePage },
+      {
+        path: 'video-details',
+        loadChildren: () =>
+          import('../video-details/video-details.module').then(
+            (m) => m.VideoDetailsPageModule
+          ),
+      },
+    ],
+  },
 ];
 
 @NgModule({

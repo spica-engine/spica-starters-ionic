@@ -10,6 +10,7 @@
     *ngIf="!isLoading"
     [image]="me?.image"
   ></spica-user-profile-picture>
+  <span class="vip" *ngIf="me?.vip">VIP </span>
   <spica-item-list
     *ngIf="listItems.length>0 && !isLoading"
     [items]="listItems"

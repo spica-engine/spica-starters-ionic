@@ -12,7 +12,11 @@ export class HomePage implements OnInit {
   videos: Video[];
   loading: boolean = true;
   me: User;
-
+  customFilter: any;
+  categories = [
+    { name: 'FREE', _id: '1' },
+    { name: 'VIP', _id: '2' },
+  ];
   constructor(
     private _authService: AuthService,
     private _commonService: CommonService
@@ -60,7 +64,6 @@ export class HomePage implements OnInit {
           if (data && !this.me) {
             this.me = data;
             await this.getVideos();
-            this.loading = false;
           }
           this.loading = false;
         },
@@ -71,9 +74,15 @@ export class HomePage implements OnInit {
       );
   }
   async getVideos() {
-    this.loading = false;
     this.videos = await video.getAll({
-      queryParams: { limit: 5, relation: true },
+      queryParams: { limit: 5, relation: true, filter: this.customFilter },
     });
+    this.loading = false;
+  }
+  clickedCategory(event) {
+    this.loading = true;
+    let category = this.categories.filter((item) => item._id == event)[0];
+    this.customFilter = category ? { vip: category._id != '1' } : null;
+    this.getVideos();
   }
 }
