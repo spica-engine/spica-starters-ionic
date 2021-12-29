@@ -21,9 +21,4 @@
       name="crescent"
     ></ion-spinner>
   </ng-container>
-  <spica-authorization
-    *ngIf="!user && !isLoading"
-    (clickLogin)="login($event)"
-    (clickRegister)="register($event)"
-  ></spica-authorization>
 </ion-content>

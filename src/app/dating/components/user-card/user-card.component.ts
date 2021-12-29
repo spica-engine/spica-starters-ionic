@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
+import { environment } from '../../services/environment';
 
 @Component({
   selector: 'user-card',
@@ -14,9 +15,10 @@ export class UserCardComponent implements OnInit {
   @Input() matched:boolean = false;
   @Output() clickedInfo = new EventEmitter<boolean>();
   age: number;
+  photoPlaceholder = environment.user_img;
 
   ngOnInit() {
-    this.age = this._commonService.calculateAge(this.user.birthday)
+    this.age = this._commonService.calculateAge(this.user?.birthday)
   }
 
   userDetails(){

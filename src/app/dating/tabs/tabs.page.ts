@@ -15,7 +15,14 @@ export class TabsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._chatService.initialize();
+   
+  }
+
+  async ionViewWillEnter(){
+    let me  = await this._authService.getUser().toPromise();
+    if(me){
+      this._chatService.initialize();
+    }
   }
 
 }

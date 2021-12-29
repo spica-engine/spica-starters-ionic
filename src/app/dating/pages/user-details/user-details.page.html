@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngIf="user">
+  <ng-container *ngIf="!isLoading && user">
     <ion-slides [pager]="user.gallery?.length > 1" class="gallery-slide">
       <ion-slide *ngFor="let image of user.gallery">
         <img [src]="image" />
@@ -29,7 +29,7 @@
   ></ion-spinner>
 </ion-content>
 
-<ion-footer class="ion-no-border" *ngIf="!isChoosed">
+<ion-footer class="ion-no-border" *ngIf="!isLoading && !isChoosed">
   <ion-toolbar>
     <action-bar (choiseAction)="choice($event)"></action-bar>
   </ion-toolbar>

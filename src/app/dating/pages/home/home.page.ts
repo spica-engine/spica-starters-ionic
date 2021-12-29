@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User, Likes, Unlikes, likes, unlikes } from '../../services/bucket';
@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   constructor(
     private _userService: UserService,
     private _authService: AuthService,
@@ -30,12 +30,15 @@ export class HomePage {
   matchedUser: User;
   isLoading: boolean = true;
 
+  ngOnInit() {}
+
   async ionViewWillEnter() {
     this.me = await this._authService.getUser().toPromise();
     if (!this.me) {
-      this._router.navigate(['/dating/tabs/profile']);
+      this._router.navigate(['/dating/authorization', { replaceUrl: true }]);
       return;
     }
+
     await this.nextUser();
     await this.getLikesYou();
     this.isLoading = false;
@@ -58,43 +61,49 @@ export class HomePage {
     setTimeout(() => {
       this.action = undefined;
       this.isDisabled = false;
+      this.nextUser();
     }, 1500);
 
-    if(value=='like'){
-      if(this.likesYou.includes(this.active_user[0]._id)){
+    if (value == 'like') {
+      if (this.likesYou.includes(this.active_user[0]._id)) {
         this.matchedUser = JSON.parse(JSON.stringify(this.active_user[0]));
         this.showMatch = true;
       }
     }
-    
-    this._choiceService.insertChoice(value, this.active_user[0]._id, this.me._id);
-    this.nextUser();
+
+    this._choiceService.insertChoice(
+      value,
+      this.active_user[0]._id,
+      this.me._id
+    );
   }
 
   async getLikesYou() {
-    await likes.getAll({
-      queryParams: { filter: { user: this.me._id } },
-    }).then((res) => {
-      res.forEach((el) => {
-        this.likesYou.push(el.liked_user as string);
+    await likes
+      .getAll({
+        queryParams: { filter: { user: this.me._id } },
       })
-    })
+      .then((res) => {
+        res.forEach((el) => {
+          this.likesYou.push(el.liked_user as string);
+        });
+      });
   }
 
-  userDetails(userId){
+  userDetails(userId) {
     this._router.navigate(['/dating/user-details/' + userId]);
   }
 
   matchAction(value) {
-    if(value == 'message'){
+    if (value == 'message') {
       this.sendSms();
     }
-    this.showMatch = false
+    this.showMatch = false;
   }
 
-  async sendSms(){
+  async sendSms() {
     let chatUsers = [this.me, this.matchedUser];
-    
+
     let name = `${chatUsers[0].username}, ${chatUsers[1].username}...`;
     let chatExists = await this._chatService.isChatExists(chatUsers);
     if (!chatExists.result) {

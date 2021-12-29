@@ -1,0 +1,12 @@
+<ion-content>
+  <spica-authorization
+    *ngIf="!isLoading"
+    (clickLogin)="login($event)"
+    (clickRegister)="register($event)"
+  ></spica-authorization>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

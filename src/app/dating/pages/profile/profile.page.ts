@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
-import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../services/bucket';
 
@@ -17,8 +15,6 @@ export class ProfilePage {
   isLoading: boolean = false;
   constructor(
     private _authService: AuthService,
-    private _commonService: CommonService,
-    private _router: Router,
   ) { }
 
   async ionViewWillEnter() {
@@ -50,43 +46,4 @@ export class ProfilePage {
     this._authService.logout();
     this.user = undefined;
   }
-
-  nvigateToHome() {
-    this._router.navigateByUrl('/dating/tabs/home', {
-      replaceUrl: true,
-    });
-  }
-
-  login(loginData) {
-    this.isLoading = true;
-    this._authService
-      .login(loginData.email, loginData.password)
-      .toPromise()
-      .then((res) => {
-        this.isLoading = false;
-        this.nvigateToHome();
-      })
-      .catch((err) => {
-        this.isLoading = false;
-        this._commonService.presentToast(err.message, 1500);
-      });
-  }
-
-  register(registerData) {
-    this.isLoading = true;
-    this._authService
-      .register({ ...registerData })
-      .then((res) => {
-        this._commonService.presentToast(res['message'], 1500);
-        this.login({
-          email: registerData.email,
-          password: registerData.password,
-        });
-      })
-      .catch((err) => {
-        this.isLoading = false;
-        this._commonService.presentToast(err.error.message, 1500);
-      });
-  }
-
 }

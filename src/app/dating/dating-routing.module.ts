@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'chat-single',
     loadChildren: () => import('./pages/chat-single/chat-single.module').then( m => m.ChatSinglePageModule)
   },
+  {
+    path: 'authorization',
+    loadChildren: () => import('./pages/authorization/authorization.module').then( m => m.AuthorizationPageModule)
+  },
 ];
 
 @NgModule({

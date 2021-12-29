@@ -11,20 +11,20 @@
   <ng-container *ngIf="active_user.length">
     <div class="users" [class.card-animation]="isDisabled">
       <div class="user-container shadow">
-        <user-card [user]="active_user[0]"></user-card>
+        <user-card ></user-card>
       </div>
-      <div class="user-container third">
+      <div class="user-container third" *ngIf="active_user[2]">
         <user-card [user]="active_user[2]"></user-card>
       </div>
-      <div class="user-container second">
+      <div class="user-container second" *ngIf="active_user[1]">
         <user-card [user]="active_user[1]"></user-card>
       </div>
-      <div
+      <!-- <div
         class="user-container main-card"
         [class.main-card-aninamation]="action"
       >
         <user-card [user]="active_user[0]"></user-card>
-      </div>
+      </div> -->
       <div
         class="user-container first {{action}}"
         (swipeleft)="choice('dislike')"
