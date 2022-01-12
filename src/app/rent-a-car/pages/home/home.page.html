@@ -1,0 +1,24 @@
+<spica-menu-bar project="rent-a-car"></spica-menu-bar>
+<ion-header>
+  <ion-toolbar>
+    <div class="site-logo-img" *ngIf="siteItems">
+      <img [src]="siteItems?.logo" />
+    </div>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-rent></app-rent>
+
+  <ion-card mode="ios" (click)="navigateCat(category._id)" *ngFor="let category of categories">
+    <h2>{{category.name}}</h2>
+    <div class="category-img">
+      <img [src]="category.image">
+    </div>
+  </ion-card>
+
+
+</ion-content>

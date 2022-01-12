@@ -1,0 +1,49 @@
+
+  <ion-header *ngIf="!isLoading">
+    <ion-toolbar>
+      <ion-back-button slot="start"[routerLink]="['/rent-a-car/extras']"  queryParamsHandling="merge"></ion-back-button>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+
+    <div *ngIf="!isLoading" class="container">
+      <ion-card mode="ios">
+        <ion-card-header>
+          <span>{{car?.category.name}}</span>
+          <h2>{{car?.name}}</h2>
+        </ion-card-header>
+        <ion-card-content>
+          <div>
+            <img [src]="car?.images[0]">
+          </div>
+        </ion-card-content>
+      </ion-card>
+    
+      <ion-card mode="ios" >
+        <h1>Pay Now</h1>
+        <ion-label>
+          <span>Car Price</span>
+          <span>{{car?.price}} $</span>
+        </ion-label>
+        <ion-label *ngFor="let product of additional">
+          <span>{{product.name}}</span>
+          <span>{{product.price}} $</span>
+        </ion-label>
+        <ion-label *ngFor="let packet of packets">
+          <span>{{packet.name}}</span>
+          <span>{{packet.price}} $</span>
+        </ion-label>
+        <ion-label class="diviber">
+          <h2>Total</h2>
+          <span>{{data.totalPrice}} $</span>
+        </ion-label>
+      </ion-card>
+      <ion-button mode="ios" expand="block" (click)="navigate()" color="dark">Next</ion-button>
+    </div>
+  </ion-content>
+  
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

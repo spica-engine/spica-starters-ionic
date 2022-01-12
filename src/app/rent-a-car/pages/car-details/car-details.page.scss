@@ -1,0 +1,44 @@
+:host {
+    .car-detail {
+        width: 100%;
+        ion-slides{
+            ::ng-deep {
+                .swiper-pagination-bullet-active {
+                    background-color: black;
+                }
+                .swiper-pagination-bullet {
+                    background-color: black;
+                }
+            }
+            ion-slide{
+                padding-bottom: 20px;
+            }
+        }
+        .car-img {
+            width: 100%;
+            height: 200px;
+            margin: 10px;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .description {
+            padding: 15px;
+            ion-label {
+                display: flex;
+                flex-direction: column;
+                padding: 15px;
+                h2 {
+                    font-weight: 600;
+                    font-size: 1.5rem;
+                }
+                span {
+                    font-size: 0.9rem;
+                    color: gray;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}

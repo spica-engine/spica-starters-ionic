@@ -1,0 +1,47 @@
+<div [formGroup]="rentForm">
+  <ion-buttons (click)="dismiss()" *ngIf="carId">
+    <ion-icon slot="start" name="close-outline"></ion-icon>
+  </ion-buttons>
+
+  <ion-card>
+    <ion-item lines="none">
+      <ion-label>
+        <ion-icon name="location-sharp"></ion-icon><span>Office to Take</span>
+      </ion-label>
+      <ion-select mode="ios" formControlName="office_to_take">
+        <ion-select-option *ngFor="let offices of office" [value]="offices._id">{{offices.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>
+        <ion-icon name="location-sharp"></ion-icon><span>Office to be Given</span>
+      </ion-label>
+      <ion-select mode="ios" [disabled]="!rentForm.value.office_to_take" formControlName="office_to_be_given">
+        <ion-select-option *ngFor="let offices of office" [value]="offices._id">{{offices.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-label>
+      <ion-input type="datetime-local" (ionChange)="calculate()" [min]="today" formControlName="start" placeholder="Pick up Date">
+      </ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-label>
+      <ion-input type="datetime-local" (ionChange)="calculate()" [disabled]="!rentForm.value.start" formControlName="end" placeholder="Down Date" [min]="rentForm.value.start">
+      </ion-input>
+    </ion-item>
+    <section>
+      <ion-button mode="ios" color="dark" [disabled]="rentForm.invalid" expand="block" (click)="navigate()">Make a Reservation</ion-button>
+    </section>
+  </ion-card>
+  <ion-card *ngIf="carId">
+    <img [src]="car?.images[0]">
+  </ion-card>
+</div>

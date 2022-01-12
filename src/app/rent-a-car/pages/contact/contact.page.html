@@ -1,0 +1,36 @@
+<ion-header *ngIf="!isLoading">
+  <spica-menu-bar project="rent-a-car"></spica-menu-bar>
+  <ion-toolbar mode="ios">
+    <ion-title>Contact</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="!isLoading">
+
+  <div class="address" [formGroup]="contactForm">
+    <span>Name</span>
+    <ion-item lines="none">
+      <ion-input formControlName="name" type="text"></ion-input>
+    </ion-item>
+    <span>Surname</span>
+    <ion-item lines="none">
+      <ion-input formControlName="surname" type="text"></ion-input>
+    </ion-item>
+    <span>E-mail</span>
+    <ion-item lines="none">
+      <ion-input formControlName="mail" type="mail"></ion-input>
+    </ion-item>
+    <span>Message</span>
+    <ion-item lines="none">
+      <ion-textarea formControlName="message"></ion-textarea>
+    </ion-item>
+    <ion-button [disabled]="contactForm.invalid" color="dark" expand="block" mode="ios" (click)="send()">Send</ion-button>
+  </div>
+</ion-content>
+
+<ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>

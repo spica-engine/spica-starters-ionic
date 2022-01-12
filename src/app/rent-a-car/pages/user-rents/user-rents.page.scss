@@ -1,0 +1,22 @@
+:host{
+    ion-content{
+        ion-card {
+            --background: #f0f0f0;
+            ion-card-content{
+                ion-label{
+                    display: flex;
+                    flex-direction: column;
+                    span{
+                        border-bottom: 1px solid #c9c8c87e;
+                        display: flex;
+                        align-items: center;
+                        ion-icon{
+                            margin-right: 10px;
+                            font-size: 1.1rem;
+                        }
+                    }
+            }
+        }
+    }
+}
+}

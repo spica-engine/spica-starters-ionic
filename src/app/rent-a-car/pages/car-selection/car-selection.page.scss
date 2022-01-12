@@ -1,0 +1,47 @@
+:host {
+    ion-content {
+        ion-card {
+            padding: 15px;
+            margin: 10px;
+            .car {
+                border-bottom: 1px solid rgb(206, 206, 206);
+                .car-fetatures {
+                    display: flex;
+                    padding: 0 0 10px 0;
+                }
+                .car-detail {
+                    width: 45%;
+                    h2 {
+                        font-size: 1.3rem;
+                    }
+                    span {
+                        font-size: 0.9rem;
+                    }
+                }
+                .car-img {
+                    width: 55%;
+                    height: 120px;
+                    img {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+            .price {
+                display: flex;
+                padding: 25px 0;
+                justify-content: space-evenly;
+                span {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    font-size: 1.2rem;
+                    p {
+                        font-size: 0.9rem;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

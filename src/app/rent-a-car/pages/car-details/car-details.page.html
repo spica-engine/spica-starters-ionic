@@ -1,0 +1,59 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Car Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+<div *ngIf="!isLoading">
+  <div class="car-detail" *ngIf="car">
+    <ion-slides pager="true">
+      <ion-slide *ngFor="let image of car.images">
+        <div class="car-img">
+          <img [src]="image">
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+    <div class="description">
+      <ion-label>
+        <h2>{{car.name}}</h2>
+        <span>{{car.category.name}}</span>
+        <span>{{car.price}} $</span>
+      </ion-label>
+      <ion-accordion-group>
+        <ion-accordion value="features">
+          <ion-item lines="none" slot="header">
+            <ion-label>Features</ion-label>
+          </ion-item>
+          <ion-list slot="content">
+            <ion-item lines="none" *ngFor="let features of car.features">
+              <ion-label>{{features}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+        <ion-accordion value="terms">
+          <ion-item lines="none" slot="header">
+            <ion-label>Terms</ion-label>
+          </ion-item>
+          <ion-list slot="content">
+            <ion-item lines="none" *ngFor="let terms of car.terms">
+              <ion-label>{{terms}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-accordion>
+      </ion-accordion-group>
+  
+      <ion-button mode="ios" (click)="presentModal()" expand="block">Rent</ion-button>
+    </div>
+  </div>
+</div>
+</ion-content>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

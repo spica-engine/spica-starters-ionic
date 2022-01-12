@@ -1,0 +1,20 @@
+<ng-container *ngIf="!isLoading">
+  <spica-menu-bar project="rent-a-car"></spica-menu-bar>
+  <ion-header>
+    <ion-toolbar mode="ios">
+      <ion-title *ngIf="me">profile</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <spica-authorization *ngIf="!me && !isLoading" (clickLogin)="login($event)" (clickRegister)="register($event)">
+    </spica-authorization>
+    <spica-user-profile-picture *ngIf="!isLoading && me" [image]="me?.image"></spica-user-profile-picture>
+    <spica-item-list *ngIf="listItems.length>0 && !isLoading && me" [items]="listItems" (logout)="logout()"></spica-item-list>
+  </ion-content>
+</ng-container>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

@@ -59,6 +59,14 @@ export class MenuService {
         { key: 'profile', value: 'Profile', icon: 'person' },
       ] as MenuItem[];
     },
+    'rent-a-car': () => {
+      return [
+        { key: 'home', value: 'Home', icon: 'home-outline' },
+        { key: 'cars', value: 'Cars', icon: 'car-outline' },
+        { key: 'contact', value: 'Contact', icon: 'mail-outline' },
+        { key: 'profile', value: 'Profile', icon: 'person-outline' },
+      ] as MenuItem[];
+    },
   };
 }
 

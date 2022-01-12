@@ -1,0 +1,72 @@
+:host {
+    ion-content {
+        h1 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            text-align: left;
+            background-color: white;
+            position: absolute;
+            z-index: 1;
+            margin-top: -13px;
+            margin-left: 20px;
+            padding:0 10px;
+        }
+
+        .test {
+            position: relative;
+            border: 2px solid #b3b3b370;
+            border-radius: 8px;
+            margin: 50px 10px;
+            ion-card {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 15px;
+                margin: 20px 15px;
+                ion-accordion-group {
+                    ion-accordion {
+                        ion-item {
+                            color: gray;
+                        }
+                    }
+                }
+                .extra-item {
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    .extra-item-info {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        color: gray;
+                        h2 {
+                            font-size: 1.1rem;
+                        }
+                        span {
+                            font-size: 0.9rem;
+                        }
+                    }
+                    .add {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+            }
+        }
+        .payment {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin:0 15px 35px 15px;
+            ion-text {
+                border: 1px solid black;
+                border-radius: 5px;
+                padding: 10px;
+                font-weight: 600;
+                margin-left: 5px;
+            }
+            ion-button {
+                width: 100%;
+            }
+        }
+    }
+}

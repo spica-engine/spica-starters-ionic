@@ -1,0 +1,50 @@
+  <spica-menu-bar *ngIf="!isLoading" project="rent-a-car"></spica-menu-bar>
+  <ion-header *ngIf="!isLoading">
+    <ion-toolbar mode="ios">
+      <ion-title>Cars</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content >
+  <div *ngIf="!isLoading">
+    <ion-searchbar mode="ios" (ionChange)="searchCar($event.target['value'])"></ion-searchbar>
+    <div class="cars">
+      <ion-label>
+        <span>
+          <ion-icon name="car-sport-outline"></ion-icon>
+          &nbsp;Cars
+        </span>
+        <ion-item lines="none">
+          <span>
+            <ion-icon name="arrow-down-outline"></ion-icon>
+            &nbsp;Sort by&nbsp;
+          </span>
+          <ion-select value="all" (ionChange)="onChange($event.target['value'])">
+            <ion-select-option value="all">All</ion-select-option>
+            <ion-select-option value="lowest_price">Lowest Price</ion-select-option>
+            <ion-select-option value="highest_price">Highest Price</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-label>
+  
+      <ion-card mode="ios" *ngFor="let car of cars">
+        <ion-card-header>
+          <img [src]="car?.images[0]">
+        </ion-card-header>
+        <ion-card-content>
+          <span>{{car?.category.name}}</span>
+          <h2>{{car?.name}}</h2>
+          <p>{{car?.price}} USD</p>
+          <ion-button (click)="navigateCar(car?._id)">More&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+   
+  </ion-content>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

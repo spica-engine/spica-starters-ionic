@@ -84,6 +84,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./dating/dating.module').then((m) => m.DatingModule),
   },
+  {
+    path: 'rent-a-car',
+    loadChildren: () =>
+      import('./rent-a-car/app.module').then((m) => m.RentACarModule),
+  },
 ];
 
 @NgModule({

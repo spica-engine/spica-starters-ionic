@@ -1,0 +1,81 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar>
+    <ion-back-button defaultHref="rent-a-car/cars" slot="start"></ion-back-button>
+    <ion-title>Add Extras</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="!isLoading">
+  
+    <div class="test">
+      <h1>Additional Product</h1>
+      <ion-card mode="ios" *ngFor="let product of additional_products">
+          <div class="extra-item">
+            <div class="extra-item-info">
+              <h2>{{product.name}}</h2>
+              <span>{{product.price}} USD</span>
+            </div>
+            <div class="add">
+              <ion-button [color]="data.additional_products?.includes(product._id) ? 'danger' : 'success'" (click)="addProduct(product._id,product.price)" slot="end">
+                <ion-icon [name]="data.additional_products?.includes(product._id) ? 'close-circle' : 'add-circle'"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+          <ion-accordion-group mode="md">
+            <ion-accordion value="additional_products">
+              <ion-item lines="none" slot="header">
+                <ion-label>Detail</ion-label>
+              </ion-item>
+              <ion-list slot="content">
+                <ion-item lines="none">
+                  <p>{{product.description}}</p>
+                </ion-item>
+              </ion-list>
+            </ion-accordion>
+          </ion-accordion-group>
+      </ion-card>
+    </div>
+  
+    
+    <div class="test">
+      <h1>Car Packets</h1>
+      <ion-card mode="ios" *ngFor="let packet of car_packet">
+          <div class="extra-item">
+            <div class="extra-item-info">
+              <h2>{{packet.name}}</h2>
+              <span>{{packet.price}} USD</span>
+            </div>
+            <div class="add">
+              <ion-button [color]="data.packets?.includes(packet._id) ? 'danger' : 'success'" (click)="addPacket(packet._id,packet.price)" slot="end">
+                <ion-icon [name]="data.packets?.includes(packet._id) ? 'close-circle' : 'add-circle'"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+          <ion-accordion-group mode="md">
+            <ion-accordion value="car-packet">
+              <ion-item lines="none" slot="header">
+                <ion-label>Detail</ion-label>
+              </ion-item>
+              <ion-list slot="content">
+                <ion-item lines="none" *ngFor="let features of packet.features">
+                  <p>{{features}}</p>
+                </ion-item>
+              </ion-list>
+            </ion-accordion>
+          </ion-accordion-group>
+      </ion-card>
+    </div>
+  
+    <div class="payment">
+      <ion-button mode="ios" (click)=" navigate()" color="dark">Payment</ion-button>
+      <ion-text>{{totalPrice}}$</ion-text>
+    </div>
+  </div>
+  </ion-content>
+  
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

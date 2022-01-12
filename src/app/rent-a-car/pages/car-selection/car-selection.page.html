@@ -1,0 +1,60 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar>
+    <ion-title>Reservation</ion-title>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!isLoading">
+ 
+    <ion-card mode="ios" *ngFor="let car of office?.cars">
+      <div class="car">
+        <div class="car-fetatures">
+          <div class="car-detail">
+            <h2>{{car.name}}</h2>
+            <span>{{car.category.name}}</span>
+          </div>
+          <div class="car-img">
+            <img [src]="car.images[0]">
+          </div>
+        </div>
+        <ion-accordion-group mode="md">
+          <ion-accordion value="features">
+            <ion-item lines="none" slot="header">
+              <ion-label>Features</ion-label>
+            </ion-item>
+            <ion-list slot="content">
+              <ion-item lines="none" *ngFor="let features of car.features">
+                <ion-label>{{features}}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-accordion>
+  
+          <ion-accordion value="terms">
+            <ion-item lines="none" slot="header">
+              <ion-label>Terms</ion-label>
+            </ion-item>
+            <ion-list slot="content">
+              <ion-item lines="none" *ngFor="let terms of car.terms">
+                <ion-label>{{terms}}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-accordion>
+        </ion-accordion-group>
+      </div>
+      <div class="price">
+        <span>{{car.price}} USD <p>Day</p></span>
+        <span>{{car.price * totalPrice}} USD <p>Total</p></span>
+      </div>
+  
+      <ion-button color="success" (click)="selectedCar(car._id,car.price * totalPrice)" expand="block">Select</ion-button>
+  
+    </ion-card>
+  </div>
+</ion-content>
+<ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>

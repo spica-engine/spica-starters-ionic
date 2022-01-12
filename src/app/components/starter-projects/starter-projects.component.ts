@@ -59,6 +59,11 @@ export class StarterProjectsComponent implements OnInit {
       { name: 'Real Estate', route: '/real-estate', icon: 'home' },
       { name: 'Booking', route: '/booking', icon: 'bed-outline' },
       { name: 'Dating', route: '/dating', icon: 'heart-circle-outline' },
+      // {
+      //   name: 'Rent a Car',
+      //   route: '/rent-a-car',
+      //   icon: 'car-sport-outline',
+      // },
     ];
   }
   copyToClipboard(str) {

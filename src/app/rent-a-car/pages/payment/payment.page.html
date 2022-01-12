@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button [routerLink]="['/rent-a-car/extras']"  queryParamsHandling="merge" slot="start" ></ion-back-button>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<div [formGroup]="paymentForm">
+  <div class="address">
+    <span [style]="paymentForm.controls['name'].dirty && paymentForm.controls['name'].invalid? 'color:red' :'color:gray'">Name</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" formControlName="name" type="text" [value]="user? user.name : ''"></ion-input>
+    </ion-item>
+    <span [style]="paymentForm.controls['surname'].dirty && paymentForm.controls['surname'].invalid? 'color:red' :'color:gray'">Surname</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" formControlName="surname" type="text" [value]="user? user.surname : ''"></ion-input>
+    </ion-item>
+    <span [style]="paymentForm.controls['mail'].dirty && paymentForm.controls['mail'].invalid? 'color:red' :'color:gray'">* E-mail</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" type="text" formControlName="mail" [value]="user? user.email : ''"></ion-input>
+    </ion-item>
+    <span [style]="paymentForm.controls['passport'].dirty && paymentForm.controls['passport'].invalid? 'color:red' :'color:gray'">* TC No</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" type="number" formControlName="passport" [value]="user? user.passport : ''" onKeyPress="if(this.value.length==11) return false;"></ion-input>
+    </ion-item>
+    <span [style]="paymentForm.controls['phone'].dirty && paymentForm.controls['phone'].invalid? 'color:red' :'color:gray'">Phone</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" type="number" formControlName="phone" [value]="user? user.phone : ''"></ion-input>
+    </ion-item>
+    <span [style]="paymentForm.controls['birthday'].dirty && paymentForm.controls['birthday'].invalid? 'color:red' :'color:gray'">Birthday</span>
+    <ion-item lines="none">
+      <ion-input [readonly]="user" [type]="user? 'datetime-locale':'date'" formControlName="birthday" [value]="user? user.birthday : ''"></ion-input>
+    </ion-item>
+  </div>
+
+    <div class="payment">
+      <span [style]="paymentForm.controls['card'].dirty && paymentForm.controls['card'].invalid? 'color:red' :'color:gray'">Credit Card Number</span>
+      <ion-item lines="none">
+        <ion-icon name="card-outline"></ion-icon>
+        <ion-input placeholder="0000 0000 0000 0000" formControlName="card" type="number" onKeyPress="if(this.value.length==16) return false;"></ion-input>
+      </ion-item>
+      <div class="payment-detail">
+        <div class="payment-month">
+          <ion-item mode="ios" lines="none" class="month">
+            <ion-select formControlName="date1" placeholder="--">
+              <ion-select-option value="01">01</ion-select-option>
+              <ion-select-option value="02">02</ion-select-option>
+              <ion-select-option value="03">03</ion-select-option>
+              <ion-select-option value="04">04</ion-select-option>
+              <ion-select-option value="05">05</ion-select-option>
+              <ion-select-option value="06">06</ion-select-option>
+              <ion-select-option value="07">07</ion-select-option>
+              <ion-select-option value="08">08</ion-select-option>
+              <ion-select-option value="09">09</ion-select-option>
+              <ion-select-option value="10">10</ion-select-option>
+              <ion-select-option value="11">11</ion-select-option>
+              <ion-select-option value="12">12</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item mode="ios" lines="none">
+            <ion-select formControlName="date2" placeholder="----">
+              <ion-select-option value="2022">2022</ion-select-option>
+              <ion-select-option value="2023">2023</ion-select-option>
+              <ion-select-option value="2024">2024</ion-select-option>
+              <ion-select-option value="2025">2025</ion-select-option>
+              <ion-select-option value="2026">2026</ion-select-option>
+              <ion-select-option value="2027">2027</ion-select-option>
+              <ion-select-option value="2028">2028</ion-select-option>
+              <ion-select-option value="2029">2029</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </div>
+
+        <ion-item lines="none" class="cvv">
+          <ion-input formControlName="cvv" type="number" onKeyPress="if(this.value.length==3) return false;" placeholder="CVV"></ion-input>
+        </ion-item>
+      </div>
+      <ion-button mode="ios" [disabled]="paymentForm.invalid || clicked" expand="block" color="dark" (click)="payment()">Pay &nbsp;&nbsp;{{this.data.totalPrice}} $</ion-button>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,30 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar mode="ios">
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>All Rents</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <div *ngIf="!isLoading">
+
+    <ion-card *ngFor="let rent of userRents">
+      <ion-card-header>
+        <img [src]="rent.car.images[0]">
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>
+          <span><ion-icon name="car-sport-outline"></ion-icon> {{rent.car.name}}</span>
+          <span><ion-icon name="location-outline"></ion-icon> {{rent.office_to_take.name}}</span>
+          <span><ion-icon name="calendar-outline"></ion-icon> {{rent.start | date}}</span>
+        </ion-label>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
+</ion-content>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>
