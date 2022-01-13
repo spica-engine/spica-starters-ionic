@@ -1,0 +1,75 @@
+<ion-header *ngIf="!loading">
+  <ion-toolbar mode="ios">
+    <ion-back-button defaultHref="/" slot="start"></ion-back-button>
+    <ion-title>Payment</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="!loading">
+
+    <div class="container">
+      <ion-card mode="ios">
+        <ion-card-header>
+          <span>{{video?.category.name}}</span>
+          <h2>{{video?.name}}</h2>
+        </ion-card-header>
+        <ion-card-content>
+          <div>
+            <img [src]="video?.image">
+          </div>
+      </ion-card-content>
+    </ion-card>
+    
+  </div>
+  <div class="payment" [formGroup]="paymentForm">
+    <span [style]="paymentForm.controls['card'].dirty && paymentForm.controls['card'].invalid? 'color:red' :'color:gray'">Credit Card Number</span>
+    <ion-item lines="none">
+      <ion-icon name="card-outline"></ion-icon>
+      <ion-input placeholder="0000 0000 0000 0000" formControlName="card" type="number" onKeyPress="if(this.value.length==16) return false;"></ion-input>
+    </ion-item>
+    <div class="payment-detail">
+      <div class="payment-month">
+        <ion-item mode="ios" lines="none" class="month">
+          <ion-select formControlName="date1" placeholder="--">
+            <ion-select-option value="01">01</ion-select-option>
+            <ion-select-option value="02">02</ion-select-option>
+            <ion-select-option value="03">03</ion-select-option>
+            <ion-select-option value="04">04</ion-select-option>
+            <ion-select-option value="05">05</ion-select-option>
+            <ion-select-option value="06">06</ion-select-option>
+            <ion-select-option value="07">07</ion-select-option>
+            <ion-select-option value="08">08</ion-select-option>
+            <ion-select-option value="09">09</ion-select-option>
+            <ion-select-option value="10">10</ion-select-option>
+            <ion-select-option value="11">11</ion-select-option>
+            <ion-select-option value="12">12</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item mode="ios" lines="none">
+          <ion-select formControlName="date2" placeholder="----">
+            <ion-select-option value="2022">2022</ion-select-option>
+            <ion-select-option value="2023">2023</ion-select-option>
+            <ion-select-option value="2024">2024</ion-select-option>
+            <ion-select-option value="2025">2025</ion-select-option>
+            <ion-select-option value="2026">2026</ion-select-option>
+            <ion-select-option value="2027">2027</ion-select-option>
+            <ion-select-option value="2028">2028</ion-select-option>
+            <ion-select-option value="2029">2029</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <ion-item lines="none" class="cvv">
+        <ion-input formControlName="cvv" type="number" onKeyPress="if(this.value.length==3) return false;" placeholder="CVV"></ion-input>
+      </ion-item>
+    </div>
+    <ion-button mode="ios" [disabled]="paymentForm.invalid || loading" expand="block" color="dark" (click)="payment()">Pay &nbsp;&nbsp;{{video?.price}} $</ion-button>
+  </div>
+</div>
+</ion-content>
+<ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>

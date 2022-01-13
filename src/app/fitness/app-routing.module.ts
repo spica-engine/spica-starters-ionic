@@ -40,7 +40,15 @@ const routes: Routes = [
   {
     path: 'categories',
     loadChildren: () => import('./pages/categories/categories.module').then( m => m.CategoriesPageModule)
+  },  {
+    path: 'buyed-videos',
+    loadChildren: () => import('./pages/buyed-videos/buyed-videos.module').then( m => m.BuyedVideosPageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./pages/payment/payment.module').then( m => m.PaymentPageModule)
   }
+
   
 ];
 

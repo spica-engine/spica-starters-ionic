@@ -14,8 +14,9 @@ export class HomePage implements OnInit {
   me: User;
   customFilter: any;
   categories = [
-    { name: 'FREE', _id: '1' },
-    { name: 'VIP', _id: '2' },
+    { name: 'Bronze', _id: 'bronze' },
+    { name: 'Silver', _id: 'silver' },
+    { name: 'Gold', _id: 'gold' },
   ];
   constructor(
     private _authService: AuthService,
@@ -81,8 +82,9 @@ export class HomePage implements OnInit {
   }
   clickedCategory(event) {
     this.loading = true;
+    
     let category = this.categories.filter((item) => item._id == event)[0];
-    this.customFilter = category ? { vip: category._id != '1' } : null;
+    this.customFilter = category ? { permissions: category._id } : null;
     this.getVideos();
   }
 }
