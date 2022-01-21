@@ -10,7 +10,7 @@
 <ion-content>
   <div [formGroup]="storeForm" *ngIf="!isLoading">
     <div *ngIf="!image.length" id="image">
-      <spica-upload-image (change)="userUploadedImage($event)"></spica-upload-image>
+      <spica-upload-image (change)="userUploadedImage()"></spica-upload-image>
     </div>
     <div id="image" *ngIf="image.length">
       <img [src]="image">
