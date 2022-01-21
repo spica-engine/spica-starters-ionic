@@ -6,6 +6,7 @@ import {
   initialize,
   Video,
   video,
+  User,
 } from '../../services/bucket';
 import { environment } from '../../services/environment';
 import { Item } from 'src/app/components/spica-item-list/spica-item-list.component';
@@ -25,6 +26,7 @@ export class TeacherPagePage implements OnInit {
     speed: 500,
     slidesPerView: 2,
   };
+  user: User;
   constructor(
     private _route: ActivatedRoute,
     private _authService: AuthService
@@ -32,8 +34,9 @@ export class TeacherPagePage implements OnInit {
     this._authService.initBucket();
   }
   async ngOnInit() {
+    this.user = await this._authService.getUser().toPromise();
     this.teacher = await this.getTeacher(this._route.snapshot.params.id);
-    console.log(this.teacher);
+    
     this.listItems = [
       { key: 'name', value: '', seperate: true },
       { key: 'surname', value: '', seperate: true },
