@@ -34,7 +34,7 @@ export class ContactPage implements OnInit {
   }
   async send(){
     this.isLoading=true;
-    this.newContact = await DataService.contact.insert(this.contactForm.value)
+    this.newContact = await DataService.Contact.insert(this.contactForm.value)
     this.presentToast()
     this._router.navigateByUrl('/rent-a-car/home', {
       replaceUrl: true,

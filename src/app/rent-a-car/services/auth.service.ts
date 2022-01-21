@@ -59,7 +59,7 @@ export class AuthService {
 
   register(user_data) {
     return this.http
-      .post(`${environment.apiUrl}/fn-execute/register2`, {
+      .post(`${environment.apiUrl}/fn-execute/register`, {
         user_data,
         project:"RANT-A-CAR"
       })
@@ -119,7 +119,7 @@ export class AuthService {
     return of(this.getActiveToken()).pipe(
       switchMap((token) =>
         token
-          ? DataService.user.getAll({
+          ? DataService.User.getAll({
               queryParams: { filter: { identity: token._id } },
             })
           : of([null])

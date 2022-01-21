@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as DataService from '../../services/bucket';
 import { environment } from '../../services/environment';
 
@@ -9,7 +10,7 @@ import { environment } from '../../services/environment';
 })
 export class HomePage implements OnInit {
   places: DataService.Place[] = [];
-  constructor() {
+  constructor( private _router: Router) {
     DataService.initialize({ apikey: environment.apikey })
   }
 
@@ -19,5 +20,8 @@ export class HomePage implements OnInit {
 
   getAllPlaces() {
     return DataService.place.getAll();
+  }
+  createStore(){
+    this._router.navigate(['/store-listing/create-store']);
   }
 }

@@ -1,0 +1,82 @@
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Create Store</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div [formGroup]="storeForm" *ngIf="!isLoading">
+    <div *ngIf="!image.length" id="image">
+      <spica-upload-image (change)="userUploadedImage($event)"></spica-upload-image>
+    </div>
+    <div id="image" *ngIf="image.length">
+      <img [src]="image">
+    </div>
+    <ion-progress-bar *ngIf="visible" type="indeterminate"></ion-progress-bar>
+    <div class="description">
+      <ion-textarea  formControlName="descriptionForm"  placeholder="Explain your Store..."></ion-textarea>
+    </div>
+    <div class="info">
+      <ion-item class="ion-no-padding">
+        <ion-input  formControlName="nameForm" placeholder="Name"></ion-input>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-input type="phone"  formControlName="phoneForm"  placeholder="Phone"></ion-input>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-input type="mail" formControlName="mailForm" placeholder="Email"></ion-input>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-input readonly placeholder="Working Hours"></ion-input>
+        <ion-button color="medium" (click)="addSelection()">
+          <ion-icon name="add-outline"></ion-icon>
+        </ion-button>
+        <ion-button *ngIf="selections.length" color="medium" (click)="removeSelection()">
+          <ion-icon name="remove-outline"></ion-icon>
+        </ion-button>
+      </ion-item>
+    </div>
+    <div class="content" *ngIf="selections.length">
+      <ion-item lines="none" *ngFor="let selection of selections; let idx = index" class="selections-container">
+        <ion-label>{{selection.label}}{{idx+1}}.</ion-label>
+        <ion-input [style]="storeForm.controls['dateForm'+(idx+1)].dirty && storeForm.controls['dateForm'+(idx+1)].invalid? 'border-bottom: 1px solid red' :''" 
+          [formControlName]="'dateForm'+ (idx+1)"
+          placeholder="09:00-12:00" ></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="adress">
+      <ion-item class="ion-no-padding">
+        <ion-label position="floating">Country</ion-label>
+        <ion-select  formControlName="countryForm"  (ionChange)="countryChange($event.target['value'])">
+          <ion-select-option [value]="country.name" *ngFor="let country of countries">
+            {{ country.name }}</ion-select-option>
+        </ion-select>
+      </ion-item >
+      <ion-item class="ion-no-padding">
+        <ion-label position="floating">City</ion-label>
+        <ion-select  formControlName="cityForm" (ionChange)="cityChange($event.target['value'])" [disabled]="!filter.address.country">
+          <ion-select-option [value]="city.name" *ngFor="let city of cities">
+            {{ city.name }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item class="ion-no-padding">
+        <ion-label position="floating">District</ion-label>
+        <ion-select  formControlName="districtForm" (ionChange)="districtChange($event.target['value'])" [disabled]="!filter.address.city">
+          <ion-select-option [value]="state" *ngFor="let state of states">
+            {{ state }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-textarea  formControlName="adressForm" placeholder="Full Adress..."></ion-textarea>
+    </div>
+    <ion-button (click)="create()"  [disabled]="!storeForm.valid" expand="block" mode="ios" color="dark">Create Store</ion-button>
+  </div>
+</ion-content>
+<ion-spinner
+  *ngIf="isLoading"
+  class="spinner-center-page"
+  name="crescent"
+></ion-spinner>

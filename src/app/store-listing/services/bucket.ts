@@ -131,6 +131,7 @@ export interface Place{
   until?: string;}[];}[];
   city?: string;
   country?: string;
+  district?: string;
 }
 export namespace place {
   const BUCKET_ID = '61b3453997a0a8002e6a4f86';

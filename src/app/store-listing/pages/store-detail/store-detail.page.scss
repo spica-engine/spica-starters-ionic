@@ -54,8 +54,13 @@
     .gallery-slide {
       max-height: 100vw * 0.7;
       ion-slide {
+        width: 100%;
+        height: 230px;
         img {
           padding: 0 15px;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
       }
     }

@@ -9,7 +9,11 @@ const routes: Routes = [
   {
     path: 'store-detail/:id',
     loadChildren: () => import('./pages/store-detail/store-detail.module').then( m => m.StoreDetailPageModule)
+  },  {
+    path: 'create-store',
+    loadChildren: () => import('./pages/create-store/create-store.module').then( m => m.CreateStorePageModule)
   },
+
   // {
   //   path: '',
   //   redirectTo: 'tabs',

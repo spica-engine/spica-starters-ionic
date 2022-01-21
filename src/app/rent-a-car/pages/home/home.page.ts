@@ -37,7 +37,7 @@ export class HomePage {
   }
 
   getCategories() {
-    DataService.category.getAll().then(res =>
+    DataService.Category.getAll().then(res =>
       this.categories = res)
   }
 

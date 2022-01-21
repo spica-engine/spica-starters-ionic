@@ -6,7 +6,7 @@ import * as Bucket from '@spica-devkit/bucket';
 export function initialize(
   ...initOptions: Parameters<typeof Bucket.initialize>
 ) {
-  initOptions[0].publicUrl = 'https://asset-playground-05dae.hq.spicaengine.com/api';
+  initOptions[0].publicUrl = 'https://spica-starters-7229b.hq.spicaengine.com/api';
   Bucket.initialize(...initOptions);
 }
 
@@ -17,17 +17,19 @@ type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
 
+
 export interface User{
   _id?: string;
   name?: string;
   surname?: string;
   email?: string;
   phone?: string;
-  passport?: string;
   birthday?: Date | string;
+  identity?: string;
+  passport?: string;
 }
-export namespace user {
-  const BUCKET_ID = '61bc95ab1fcf06002dc71fc3';
+export namespace User {
+  const BUCKET_ID = '61e96b69fb1c06002dd1941b';
     export function get (...args: getArgs) {
       return Bucket.data.get<User & id>(BUCKET_ID, ...args);
     };
@@ -76,7 +78,7 @@ export interface Office{
   cars?: (Cars & id | string)[];
 }
 export namespace office {
-  const BUCKET_ID = '61bc96ae1fcf06002dc71fd9';
+  const BUCKET_ID = '61e96b6afb1c06002dd1941e';
     export function get (...args: getArgs) {
       return Bucket.data.get<Office & id>(BUCKET_ID, ...args);
     };
@@ -87,7 +89,7 @@ export namespace office {
       ['cars'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -97,7 +99,7 @@ export namespace office {
       ['cars'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -113,7 +115,7 @@ export namespace office {
       ['cars'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -137,8 +139,8 @@ export interface Category{
   name?: string;
   image?: string;
 }
-export namespace category {
-  const BUCKET_ID = '61bc96e81fcf06002dc71fe4';
+export namespace Category {
+  const BUCKET_ID = '61e96b6bfb1c06002dd19421';
     export function get (...args: getArgs) {
       return Bucket.data.get<Category & id>(BUCKET_ID, ...args);
     };
@@ -187,7 +189,7 @@ export interface Cars{
   price?: number;
 }
 export namespace cars {
-  const BUCKET_ID = '61bc97c61fcf06002dc72008';
+  const BUCKET_ID = '61e96b6dfb1c06002dd19424';
     export function get (...args: getArgs) {
       return Bucket.data.get<Cars & id>(BUCKET_ID, ...args);
     };
@@ -198,7 +200,7 @@ export namespace cars {
       ['category'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -208,7 +210,7 @@ export namespace cars {
       ['category'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -224,7 +226,7 @@ export namespace cars {
       ['category'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -260,7 +262,7 @@ export interface Rent_a_Car{
   birthday?: Date | string;
 }
 export namespace rent_a_car {
-  const BUCKET_ID = '61bc998e1fcf06002dc7206e';
+  const BUCKET_ID = '61e96b6efb1c06002dd19427';
     export function get (...args: getArgs) {
       return Bucket.data.get<Rent_a_Car & id>(BUCKET_ID, ...args);
     };
@@ -271,7 +273,7 @@ export namespace rent_a_car {
       ['car','user','office_to_take','office_to_be_given','packets','additional_products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -281,7 +283,7 @@ export namespace rent_a_car {
       ['car','user','office_to_take','office_to_be_given','packets','additional_products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -297,7 +299,7 @@ export namespace rent_a_car {
       ['car','user','office_to_take','office_to_be_given','packets','additional_products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -323,7 +325,7 @@ export interface Car_Packet{
   features?: string[];
 }
 export namespace car_packet {
-  const BUCKET_ID = '61bc9a141fcf06002dc72094';
+  const BUCKET_ID = '61e96b6ffb1c06002dd1942a';
     export function get (...args: getArgs) {
       return Bucket.data.get<Car_Packet & id>(BUCKET_ID, ...args);
     };
@@ -368,7 +370,7 @@ export interface Additional_Products{
   description?: string;
 }
 export namespace additional_products {
-  const BUCKET_ID = '61bc9aaa1fcf06002dc720c6';
+  const BUCKET_ID = '61e96b70fb1c06002dd1942d';
     export function get (...args: getArgs) {
       return Bucket.data.get<Additional_Products & id>(BUCKET_ID, ...args);
     };
@@ -413,8 +415,8 @@ export interface Contact{
   mail?: string;
   message?: string;
 }
-export namespace contact {
-  const BUCKET_ID = '61d6da34c0da93002c1dd460';
+export namespace Contact {
+  const BUCKET_ID = '61e96b71fb1c06002dd19430';
     export function get (...args: getArgs) {
       return Bucket.data.get<Contact & id>(BUCKET_ID, ...args);
     };
@@ -461,7 +463,7 @@ export interface Rent_a_Car_Site_Items{
   discount_code?: string;
 }
 export namespace rent_a_car_site_items {
-  const BUCKET_ID = '61bc9c161fcf06002dc720f0';
+  const BUCKET_ID = '61e96b73fb1c06002dd19433';
     export function get (...args: getArgs) {
       return Bucket.data.get<Rent_a_Car_Site_Items & id>(BUCKET_ID, ...args);
     };
