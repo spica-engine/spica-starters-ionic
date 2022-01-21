@@ -1,0 +1,78 @@
+:host {
+    ion-content {
+        .container {
+            ion-card {
+                margin: 0;
+                box-shadow: none !important;
+                ion-card-header{
+                    span{
+                        color: gray;
+                        font-size: 0.8rem;
+                    }
+                    h2{
+                        font-size: 1.5rem;
+                    } 
+                }
+                ion-card-content{
+                    div{
+                        width: 100%;
+                        height: 200px;
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+                }
+            }
+        }
+        .payment {
+            padding: 15px;
+            .payment-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                h2 {
+                    font-size: 1.6rem;
+                }
+                ion-text {
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    padding: 10px;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                }
+            }
+            span {
+                font-size: 0.8rem;
+                color: gray;
+            }
+            ion-item {
+                margin: 10px 0;
+                border-radius: 25px;
+                border: 1px solid #bdc5cc;
+                ion-icon {
+                    margin-right: 5px;
+                }
+            }
+            .payment-detail {
+                display: flex;
+                justify-content: space-between;
+                .payment-month {
+                    display: flex;
+                    align-items: center;
+                    ion-item {
+                        margin-right: 5px;
+                    }
+                }
+                .cvv {
+                    width: 21%;
+                    ion-label {
+                        color: gray;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

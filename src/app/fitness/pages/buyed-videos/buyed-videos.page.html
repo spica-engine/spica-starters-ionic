@@ -1,0 +1,21 @@
+<ion-header *ngIf="!loading">
+  <ion-toolbar mode="ios">
+    <ion-back-button defaultHref="/" slot="start"></ion-back-button>
+    <ion-title>Buyed Videos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="videos" *ngIf="!loading">
+    <app-video-card
+      *ngFor="let video of videos"
+      [video]="video"
+      [user]="user"
+    ></app-video-card>
+  </div>
+</ion-content>
+<ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>

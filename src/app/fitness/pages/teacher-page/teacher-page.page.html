@@ -24,7 +24,7 @@
       <h6>{{teacher?.name}}'s Workouts</h6>
       <ion-slides pager="true" [options]="option">
         <ion-slide *ngFor="let video of teacherVideos">
-          <app-video-card [video]="video"></app-video-card>
+          <app-video-card [user]="user" [video]="video"></app-video-card>
         </ion-slide>
       </ion-slides>
     </div>

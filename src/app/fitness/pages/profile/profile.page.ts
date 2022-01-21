@@ -57,6 +57,12 @@ export class ProfilePage implements OnInit {
           seperate: false,
           link: '../food-program/' + this.user._id,
         },
+        {
+          key: 'buyed_videos',
+          value: 'Buyed Videos',
+          seperate: false,
+          link: '../buyed-videos/',
+        },
       ]);
     }
     this.isLoading = false;

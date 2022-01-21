@@ -22,10 +22,6 @@
         <div class="detail-column">Category</div>
         <div class="detail-column">{{video.category['name']}}</div>
       </div>
-      <div class="detail-row">
-        <div class="detail-column">Vip</div>
-        <div class="detail-column">{{video.vip.toString() |titlecase}}</div>
-      </div>
       <ion-item
         lines="none"
         [routerLink]="['teacher-page', video?.teacher['_id']]"

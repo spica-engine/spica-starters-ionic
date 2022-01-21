@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { video, Video } from '../../services/bucket';
+import { User, video, Video } from '../../services/bucket';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,11 +16,13 @@ export class BranchCategoriesPage implements OnInit {
   id: any;
   videos: Video[];
   categoryName: any;
+  user: User;
   async ionViewWillEnter() {
     this.videos = await this.getVideos();
     this.categoryName =  this.videos[0]?.category ;
   }
   async ngOnInit() {
+    this.user = await this._authService.getUser().toPromise();
     this.id = this._route.snapshot.params.id;
   }
   async getVideos() {

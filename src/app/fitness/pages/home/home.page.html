@@ -9,12 +9,14 @@
   <spica-scroll-category
     (action)="clickedCategory($event)"
     [categories]="categories"
+    *ngIf="me"
   ></spica-scroll-category>
   <div *ngIf="me && !loading">
     <div class="videos">
       <app-video-card
         *ngFor="let video of videos"
         [video]="video"
+        [user]="me"
       ></app-video-card>
     </div>
   </div>

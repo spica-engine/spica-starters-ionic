@@ -1,19 +1,23 @@
 <ion-card
   class="card-item"
   *ngIf="video"
-  [routerLink]="['video-details', video._id]"
+  (click)="navigateToVideo()"
+  mode="ios"
 >
   <div class="image-play">
     <ion-icon
       name="play-outline"
-      [routerLink]="['video-details', video._id]"
+     
     ></ion-icon>
-    <span>{{ video.vip ? "VIP" : "FREE" }} </span>
+    <ion-label>
+      <span *ngFor="let rank of video.permissions" [ngClass]="{'bronze': rank == 'bronze','silver': rank == 'silver','gold': rank == 'gold' }" >{{rank |titlecase}}</span>
+    </ion-label>
     <img [src]="video.image" />
   </div>
   <ion-card-header>
     <ion-card-subtitle
       >{{ video.category["name"] }} - {{ video.duration }}MIN
+      <ion-text *ngIf="!user.buyed_videos.includes(video._id)">${{video.price}}</ion-text>
     </ion-card-subtitle>
   </ion-card-header>
   <ion-card-content>

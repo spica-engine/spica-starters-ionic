@@ -5,9 +5,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <app-video-card [video]="video" *ngFor="let video of videos"></app-video-card>
-  <ion-spinner
-    class="spinner-center-page"
-    *ngIf="!videos"
-  ></ion-spinner>
+  <app-video-card [user]="user" [video]="video" *ngFor="let video of videos"></app-video-card>
+  <ion-spinner class="spinner-center-page" *ngIf="!videos"></ion-spinner>
 </ion-content>
