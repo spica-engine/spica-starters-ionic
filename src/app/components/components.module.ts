@@ -21,6 +21,8 @@ import { RevokedUnderlinePipe } from '../pipes/revoked-underline.pipe';
 import { SpicaMapIframeComponent } from './spica-map-iframe/spica-map-iframe.component';
 import { SpicaRatingComponent } from './spica-rating/spica-rating.component';
 import { SpicaScrollCategoryComponent } from './spica-scroll-category/spica-scroll-category.component';
+import { SpicaStripePaymentComponent } from './spica-stripe-payment/spica-stripe-payment.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { SpicaScrollCategoryComponent } from './spica-scroll-category/spica-scro
     RevokedUnderlinePipe,
     SpicaMapIframeComponent,
     SpicaRatingComponent,
-    SpicaScrollCategoryComponent
+    SpicaScrollCategoryComponent,
+    SpicaStripePaymentComponent
   ],
   exports: [
     SpicaProductCardComponent,
@@ -59,7 +62,8 @@ import { SpicaScrollCategoryComponent } from './spica-scroll-category/spica-scro
     RevokedUnderlinePipe,
     SpicaMapIframeComponent,
     SpicaRatingComponent,
-    SpicaScrollCategoryComponent
+    SpicaScrollCategoryComponent,
+    SpicaStripePaymentComponent
   ],
   imports: [
     RouterModule,

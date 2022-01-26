@@ -1,0 +1,75 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-icon name="arrow-back-outline" (click)="dismiss('close')"></ion-icon>
+    <span>Payment By Card</span>
+  </ion-toolbar>
+</ion-header>
+<div class="container">
+  <div class="card-container" [class.back-side]="backSide">
+    <div class="front">
+      <div class="top">
+        <img class="chip" src="https://cdn.freebiesupply.com/logos/thumbs/2x/chip-1-logo.png" />
+        <img class="logo" [src]="cardTypeUrl" />
+      </div>
+      <ion-text class="card-number">{{cardForm.value.cardNumber}}</ion-text>
+      <div class="bottom">
+        <ion-text class="user-name">{{cardForm.value.firstName + ' ' + cardForm.value.lastName}}</ion-text>
+        <div class="valid-container">
+          <ion-text>VALID<br/>DATE</ion-text>
+          <ion-text>{{cardForm.value.expireDate}}</ion-text>
+        </div>
+      </div>
+    </div>
+
+    <div class="back">
+      <div class="top-back"></div>
+      <span></span>
+      <div class="middle-back">
+        <div class="left">
+          <ion-text>{{cardForm.value.cvc}}</ion-text>
+        </div>
+      </div>
+      <div class="bottom-back">
+        <div class="sticky"></div>
+        <ion-text>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorem totam, consequuntur reiciendis nihil labore ipsa sed! Magnam fugiat cum, iure nihil quasi sunt delectus voluptate!
+        </ion-text>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="form"  [formGroup]="cardForm">
+    <ion-item>
+      <ion-label position="floating">Card Number</ion-label>
+      <ion-input type="tel" maxlength="19" minlength="19" formControlName="cardNumber" (ionInput)="formatCardNumber($event.target['value'])" ></ion-input>
+    </ion-item>
+    
+    <div class="middle">
+      <ion-item>
+        <ion-label position="floating">First Name</ion-label>
+        <ion-input formControlName="firstName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Last Name</ion-label>
+        <ion-input formControlName="lastName"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="bottom">
+      <ion-item>
+        <ion-label position="floating">Exp Date</ion-label>
+        <ion-input maxlength="7" minlength="7" formControlName="expireDate" (ionInput)="formatExpireDate($event.target['value'])"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">CVC</ion-label>
+        <ion-input maxlength="3" minlength="3" formControlName="cvc" (ionFocus)="backSide=true" (ionBlur)="backSide=false"></ion-input>
+      </ion-item>
+    </div>
+    <div class="pay">
+      <ion-text>Total Price: {{totalPrice}} {{currency}}</ion-text>
+      <ion-button (click)="dismiss('pay')" [disabled]="cardForm.invalid">Pay</ion-button>
+    </div>
+   
+  </div>
+</div>

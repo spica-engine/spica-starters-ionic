@@ -7,6 +7,7 @@ import * as DataService from '../../services/bucket';
 import { CommonService } from 'src/app/services/common.service';
 import { SpicaFuntionService } from '../../services/spica-function.service';
 import { AuthService } from '../../services/auth.service';
+import { SpicaStripePaymentComponent } from 'src/app/components/spica-stripe-payment/spica-stripe-payment.component';
 
 @Component({
   selector: 'app-basket',
@@ -34,6 +35,7 @@ export class BasketPage {
   couponCode: string;
 
   async ionViewWillEnter() {
+    this.presentStripePaymentModal()
     this.isLoading = true;
     this.paymentMethods = await DataService.payment_method.getAll();
 
@@ -65,7 +67,9 @@ export class BasketPage {
           return el.product_id == product['_id'];
         });
         product['quantity'] = metadata.quantity;
-        product['selected_attribute'] = JSON.parse(metadata.selected_attribute || "{}");
+        product['selected_attribute'] = JSON.parse(
+          metadata.selected_attribute || '{}'
+        );
       }
     }
 
@@ -181,7 +185,11 @@ export class BasketPage {
       } else if (res.data.value == 'add_new_address') {
         this.presentShippingAddressModal();
       } else if (res.data.value == 'pay') {
-        this.createOrder(res.data.shoppingData);
+        if (res.data.shoppingData.paymentMethod == 'Payment By Card') {
+          this.presentStripePaymentModal();
+        } else {
+          this.createOrder(res.data.shoppingData);
+        }
       }
     });
     return await modal.present();
@@ -233,5 +241,33 @@ export class BasketPage {
       this._router.navigate(['e-commerce/tabs/profile']);
     });
     this.isLoading = false;
+  }
+
+  async presentStripePaymentModal() {
+    const modal = await this._modalController.create({
+      component: SpicaStripePaymentComponent,
+      componentProps: {
+        totalPrice: this.totalPrice,
+        currency: 'USD',
+      },
+      cssClass: 'my-custom-class',
+    });
+
+    modal.onWillDismiss().then(async (res) => {
+      if (res.data.value == 'close') {
+        return;
+      } else if (res.data.value == 'pay') {
+        const cardToken = await this._spicaFunctionService.createCardToken(res.data.cardData);
+        let data = {
+          cardToken: cardToken,
+          currency: 'USD',
+          totalPrice: this.totalPrice,
+          email: this.user.email
+        };
+        await this._spicaFunctionService.payByStripe(data);
+        this.createOrder(res.data.shoppingData);
+      }
+    });
+    return await modal.present();
   }
 }

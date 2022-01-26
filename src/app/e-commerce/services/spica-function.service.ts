@@ -25,7 +25,30 @@ export class SpicaFuntionService {
           headers: this.setHeader(),
         }
       )
+      .toPromise();
+  }
 
+  payByStripe(data: any) {
+    return this.http
+      .post(
+        `${environment.apiUrl}/fn-execute/payByStripe`,
+        { data },
+        {
+          headers: this.setHeader(),
+        }
+      )
+      .toPromise();
+  }
+
+  createCardToken(card: any) {
+    return this.http
+      .post(
+        `${environment.apiUrl}/fn-execute/createCardToken`,
+        { card },
+        {
+          headers: this.setHeader(),
+        }
+      )
       .toPromise();
   }
 }
