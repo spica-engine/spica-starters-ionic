@@ -18,13 +18,16 @@ export class TabsPage implements OnInit {
   shuffledTracks: DataService.Track[] = [];
   trackIndex: number = 0;
   user: DataService.User;
+  currentTimeIntervel: any;
+  currentTime: number = 0;
+  currentDuration: number = 0;
 
   constructor(
     public audioService: AudioService,
     private _modalController: ModalController,
     private _authService: AuthService,
     private _eventService: EventService,
-    private _router: Router,
+    private _router: Router
   ) {
     this._authService.initBucket();
   }
@@ -32,23 +35,24 @@ export class TabsPage implements OnInit {
   async checkUserLogin() {
     this.user = await this._authService.getUser().toPromise();
     if (!this.user) {
-      this._router.navigate(['/music-streaming/authorization'], {replaceUrl: true});
+      this._router.navigate(['/music-streaming/authorization'], {
+        replaceUrl: true,
+      });
     }
   }
 
   async ngOnInit() {
     this.user = await this._authService.getUser().toPromise();
-    if(this.user){
+    if (this.user) {
       await this.getTarcks();
       this.audioService.setTrack(this.tracks[this.trackIndex]);
-  
       this._eventService.$event.subscribe((action) => {
         this.audioControl(action);
       });
     }
   }
 
-  async ionViewWillEnter(){
+  async ionViewWillEnter() {
     await this.checkUserLogin();
   }
 
@@ -108,11 +112,23 @@ export class TabsPage implements OnInit {
     if (action == 'play') {
       this.playPause();
     } else if (action == 'next' && this.trackIndex + 1 < this.tracks.length) {
+      this.stopTimer();
       this.trackIndex = this.trackIndex + 1;
       this.audioService.setTrack(this.tracks[this.trackIndex]);
+      setTimeout(() => {
+        if (!this.audioService.paused()) {
+          this.startTimer();
+        }
+      }, 1000);
     } else if (action == 'prev' && this.trackIndex > 0) {
+      this.stopTimer();
       this.trackIndex = this.trackIndex - 1;
       this.audioService.setTrack(this.tracks[this.trackIndex]);
+      setTimeout(() => {
+        if (!this.audioService.paused()) {
+          this.startTimer();
+        }
+      }, 1000);
     } else if (action == 'shuffle') {
       this.shuffle();
     } else if (action == 'like') {
@@ -122,18 +138,38 @@ export class TabsPage implements OnInit {
 
   playPause() {
     if (this.audioService.paused()) {
+      this.startTimer();
       this.audioService.play();
     } else {
+      this.stopTimer();
       this.audioService.pause();
     }
   }
 
   shuffle() {
-    if (localStorage.getItem('shuffle') == 'true') {
+    if (localStorage.getItem('shuffle') != 'true') {
       this.shuffledTracks = JSON.parse(JSON.stringify(this.tracks));
       this.tracks = this.shuffledTracks.sort((a, b) => 0.5 - Math.random());
     } else {
       this.tracks = this.defaultTracks;
     }
+  }
+
+  startTimer() {
+    this.currentDuration = Math.floor(this.audioService.duration()) - 1;
+    this.currentTimeIntervel = setInterval(() => {
+      this.currentTime = Math.floor(this.audioService.currentTime());
+      if (this.currentDuration == this.currentTime) {
+        if (localStorage.getItem('replay') == 'true') {
+          this.audioService.setTime(0);
+        } else {
+          this.audioControl('next');
+        }
+      }
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this.currentTimeIntervel);
   }
 }

@@ -20,6 +20,7 @@ export class PlayerComponent implements OnInit {
   currentTime: number = 0;
   currentTimeIntervel: any;
   isShuffle: boolean = false;
+  isReplay: boolean = false;
 
   constructor(
     public audioService: AudioService,
@@ -33,6 +34,10 @@ export class PlayerComponent implements OnInit {
     if (localStorage.getItem('shuffle') == 'true') {
       this.isShuffle = true;
     }
+    if (localStorage.getItem('replay') == 'true') {
+      this.isReplay = true;
+    }
+
     this.currentTime = this.audioService.currentTime();
     if (!this.audioService.paused()) {
       this.startTimer();
@@ -42,8 +47,12 @@ export class PlayerComponent implements OnInit {
 
   startTimer() {
     this.currentTimeIntervel = setInterval(() => {
-      if (this.currentTime == Math.floor(this.audioService.duration() - 1)) {
-        this.stopTimer();
+      if (this.currentTime == Math.floor(this.audioService.duration() - 2)) {
+        if (localStorage.getItem('replay') == 'true') {
+          this.setTime(0);
+        } else {
+          this.action('next');
+        }
       }
       this.currentTime += 1;
     }, 1000);
@@ -85,6 +94,10 @@ export class PlayerComponent implements OnInit {
     if (value == 'shuffle') {
       this.isShuffle = !this.isShuffle;
       localStorage.setItem('shuffle', String(this.isShuffle));
+    }
+    if (value == 'replay') {
+      this.isReplay = !this.isReplay;
+      localStorage.setItem('replay', String(this.isReplay));
     }
 
     if (value == 'like') {

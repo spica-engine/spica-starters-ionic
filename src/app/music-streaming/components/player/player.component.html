@@ -41,7 +41,7 @@
         <ion-icon name="play-skip-back" class="type-2" (click)="action('prev')"></ion-icon>
         <ion-icon [name]="audioService.paused() ? 'play-circle' : 'pause-circle' " class="type-3" (click)="action('play')"></ion-icon>
         <ion-icon name="play-skip-forward" class="type-2" (click)="action('next')"></ion-icon>
-        <ion-icon name="sync" class="type-1"></ion-icon>
+        <ion-icon name="sync" class="type-1" [class.active]="isReplay"  (click)="action('replay')"></ion-icon>
       </div>
 
     </div>

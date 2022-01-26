@@ -19,7 +19,7 @@
     <ion-item lines="none">
       <ion-input [readonly]="user" type="text" formControlName="mail" [value]="user? user.email : ''"></ion-input>
     </ion-item>
-    <span [style]="paymentForm.controls['passport'].dirty && paymentForm.controls['passport'].invalid? 'color:red' :'color:gray'">* TC No</span>
+    <span [style]="paymentForm.controls['passport'].dirty && paymentForm.controls['passport'].invalid? 'color:red' :'color:gray'">* ID No</span>
     <ion-item lines="none">
       <ion-input [readonly]="user" type="number" formControlName="passport" [value]="user? user.passport : ''" onKeyPress="if(this.value.length==11) return false;"></ion-input>
     </ion-item>

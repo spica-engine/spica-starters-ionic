@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertController, ModalController } from '@ionic/angular';
 import { FollowableModalComponent } from '../../components/followable-modal/followable-modal.component';
 import { AudioService } from '../../services/audio.service';
 import { AuthService } from '../../services/auth.service';
@@ -24,7 +24,9 @@ export class ListPage implements OnInit {
     private _authService: AuthService,
     private _route: ActivatedRoute,
     private _audioService: AudioService,
-    private _modalController: ModalController
+    private _modalController: ModalController,
+    private _alertController: AlertController,
+    private _router: Router
   ) {
     this._authService.initBucket();
   }
@@ -79,11 +81,11 @@ export class ListPage implements OnInit {
     if (event == 'action' && this.playList) {
       this.tracks = this.tracks.filter((el) => {
         return el._id != track._id;
-      }); 
-      
+      });
+
       DataService.playlist.patch({
         _id: this.playList._id,
-        tracks: this.tracks
+        tracks: this.tracks,
       });
     } else {
       this.setTrack(track);
@@ -107,5 +109,26 @@ export class ListPage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  async presentAlert() {
+    const alert = await this._alertController.create({
+      message: 'Are you sure you want to remove play list?',
+      buttons: [
+        'Cancel',
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.removePlayList();
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async removePlayList() {
+    await DataService.playlist.remove(this.playList._id);
+    this._router.navigate([`/music-streaming/tabs/library`]);
   }
 }

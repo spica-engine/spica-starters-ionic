@@ -1,6 +1,7 @@
 <ion-header mode="ios">
   <ion-toolbar>
     <ion-back-button slot="start"></ion-back-button>
+    <ion-icon *ngIf="playList" name="trash" slot="end" (click)="presentAlert()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -11,7 +12,7 @@
       [data]="{img: artist['profile_picture'], text: artist['name']}"
     ></music-part-item>
     <div class="info">
-      <ion-text>Prepared for <span>idriska</span></ion-text>
+      <ion-text>Prepared for <span>user</span></ion-text>
     </div>
   </div>
 

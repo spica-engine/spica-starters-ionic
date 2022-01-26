@@ -1,4 +1,12 @@
 :host {
+  ion-header{
+    ion-toolbar{
+      ion-icon{
+        font-size: 1.2rem;
+        color: rgb(170, 0, 0);
+      }
+    }
+  }
   .metadata {
     width: 100%;
     display: flex;
