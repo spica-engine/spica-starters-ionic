@@ -10,6 +10,7 @@ export class SpicaUserProfilePictureComponent implements OnInit {
   @Input() image;
   @Output() changeImage: EventEmitter<any> = new EventEmitter();
   @Input() imageEditable: boolean = false;
+  @Input() isLoading: boolean = false;
   defaultImage = environment.user_img;
   constructor() {}
 

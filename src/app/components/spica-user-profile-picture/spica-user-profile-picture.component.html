@@ -1,7 +1,12 @@
 <div class="picture-content">
-  <img [class.opacity]="imageEditable" [src]="image || defaultImage" alt="" />
-  <spica-upload-image
-    *ngIf="imageEditable"
-    (change)="change($event)"
-  ></spica-upload-image>
+  <div class="spinner-container" *ngIf="isLoading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+  <ng-container  *ngIf="!isLoading">
+    <img [class.opacity]="imageEditable" [src]="image || defaultImage" alt="" />
+    <spica-upload-image
+      *ngIf="imageEditable"
+      (change)="change($event)"
+    ></spica-upload-image>
+  </ng-container>
 </div>

@@ -1,7 +1,8 @@
 {
   "name": "spica-starters-ionic",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular"
 }

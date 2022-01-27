@@ -9,6 +9,8 @@
       *ngIf="!isLoading"
       [imageEditable]="true"
       [image]="user?.profile_photo"
+      [isLoading]="isLoadingImage"
+      (changeImage)="changeImage($event)"
     ></spica-user-profile-picture>
     <spica-item-list
       *ngIf="listItems.length>0  && !isLoading"
