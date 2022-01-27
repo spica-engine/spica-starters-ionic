@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "109760398370",
+    "project_id": "spica-starters",
+    "storage_bucket": "spica-starters.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109760398370:android:a7b623a18cb13a7100367b",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "109760398370-pgd60asbuj8uu54qgonjv86nfifnmi6l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2XQ5RPP3MRbdnEtql5q6USju0eFN5uWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "109760398370-pgd60asbuj8uu54qgonjv86nfifnmi6l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

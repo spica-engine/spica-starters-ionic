@@ -86,6 +86,7 @@ export interface User{
   age_range_end?: number;
   visible?: boolean;
   interests?: (Interests & id | string);
+  fcm_token?:string;
 }
 export namespace user {
   const BUCKET_ID = '61c5bc4ea57d31002ee368b2';

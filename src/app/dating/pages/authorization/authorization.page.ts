@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
+import { PushNotificationService } from 'src/app/services/push-notification.service';
 import { AuthService } from '../../services/auth.service';
+import { User, user } from '../../services/bucket';
 
 @Component({
   selector: 'app-authorization',
@@ -10,23 +12,27 @@ import { AuthService } from '../../services/auth.service';
 })
 export class AuthorizationPage implements OnInit {
   isLoading: boolean = false;
+  user: User;
 
   constructor(
     private _authService: AuthService,
     private _router: Router,
-    private _commonService: CommonService
-  ) { }
+    private _commonService: CommonService,
+    private _pushNotificationSerivce: PushNotificationService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-
-  login(loginData) {
+  async login(loginData) {
     this.isLoading = true;
     this._authService
       .login(loginData.email, loginData.password)
       .toPromise()
-      .then((res) => {
+      .then(async (res) => {
+        this.user = res;
+        const fcmToken = this._pushNotificationSerivce.getFCMToken();
+        this.updateFcmToken(fcmToken);
+
         this.isLoading = false;
         this.nvigateToHome();
       })
@@ -57,4 +63,11 @@ export class AuthorizationPage implements OnInit {
     this._router.navigate(['/dating/tabs/profile']);
   }
 
+  updateFcmToken(fcm_token) {
+    user
+      .patch({ _id: this.user._id, fcm_token: fcm_token })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }

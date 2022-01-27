@@ -23,7 +23,6 @@ export class ProfilePage {
   async ionViewWillEnter() {
     this.isLoading = true;
     this.user = await this._authService.getUser().toPromise();
-    console.log(this.user);
     
 
     if (this.user) {
