@@ -12,14 +12,27 @@ export class SpicaFilterModalComponent implements OnInit {
   @Input() currency: string = 'USD';
   filter: any = [];
   minMax = { lower: 0, upper: 0 };
+  activeProject: string;
 
   constructor(private modal: ModalController) {}
 
   ngOnInit() {
     this.minMax = this.price_range;
+
+    this.activeProject = localStorage.getItem("active_project")
+    this.filter = JSON.parse(localStorage.getItem(`${this.activeProject}-filter`)) || [];
+
+    this.attributes.map((attribute) => {
+      this.filter.forEach((el) => {
+        if (el.name == attribute.name) {
+          attribute['selected'] = el.value;
+        }
+      });
+    });    
   }
 
   setFilter() {
+    localStorage.setItem(`${this.activeProject}-filter`, JSON.stringify(this.filter));
     this.filter.push({ name: 'price_range', value: this.price_range });
     this.modal.dismiss({
       filter: this.filter,
@@ -27,6 +40,7 @@ export class SpicaFilterModalComponent implements OnInit {
   }
 
   clearFilter() {
+    localStorage.removeItem(`${this.activeProject}-filter`)
     this.modal.dismiss({
       action: 'clear_filter',
     });

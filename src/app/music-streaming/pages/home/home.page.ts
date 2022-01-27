@@ -38,7 +38,6 @@ export class HomePage {
 
   async ionViewWillEnter() {
     this.userId = (await this._authService.getUser().toPromise())?._id;
-    console.log('userid :', this.userId);
     if (this.userId) {
       await this.getUser();
       if (!this.user.followed_artists.length) {

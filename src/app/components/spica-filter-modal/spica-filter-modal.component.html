@@ -2,6 +2,7 @@
   <ion-item *ngFor="let attribute of attributes">
     <ion-label>{{ attribute.name | revokedUnderline | titlecase }}</ion-label>
     <ion-select
+      [value]="attribute['selected']"
       multiple="true"
       (ionChange)="addNewFilterParams(attribute.name, $event.target)"
     >
@@ -13,7 +14,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-item *ngIf="currency!='none'">
+  <ion-item *ngIf="currency != 'none'">
     <ion-range
       id="dual-range"
       dual-knobs

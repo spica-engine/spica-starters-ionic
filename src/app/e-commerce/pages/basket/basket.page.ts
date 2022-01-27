@@ -35,7 +35,6 @@ export class BasketPage {
   couponCode: string;
 
   async ionViewWillEnter() {
-    this.presentStripePaymentModal()
     this.isLoading = true;
     this.paymentMethods = await DataService.payment_method.getAll();
 

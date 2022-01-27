@@ -14,6 +14,8 @@ export class StarterProjectsComponent implements OnInit {
   projects = [];
 
   gotoProject(route) {
+    localStorage.setItem('active_project', route.split("/")[1])
+    localStorage.removeItem(`${route.split("/")[1]}-filter`)
     this._router.navigateByUrl(route, {
       replaceUrl: true,
     });

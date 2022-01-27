@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket';
@@ -12,19 +13,18 @@ import { environment } from '../../services/environment';
 export class HomePage {
   user: DataService.About_Me;
   age: number = 0;
-  quantity: number = 2;
+  quantity: number = 1;
   fact = new Array(4);
   portfolio: DataService.Portfolio[] = [];
   services: DataService.Service[] = [];
   reference: DataService.Reference[] = [];
-  forum = {
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  };
+  contactForm: FormGroup;
 
-  constructor(private _commonService: CommonService, private _authService: AuthService) {
+  constructor(
+    private _commonService: CommonService,
+    private _authService: AuthService,
+    private _formBuilder: FormBuilder
+  ) {
     this._authService.initBucket();
   }
 
@@ -33,6 +33,19 @@ export class HomePage {
     this.getPortfolio();
     this.getService();
     this.getReference();
+
+    this.contactForm = this._formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
+        ]),
+      ],
+      message: ['', Validators.required],
+    });
   }
   calculateAge(birthday) {
     let month_diff = Date.now() - birthday.getTime();
@@ -47,11 +60,21 @@ export class HomePage {
       this.age = this.calculateAge(new Date(this.user.birthday));
     }
   }
-  async getPortfolio() {
+  async getPortfolio(service = undefined) {
     DataService.portfolio
-      .getAll({ queryParams: { limit: this.quantity } })
+      .getAll({
+        queryParams: {
+          limit: this.quantity,
+          relation: ['service'],
+          filter: {
+            'service._id': { $ne: '' },
+            'service.name': service,
+          },
+        },
+      })
       .then((res) => {
         this.portfolio = res;
+        console.log('RES', res);
       });
   }
   async getService() {
@@ -65,20 +88,15 @@ export class HomePage {
     });
   }
   async loadMore() {
-    this.quantity = this.quantity + 2;
+    this.quantity = this.quantity + 1;
     this.getPortfolio();
   }
 
   sendMessage() {
     DataService.contact
-      .insert(this.forum)
+      .insert(this.contactForm.value)
       .then(() => {
-        this.forum = {
-          name: '',
-          email: '',
-          phone: '',
-          message: '',
-        };
+        this.contactForm.reset();
         this._commonService.presentToast('Message sent successfully', 1500);
       })
       .catch((err) => {

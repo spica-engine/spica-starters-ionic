@@ -48,20 +48,20 @@ export class ProfilePage implements OnInit {
           (item) =>
             (item.value = this.user[item.key] ? this.user[item.key] : '')
         );
-        this.listItems = this.listItems.concat([
-          {
-            key: 'order',
-            value: 'Orders',
-            seperate: false,
-            link: '',
-          },
-          {
-            key: 'addresses',
-            value: 'Addresses',
-            seperate: false,
-            link: '',
-          },
-        ]);
+        // this.listItems = this.listItems.concat([
+        //   {
+        //     key: 'order',
+        //     value: 'Orders',
+        //     seperate: false,
+        //     link: '',
+        //   },
+        //   {
+        //     key: 'addresses',
+        //     value: 'Addresses',
+        //     seperate: false,
+        //     link: '',
+        //   },
+        // ]);
       });
   }
 
