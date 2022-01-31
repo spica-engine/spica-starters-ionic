@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import * as DataService from '../../services/bucket';
+import { format, parseISO } from 'date-fns';
 
 @Component({
   selector: 'app-reservation',
@@ -12,6 +13,10 @@ export class ReservationComponent implements OnInit {
   rooms: DataService.Room[] = [];
   reservationForm: FormGroup;
   newReservation: DataService.Reservation;
+  showCheckInPicker: boolean = false;
+  showCheckOutPicker: boolean = false;
+  today = new Date().toISOString();
+  checkoutMinDate = this.today;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -84,5 +89,16 @@ export class ReservationComponent implements OnInit {
         }
         break;
     }
+  }
+
+  formatDate(value: string) {
+    return format(parseISO(value), 'MMM dd yyyy');
+  }
+
+  changeCheckIn() {
+    this.checkoutMinDate = new Date(
+      this.reservationForm.controls.check_in.value
+    ).toISOString();
+    this.showCheckInPicker = false;
   }
 }

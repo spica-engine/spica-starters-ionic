@@ -36,13 +36,16 @@ export class HomePage {
 
     this.contactForm = this._formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: [
+      email: [
         '',
         Validators.compose([
           Validators.required,
           Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
         ]),
+      ],
+      phone: [
+        '',
+        Validators.required,
       ],
       message: ['', Validators.required],
     });
@@ -74,7 +77,6 @@ export class HomePage {
       })
       .then((res) => {
         this.portfolio = res;
-        console.log('RES', res);
       });
   }
   async getService() {
