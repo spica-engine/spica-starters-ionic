@@ -1,0 +1,319 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="io.ionic.starter"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml
+10
+11    <!-- Permissions -->
+12
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:42:5-67
+13-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:42:22-64
+14    <uses-permission android:name="android.permission.VIBRATE" />
+14-->[:capacitor-haptics] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-66
+14-->[:capacitor-haptics] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/haptics/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-63
+15    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+15-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:5-81
+15-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:22-78
+16
+17    <queries>
+17-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-29:15
+18        <intent>
+18-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:9-15:18
+19            <action android:name="android.media.action.IMAGE_CAPTURE" />
+19-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-73
+19-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:21-70
+20        </intent>
+21        <intent>
+21-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:16:9-18:18
+22            <action android:name="android.intent.action.GET_CONTENT" />
+22-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:13-72
+22-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:17:21-69
+23        </intent>
+24        <intent>
+24-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:19:9-21:18
+25            <action android:name="android.intent.action.PICK" />
+25-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:20:13-65
+25-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:20:21-62
+26        </intent>
+27        <intent>
+27-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:22:9-28:18
+28            <action android:name="com.android.camera.action.CROP" />
+28-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:23:13-69
+28-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:23:21-66
+29
+30            <data
+30-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:25:13-27:44
+31                android:mimeType="image/*"
+31-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:26:17-43
+32                android:scheme="content" />
+32-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:27:17-41
+33        </intent>
+34    </queries>
+35
+36    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+36-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:31:5-81
+36-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:31:22-78
+37    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+37-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:32:5-79
+37-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:32:22-76
+38
+39    <uses-feature
+39-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:34:5-36:35
+40        android:name="android.hardware.location.gps"
+40-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:35:9-53
+41        android:required="true" />
+41-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:36:9-32
+42
+43    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+43-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:22:5-79
+43-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:22:22-76
+44    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+44-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:24:5-68
+44-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:24:22-65
+45    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+45-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:26:5-82
+45-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:26:22-79
+46
+47    <application
+47-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:5:5-38:19
+48        android:allowBackup="true"
+48-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:6:9-35
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.6.0] /Users/teknodev1/.gradle/caches/transforms-3/08363280b83a89b9d0956e0fe17ede3b/transformed/core-1.6.0/AndroidManifest.xml:24:18-86
+50        android:debuggable="true"
+51        android:icon="@mipmap/ic_launcher"
+51-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:7:9-43
+52        android:label="@string/app_name"
+52-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:8:9-41
+53        android:roundIcon="@mipmap/ic_launcher_round"
+53-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:9:9-54
+54        android:supportsRtl="true"
+54-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:10:9-35
+55        android:testOnly="true"
+56        android:theme="@style/AppTheme"
+56-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:11:9-40
+57        android:usesCleartextTraffic="true" >
+57-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:12:9-44
+58        <activity
+58-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:15:9-27:20
+59            android:name="io.ionic.starter.MainActivity"
+59-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:17:13-57
+60            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+60-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:16:13-129
+61            android:label="@string/title_activity_main"
+61-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:18:13-56
+62            android:launchMode="singleTask"
+62-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:20:13-44
+63            android:theme="@style/AppTheme.NoActionBarLaunch" >
+63-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:19:13-62
+64            <intent-filter>
+64-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:22:13-25:29
+65                <action android:name="android.intent.action.MAIN" />
+65-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:23:17-69
+65-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:23:25-66
+66
+67                <category android:name="android.intent.category.LAUNCHER" />
+67-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:24:17-77
+67-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:24:27-74
+68            </intent-filter>
+69        </activity>
+70
+71        <provider
+72            android:name="androidx.core.content.FileProvider"
+72-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:30:13-62
+73            android:authorities="io.ionic.starter.fileprovider"
+73-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:31:13-64
+74            android:exported="false"
+74-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:32:13-37
+75            android:grantUriPermissions="true" >
+75-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:33:13-47
+76            <meta-data
+76-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:34:13-36:64
+77                android:name="android.support.FILE_PROVIDER_PATHS"
+77-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:35:17-67
+78                android:resource="@xml/file_paths" />
+78-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:36:17-51
+79        </provider>
+80
+81        <service
+81-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-16:19
+82            android:name="com.capacitorjs.plugins.pushnotifications.MessagingService"
+82-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-86
+83            android:exported="false" >
+83-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-37
+84            <intent-filter>
+84-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:29
+85                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+85-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-78
+85-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:25-75
+86            </intent-filter>
+87        </service>
+88
+89        <provider
+89-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:39:9-47:20
+90            android:name="org.apache.cordova.camera.FileProvider"
+90-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:40:13-66
+91            android:authorities="io.ionic.starter.cordova.plugin.camera.provider"
+91-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:41:13-82
+92            android:exported="false"
+92-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:42:13-37
+93            android:grantUriPermissions="true" >
+93-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:43:13-47
+94            <meta-data
+94-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:34:13-36:64
+95                android:name="android.support.FILE_PROVIDER_PATHS"
+95-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:35:17-67
+96                android:resource="@xml/camera_provider_paths" />
+96-->/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/src/main/AndroidManifest.xml:36:17-51
+97        </provider>
+98
+99        <activity android:name="com.soundcloud.android.crop.CropImageActivity" />
+99-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:49:9-82
+99-->[:capacitor-cordova-android-plugins] /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/build/intermediates/merged_manifest/debug/AndroidManifest.xml:49:19-79
+100        <!--
+101             FirebaseMessagingService performs security checks at runtime,
+102             but set to not exported to explicitly avoid allowing another app to call it.
+103        -->
+104        <service
+104-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:28:9-35:19
+105            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+105-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:29:13-82
+106            android:directBootAware="true"
+106-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:30:13-43
+107            android:exported="false" >
+107-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:31:13-37
+108            <intent-filter android:priority="-500" >
+108-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-15:29
+109                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+109-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:17-78
+109-->[:capacitor-push-notifications] /Users/teknodev1/Desktop/projects/spica-starters-ionic/node_modules/@capacitor/push-notifications/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml:14:25-75
+110            </intent-filter>
+111        </service>
+112        <service
+112-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:36:9-42:19
+113            android:name="com.google.firebase.components.ComponentDiscoveryService"
+113-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:37:13-84
+114            android:directBootAware="true"
+114-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:35:13-43
+115            android:exported="false" >
+115-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:38:13-37
+116            <meta-data
+116-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:39:13-41:85
+117                android:name="com.google.firebase.components:com.google.firebase.messaging.FirebaseMessagingRegistrar"
+117-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:40:17-119
+118                android:value="com.google.firebase.components.ComponentRegistrar" />
+118-->[com.google.firebase:firebase-messaging:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/7afb71eebcfe76411f1c4e13cfaec350/transformed/jetified-firebase-messaging-21.0.1/AndroidManifest.xml:41:17-82
+119            <meta-data
+119-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:32:13-34:85
+120                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+120-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:33:17-96
+121                android:value="com.google.firebase.components.ComponentRegistrar" />
+121-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:34:17-82
+122            <meta-data
+122-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/teknodev1/.gradle/caches/transforms-3/01addb3125275544f7f5a502215cb381/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:28:13-30:85
+123                android:name="com.google.firebase.components:com.google.firebase.datatransport.TransportRegistrar"
+123-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/teknodev1/.gradle/caches/transforms-3/01addb3125275544f7f5a502215cb381/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:29:17-115
+124                android:value="com.google.firebase.components.ComponentRegistrar" />
+124-->[com.google.firebase:firebase-datatransport:17.0.10] /Users/teknodev1/.gradle/caches/transforms-3/01addb3125275544f7f5a502215cb381/transformed/jetified-firebase-datatransport-17.0.10/AndroidManifest.xml:30:17-82
+125            <meta-data
+125-->[com.google.firebase:firebase-installations:16.3.5] /Users/teknodev1/.gradle/caches/transforms-3/15d6d6041c88a31e8bd6c88ef61659fd/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:18:13-20:85
+126                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+126-->[com.google.firebase:firebase-installations:16.3.5] /Users/teknodev1/.gradle/caches/transforms-3/15d6d6041c88a31e8bd6c88ef61659fd/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:19:17-127
+127                android:value="com.google.firebase.components.ComponentRegistrar" />
+127-->[com.google.firebase:firebase-installations:16.3.5] /Users/teknodev1/.gradle/caches/transforms-3/15d6d6041c88a31e8bd6c88ef61659fd/transformed/jetified-firebase-installations-16.3.5/AndroidManifest.xml:20:17-82
+128            <!--
+129                This registrar is not defined in the dynamic-module-support sdk itself to allow non-firebase
+130                clients to use it as well, by defining this registrar in their own core/common library.
+131            -->
+132            <meta-data
+132-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:43:13-45:85
+133                android:name="com.google.firebase.components:com.google.firebase.dynamicloading.DynamicLoadingRegistrar"
+133-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:44:17-121
+134                android:value="com.google.firebase.components.ComponentRegistrar" />
+134-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:45:17-82
+135        </service>
+136
+137        <receiver
+137-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:37:9-44:20
+138            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+138-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:38:13-78
+139            android:exported="true"
+139-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:39:13-36
+140            android:permission="com.google.android.c2dm.permission.SEND" >
+140-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:40:13-73
+141            <intent-filter>
+141-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:41:13-43:29
+142                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+142-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:42:17-81
+142-->[com.google.firebase:firebase-iid:21.0.1] /Users/teknodev1/.gradle/caches/transforms-3/41c278d94ea1a2af5064de343b5f03b1/transformed/jetified-firebase-iid-21.0.1/AndroidManifest.xml:42:25-78
+143            </intent-filter>
+144        </receiver>
+145
+146        <provider
+146-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:26:9-31:39
+147            android:name="com.google.firebase.provider.FirebaseInitProvider"
+147-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:27:13-77
+148            android:authorities="io.ionic.starter.firebaseinitprovider"
+148-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:28:13-72
+149            android:directBootAware="true"
+149-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:29:13-43
+150            android:exported="false"
+150-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:30:13-37
+151            android:initOrder="100" />
+151-->[com.google.firebase:firebase-common:19.5.0] /Users/teknodev1/.gradle/caches/transforms-3/712c7aeae3f284cbb994c60e98a27df9/transformed/jetified-firebase-common-19.5.0/AndroidManifest.xml:31:13-36
+152
+153        <activity
+153-->[com.google.android.gms:play-services-base:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/b68c47cc9fdbe88caa3cbc99e8ae2d16/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:23:9-26:75
+154            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+154-->[com.google.android.gms:play-services-base:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/b68c47cc9fdbe88caa3cbc99e8ae2d16/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:24:13-79
+155            android:exported="false"
+155-->[com.google.android.gms:play-services-base:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/b68c47cc9fdbe88caa3cbc99e8ae2d16/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:25:13-37
+156            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+156-->[com.google.android.gms:play-services-base:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/b68c47cc9fdbe88caa3cbc99e8ae2d16/transformed/jetified-play-services-base-17.0.0/AndroidManifest.xml:26:13-72
+157
+158        <meta-data
+158-->[com.google.android.gms:play-services-basement:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/66240fe47ac1471b5f694bb5fe7acad1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:23:9-25:69
+159            android:name="com.google.android.gms.version"
+159-->[com.google.android.gms:play-services-basement:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/66240fe47ac1471b5f694bb5fe7acad1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:24:13-58
+160            android:value="@integer/google_play_services_version" />
+160-->[com.google.android.gms:play-services-basement:17.0.0] /Users/teknodev1/.gradle/caches/transforms-3/66240fe47ac1471b5f694bb5fe7acad1/transformed/jetified-play-services-basement-17.0.0/AndroidManifest.xml:25:13-66
+161
+162        <service
+162-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:29:9-35:19
+163            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+163-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:30:13-103
+164            android:exported="false" >
+164-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:31:13-37
+165            <meta-data
+165-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:32:13-34:39
+166                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+166-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:33:17-94
+167                android:value="cct" />
+167-->[com.google.android.datatransport:transport-backend-cct:2.3.3] /Users/teknodev1/.gradle/caches/transforms-3/582b5374c0ed98c6161922825b679ec0/transformed/jetified-transport-backend-cct-2.3.3/AndroidManifest.xml:34:17-36
+168        </service>
+169        <service
+169-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:26:9-30:19
+170            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+170-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:27:13-117
+171            android:exported="false"
+171-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:28:13-37
+172            android:permission="android.permission.BIND_JOB_SERVICE" >
+172-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:29:13-69
+173        </service>
+174
+175        <receiver
+175-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:32:9-34:40
+176            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+176-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:33:13-132
+177            android:exported="false" />
+177-->[com.google.android.datatransport:transport-runtime:2.2.5] /Users/teknodev1/.gradle/caches/transforms-3/403ccf5ec6d7b7d34f595b5104080949/transformed/jetified-transport-runtime-2.2.5/AndroidManifest.xml:34:13-37
+178    </application>
+179
+180</manifest>

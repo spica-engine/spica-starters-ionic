@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">109760398370-pgd60asbuj8uu54qgonjv86nfifnmi6l.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">109760398370</string>
+    <string name="google_api_key" translatable="false">AIzaSyC2XQ5RPP3MRbdnEtql5q6USju0eFN5uWI</string>
+    <string name="google_app_id" translatable="false">1:109760398370:android:a7b623a18cb13a7100367b</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC2XQ5RPP3MRbdnEtql5q6USju0eFN5uWI</string>
+    <string name="google_storage_bucket" translatable="false">spica-starters.appspot.com</string>
+    <string name="project_id" translatable="false">spica-starters</string>
+</resources>
