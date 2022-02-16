@@ -30,7 +30,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-    DataService.category
+    DataService.Category
       .getAll({ queryParams: { filter: { is_sub_category: false } } })
       .then((res) => {
         this.categories = res;

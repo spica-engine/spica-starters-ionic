@@ -1,0 +1,49 @@
+:host {
+    ion-content {
+        ion-card{
+            ion-card-header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                ion-label{
+                    display: flex;
+                    ion-icon{
+                        margin-right: 5px;
+                    }
+                }
+                p{
+                    font-size: 0.7rem;
+                    font-weight: 600;
+                    span{
+                        color: rgb(46, 215, 46);
+                        font-weight: 600;
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+            ion-card-content{
+                display: flex;
+                align-items: center;
+                ion-avatar{
+                    display: flex;
+                    border: 1px solid #e0e0e0;
+                    margin-right: 3px;
+                    span{
+                        width: 48px;
+                        height: 48px;
+                        background: #f3f3f3;
+                        border-radius: 50%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-weight: 600;
+                    }
+                }
+                ion-icon{
+                    margin-left: auto;
+                    font-size: 1.3rem;
+                }
+            }
+        }
+    }
+}

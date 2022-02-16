@@ -1,0 +1,49 @@
+<ion-toolbar>
+  <ion-icon (click)="dismiss()" name="close-outline"></ion-icon>
+  <ion-title>Edit Address</ion-title>
+</ion-toolbar>
+<ion-card>
+  <div [formGroup]="addresForm" *ngIf="addresForm">
+  <div class="input">
+    <span>Title*</span>
+    <ion-input [style]="addresForm.controls['title'].dirty && addresForm.controls['title'].invalid? 'border: 1px solid red': ''" [value]="data?.title" formControlName="title"></ion-input>
+  </div>
+  <div class="input">
+    <span>Phone*</span>
+    <ion-input [value]="data?.phone" formControlName="phone" [style]="addresForm.controls['phone'].dirty && addresForm.controls['phone'].invalid? 'border: 1px solid red': ''"></ion-input>
+  </div>
+  <div class="input">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <span>Country*</span>
+          <ion-select [style]="addresForm.controls['country'].dirty && addresForm.controls['country'].invalid? 'border: 1px solid red': ''" required id="country" formControlName="country" (ionChange)="countryChange(addresForm.value.country)" [value]="addresForm.value.country">
+            <ion-select-option [value]="country.name || data?.country" *ngFor="let country of countries">
+            {{ country.name }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+        <ion-col>
+          <span>Province*</span>
+          <ion-select [style]="addresForm.controls['province'].dirty && addresForm.controls['province'].invalid? 'border: 1px solid red': ''" formControlName="province" (ionChange)="cityChange(addresForm.value.province,addresForm.value.country)" [value]="addresForm.value.province">
+            <ion-select-option [value]="city.name || data?.province" *ngFor="let city of cities">
+              {{ city.name }}</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <div class="input">
+    <span>District*</span>
+      <ion-select [style]="addresForm.controls['district'].dirty && addresForm.controls['district'].invalid? 'border: 1px solid red': ''"  formControlName="district" [value]="addresForm.value.district">
+        <ion-select-option [value]="state || data?.district" *ngFor="let state of states">
+          {{ state }}</ion-select-option>
+      </ion-select>
+  </div>
+  <div class="input">
+    <span>Full Address*</span>
+    <ion-textarea [style]="addresForm.controls['full_address'].dirty && addresForm.controls['full_address'].invalid? 'border: 1px solid red': ''" [value]="data?.full_address"  formControlName="full_address"></ion-textarea>
+  </div>
+  <ion-button [disabled]="addresForm.invalid" expand="block" color="primary" (click)="method('save')">Save</ion-button>
+  <ion-button *ngIf="mode" expand="block" fill="outline" color="danger" (click)="method('delete')">Delete</ion-button>
+</div>
+</ion-card>

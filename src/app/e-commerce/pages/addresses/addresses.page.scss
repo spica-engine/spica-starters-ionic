@@ -1,0 +1,57 @@
+:host {
+    ion-content {
+        .create-address {
+            margin-top: 20px;
+            ion-button {
+                --border-radius: 4px;
+                height: 90px;
+                width: calc(100vw - 40px);
+                margin: 0 20px;
+                border: 2px solid rgba(228, 222, 222, 0.646);
+                ion-label{
+                    ion-icon{
+                        font-size: 1.6rem;
+                        margin-bottom: 3px;
+                    }
+                    h2{
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+        ion-card {
+            border-radius: 3px;
+            border: 2px solid rgba(228, 222, 222, 0.646);
+            ion-card-header {
+                padding: 2px 20px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 2px solid rgba(228, 222, 222, 0.646);
+                ion-button {
+                    --border-radius: 4px;
+                    height: 30px;
+                }
+            }
+            ion-card-content {
+                ion-label {
+                    display: flex;
+                    flex-direction: column;
+                    p {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        margin: 6px 0;
+                        color: gray;
+                    }
+                    span{
+                        font-size: 0.7rem;
+                    }
+                    .phone {
+                        margin-top: 4px;
+                    }
+                }
+            }
+        }
+    }
+}

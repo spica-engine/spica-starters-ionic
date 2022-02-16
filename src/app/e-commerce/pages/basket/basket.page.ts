@@ -32,6 +32,7 @@ export class BasketPage {
   user: DataService.User;
   basket: any = [];
   couponCode: string;
+  setBasketConfirm: DataService.Basket;
 
   async ionViewWillEnter() {
     this.isLoading = true;
@@ -58,6 +59,8 @@ export class BasketPage {
         relation: true,
       },
     });
+    console.log(data);
+    
 
     if (data[0]) {
       for (let product of data[0].products) {
@@ -66,6 +69,8 @@ export class BasketPage {
         });
         product['quantity'] = metadata.quantity;
         product['selected_attribute'] = JSON.parse(metadata.selected_attribute || "{}");
+        console.log(product);
+        
       }
     }
 
@@ -128,6 +133,7 @@ export class BasketPage {
         this.totalPrice += el.normal_price * el.quantity;
       }
     });
+    this.basket.total_price = this.totalPrice
   }
 
   validateCoupone() {
@@ -226,12 +232,14 @@ export class BasketPage {
     };
 
     await DataService.order.insert(orderData).then((_) => {
+      DataService.basket.patch({_id:orderData.basket,is_completed:true,total_price:this.totalPrice})
       this._commonService.presentToast(
         'Your order has been received successfully',
         2000
       );
       this._router.navigate(['e-commerce/tabs/profile']);
     });
+    
     this.isLoading = false;
   }
 }

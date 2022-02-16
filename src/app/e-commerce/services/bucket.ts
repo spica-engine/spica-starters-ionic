@@ -16,6 +16,71 @@ type getAllArgs = Rest<Parameters<typeof Bucket.data.getAll>>;
 type realtimeGetArgs = Rest<Parameters<typeof Bucket.data.realtime.get>>;
 type realtimeGetAllArgs = Rest<Parameters<typeof Bucket.data.realtime.getAll>>;
 type id = { _id: string };
+
+export interface Category{
+  _id?: string;
+  name: string;
+  img?: string;
+  sub_categories?: (Category & id | string)[];
+  is_sub_category?: boolean;
+}
+export namespace Category {
+  const BUCKET_ID = '61b3610897a0a8002e6a51a4';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Category & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Category & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Category, "_id">) {
+      ['sub_categories'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Category & id) {
+      ['sub_categories'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Category> & id
+    ) {
+      ['sub_categories'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Category & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Category & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
 export interface Attribute{
   _id?: string;
   name?: string;
@@ -56,173 +121,6 @@ export namespace attribute {
       };
       export function getAll (...args: realtimeGetAllArgs) {
         return Bucket.data.realtime.getAll<Attribute & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Category{
-  _id?: string;
-  name: string;
-  img?: string;
-  sub_categories?: (Category & id | string)[];
-  is_sub_category?: boolean;
-}
-export namespace category {
-  const BUCKET_ID = '61b3610897a0a8002e6a51a4';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Category & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Category & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Category, "_id">) {
-      ['sub_categories'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Category & id) {
-      ['sub_categories'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Category> & id
-    ) {
-      ['sub_categories'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Category & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Category & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Payment_Method{
-  _id?: string;
-  title?: string;
-  description?: string;
-  is_active?: boolean;
-}
-export namespace payment_method {
-  const BUCKET_ID = '61b3610997a0a8002e6a51a7';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Payment_Method & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Payment_Method & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Payment_Method, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Payment_Method & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Payment_Method> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Payment_Method & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Payment_Method & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Store_Settings{
-  _id?: string;
-  name?: string;
-  address?: {
-  country?: string;
-  province?: string;
-  district?: string;
-  full_address?: string;
-  post_code?: number;};
-  currency?: string;
-  email?: string;
-  phone?: string;
-  weight_unit?: string;
-  size_unit?: string;
-  shipping_price?: number;
-  enable_comments?: boolean;
-  privacy_policy?: string;
-  terms_of_use?: string;
-}
-export namespace store_settings {
-  const BUCKET_ID = '61b3610b97a0a8002e6a51aa';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Store_Settings & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Store_Settings & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Store_Settings, "_id">) {
-      
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Store_Settings & id) {
-      
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Store_Settings> & id
-    ) {
-      
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Store_Settings & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Store_Settings & id>(BUCKET_ID, ...args);
       };
   }
 }
@@ -299,7 +197,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -309,7 +207,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -325,7 +223,7 @@ export namespace basket {
       ['products','coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -344,48 +242,35 @@ export namespace basket {
   }
 }
 
-export interface Product{
+export interface Rating{
   _id?: string;
-  title?: string;
-  sub_title?: string;
-  description?: string;
-  categories?: (Category & id | string)[];
-  attributes?: (Attribute & id | string)[];
-  tag?: string[];
-  cover_image?: string;
-  gallery?: string[];
-  type?: ('physical'|'digital');
-  normal_price?: number;
-  discounted_price?: number;
-  discount_start_date?: Date | string;
-  discount_end_date?: Date | string;
-  is_free_delivery?: boolean;
-  is_available?: boolean;
-  created_at?: Date | string;
+  comment?: string;
+  rating?: (1|2|3|4|5);
+  user?: (User & id | string);
 }
-export namespace product {
-  const BUCKET_ID = '61b3610f97a0a8002e6a51b3';
+export namespace Rating {
+  const BUCKET_ID = '61b3611597a0a8002e6a51bf';
     export function get (...args: getArgs) {
-      return Bucket.data.get<Product & id>(BUCKET_ID, ...args);
+      return Bucket.data.get<Rating & id>(BUCKET_ID, ...args);
     };
     export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Product & id>(BUCKET_ID, ...args);
+      return Bucket.data.getAll<Rating & id>(BUCKET_ID, ...args);
     };
-    export function insert (document: Omit<Product, "_id">) {
-      ['categories','attributes'].forEach((field) => {
+    export function insert (document: Omit<Rating, "_id">) {
+      ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
       return Bucket.data.insert(BUCKET_ID, document);
     };
-    export function update (document: Product & id) {
-      ['categories','attributes'].forEach((field) => {
+    export function update (document: Rating & id) {
+      ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -396,12 +281,12 @@ export namespace product {
       );
     };  
     export function patch (
-      document: Partial<Product> & id
+      document: Partial<Rating> & id
     ) {
-      ['categories','attributes'].forEach((field) => {
+      ['user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -412,149 +297,10 @@ export namespace product {
     };
   export namespace realtime {
       export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Product & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.get<Rating & id>(BUCKET_ID, ...args);
       };
       export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Product & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Stock{
-  _id?: string;
-  sku?: string;
-  quantity?: number;
-  is_enable?: boolean;
-  sell_if_not_available?: boolean;
-  product?: (Product & id | string);
-}
-export namespace stock {
-  const BUCKET_ID = '61b3611197a0a8002e6a51b6';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Stock & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Stock & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Stock, "_id">) {
-      ['product'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Stock & id) {
-      ['product'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Stock> & id
-    ) {
-      ['product'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Stock & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Stock & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
-export interface Invoice{
-  _id?: string;
-  name: string;
-  surname: string;
-  address?: {
-  country?: string;
-  district?: string;
-  full_address?: string;
-  post_code?: number;
-  province?: string;
-  title?: string;};
-  company_name?: string;
-  phone: string;
-  email: string;
-  basket?: (Basket & id | string);
-  payment_method?: (Payment_Method & id | string);
-}
-export namespace invoice {
-  const BUCKET_ID = '61b3611297a0a8002e6a51b9';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Invoice & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Invoice & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Invoice, "_id">) {
-      ['basket','payment_method'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Invoice & id) {
-      ['basket','payment_method'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Invoice> & id
-    ) {
-      ['basket','payment_method'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Invoice & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Invoice & id>(BUCKET_ID, ...args);
+        return Bucket.data.realtime.getAll<Rating & id>(BUCKET_ID, ...args);
       };
   }
 }
@@ -580,7 +326,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -590,7 +336,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -606,7 +352,7 @@ export namespace order {
       ['basket','invoice'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -625,69 +371,6 @@ export namespace order {
   }
 }
 
-export interface Rating{
-  _id?: string;
-  comment?: string;
-  rating?: (1|2|3|4|5);
-  user?: (User & id | string);
-}
-export namespace rating {
-  const BUCKET_ID = '61b3611597a0a8002e6a51bf';
-    export function get (...args: getArgs) {
-      return Bucket.data.get<Rating & id>(BUCKET_ID, ...args);
-    };
-    export function getAll (...args: getAllArgs) {
-      return Bucket.data.getAll<Rating & id>(BUCKET_ID, ...args);
-    };
-    export function insert (document: Omit<Rating, "_id">) {
-      ['user'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.insert(BUCKET_ID, document);
-    };
-    export function update (document: Rating & id) {
-      ['user'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.update(
-        BUCKET_ID,
-        document._id,
-        document
-      );
-    };  
-    export function patch (
-      document: Partial<Rating> & id
-    ) {
-      ['user'].forEach((field) => {
-        if (typeof document[field] == 'object') {
-          document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
-            : document[field]._id;
-        }
-      });
-      return Bucket.data.patch(BUCKET_ID, document._id, document);
-    };  
-    export function remove (documentId: string) {
-      return Bucket.data.remove(BUCKET_ID, documentId);
-    };
-  export namespace realtime {
-      export function get (...args: realtimeGetArgs) {
-        return Bucket.data.realtime.get<Rating & id>(BUCKET_ID, ...args);
-      };
-      export function getAll (...args: realtimeGetAllArgs) {
-        return Bucket.data.realtime.getAll<Rating & id>(BUCKET_ID, ...args);
-      };
-  }
-}
-
 export interface User{
   _id?: string;
   identity_id?: string;
@@ -695,7 +378,6 @@ export interface User{
   name?: string;
   surname?: string;
   phone?: string;
-  picture?: string;
   address?: {
   title?: string;
   country?: string;
@@ -704,6 +386,7 @@ export interface User{
   full_address?: string;
   post_code?: number;
   phone?: string;}[];
+  picture?: string;
 }
 export namespace user {
   const BUCKET_ID = '61b3611797a0a8002e6a51c2';
@@ -763,7 +446,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -773,7 +456,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -789,7 +472,7 @@ export namespace used_coupon_ {
       ['coupon','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -827,7 +510,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -837,7 +520,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -853,7 +536,7 @@ export namespace liked_product {
       ['products','user'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id ? v._id : v)
             : document[field]._id;
         }
       });
@@ -890,7 +573,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -900,7 +583,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -916,7 +599,7 @@ export namespace campaign_product {
       ['products'].forEach((field) => {
         if (typeof document[field] == 'object') {
           document[field] = Array.isArray(document[field])
-            ? document[field].map((v) => v._id || v)
+            ? document[field].map((v) => v._id)
             : document[field]._id;
         }
       });
@@ -931,6 +614,324 @@ export namespace campaign_product {
       };
       export function getAll (...args: realtimeGetAllArgs) {
         return Bucket.data.realtime.getAll<Campaign_Product & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Payment_Method{
+  _id?: string;
+  title?: string;
+  description?: string;
+  is_active?: boolean;
+}
+export namespace payment_method {
+  const BUCKET_ID = '61b3610997a0a8002e6a51a7';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Payment_Method & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Payment_Method & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Payment_Method, "_id">) {
+      
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Payment_Method & id) {
+      
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Payment_Method> & id
+    ) {
+      
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Payment_Method & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Payment_Method & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Product{
+  _id?: string;
+  title?: string;
+  sub_title?: string;
+  description?: string;
+  categories?: (Category & id | string)[];
+  attributes?: (Attribute & id | string)[];
+  tag?: string[];
+  cover_image?: string;
+  gallery?: string[];
+  type?: ('physical'|'digital');
+  normal_price?: number;
+  discounted_price?: number;
+  discount_start_date?: Date | string;
+  discount_end_date?: Date | string;
+  is_free_delivery?: boolean;
+  is_available?: boolean;
+  created_at?: Date | string;
+}
+export namespace product {
+  const BUCKET_ID = '61b3610f97a0a8002e6a51b3';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Product & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Product & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Product, "_id">) {
+      ['categories','attributes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Product & id) {
+      ['categories','attributes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Product> & id
+    ) {
+      ['categories','attributes'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Product & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Product & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Stock{
+  _id?: string;
+  sku?: string;
+  quantity?: number;
+  is_enable?: boolean;
+  sell_if_not_available?: boolean;
+  product?: (Product & id | string);
+}
+export namespace stock {
+  const BUCKET_ID = '61b3611197a0a8002e6a51b6';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Stock & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Stock & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Stock, "_id">) {
+      ['product'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Stock & id) {
+      ['product'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Stock> & id
+    ) {
+      ['product'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Stock & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Stock & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Invoice{
+  _id?: string;
+  name: string;
+  surname: string;
+  address?: {
+  country?: string;
+  district?: string;
+  full_address?: string;
+  post_code?: number;
+  province?: string;
+  title?: string;};
+  company_name?: string;
+  phone: string;
+  email: string;
+  basket?: (Basket & id | string);
+  payment_method?: (Payment_Method & id | string);
+}
+export namespace invoice {
+  const BUCKET_ID = '61b3611297a0a8002e6a51b9';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Invoice & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Invoice & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Invoice, "_id">) {
+      ['basket','payment_method'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Invoice & id) {
+      ['basket','payment_method'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Invoice> & id
+    ) {
+      ['basket','payment_method'].forEach((field) => {
+        if (typeof document[field] == 'object') {
+          document[field] = Array.isArray(document[field])
+            ? document[field].map((v) => v._id)
+            : document[field]._id;
+        }
+      });
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Invoice & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Invoice & id>(BUCKET_ID, ...args);
+      };
+  }
+}
+
+export interface Store_Settings{
+  _id?: string;
+  name?: string;
+  address?: {
+  country?: string;
+  province?: string;
+  district?: string;
+  full_address?: string;
+  post_code?: number;};
+  currency?: string;
+  email?: string;
+  phone?: string;
+  weight_unit?: string;
+  size_unit?: string;
+  shipping_price?: number;
+  enable_comments?: boolean;
+  privacy_policy?: string;
+  terms_of_use?: string;
+}
+export namespace store_settings {
+  const BUCKET_ID = '61b3610b97a0a8002e6a51aa';
+    export function get (...args: getArgs) {
+      return Bucket.data.get<Store_Settings & id>(BUCKET_ID, ...args);
+    };
+    export function getAll (...args: getAllArgs) {
+      return Bucket.data.getAll<Store_Settings & id>(BUCKET_ID, ...args);
+    };
+    export function insert (document: Omit<Store_Settings, "_id">) {
+      
+      return Bucket.data.insert(BUCKET_ID, document);
+    };
+    export function update (document: Store_Settings & id) {
+      
+      return Bucket.data.update(
+        BUCKET_ID,
+        document._id,
+        document
+      );
+    };  
+    export function patch (
+      document: Partial<Store_Settings> & id
+    ) {
+      
+      return Bucket.data.patch(BUCKET_ID, document._id, document);
+    };  
+    export function remove (documentId: string) {
+      return Bucket.data.remove(BUCKET_ID, documentId);
+    };
+  export namespace realtime {
+      export function get (...args: realtimeGetArgs) {
+        return Bucket.data.realtime.get<Store_Settings & id>(BUCKET_ID, ...args);
+      };
+      export function getAll (...args: realtimeGetAllArgs) {
+        return Bucket.data.realtime.getAll<Store_Settings & id>(BUCKET_ID, ...args);
       };
   }
 }

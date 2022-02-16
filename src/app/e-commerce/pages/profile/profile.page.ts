@@ -53,13 +53,13 @@ export class ProfilePage implements OnInit {
             key: 'order',
             value: 'Orders',
             seperate: false,
-            link: '',
+            link: 'orders',
           },
           {
             key: 'addresses',
             value: 'Addresses',
             seperate: false,
-            link: '',
+            link: 'addresses',
           },
         ]);
       });
