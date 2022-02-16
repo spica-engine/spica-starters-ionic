@@ -1,0 +1,56 @@
+<ion-toolbar mode="ios" *ngIf="!loading">
+  <ion-icon (click)="dismiss()" name="close-outline"></ion-icon>
+  <ion-title>Order Details</ion-title>
+</ion-toolbar>
+
+<div *ngIf="!loading">
+  <div class="detail">
+    <ion-card>
+      <h2 class="title">Order Info</h2>
+        <span><h2>Order Date:</h2>&nbsp; {{order?.created_at | date:'dd/MM/yyyy'}}</span>
+        <span><h2>Order Detail:</h2>&nbsp; {{order?.basket.products.length}} Product</span>
+        <span><h2>Order Status:</h2>&nbsp; {{order?.status | titlecase}}</span>
+        <span><h2>Total:</h2>&nbsp; ${{order?.basket.total_price}}</span>
+    </ion-card>
+  </div>
+  
+  <div class="address">
+    <ion-card>
+      <h2>Delivery Address</h2>
+      <ion-label>
+        <h3>{{order?.invoice.name}} {{order?.invoice.surname}}</h3>
+        <span>{{order?.invoice.address.full_address}}</span>
+        <span>{{order?.invoice.address.country}} / {{order?.invoice.address.district}} / {{order?.invoice.address.province}}</span>
+        <span>{{order?.invoice.phone}}</span>
+      </ion-label>
+    </ion-card>
+  </div>
+  
+  <div class="product">
+    <ion-card *ngFor="let item of order?.basket.products;let idx=index">
+      <ion-card-header>
+        <img [src]="item.cover_image">
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label>
+          <h2>{{item.categories[0].name}}</h2>
+          <span>{{item.title}}</span>
+          <p>Number: {{order?.basket.metadata[idx].quantity}}</p>
+          <div class="price">
+            <p>${{item.normal_price}}</p>&nbsp;<span>${{item.discounted_price}}</span>
+          </div>
+          <p *ngFor="let attribute of order?.basket.metadata">
+            <span *ngIf="attribute.product_id == item._id">
+              {{attribute.selected_attribute}}
+            </span>
+            </p>
+        </ion-label>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>
+<ion-spinner
+*ngIf="loading"
+class="spinner-center-page"
+name="crescent"
+></ion-spinner>

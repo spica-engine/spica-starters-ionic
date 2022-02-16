@@ -6,7 +6,20 @@ import { ProfilePage } from './profile.page';
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage
+    children: [
+      {
+        path: '',
+        component: ProfilePage,
+      },
+      {
+        path: 'orders',
+        loadChildren: () => import('../orders/orders.module').then( m => m.OrdersPageModule)
+      },
+      {
+        path: 'addresses',
+        loadChildren: () => import('../addresses/addresses.module').then( m => m.AddressesPageModule)
+      },
+    ],
   }
 ];
 

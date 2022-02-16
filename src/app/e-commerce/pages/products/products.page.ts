@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as dataService from '../../services/bucket';
+import * as DataService from '../../services/bucket';
 import { ModalController } from '@ionic/angular';
 import { SpicaSortModalComponent } from '../../../components/spica-sort-modal/spica-sort-modal.component';
 import { SpicaFilterModalComponent } from 'src/app/components/spica-filter-modal/spica-filter-modal.component';
@@ -12,7 +12,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./products.page.scss'],
 })
 export class ProductsPage implements OnInit {
-  products: dataService.Product[] = [];
+  products: DataService.Product[] = [];
   filter: any = { is_available: true };
   sort: any = {};
   promotionId: string;
@@ -49,21 +49,29 @@ export class ProductsPage implements OnInit {
 
   getData() {
     if (this.promotionId) {
-      dataService.campaign_product
+      DataService.campaign_product
         .get(this.promotionId, {
           queryParams: { relation: true, sort: { ...this.sort } },
         })
         .then((res) => {
-          this.products = res.products as dataService.Product[];
+          this.products = res.products as DataService.Product[];
+          if (this.likedProducts.length) {
+            this.likedProducts.forEach((id) => {
+              this.products.map((el) => {
+                if (el._id == id) {
+                  return (el['is_liked'] = true);
+                }
+              });
+            });
+          }
         });
     } else {
-      dataService.product
+      DataService.product
         .getAll({
           queryParams: { filter: { ...this.filter }, sort: { ...this.sort } },
         })
-        .then((res) => {
+        .then((res) => {          
           this.products = res;
-
           if (this.likedProducts.length) {
             this.likedProducts.forEach((id) => {
               this.products.map((el) => {
@@ -75,6 +83,8 @@ export class ProductsPage implements OnInit {
           }
         });
     }
+    
+    
   }
 
   async getActiveUser() {
@@ -82,7 +92,7 @@ export class ProductsPage implements OnInit {
   }
 
   async getLikedData() {
-    await dataService.liked_product
+    await DataService.liked_product
       .getAll({
         queryParams: { filter: { user: this.user._id }, relation: true },
       })
@@ -193,7 +203,7 @@ export class ProductsPage implements OnInit {
     }
 
     if (value) {
-      this.likedProducts.push(id);
+      this.likedProducts.push(id);      
     } else {
       this.likedProducts.forEach((el) => {
         if (el == id) {
@@ -203,14 +213,13 @@ export class ProductsPage implements OnInit {
         }
       });
     }
-
     if (this.likedDataId) {
-      dataService.liked_product.patch({
+      DataService.liked_product.patch({
         products: this.likedProducts,
         _id: this.likedDataId,
       });
     } else {
-      dataService.liked_product
+      DataService.liked_product
         .insert({
           products: this.likedProducts,
           user: this.user._id,
@@ -219,9 +228,11 @@ export class ProductsPage implements OnInit {
           this.likedDataId = res._id;
         });
     }
+    console.log(this.likedProducts);
+    
   }
 
   async getAttributes() {
-    return dataService.attribute.getAll();
+    return DataService.attribute.getAll();
   }
 }
