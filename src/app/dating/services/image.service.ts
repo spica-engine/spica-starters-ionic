@@ -10,10 +10,10 @@ export class ImageService {
 
   private init() {
     let initializeConfig;
-    if (localStorage.getItem('socialmedia_spica_token')) {
+    if (localStorage.getItem(environment.TOKEN_KEY)) {
       initializeConfig = {
         publicUrl: environment.apiUrl,
-        identity: localStorage.getItem('socialmedia_spica_token'),
+        identity: localStorage.getItem(environment.TOKEN_KEY),
       };
     } else {
       initializeConfig = {
