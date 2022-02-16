@@ -19,7 +19,7 @@ export class CategoryPage implements OnInit {
   }
 
   ngOnInit() {
-    DataService.category
+    DataService.Category
       .getAll({ queryParams: { filter: { is_sub_category: false }, relation: true } })
       .then((res) => {
         this.categories = res;

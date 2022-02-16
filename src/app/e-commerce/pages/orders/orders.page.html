@@ -1,0 +1,35 @@
+<ion-header *ngIf="!loading" mode="ios">
+  <ion-toolbar>
+    <ion-back-button slot="start" defaultHref="/"></ion-back-button>
+    <ion-title>Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="!loading">
+      <ion-card *ngFor="let product of orders" (click)="order(product._id)">
+        <ion-card-header>
+          <ion-label>
+            <ion-icon name="calendar-outline"></ion-icon>
+            <span>{{product.created_at | date:'dd/MM/yyyy'}}</span>
+          </ion-label>
+          <p>Total: <span>${{product.basket.total_price}}</span></p>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-avatar *ngFor="let item of product.basket.products | slice:0:4; let i=index" >
+            <img *ngIf="i<3" [src]="item.cover_image">
+            <span *ngIf="i==3">
+              +{{product.basket.products.length - 3}}
+            </span>
+          </ion-avatar>
+          <ion-icon name="chevron-forward-outline"></ion-icon>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    <ion-spinner
+    *ngIf="loading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>

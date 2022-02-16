@@ -1,0 +1,26 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-id/values-id.xml",
+            "map": [
+                {
+                    "source": "/Users/teknodev1/.gradle/caches/transforms-3/0aa84cfea065a8b370a4cf3813ed9957/transformed/jetified-android-crop-1.0.0/res/values-id/values-id.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "215,286,333,416,475",
+                        "endColumns": "70,46,82,58,54",
+                        "endOffsets": "281,328,411,470,525"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "100,171,218,301,360",
+                        "endColumns": "70,46,82,58,54",
+                        "endOffsets": "166,213,296,355,410"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+org/apache/cordova/geolocation/Geolocation.java
+ org.apache.cordova.geolocation.Geolocation
+org/apache/cordova/camera/FileHelper.java
+ org.apache.cordova.camera.FileHelper
+org/apache/cordova/camera/ExifHelper.java
+ org.apache.cordova.camera.ExifHelper
+org/apache/cordova/camera/CameraLauncher.java
+ org.apache.cordova.camera.CameraLauncher
+ org.apache.cordova.camera.CameraLauncher$1
+org/apache/cordova/camera/FileProvider.java
+ org.apache.cordova.camera.FileProvider
+capacitor/android/plugins/BuildConfig.java
+ capacitor.android.plugins.BuildConfig
+org/apache/cordova/camera/GalleryPathVO.java
+ org.apache.cordova.camera.GalleryPathVO
+com/jeduan/crop/CropPlugin.java
+ com.jeduan.crop.CropPlugin

@@ -1,0 +1,99 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-30:12
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-30:12
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:1-30:12
+	xmlns:amazon
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:4:1-57
+	package
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:2:11-46
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:3:1-59
+application
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:5:1-10:15
+provider#org.apache.cordova.camera.FileProvider
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:1-8:12
+	android:grantUriPermissions
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:160-194
+	android:authorities
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:65-134
+	android:exported
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:135-159
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:6:11-64
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:3-112
+	android:resource
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:65-110
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:7:14-64
+activity#com.soundcloud.android.crop.CropImageActivity
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:1-73
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:9:11-71
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:11:1-76
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:11:18-74
+queries
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:12:1-26:11
+intent#action:name:android.media.action.IMAGE_CAPTURE
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:13:3-15:12
+action#android.media.action.IMAGE_CAPTURE
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:5-64
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:14:13-62
+intent#action:name:android.intent.action.GET_CONTENT
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:16:3-18:12
+action#android.intent.action.GET_CONTENT
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:17:5-63
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:17:13-61
+intent#action:name:android.intent.action.PICK
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:19:3-21:12
+action#android.intent.action.PICK
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:20:5-56
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:20:13-54
+intent#action:name:com.android.camera.action.CROP+data:mimeType:image/*+data:scheme:content
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:22:3-25:12
+action#com.android.camera.action.CROP
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:23:5-60
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:23:13-58
+data
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:24:5-64
+	android:scheme
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:24:11-35
+	android:mimeType
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:24:36-62
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:27:1-76
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:27:18-74
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:28:1-74
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:28:18-72
+uses-feature#android.hardware.location.gps
+ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:29:1-85
+	android:required
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:29:60-83
+	android:name
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml:29:15-59
+uses-sdk
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		ADDED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml
+		INJECTED from /Users/teknodev1/Desktop/projects/spica-starters-ionic/android/capacitor-cordova-android-plugins/src/main/AndroidManifest.xml

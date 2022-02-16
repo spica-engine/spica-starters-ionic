@@ -1,0 +1,36 @@
+{
+    "logs": [
+        {
+            "outputFile": "/Users/teknodev1/Desktop/projects/spica-starters-ionic/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
+            "map": [
+                {
+                    "source": "/Users/teknodev1/.gradle/caches/transforms-3/0aa84cfea065a8b370a4cf3813ed9957/transformed/jetified-android-crop-1.0.0/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "171",
+                        "endColumns": "47",
+                        "endOffsets": "214"
+                    },
+                    "to": {
+                        "startLines": "5",
+                        "startColumns": "4",
+                        "startOffsets": "264",
+                        "endColumns": "47",
+                        "endOffsets": "307"
+                    }
+                },
+                {
+                    "source": "/Users/teknodev1/.gradle/caches/transforms-3/ce3f79a523d89320dd464c2b2de6183e/transformed/appcompat-1.2.0/res/values-land/values-land.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,125,196",
+                        "endColumns": "69,70,67",
+                        "endOffsets": "120,191,259"
+                    }
+                }
+            ]
+        }
+    ]
+}
