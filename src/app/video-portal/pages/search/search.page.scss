@@ -1,0 +1,30 @@
+:host {
+    ion-toolbar {
+        padding: 5px 10px;
+        ion-searchbar {
+            padding: 0;
+        }
+    }
+
+    .video {
+        padding: 15px;
+        h2 {
+            font-weight: 600;
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c1c1c1;
+        }
+        .videos {
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            ion-slide {
+                width: 120px;
+                height: 200px;
+                img {
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

@@ -66,6 +66,11 @@ export class StarterProjectsComponent implements OnInit {
         route: '/rent-a-car',
         icon: 'car-sport-outline',
       },
+      {
+        name: 'Video Portal',
+        route: '/video-portal',
+        icon: 'videocam-outline',
+      },
     ];
   }
   copyToClipboard(str) {

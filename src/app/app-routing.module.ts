@@ -89,6 +89,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./rent-a-car/app.module').then((m) => m.RentACarModule),
   },
+  {
+    path: 'video-portal',
+    loadChildren: () =>
+      import('./video-portal/app.module').then((m) => m.VideoPortalModule),
+  },
 ];
 
 @NgModule({

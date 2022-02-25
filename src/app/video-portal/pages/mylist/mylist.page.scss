@@ -1,0 +1,27 @@
+:host{
+    .video {
+        padding: 15px;
+        h2 {
+            font-weight: 600;
+            margin: 0;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #c1c1c1;
+        }
+        .videos {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            gap: 15px;
+            .box {
+                width: 30%;
+                height: 150px;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<ion-header mode="ios">
+  <ion-toolbar>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="auth-container">
+    <!-- <spica-authorization
+      (clickLogin)="login($event)"
+      (clickRegister)="register($event)"
+    ></spica-authorization> -->
+  </div>
+  <spica-user-profile-picture
+    [imageEditable]="false"
+    [image]="user?.picture"
+  ></spica-user-profile-picture>
+  <spica-item-list
+    [items]="listItems"
+    (logout)="logout()"
+  ></spica-item-list>
+
+  <ion-spinner
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>
