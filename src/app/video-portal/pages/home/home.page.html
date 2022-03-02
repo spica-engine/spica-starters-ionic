@@ -37,7 +37,7 @@
   <div class="video-slide">
     <h4>Popular Movies</h4>
     <ion-slides [options]="slideOpts">
-      <ion-slide *ngFor="let movie of mainMovies">
+      <ion-slide *ngFor="let movie of mainMovies" [routerLink]="['../movie-detail/'+movie._id]">
         <div class="video">
           <div class="resim">
             <img

@@ -33,7 +33,9 @@
     </div>
 
     <div class="episode" *ngFor="let episode of serie?.season[0].episodes">
-      <img [src]="episode.cover">
+      <div>
+        <img [src]="episode.cover">
+      </div>
       <ion-label>
         <h3>{{episode.title}}</h3>
         <p>{{episode.duration}} min</p>
