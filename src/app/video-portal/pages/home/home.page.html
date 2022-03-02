@@ -8,112 +8,81 @@
       <img src="https://c.tenor.com/f3ubSiTa0AMAAAAM/vybn-vy.gif">
     </ion-avatar>
   </ion-toolbar>
-  <ion-searchbar mode="ios"></ion-searchbar>
+  <ion-searchbar mode="ios" [debounce]="800" (ionChange)="search($event.target['value'])" [(ngModel)]="searchTerm" ></ion-searchbar>
+  <div class="found-items-container" *ngIf="searchTerm">
+    <ion-list>
+      <ion-item lines="none" *ngFor="let item of searchItems;">
+        <ion-label>
+          <img [src]="item.cover">
+          <h3>{{item.title}}</h3>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" size="small" slot="end"></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-header>
 
 <ion-content>
 
   <div class="category">
-    <h2>Categories</h2>
+    <h4>Genres</h4>
     <ion-label>
-      <div class="test">
-        <ion-icon name="happy-outline"></ion-icon>
-        <span>Comedy</span>
-      </div>
-      <div class="test">
-        <ion-icon name="car-sport-outline"></ion-icon>
-        <span>Action</span>
-      </div>
-      <div class="test">
-        <ion-icon name="skull-outline"></ion-icon>
-        <span>Horror</span>
-      </div>
-      <div class="test">
-        <ion-icon name="heart-outline"></ion-icon>
-        <span>Romantic</span>
-      </div>
-      <div class="test">
-        <ion-icon name="glasses-outline"></ion-icon>
-        <span>Adventure</span>
-      </div>
-      <div class="test">
-        <ion-icon name="paw-outline"></ion-icon>
-        <span>Anime</span>
-      </div>
-      <div class="test">
-        <ion-icon name="paw-outline"></ion-icon>
-        <span>Anime</span>
+      <div class="test" *ngFor="let genre of genres">
+        <ion-icon [name]="genre.icon"></ion-icon>
+        <span>{{genre.name}}</span>
       </div>
     </ion-label>
   </div>
 
   <div class="video-slide">
-    <h2>Popular Movie</h2>
+    <h4>Popular Movies</h4>
     <ion-slides [options]="slideOpts">
-      <ion-slide>
+      <ion-slide *ngFor="let movie of mainMovies">
         <div class="video">
           <div class="resim">
             <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
+              [src]="movie.cover">
           </div>
-          <span>Spider-Man</span>
+          <span>{{movie.title}}</span>
         </div>
       </ion-slide>
-      <ion-slide>
+    </ion-slides>
+  </div>
+
+  <div class="video-slide">
+    <h4>Popular Series</h4>
+    <ion-slides [options]="slideOpts">
+      <ion-slide *ngFor="let serie of mainSeries" [routerLink]="['../series-detail/'+serie._id]">
         <div class="video">
           <div class="resim">
             <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
+              [src]="serie.cover">
           </div>
-          <span>Baydır-Man</span>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="video">
-          <div class="resim">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-          </div>
-          <span>Spider-Man</span>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="video">
-          <div class="resim">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-          </div>
-          <span>Spider-Man</span>
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="video">
-          <div class="resim">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-          </div>
-          <span>Spider-Man</span>
+          <span>{{serie.title}}</span>
         </div>
       </ion-slide>
     </ion-slides>
   </div>
 
   <div class="iki">
-    <h2>Movie</h2>
+    <h2>Movies</h2>
     <div class="ikili">
-      <div class="kutu">
+      <div class="kutu" *ngFor="let movie of movies">
         <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="kutu">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="kutu">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
+          [src]="movie.cover">
       </div>
     </div>
+    <ion-button expand="block" color="medium"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
+  </div>
+  <div class="iki">
+    <h2>Series</h2>
+    <div class="ikili">
+      <div class="kutu" *ngFor="let serie of series">
+        <img
+          [src]="serie.cover">
+      </div>
+    </div>
+    <ion-button expand="block" color="medium"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
   </div>
 
 </ion-content>

@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button></ion-back-button>
-    <ion-title>Baydır-Man</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>{{serie?.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,49 +9,35 @@
 
   <div class="background">
     <img class="blur"
-      src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
+      [src]="serie?.cover">
     <div class="mini-background">
       <img
-        src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
+        [src]="serie?.cover">
       <ion-button color="light">
         <ion-icon name="caret-forward-outline"></ion-icon>
       </ion-button>
     </div>
   </div>
   <div class="info">
-    <h2>Baydır-Man</h2>
-    <p>Hayranları sevindiren asıl sürpriz ise filmin bu yeni yayınlanacak verisyonlarında 80 dakikalık kamera arkası
-      görüntüsünün yanı sıra Andrew Garfield</p>
+    <h2>{{serie?.title}}</h2>
+    <p>{{serie?.description}}</p>
     <div class="actions">
       <ion-icon name="bookmark-outline"></ion-icon>
       <ion-icon name="thumbs-down-outline"></ion-icon>
       <ion-icon name="thumbs-up-outline"></ion-icon>
     </div>
     <div class="season">
-      <ion-select value="1" mode="ios">
-        <ion-select-option value="1">Season 1</ion-select-option>
-        <ion-select-option value="2">Season 2</ion-select-option>
-        <ion-select-option value="3">Season 3</ion-select-option>
-        <ion-select-option value="4">Season 4</ion-select-option>
+      <ion-select [value]=0 mode="ios" [(ngModel)]="clickedSeason">
+        <ion-select-option [value]="idx" *ngFor="let season of serie?.season;let idx = index">Season {{idx + 1}}</ion-select-option>
       </ion-select>
     </div>
 
-    <div class="episode">
-      <img src="https://i.pinimg.com/474x/43/20/e2/4320e2d99c06adfaef67d1cf06661b6a.jpg">
+    <div class="episode" *ngFor="let episode of serie?.season[0].episodes">
+      <img [src]="episode.cover">
       <ion-label>
-        <h3>1. Episode Titanic</h3>
-        <p>55 min</p>
-        <p>Hayranları sevindiren asıl sürpriz ise filmin bu yeni yayınlanacak verisyonlarında 80 dakikalık kamera arkası
-          görüntüsünün yanı sıra Andrew Garfield</p>
-      </ion-label>
-    </div>
-    <div class="episode">
-      <img src="https://i.pinimg.com/474x/43/20/e2/4320e2d99c06adfaef67d1cf06661b6a.jpg">
-      <ion-label>
-        <h3>2. Episode Friends</h3>
-        <p>47 min</p>
-        <p>Hayranları sevindiren asıl sürpriz ise filmin bu yeni yayınlanacak verisyonlarında 80 dakikalık kamera arkası
-          görüntüsünün yanı sıra Andrew Garfield</p>
+        <h3>{{episode.title}}</h3>
+        <p>{{episode.duration}} min</p>
+        <p>{{episode.description}}</p>
       </ion-label>
     </div>
   </div>

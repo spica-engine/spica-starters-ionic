@@ -5,7 +5,7 @@ import { SeriesDetailPage } from './series-detail.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: SeriesDetailPage
   }
 ];
