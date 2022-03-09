@@ -1,0 +1,32 @@
+<div class="main">
+  <ion-list>
+    <ion-item>
+      <ion-label>Select Type</ion-label>
+    <ion-select placeholder="Select One" [(ngModel)]="type">
+      <ion-select-option value="movie">Movie</ion-select-option>
+      <ion-select-option value="serie">Serie</ion-select-option>
+    </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Years</ion-label>
+      <ion-range min="2000" max="2022" dualKnobs="true" pin="true" color="primary" [(ngModel)]="years">
+        <ion-label slot="start">2000</ion-label>
+        <ion-label slot="end">2022</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label>IMDB Score</ion-label>
+      <ion-range min="0" max="10" dualKnobs="true" pin="true" color="primary" [(ngModel)]="imdb">
+        <ion-label slot="start">0</ion-label>
+        <ion-label slot="end">10</ion-label>
+      </ion-range>
+    </ion-item>
+    <ion-item>
+      <ion-label>By Genre</ion-label>
+      <ion-select placeholder="Select One" [(ngModel)]="genre">
+        <ion-select-option *ngFor="let genre of genres" [value]="genre._id">{{genre.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-button expand="block" color="warning" (click)="dismiss()">Apply Filter</ion-button>
+  </ion-list>
+</div>

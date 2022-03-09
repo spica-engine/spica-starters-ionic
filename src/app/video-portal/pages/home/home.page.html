@@ -1,22 +1,21 @@
-<ion-header>
-  <ion-toolbar>
+<ion-header *ngIf="!isLoading">
+  <ion-toolbar *ngIf="user">
     <ion-label>
-      <h2><b>Hello</b> Name</h2>
-      <span>Let's watch a movie</span>
+      <h2><b>Hello</b> {{user?.name}}</h2>
+      <span>Let's watch</span>
     </ion-label>
     <ion-avatar slot="end">
-      <img src="https://c.tenor.com/f3ubSiTa0AMAAAAM/vybn-vy.gif">
+      <img [src]="user.profile_picture">
     </ion-avatar>
   </ion-toolbar>
   <ion-searchbar mode="ios" [debounce]="800" (ionChange)="search($event.target['value'])" [(ngModel)]="searchTerm" ></ion-searchbar>
   <div class="found-items-container" *ngIf="searchTerm">
     <ion-list>
-      <ion-item lines="none" *ngFor="let item of searchItems;">
+      <ion-item lines="none" *ngFor="let item of searchItems;" [routerLink]="['../detail/'+item._id]">
         <ion-label>
           <img [src]="item.cover">
           <h3>{{item.title}}</h3>
         </ion-label>
-        <ion-icon name="chevron-forward-outline" size="small" slot="end"></ion-icon>
       </ion-item>
     </ion-list>
   </div>
@@ -24,65 +23,43 @@
 
 <ion-content>
 
-  <div class="category">
-    <h4>Genres</h4>
-    <ion-label>
-      <div class="test" *ngFor="let genre of genres">
-        <ion-icon [name]="genre.icon"></ion-icon>
-        <span>{{genre.name}}</span>
-      </div>
-    </ion-label>
-  </div>
-
-  <div class="video-slide">
-    <h4>Popular Movies</h4>
-    <ion-slides [options]="slideOpts">
-      <ion-slide *ngFor="let movie of mainMovies" [routerLink]="['../movie-detail/'+movie._id]">
-        <div class="video">
-          <div class="resim">
-            <img
-              [src]="movie.cover">
-          </div>
-          <span>{{movie.title}}</span>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
-  <div class="video-slide">
-    <h4>Popular Series</h4>
-    <ion-slides [options]="slideOpts">
-      <ion-slide *ngFor="let serie of mainSeries" [routerLink]="['../series-detail/'+serie._id]">
-        <div class="video">
-          <div class="resim">
-            <img
-              [src]="serie.cover">
-          </div>
-          <span>{{serie.title}}</span>
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div>
-
-  <div class="iki">
-    <h2>Movies</h2>
-    <div class="ikili">
-      <div class="kutu" *ngFor="let movie of movies">
-        <img
-          [src]="movie.cover">
-      </div>
+  <div *ngIf="!isLoading">
+    <div class="video-slide">
+      <h4>Popular Movies</h4>
+      <ion-slides [options]="slideOpts">
+        <ion-slide *ngFor="let movie of mainMovies">
+          <banner-with-text [item]="movie"></banner-with-text>
+        </ion-slide>
+      </ion-slides>
     </div>
-    <ion-button expand="block" color="medium"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
-  </div>
-  <div class="iki">
-    <h2>Series</h2>
-    <div class="ikili">
-      <div class="kutu" *ngFor="let serie of series">
-        <img
-          [src]="serie.cover">
-      </div>
+  
+    <div class="video-slide">
+      <h4>Popular Series</h4>
+      <ion-slides [options]="slideOpts">
+        <ion-slide *ngFor="let serie of mainSeries">
+          <banner-with-text [item]="serie"></banner-with-text>
+        </ion-slide>
+      </ion-slides>
     </div>
-    <ion-button expand="block" color="medium"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
+  
+    <div class="iki">
+      <h2>Movies</h2>
+      <div class="ikili">
+        <banner *ngFor="let movie of movies" [item]="movie" style="width: 47%;"></banner>
+      </div>
+      <ion-button (click)="movieLimit= movieLimit + 6;getMovies();" expand="block" color="medium" [disabled]="movieLoading"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
+    </div>
+    <div class="iki">
+      <h2>Series</h2>
+      <div class="ikili">
+        <banner *ngFor="let serie of series" [item]="serie" style="width: 47%;"></banner>
+      </div>
+      <ion-button (click)="serieLimit= serieLimit + 6;getSeries()" expand="block" color="medium" [disabled]="serieLoading"><ion-icon name="add-outline"></ion-icon>Load More</ion-button>
+    </div>
   </div>
-
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
 </ion-content>

@@ -1,0 +1,9 @@
+<div class="main">
+  <div class="video"  [routerLink]="['../detail/'+item._id]">
+    <div class="resim">
+      <img
+        [src]="item.cover">
+    </div>
+    <p>{{item.title}}</p>
+  </div>
+</div>

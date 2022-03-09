@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SearchPageRoutingModule } from './search-routing.module';
+import { LikedPageRoutingModule } from './liked-routing.module';
 
-import { SearchPage } from './search.page';
+import { LikedPage } from './liked.page';
 import { VideoPortalComponentModule } from '../../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { VideoPortalComponentModule } from '../../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SearchPageRoutingModule,
+    LikedPageRoutingModule,
     VideoPortalComponentModule
   ],
-  declarations: [SearchPage]
+  declarations: [LikedPage]
 })
-export class SearchPageModule {}
+export class LikedPageModule {}

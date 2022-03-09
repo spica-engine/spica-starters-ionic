@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { SearchPageRoutingModule } from './search-routing.module';
+import { DislikedPageRoutingModule } from './disliked-routing.module';
 
-import { SearchPage } from './search.page';
+import { DislikedPage } from './disliked.page';
 import { VideoPortalComponentModule } from '../../components/components.module';
 
 @NgModule({
@@ -14,9 +14,9 @@ import { VideoPortalComponentModule } from '../../components/components.module';
     CommonModule,
     FormsModule,
     IonicModule,
-    SearchPageRoutingModule,
+    DislikedPageRoutingModule,
     VideoPortalComponentModule
   ],
-  declarations: [SearchPage]
+  declarations: [DislikedPage]
 })
-export class SearchPageModule {}
+export class DislikedPageModule {}

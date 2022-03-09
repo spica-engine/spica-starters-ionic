@@ -1,57 +1,28 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar mode="ios"></ion-searchbar>
+    <ion-searchbar mode="ios" (ionChange)="search($event.target['value'])"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <div class="video">
-    <h2>Series</h2>
-    <div class="videos">
-      <ion-slides [options]="slideOpts">
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-      </ion-slides>
+  <div *ngIf="!isLoading">
+    <div class="top-bar">
+      <ion-item lines="none">
+        <ion-label slot="end" (click)="filterModal()">
+          <span>Filter<ion-icon name="create-outline"></ion-icon></span>
+        </ion-label>
+      </ion-item>   
+    </div>
+  
+    <div class="items">
+      <banner-with-text *ngFor="let item of searchItems" [item]="item" style="flex: 1 0 auto; margin-bottom: 10px"></banner-with-text>
     </div>
   </div>
 
-  <div class="video">
-    <h2>Movie</h2>
-    <div class="videos">
-      <ion-slides [options]="slideOpts">
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-        <ion-slide>
-            <img
-              src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-        </ion-slide>
-      </ion-slides>
-    </div>
-  </div>
-
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
 </ion-content>

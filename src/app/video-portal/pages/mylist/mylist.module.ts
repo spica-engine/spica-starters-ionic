@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MylistPageRoutingModule } from './mylist-routing.module';
 
 import { MylistPage } from './mylist.page';
+import { VideoPortalComponentModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MylistPageRoutingModule
+    MylistPageRoutingModule,
+    VideoPortalComponentModule
   ],
   declarations: [MylistPage]
 })

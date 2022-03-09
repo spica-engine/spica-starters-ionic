@@ -15,9 +15,10 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
-  },  {
-    path: 'series-detail',
-    loadChildren: () => import('./pages/series-detail/series-detail.module').then( m => m.SeriesDetailPageModule)
+  },
+  {
+    path: 'detail',
+    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
   },
   {
     path: 'profile',
@@ -32,9 +33,14 @@ const routes: Routes = [
     loadChildren: () => import('./pages/mylist/mylist.module').then( m => m.MylistPageModule)
   },
   {
-    path: 'movie-detail',
-    loadChildren: () => import('./pages/movie-detail/movie-detail.module').then( m => m.MovieDetailPageModule)
+    path: 'liked',
+    loadChildren: () => import('./pages/liked/liked.module').then( m => m.LikedPageModule)
   },
+  {
+    path: 'disliked',
+    loadChildren: () => import('./pages/disliked/disliked.module').then( m => m.DislikedPageModule)
+  },
+
 
 
   

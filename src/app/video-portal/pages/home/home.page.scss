@@ -25,6 +25,9 @@
                 ion-item{
                     padding: 0 15px;
                     height: 50px;
+                    display: flex;
+                    --inner-padding-end: 0 !important;
+                    --padding-start: 10px !important;
                     ion-label{
                         display: flex;
                         align-items: center;

@@ -6,32 +6,14 @@
 
 <ion-content>
 
-  <div class="video">
-    <h2>
-      <ion-icon name="bookmark-outline"></ion-icon>
-    </h2>
+  <div class="video" *ngIf="!isLoading">
     <div class="videos">
-      <div class="box">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="box">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="box">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="box">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
-      <div class="box">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/tr/thumb/6/6a/5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg/640px-5802960.jpg-r_1920_1080-f_jpg-q_x-xxyxx.jpg">
-      </div>
+      <banner-with-text *ngFor="let item of list" [item]="item"></banner-with-text>
     </div>
   </div>
-
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
 </ion-content>

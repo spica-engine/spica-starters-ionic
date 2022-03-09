@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start"></ion-back-button>
+    <ion-title>Liked</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main" *ngIf="!isLoading">
+    <banner *ngFor="let item of list" [item]="item" style="width: 47%;"></banner>
+  </div>
+  <ion-spinner
+    *ngIf="isLoading"
+    class="spinner-center-page"
+    name="crescent"
+  ></ion-spinner>
+</ion-content>
