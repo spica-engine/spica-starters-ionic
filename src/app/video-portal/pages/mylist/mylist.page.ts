@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import * as DataService from '../../services/bucket'
 
@@ -12,12 +13,18 @@ export class MylistPage implements OnInit {
   isLoading: boolean = true;
   user: DataService.User;
   list: any;
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService,private _router: Router) {
     DataService.initialize({ apikey: "fskk1akvi1elv0" })
   }
 
   async ngOnInit() {
     this.user = await this._authService.getUser().toPromise()
+    if(!this.user){
+      this._router.navigateByUrl('video-portal/profile', {
+        replaceUrl: true,
+      });
+      return
+    }
     await this.getList()
     this.isLoading = false
   }

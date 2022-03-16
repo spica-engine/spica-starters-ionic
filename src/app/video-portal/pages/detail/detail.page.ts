@@ -87,10 +87,9 @@ export class DetailPage implements OnInit {
     
   }
   checkAge(){
-    if(this.user.eighteen_plus){
+    if(this.user?.eighteen_plus){
       return;
     }
-    console.log(this.movie);
     
       if(this.serie.eighteen_plus || this.movie.eighteen_plus){
         this.alertAge()
